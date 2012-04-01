@@ -1,6 +1,6 @@
 ﻿=== Comment Guestbook ===
 Contributors: mibuthu
-Tags: comment, guestbook, site, comments
+Tags: comment, guestbook, site, comments, integrated
 Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 0.0.1
@@ -34,7 +34,7 @@ not available yet, will be added in a later release
 
 == Changelog ==
 
-= 0.1.0 (2012-02-27) =
+= 0.0.1 (2012-04-xx) =
 
 * Initial release
 

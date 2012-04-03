@@ -3,7 +3,21 @@
 // This class handles all available admin pages
 class cgb_admin {
 
-	// show the main admin page as a submenu of "Links"
+   public static $options = array(
+      'clist_adjusted'		=> array(	'name'      => 'cgb_clist_adjusted',
+                                       'section'	=> 'comment_list',
+                                       'type'      => 'checkbox',
+						                     'std_val'	=> '1',
+						                     'desc'		=> 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.'),
+
+		'clist_html'	      => array(	'name'      => 'cgb_clist_html',
+		                                 'section'	=> 'comment_list',
+						                     'type'	   => 'textfield',
+						                     'std_val'   => '',
+						                     'desc'		=> 'This option specifies the html code for the adjusted comment list.' )
+						               );
+
+	// show the main admin page as a submenu of "Comments"
 	public static function show_main() {
 		if (!current_user_can('edit_posts'))  {
 			wp_die( __('You do not have sufficient permissions to access this page.') );

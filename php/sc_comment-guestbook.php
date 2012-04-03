@@ -10,13 +10,14 @@ class sc_comment_guestbook {
 		$out = ob_get_contents ();
 		ob_end_clean ();
 		// add filter to show the adjusted comment style
-		add_filter( 'comments_template', array( sc_comment_guestbook, 'filter_comments_template' ), 100 );
+		// add_filter( 'comments_template', array( sc_comment_guestbook, 'filter_comments_template' ), 100 );
 		return $out;
 	}
-	
+	/*
 	function filter_comments_template( $file ) {
 		$file =  CGB_PATH.'php/comments-template.php';
 		return $file;
 	}
+	*/
 }
 ?>

@@ -12,6 +12,8 @@ Add a guestbook site which uses the wordpress integrated comments.
 
 The purpose of this plugin is to add a guestbook site which uses the wordpress integrated comments.
 
+This is a very early version of this plugin, so the options you have are very limited.
+
 
 == Installation ==
 
@@ -34,7 +36,7 @@ not available yet, will be added in a later release
 
 == Changelog ==
 
-= 0.0.1 (2012-04-xx) =
+= 0.0.1 (2012-04-03) =
 
 * Initial release
 

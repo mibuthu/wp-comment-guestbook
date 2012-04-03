@@ -25,7 +25,6 @@ License at http://www.gnu.org/copyleft/gpl.html
 */
 
 // general definitions
-//define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
 define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // add admin pages in admin menu

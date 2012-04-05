@@ -8,12 +8,14 @@ class cgb_admin {
                                        'section'	=> 'comment_list',
                                        'type'      => 'checkbox',
 						                     'std_val'	=> '1',
-						                     'desc'		=> 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.'),
+						                     'label'     => 'Adjust comment list output',
+						                     'desc'		=> 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.' ),
 
 		'clist_html'	      => array(	'name'      => 'cgb_clist_html',
 		                                 'section'	=> 'comment_list',
-						                     'type'	   => 'textfield',
-						                     'std_val'   => '',
+						                     'type'	   => 'textarea',
+						                     'std_val'   => '--file--php/comments-template.php',
+						                     'label'     => 'Comment list HTML-code',
 						                     'desc'		=> 'This option specifies the html code for the adjusted comment list.' )
 						               );
 
@@ -22,6 +24,9 @@ class cgb_admin {
 		if (!current_user_can('edit_posts'))  {
 			wp_die( __('You do not have sufficient permissions to access this page.') );
 		}
+		
+		// Read options
+		cgb_admin::read_options(); 
 
 		$out ='
 			<div class="wrap nosubsub" style="padding-bottom:15px">
@@ -44,10 +49,57 @@ class cgb_admin {
 				</div>
 				<h4>Comments list options:</h4>
 				<div style="padding:0 10px">
-					<p>This is an early version of this plugin. No options are available yet.</p>
+					<p>'.cgb_admin::show_options( 'comment_list' ).'</p>
 				</div>
 			</div>';
 		echo $out;
 	}
+	
+	private static function show_options( $section ) {
+	   $out = '';
+	   foreach( cgb_admin::$options as $oname => $o ) {
+	      $out .='
+	         <p>';
+	      switch( $o['type'] ) {
+	         case 'checkbox':
+	            $out .= cgb_admin::show_checkbox( $o['name'], $o['std_val'], $o['label'] );
+	            break;
+	         case 'textarea':
+	            $out .= cgb_admin::show_textarea( $o['name'], $o['std_val'], $o['label'] );
+	            break;
+	      }
+	      $out .='
+	         </p>';
+	   }
+	   return $out;
+	}
+	
+	private static function show_checkbox( $name, $value, $label ) {
+	   $out = '
+	         <label for="'.$name.'">
+               <input name="'.$name.'" type="checkbox" id="'.$name.'" value="'.$value.'"  />
+               '.$label.'
+            </label>';
+      return $out;
+   }
+   
+   private static function show_textarea( $name, $value, $label ) {
+      $out = '';
+      if( $label != '' ) {
+         $out = '
+            <label for="'.$name.'">
+               '.$label.': 
+            </label>';
+      }
+      $out .= '
+            <textarea name="'.$name.'" id="'.$name.'" rows="15" class="large-text code">'.$value.'</textarea>';
+      return $out;
+   }
+   
+   private static function read_options() {
+      foreach( cgb_admin::$options as $oname => $o ) {
+         // TODO
+      }
+   }
 }
 ?>

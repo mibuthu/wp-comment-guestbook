@@ -1,5 +1,7 @@
 <?php
 
+include_once( CGB_PATH.'php/options.php' );
+
 // This class handles the shortcode [comment-guestbook]
 class sc_comment_guestbook {
 
@@ -9,8 +11,10 @@ class sc_comment_guestbook {
 		comment_form ();
 		$out = ob_get_contents ();
 		ob_end_clean ();
-		add filter to show the adjusted comment style
-		add_filter( 'comments_template', array( sc_comment_guestbook, 'filter_comments_template' ), 100 );
+		// add filter to show the adjusted comment style
+		if( cgb_options::get ( 'cgb_clist_adjust' ) == 1 ) {
+		   add_filter( 'comments_template', array( sc_comment_guestbook, 'filter_comments_template' ), 100 );
+		}
 		return $out;
 	}
 	

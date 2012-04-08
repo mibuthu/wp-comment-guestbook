@@ -17,10 +17,10 @@ class cgb_admin {
 		   </div>
 		   <h3>Create a guestbook page</h3>
 		   <div style="padding:0 15px">
-			   <p>"Comment guestbook" works using a "shortcode" in a page. Shortcodes are snippets of pseudo code that are placed in blog posts or pages to easily render HTML output.</p>
-			   <p>To create a guestbook goto "Pages" -> "Add new" in the admin menu to create a new page. Choose your page title e.g. "Guestbook" and add the shortcode <code>[comment-guestbook]</code> in the text field.<br />
+			   <p>"Comment guestbook" works by using a "shortcode" in a page.</p>
+			   <p>To create a guestbook goto "Pages" -> "Add new" in the admin menu and create a new page. Choose your page title e.g. "Guestbook" and add the shortcode <code>[comment-guestbook]</code> in the text field.<br />
 			   You can add additional normal text if you want to display something else on the top of this page. That´s all you have to do. Save and publish the page to finish the guestbook creation.</p>
-			   <p>The shortcode will be replaced by the comment form. </p>
+			   <p>The shortcode will be replaced by the comment form. And the comment list can be adjusted with the options below.</p>
 			   <br />
 		   </div>';
 	   $out .= '
@@ -37,6 +37,7 @@ class cgb_admin {
 			      <div style="padding:0 10px">
 				      <p>This is an early version of this plugin. No options are available yet.</p>
 			      </div>
+			      <br />
 			      <h4>Comments list options:</h4>
 			      <div style="padding:0 0px">
 			         <table class="form-table">';

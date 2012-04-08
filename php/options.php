@@ -8,9 +8,9 @@ class cgb_options {
    public static $options = array(
       'cgb_clist_adjust'		      => array(	'section'   => 'comment_list',
                                                 'type'      => 'checkbox',
-						                              'std_val'	=> '1',
+						                              'std_val'	=> '',
 						                              'label'     => 'Comment list adjustment',
-						                              'caption'   => 'Adjust comment list output',
+						                              'caption'   => 'Adjust the comment list output',
 						                              'desc'		=> 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.' ),
 						                          
 		'cgb_clist_comment_callback'  => array(   'section'   => 'comment_list',

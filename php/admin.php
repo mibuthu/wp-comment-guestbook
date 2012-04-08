@@ -28,7 +28,6 @@ class cgb_admin {
 	         ';
       ob_start();
 		settings_fields( cgb_options::$group );
-		//do_settings_sections( cgb_options::$group );
 		$out .= ob_get_contents();
 		ob_end_clean ();
 	   $out .= '
@@ -39,9 +38,11 @@ class cgb_admin {
 				      <p>This is an early version of this plugin. No options are available yet.</p>
 			      </div>
 			      <h4>Comments list options:</h4>
-			      <div style="padding:0 10px">';
+			      <div style="padding:0 0px">
+			         <table class="form-table">';
 	   $out .= cgb_admin::show_options( 'comment_list' );
 	   $out .= '
+	               </table>
 			      </div>
             </div>
 		      ';
@@ -58,46 +59,62 @@ class cgb_admin {
 	   $out = '';
 	   foreach( cgb_options::$options as $oname => $o ) {
 	      if( $o['section'] == $section ) {
-	         $out .='
-                        <p>';
+	         $out .= '
+                           <tr valign="top">
+                              <th scope="row">';
+            if( $o['label'] != '' ) {
+               $out .= '<label for="'.$oname.'">'.$o['label'].':</label>';
+            }
+            $out .= '</th>';
 	         switch( $o['type'] ) {
 	            case 'checkbox':
-	               $out .= cgb_admin::show_checkbox( $oname, cgb_options::get( $oname ), $o['label'] );
+	               $out .= cgb_admin::show_checkbox( $oname, cgb_options::get( $oname ), $o['desc'], $o['caption'] );
+	               break;
+	            case 'text':
+	               $out .= cgb_admin::show_text( $oname, cgb_options::get( $oname ), $o['desc'] );
 	               break;
 	            case 'textarea':
-	               $out .= cgb_admin::show_textarea( $oname, cgb_options::get( $oname ), $o['label'] );
+	               $out .= cgb_admin::show_textarea( $oname, cgb_options::get( $oname ), $o['desc'] );
 	               break;
 	         }
 	         $out .='
-                     </p>';
+	                        </tr>';
          }
 	   }
 	   return $out;
 	}
 	
-	private static function show_checkbox( $name, $value, $label ) {
+	private static function show_checkbox( $name, $value, $desc, $caption ) {
       $out = '
-                        <label for="'.$name.'">
-                           <input name="'.$name.'" type="checkbox" id="'.$name.'" value="1"';
+                           <td>
+                              <label for="'.$name.'">
+                                 <input name="'.$name.'" type="checkbox" id="'.$name.'" value="1"';
       if( $value == 1 ) {
          $out .= ' checked="checked"';
       }
       $out .= ' />
-                           '.$label.'
-                        </label>';
+                                 '.$caption.'
+                              </label>
+                           </td>
+                           <td class="description">'.$desc.'</td>';
       return $out;
    }
    
-   private static function show_textarea( $name, $value, $label ) {
-      $out = '';
-      if( $label != '' ) {
-         $out = '
-                        <label for="'.$name.'">
-                           '.$label.': 
-                        </label>';
-      }
-      $out .= '
-                        <textarea name="'.$name.'" id="'.$name.'" rows="15" class="large-text code">'.$value.'</textarea>';
+   private static function show_text( $name, $value, $desc ) {
+      $out = '
+                           <td>
+                              <input name="'.$name.'" type="text" id="'.$name.'" value="'.$value.'" />
+                           </td>
+                           <td class="description">'.$desc.'</td>';
+      return $out;
+   }
+   
+   private static function show_textarea( $name, $value, $desc ) {
+      $out = '
+                           <td>
+                              <textarea name="'.$name.'" id="'.$name.'" rows="15" class="large-text code">'.$value.'</textarea>
+                              <span class="description">'.$desc.'</span>
+                           </td>';
       return $out;
    }
 }

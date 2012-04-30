@@ -33,6 +33,7 @@ if ( is_admin() ) {
    add_action( 'admin_menu', 'on_cgb_admin'); // add admin pages in admin menu
    add_action( 'admin_init', 'on_cgb_register_settings' ); // register settings
 }
+// FRONT PAGE:
 else {
    add_shortcode('comment-guestbook', 'on_cgb_sc_comment_guestbook'); // add shortcode [comment-guestbook]
 }

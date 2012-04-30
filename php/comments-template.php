@@ -40,7 +40,13 @@ require_once( CGB_PATH.'php/options.php' );
 				/* Loop through and list the comments. Tell wp_list_comments()
 				 * to use the specified function to format the comments.
 				 */
-				wp_list_comments( array( 'callback' => cgb_options::get( 'cgb_clist_comment_callback' ) ) );
+				if( cgb_options::get( 'cgb_clist_comment_adjust' ) == '' ) {
+					wp_list_comments( array( 'callback' => cgb_options::get( 'cgb_clist_comment_callback' ) ) );
+				}
+				else {
+					require_once( CGB_PATH.'php/comment.php' );
+					wp_list_comments( array( 'callback' => array( 'cgb_comment', 'show_html' ) ) );
+				}
 			?>
 		</ol>
 

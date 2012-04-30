@@ -45,6 +45,14 @@ class cgb_admin {
 	   $out .= '
 	               </table>
 			      </div>
+			      <br />
+			      <h4>General options:</h4>
+			      <div style="padding:0 0px">
+			         <table class="form-table">';
+	   $out .= cgb_admin::show_options( 'general' );
+	   $out .= '
+	               </table>
+			      </div>
             </div>
 		      ';
 		ob_start();
@@ -113,9 +121,9 @@ class cgb_admin {
    private static function show_textarea( $name, $value, $desc ) {
       $out = '
                            <td>
-                              <textarea name="'.$name.'" id="'.$name.'" rows="15" class="large-text code">'.$value.'</textarea>
-                              <span class="description">'.$desc.'</span>
-                           </td>';
+                              <textarea name="'.$name.'" id="'.$name.'" rows="10" class="large-text code">'.$value.'</textarea>
+                           </td>
+                           <td class="description">'.$desc.'</td>';
       return $out;
    }
 }

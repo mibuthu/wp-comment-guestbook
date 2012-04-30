@@ -1,6 +1,6 @@
 <?php
 
-include_once( CGB_PATH.'php/options.php' );
+require_once( CGB_PATH.'php/options.php' );
 
 // This class handles the shortcode [comment-guestbook]
 class sc_comment_guestbook {

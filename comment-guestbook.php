@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.0.2
+Version: 0.1.0
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -33,6 +33,7 @@ if ( is_admin() ) {
    add_action( 'admin_menu', 'on_cgb_admin'); // add admin pages in admin menu
    add_action( 'admin_init', 'on_cgb_register_settings' ); // register settings
 }
+// FRONT PAGE:
 else {
    add_shortcode('comment-guestbook', 'on_cgb_sc_comment_guestbook'); // add shortcode [comment-guestbook]
 }

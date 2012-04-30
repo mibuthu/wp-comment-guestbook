@@ -18,7 +18,7 @@ class cgb_options {
 		                                          'std_val'   => '--func--comment_callback',
 		                                          'label'     => 'Comment callback function',
 		                                          'desc'      => 'This option sets the name of comment callback function which outputs the html-code to view each comment.<br />
-		                                                            You only require this function if Commentlist adjustment was enabled, but no comment adjustment will be used.
+		                                                            You only require this function if "Commentlist adjustment" was enabled, but no comment adjustment will be used.
 		                                                            Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default, if it was found. <br />
 		                                                            If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
 		                                                            If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
@@ -29,14 +29,16 @@ class cgb_options {
 												'std_val'	=> '',
 												'label'		=> 'Comment adjustment',
 												'caption'	=> 'Adjust the html-output of each comment',
-												'desc'		=> 'This option specifies if the comment html code should be replaced with the html code given in Comment html code on the guestbook page.' ),
+												'desc'		=> 'This option specifies if the comment html code should be replaced with the html code given in "Comment html code" on the guestbook page.<br />
+																"If "Comment list adjustment" is disabled this option has no effect.' ),
 
 		'cgb_clist_comment_html'   => array(	'section'	=> 'comment_list',
 						                        'type'	  	=> 'textarea',
 						                        'std_val'   => '--func--comment_html',
 						                        'label'     => 'Comment html code',
-						                        'desc'		=> 'This option specifies the html code for each comment, if Comment adjustment is selected.<br />
-						                        				You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.' ),
+						                        'desc'		=> 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
+						                        				You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
+						                        				The code given as an example is a slightly modified version of the code given in the twentyeleven theme.' ),
 						                        				
 		'cgb_l10n_domain'			=> array(	'section'	=> 'general',
 												'type'		=> 'text',

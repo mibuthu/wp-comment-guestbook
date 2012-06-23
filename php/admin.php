@@ -33,7 +33,7 @@ class cgb_admin {
 	      <form method="post" action="options.php">
 	         ';
       ob_start();
-		settings_fields( cgb_options::$group );
+		settings_fields( 'cgb_'.$_GET['tab'] );
 		$out .= ob_get_contents();
 		ob_end_clean();
 	   	$out .= '
@@ -75,15 +75,15 @@ class cgb_admin {
 		submit_button();
 		$out .= ob_get_contents();
 		ob_end_clean ();
-      $out .='
+      	$out .='
          </form>
          </div>';
 		echo $out;
 	}
 	
 	private static function create_tabs( $current = 'general' )  {
-		$tabs = array( 'general' => 'General settings', 'comment_list' => 'Comment-list settings', 'comment_form' => 'Comment-form settings',
-						'comment_form_html' => 'Comment-form html code', 'comment_html' => 'Comment html code' );
+		$tabs = array( 'general' => 'General settings', 'comment_list' => 'Comment-list settings', /*'comment_form' => 'Comment-form settings',*/
+						/*'comment_form_html' => 'Comment-form html code',*/ 'comment_html' => 'Comment html code' );
 	    $out = '<h3 class="nav-tab-wrapper">';
 	    foreach( $tabs as $tab => $name ){
 	        $class = ( $tab == $current ) ? ' nav-tab-active' : '';

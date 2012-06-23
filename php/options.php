@@ -24,15 +24,15 @@ class cgb_options {
 		                                                            If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
 		                                                            Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
 		                                                            
-		'cgb_comment_adjust'	=> array(	'section'	=> 'comment_html',
+		'cgb_comment_adjust'		=> array(	'section'	=> 'comment_html',
 												'type'		=> 'checkbox',
 												'std_val'	=> '',
 												'label'		=> 'Comment adjustment',
 												'caption'	=> 'Adjust the html-output of each comment',
 												'desc'		=> 'This option specifies if the comment html code should be replaced with the html code given in "Comment html code" on the guestbook page.<br />
-																"If "Comment list adjustment" is disabled this option has no effect.' ),
+																If "Comment list adjustment" is disabled this option has no effect.' ),
 
-		'cgb_comment_html'   => array(			'section'	=> 'comment_html',
+		'cgb_comment_html'   		=> array(	'section'	=> 'comment_html',
 						                        'type'	  	=> 'textarea',
 						                        'std_val'   => '--func--comment_html',
 						                        'label'     => 'Comment html code',
@@ -51,7 +51,7 @@ class cgb_options {
 
    public static function register() {
       foreach( cgb_options::$options as $oname => $o ) {
-         register_setting( cgb_options::$group, $oname );
+         register_setting( 'cgb_'.$o['section'], $oname );
       }
    }
 /*

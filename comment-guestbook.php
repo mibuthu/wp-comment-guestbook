@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.1.0
+Version: 0.1.1
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -31,6 +31,7 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 // ADMIN PAGE:
 if ( is_admin() ) {
    add_action( 'admin_menu', 'on_cgb_admin'); // add admin pages in admin menu
+   add_action( 'admin_init', 'on_cgb_upgrade_options'); // upgrade the renamed options (this can be removed in a later version)
    add_action( 'admin_init', 'on_cgb_register_settings' ); // register settings
 }
 // FRONT PAGE:
@@ -51,5 +52,22 @@ function on_cgb_register_settings() {
 function on_cgb_sc_comment_guestbook( $atts ) {
 	require_once( 'php/sc_comment-guestbook.php' );
 	return sc_comment_guestbook::show_html( $atts );
+}
+
+// This function upgrades the renamed options
+// Version 0.1.0 to 0.1.1:
+//    cgb_clist_comment_adjust -> cgb_comment_adjust
+//    cgb_clist_comment_html   -> cgb_comment_html
+function on_cgb_upgrade_options() {
+	$value = get_option( 'cgb_clist_comment_adjust', null );
+	if( $value != null ) {
+		add_option( 'cgb_comment_adjust', $value, '', 'no' );
+		delete_option( 'cgb_clist_comment_adjust' );
+	}
+	$value = get_option( 'cgb_clist_comment_html', null );
+	if( $value != null ) {
+		add_option( 'cgb_comment_html', $value, '', 'no' );
+		delete_option( 'cgb_clist_comment_html' );
+	}
 }
 ?>

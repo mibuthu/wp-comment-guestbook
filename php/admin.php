@@ -7,7 +7,7 @@ class cgb_admin {
 
 	// show the main admin page as a submenu of "Comments"
 	public static function show_main() {
-		if (!current_user_can('edit_posts'))  {
+		if (!current_user_can( 'edit_posts' ))  {
 			wp_die( __('You do not have sufficient permissions to access this page.') );
 		}
 
@@ -22,49 +22,81 @@ class cgb_admin {
 			   You can add additional normal text if you want to display something else on the top of this page. That´s all you have to do. Save and publish the page to finish the guestbook creation.</p>
 			   <p>The shortcode will be replaced by the comment form. And the comment list can be adjusted with the options below.</p>
 			   <br />
-		   </div>';
+		   </div>
+		   <h3>Comment Guestbook Settings</h3>';
+		if( !isset( $_GET['tab'] ) ) {
+			$_GET['tab'] = 'general';
+		}
+		$out .= cgb_admin::create_tabs( $_GET['tab'] );
+		$out .= '<div id="posttype-page" class="posttypediv">';
 	   $out .= '
 	      <form method="post" action="options.php">
 	         ';
       ob_start();
-		settings_fields( cgb_options::$group );
+		settings_fields( 'cgb_'.$_GET['tab'] );
 		$out .= ob_get_contents();
-		ob_end_clean ();
-	   $out .= '
-		      <h3>Comment Guestbook Options</h3>
-		      <div style="padding:0 10px">
-			      <h4>Comment form options:</h4>
-			      <div style="padding:0 10px">
-				      <p>This is an early version of this plugin. No options are available yet.</p>
-			      </div>
-			      <br />
-			      <h4>Comments list options:</h4>
-			      <div style="padding:0 0px">
+		ob_end_clean();
+	   	$out .= '
+			      <div style="padding:0 10px">';
+		switch( $_GET['tab'] ) {
+			case 'comment_list' :
+				$out .= '
 			         <table class="form-table">';
-	   $out .= cgb_admin::show_options( 'comment_list' );
-	   $out .= '
-	               </table>
-			      </div>
-			      <br />
-			      <h4>General options:</h4>
-			      <div style="padding:0 0px">
+	   			$out .= cgb_admin::show_options( 'comment_list' );
+	   			$out .= '
+	            	</table>';
+	            break;
+	        case 'comment_form' :
+	   			$out .= '
+				      <p>This is an early version of this plugin. No settings are available yet.</p>';
+				break;
+			case 'comment_form_html' :
+	   			$out .= '
+				      <p>This is an early version of this plugin. No settings are available yet.</p>';
+				break;
+			case 'comment_html' :
+				$out .= '
 			         <table class="form-table">';
-	   $out .= cgb_admin::show_options( 'general' );
-	   $out .= '
-	               </table>
-			      </div>
-            </div>
-		      ';
+	   			$out .= cgb_admin::show_options( 'comment_html', 'newline' );
+	   			$out .= '
+	            	</table>';
+				break;
+			default : // 'general'
+	   			$out .= '
+				      <table class="form-table">';
+	   			$out .= cgb_admin::show_options( 'general' );
+	   			$out .= '
+	               </table>';
+				break;
+		}
+		$out .=
+				'</div>';
 		ob_start();
 		submit_button();
 		$out .= ob_get_contents();
 		ob_end_clean ();
-      $out .='
-         </form>';
+      	$out .='
+         </form>
+         </div>';
 		echo $out;
 	}
 	
-	private static function show_options( $section ) {
+	private static function create_tabs( $current = 'general' )  {
+		$tabs = array( 'general' => 'General settings', 'comment_list' => 'Comment-list settings', /*'comment_form' => 'Comment-form settings',*/
+						/*'comment_form_html' => 'Comment-form html code',*/ 'comment_html' => 'Comment html code' );
+	    $out = '<h3 class="nav-tab-wrapper">';
+	    foreach( $tabs as $tab => $name ){
+	        $class = ( $tab == $current ) ? ' nav-tab-active' : '';
+	        $out .= "<a class='nav-tab$class' href='?page=cgb_admin_main&tab=$tab'>$name</a>";
+	    }
+	    $out .= '</h3>';
+	    return $out;
+	}
+	
+	// $desc_pos specifies where the descpription will be displayed.
+	// available options:	'right'		... description will be displayed on the right side of the option (standard value)
+	//						'newline'	... description will be displayed below the option
+	private static function show_options( $section, $desc_pos='right' ) {
 	   $out = '';
 	   foreach( cgb_options::$options as $oname => $o ) {
 	      if( $o['section'] == $section ) {
@@ -74,28 +106,41 @@ class cgb_admin {
             if( $o['label'] != '' ) {
                $out .= '<label for="'.$oname.'">'.$o['label'].':</label>';
             }
-            $out .= '</th>';
+            $out .= '</th>
+            				<td>';
 	         switch( $o['type'] ) {
 	            case 'checkbox':
-	               $out .= cgb_admin::show_checkbox( $oname, cgb_options::get( $oname ), $o['desc'], $o['caption'] );
+	               $out .= cgb_admin::show_checkbox( $oname, cgb_options::get( $oname ), $o['caption'] );
 	               break;
 	            case 'text':
-	               $out .= cgb_admin::show_text( $oname, cgb_options::get( $oname ), $o['desc'] );
+	               $out .= cgb_admin::show_text( $oname, cgb_options::get( $oname ) );
 	               break;
 	            case 'textarea':
-	               $out .= cgb_admin::show_textarea( $oname, cgb_options::get( $oname ), $o['desc'] );
+	               $out .= cgb_admin::show_textarea( $oname, cgb_options::get( $oname ) );
 	               break;
 	         }
-	         $out .='
-	                        </tr>';
+	         $out .= '
+	         				</td>';
+	         if( $desc_pos == 'newline' ) {
+	         	$out .= '
+	         	       </tr>
+                       <tr>
+                       	   <td></td>';
+             }
+	         $out .= '
+	         			   <td class="description">'.$o['desc'].'</td>
+	                   </tr>';
+	         if( $desc_pos == 'newline' ) {
+	         	$out .= '
+	         	       <tr><td></td></tr>';
+             }
          }
 	   }
 	   return $out;
 	}
 	
-	private static function show_checkbox( $name, $value, $desc, $caption ) {
+	private static function show_checkbox( $name, $value, $caption ) {
       $out = '
-                           <td>
                               <label for="'.$name.'">
                                  <input name="'.$name.'" type="checkbox" id="'.$name.'" value="1"';
       if( $value == 1 ) {
@@ -103,27 +148,19 @@ class cgb_admin {
       }
       $out .= ' />
                                  '.$caption.'
-                              </label>
-                           </td>
-                           <td class="description">'.$desc.'</td>';
+                              </label>';
       return $out;
    }
    
-   private static function show_text( $name, $value, $desc ) {
+   private static function show_text( $name, $value ) {
       $out = '
-                           <td>
-                              <input name="'.$name.'" type="text" id="'.$name.'" value="'.$value.'" />
-                           </td>
-                           <td class="description">'.$desc.'</td>';
+                              <input name="'.$name.'" type="text" id="'.$name.'" value="'.$value.'" />';
       return $out;
    }
    
-   private static function show_textarea( $name, $value, $desc ) {
+   private static function show_textarea( $name, $value ) {
       $out = '
-                           <td>
-                              <textarea name="'.$name.'" id="'.$name.'" rows="10" class="large-text code">'.$value.'</textarea>
-                           </td>
-                           <td class="description">'.$desc.'</td>';
+                              <textarea name="'.$name.'" id="'.$name.'" rows="20" class="large-text code">'.$value.'</textarea>';
       return $out;
    }
 }

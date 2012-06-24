@@ -18,21 +18,21 @@ class cgb_options {
 		                                          'std_val'   => '--func--comment_callback',
 		                                          'label'     => 'Comment callback function',
 		                                          'desc'      => 'This option sets the name of comment callback function which outputs the html-code to view each comment.<br />
-		                                                            You only require this function if "Commentlist adjustment" was enabled, but no comment adjustment will be used.
+		                                                            You only require this function if "Commentlist adjustment" was enabled, but no comment adjustment will be used.<br />
 		                                                            Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default, if it was found. <br />
 		                                                            If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
 		                                                            If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
 		                                                            Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
 		                                                            
-		'cgb_clist_comment_adjust'	=> array(	'section'	=> 'comment_list',
+		'cgb_comment_adjust'		=> array(	'section'	=> 'comment_html',
 												'type'		=> 'checkbox',
 												'std_val'	=> '',
 												'label'		=> 'Comment adjustment',
 												'caption'	=> 'Adjust the html-output of each comment',
 												'desc'		=> 'This option specifies if the comment html code should be replaced with the html code given in "Comment html code" on the guestbook page.<br />
-																"If "Comment list adjustment" is disabled this option has no effect.' ),
+																If "Comment list adjustment" is disabled this option has no effect.' ),
 
-		'cgb_clist_comment_html'   => array(	'section'	=> 'comment_list',
+		'cgb_comment_html'   		=> array(	'section'	=> 'comment_html',
 						                        'type'	  	=> 'textarea',
 						                        'std_val'   => '--func--comment_html',
 						                        'label'     => 'Comment html code',
@@ -45,13 +45,13 @@ class cgb_options {
 												'std_val'	=> 'default',
 												'label'		=> 'Domain for translation',
 												'desc'		=> 'Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
-																Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".
+																Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
 																See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' )
 						               );
 
    public static function register() {
       foreach( cgb_options::$options as $oname => $o ) {
-         register_setting( cgb_options::$group, $oname );
+         register_setting( 'cgb_'.$o['section'], $oname );
       }
    }
 /*

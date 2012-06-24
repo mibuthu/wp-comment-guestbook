@@ -19,7 +19,7 @@ class cgb_comment {
 	         	echo '
 	            	<li '.comment_class( '', null, null, false ).' id="li-comment-'.get_comment_ID().'">
 		            	<article id="comment-'.get_comment_ID().'" class="comment">';
-				eval( '?>'.cgb_options::get( 'cgb_clist_comment_html' ) );
+				eval( '?>'.cgb_options::get( 'cgb_comment_html' ) );
 			   	echo '
 		            	</article><!-- #comment-## -->';
 			   	break;

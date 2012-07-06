@@ -13,7 +13,7 @@ class sc_comment_guestbook {
 		ob_end_clean ();
 		// add filter to show the adjusted comment style
 		if( cgb_options::get ( 'cgb_clist_adjust' ) == 1 ) {
-		   add_filter( 'comments_template', array( sc_comment_guestbook, 'filter_comments_template' ), 100 );
+		   add_filter( 'comments_template', array( 'sc_comment_guestbook', 'filter_comments_template' ), 100 );
 		}
 		return $out;
 	}

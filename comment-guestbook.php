@@ -41,7 +41,7 @@ else {
 
 function on_cgb_admin() {
 	require_once( 'php/admin.php' );
-	add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( cgb_admin, 'show_main' ) );
+	add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( 'cgb_admin', 'show_main' ) );
 }
 
 function on_cgb_register_settings() {

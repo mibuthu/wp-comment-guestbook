@@ -14,15 +14,15 @@ class cgb_comment {
 					<li class="post pingback">
 					<p>'.__( 'Pingback:', $l10n_domain ).get_comment_author_link().get_edit_comment_link( __( 'Edit', $l10n_domain ), '<span class="edit-link">', '</span>' ).'</p>';
 				break;
-		   	default :
-	         	echo '
-	            	<li '.comment_class( '', null, null, false ).' id="li-comment-'.get_comment_ID().'">
-		            	<article id="comment-'.get_comment_ID().'" class="comment">';
+			default :
+				echo '
+					<li '.comment_class( '', null, null, false ).' id="li-comment-'.get_comment_ID().'">
+						<article id="comment-'.get_comment_ID().'" class="comment">';
 				eval( '?>'.cgb_options::get( 'cgb_comment_html' ) );
-			   	echo '
-		            	</article><!-- #comment-## -->';
-			   	break;
-	   	}
-   	}
+				echo '
+						</article><!-- #comment-## -->';
+				break;
+		}
+	}
 }
 ?>

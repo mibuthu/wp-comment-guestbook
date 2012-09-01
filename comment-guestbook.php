@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.1.1
+Version: 0.1.2
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -30,18 +30,18 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // ADMIN PAGE:
 if ( is_admin() ) {
-   add_action( 'admin_menu', 'on_cgb_admin'); // add admin pages in admin menu
-   add_action( 'admin_init', 'on_cgb_upgrade_options'); // upgrade the renamed options (this can be removed in a later version)
-   add_action( 'admin_init', 'on_cgb_register_settings' ); // register settings
+	add_action( 'admin_menu', 'on_cgb_admin' ); // add admin pages in admin menu
+	add_action( 'admin_init', 'on_cgb_upgrade_options' ); // upgrade the renamed options (this can be removed in a later version)
+	add_action( 'admin_init', 'on_cgb_register_settings' ); // register settings
 }
 // FRONT PAGE:
 else {
-   add_shortcode('comment-guestbook', 'on_cgb_sc_comment_guestbook'); // add shortcode [comment-guestbook]
+	add_shortcode( 'comment-guestbook', 'on_cgb_sc_comment_guestbook' ); // add shortcode [comment-guestbook]
 }
 
 function on_cgb_admin() {
 	require_once( 'php/admin.php' );
-	add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( cgb_admin, 'show_main' ) );
+	add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( 'cgb_admin', 'show_main' ) );
 }
 
 function on_cgb_register_settings() {

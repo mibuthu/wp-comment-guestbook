@@ -9,12 +9,12 @@ $l10n_domain = cgb_options::get( 'cgb_l10n_domain' );
 	<div id="comments">
 	<?php if ( post_password_required() ) : ?>
 		<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', $l10n_domain ); ?></p>
-	</div><!-- #comments -->
 	<?php
 			/* Stop the rest of comments.php from being processed,
 			 * but don't kill the script entirely -- we still have
 			 * to fully load the template.
 			 */
+			echo '</div><!-- #comments -->';
 			return;
 		endif;
 	?>

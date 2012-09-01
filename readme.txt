@@ -2,8 +2,8 @@
 Contributors: mibuthu
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.0
-Tested up to: 3.4.0
-Stable tag: 0.1.1
+Tested up to: 3.4.1
+Stable tag: 0.1.2
 
 Add a guestbook site which uses the wordpress integrated comments.
 
@@ -29,10 +29,15 @@ not available yet, will be added in a later release
 
 == Screenshots ==
 
-not available yet, will be added in a later release
-
+1. Admin page
+2. Example site
 
 == Changelog ==
+
+= 0.1.2 (2012-09-01) =
+
+* Fixed all php warnings
+* Added screenshots
 
 = 0.1.1 (2012-06-24) =
 

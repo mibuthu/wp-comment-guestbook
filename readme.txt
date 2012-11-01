@@ -18,6 +18,8 @@ The purpose of this plugin is to add a guestbook site which uses the wordpress i
 
 This is a very early version of this plugin, so the options to modify the output are very limited in this version.
 
+If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
+
 
 == Installation ==
 

@@ -35,7 +35,7 @@ class comment_guestbook {
 	 * Constructor:
 	 * Initializes the plugin.
 	 */
-	function __construct() {
+	public function __construct() {
 
 		// TODO: replace "plugin-name-locale" with a unique value for your plugin
 		//load_plugin_textdomain( 'plugin-name-locale', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
@@ -56,13 +56,16 @@ class comment_guestbook {
 		require_once( 'php/options.php' );
 		require_once( 'php/sc_comment-guestbook.php' );
 
+		// Initialisize required objects
+		$sc_comment_guestbook = new sc_comment_guestbook();
+
 		// Register all actions and shortcodes
 		// for admin page:
 		add_action( 'admin_init', array( 'cgb_options', 'register' ) );
 		add_action( 'admin_init', array( &$this, 'upgrade_options' ) );
 		add_action( 'admin_menu', array( &$this, 'action_admin' ) );
 		// for front page:
-		add_shortcode( 'comment-guestbook', array( 'sc_comment_guestbook', 'show_html' ) ); // add shortcode [comment-guestbook]
+		add_shortcode( 'comment-guestbook', array( &$sc_comment_guestbook, 'show_html' ) );
 	} // end constructor
 
 	/**

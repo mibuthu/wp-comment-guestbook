@@ -1,9 +1,13 @@
 ﻿=== Comment Guestbook ===
 Contributors: mibuthu
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.0
-Tested up to: 3.4.1
+Tested up to: 3.4.2
 Stable tag: 0.1.2
+Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
+Licence: GPLv2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Add a guestbook site which uses the wordpress integrated comments.
 

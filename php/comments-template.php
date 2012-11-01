@@ -4,7 +4,8 @@
  */
 
 require_once( CGB_PATH.'php/options.php' );
-$l10n_domain = cgb_options::get( 'cgb_l10n_domain' );
+global $cgb;
+$l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
 ?>
 	<div id="comments">
 	<?php if ( post_password_required() ) : ?>
@@ -41,8 +42,8 @@ $l10n_domain = cgb_options::get( 'cgb_l10n_domain' );
 				/* Loop through and list the comments. Tell wp_list_comments()
 				 * to use the specified function to format the comments.
 				 */
-				if( cgb_options::get( 'cgb_comment_adjust' ) == '' ) {
-					wp_list_comments( array( 'callback' => cgb_options::get( 'cgb_clist_comment_callback' ) ) );
+				if( $cgb->options->get( 'cgb_comment_adjust' ) == '' ) {
+					wp_list_comments( array( 'callback' => $cgb->options->get( 'cgb_clist_comment_callback' ) ) );
 				}
 				else {
 					require_once( CGB_PATH.'php/comment.php' );

@@ -30,6 +30,9 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // MAIN PLUGIN CLASS
 class comment_guestbook {
+	public $admin;
+	public $options;
+	public $shortcode;
 
 	/**
 	 * Constructor:
@@ -52,20 +55,22 @@ class comment_guestbook {
 		//register_deactivation_hook( __FILE__, array( &$this, 'deactivate' ) );
 
 		// Include required php-files
-		require_once( 'php/admin.php' );
 		require_once( 'php/options.php' );
+		require_once( 'php/admin.php' );
 		require_once( 'php/sc_comment-guestbook.php' );
 
 		// Initialisize required objects
-		$sc_comment_guestbook = new sc_comment_guestbook();
+		$this->options = new cgb_options();
+		//$this->admin = new cgb_admin();
+		$this->shortcode = new sc_comment_guestbook();
 
 		// Register all actions and shortcodes
 		// for admin page:
-		add_action( 'admin_init', array( 'cgb_options', 'register' ) );
+		add_action( 'admin_init', array( &$this->options, 'register' ) );
 		add_action( 'admin_init', array( &$this, 'upgrade_options' ) );
 		add_action( 'admin_menu', array( &$this, 'action_admin' ) );
 		// for front page:
-		add_shortcode( 'comment-guestbook', array( &$sc_comment_guestbook, 'show_html' ) );
+		add_shortcode( 'comment-guestbook', array( &$this->shortcode, 'show_html' ) );
 	} // end constructor
 
 	/**
@@ -155,5 +160,5 @@ class comment_guestbook {
 } // end class
 
 // create a class instance
-new comment_guestbook();
+$cgb = new comment_guestbook();
 ?>

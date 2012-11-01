@@ -5,8 +5,9 @@ require_once( CGB_PATH.'php/options.php' );
 class cgb_comment {
 
 	public static function show_html( $comment, $args, $depth ) {
+		global $cgb;
 		$GLOBALS['comment'] = $comment;
-		$l10n_domain = cgb_options::get( 'cgb_l10n_domain' );
+		$l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
 		switch ( $comment->comment_type ) {
 			case 'pingback' :
 			case 'trackback' :
@@ -18,7 +19,7 @@ class cgb_comment {
 				echo '
 					<li '.comment_class( '', null, null, false ).' id="li-comment-'.get_comment_ID().'">
 						<article id="comment-'.get_comment_ID().'" class="comment">';
-				eval( '?>'.cgb_options::get( 'cgb_comment_html' ) );
+				eval( '?>'.$cgb->options->get( 'cgb_comment_html' ) );
 				echo '
 						</article><!-- #comment-## -->';
 				break;

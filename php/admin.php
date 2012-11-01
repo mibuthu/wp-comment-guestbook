@@ -80,7 +80,7 @@ class cgb_admin {
 			</div>';
 		echo $out;
 	}
-	
+
 	private static function create_tabs( $current = 'general' )  {
 		$tabs = array( 'general' => 'General settings', 'comment_list' => 'Comment-list settings', /*'comment_form' => 'Comment-form settings',*/
 						/*'comment_form_html' => 'Comment-form html code',*/ 'comment_html' => 'Comment html code' );
@@ -92,13 +92,14 @@ class cgb_admin {
 		$out .= '</h3>';
 		return $out;
 	}
-	
+
 	// $desc_pos specifies where the descpription will be displayed.
 	// available options:  'right'   ... description will be displayed on the right side of the option (standard value)
 	//                     'newline' ... description will be displayed below the option
 	private static function show_options( $section, $desc_pos='right' ) {
+		global $cgb;
 		$out = '';
-		foreach( cgb_options::$options as $oname => $o ) {
+		foreach( $cgb->options->options as $oname => $o ) {
 			if( $o['section'] == $section ) {
 				$out .= '
 						<tr valign="top">
@@ -110,13 +111,13 @@ class cgb_admin {
 						<td>';
 				switch( $o['type'] ) {
 					case 'checkbox':
-						$out .= cgb_admin::show_checkbox( $oname, cgb_options::get( $oname ), $o['caption'] );
+						$out .= cgb_admin::show_checkbox( $oname, $cgb->options->get( $oname ), $o['caption'] );
 						break;
 					case 'text':
-						$out .= cgb_admin::show_text( $oname, cgb_options::get( $oname ) );
+						$out .= cgb_admin::show_text( $oname, $cgb->options->get( $oname ) );
 						break;
 					case 'textarea':
-						$out .= cgb_admin::show_textarea( $oname, cgb_options::get( $oname ) );
+						$out .= cgb_admin::show_textarea( $oname, $cgb->options->get( $oname ) );
 						break;
 				}
 				$out .= '
@@ -138,7 +139,7 @@ class cgb_admin {
 		}
 		return $out;
 	}
-	
+
 	private static function show_checkbox( $name, $value, $caption ) {
 		$out = '
 							<label for="'.$name.'">

@@ -61,7 +61,7 @@ class comment_guestbook {
 
 		// Initialisize required objects
 		$this->options = new cgb_options();
-		//$this->admin = new cgb_admin();
+		$this->admin = new cgb_admin();
 		$this->shortcode = new sc_comment_guestbook();
 
 		// Register all actions and shortcodes
@@ -155,7 +155,7 @@ class comment_guestbook {
 	 * Add and register all admin pages in the admin menu
 	 */
 	public function action_admin() {
-		add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( 'cgb_admin', 'show_main' ) );
+		add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( &$this->admin, 'show_main' ) );
 	}
 } // end class
 

@@ -6,7 +6,7 @@ require_once( CGB_PATH.'php/options.php' );
 class cgb_admin {
 
 	// show the main admin page as a submenu of "Comments"
-	public static function show_main() {
+	public function show_main() {
 		if (!current_user_can( 'edit_posts' ))  {
 			wp_die( __('You do not have sufficient permissions to access this page.') );
 		}
@@ -27,7 +27,7 @@ class cgb_admin {
 		if( !isset( $_GET['tab'] ) ) {
 			$_GET['tab'] = 'general';
 		}
-		$out .= cgb_admin::create_tabs( $_GET['tab'] );
+		$out .= $this->create_tabs( $_GET['tab'] );
 		$out .= '<div id="posttype-page" class="posttypediv">';
 		$out .= '
 			<form method="post" action="options.php">
@@ -42,7 +42,7 @@ class cgb_admin {
 			case 'comment_list' :
 				$out .= '
 					<table class="form-table">';
-				$out .= cgb_admin::show_options( 'comment_list' );
+				$out .= $this->show_options( 'comment_list' );
 				$out .= '
 					</table>';
 				break;
@@ -57,14 +57,14 @@ class cgb_admin {
 			case 'comment_html' :
 				$out .= '
 					<table class="form-table">';
-				$out .= cgb_admin::show_options( 'comment_html', 'newline' );
+				$out .= $this->show_options( 'comment_html', 'newline' );
 				$out .= '
 					</table>';
 				break;
 			default : // 'general'
 				$out .= '
 					<table class="form-table">';
-				$out .= cgb_admin::show_options( 'general' );
+				$out .= $this->show_options( 'general' );
 				$out .= '
 					</table>';
 				break;
@@ -81,7 +81,7 @@ class cgb_admin {
 		echo $out;
 	}
 
-	private static function create_tabs( $current = 'general' )  {
+	private function create_tabs( $current = 'general' )  {
 		$tabs = array( 'general' => 'General settings', 'comment_list' => 'Comment-list settings', /*'comment_form' => 'Comment-form settings',*/
 						/*'comment_form_html' => 'Comment-form html code',*/ 'comment_html' => 'Comment html code' );
 		$out = '<h3 class="nav-tab-wrapper">';
@@ -96,7 +96,7 @@ class cgb_admin {
 	// $desc_pos specifies where the descpription will be displayed.
 	// available options:  'right'   ... description will be displayed on the right side of the option (standard value)
 	//                     'newline' ... description will be displayed below the option
-	private static function show_options( $section, $desc_pos='right' ) {
+	private function show_options( $section, $desc_pos='right' ) {
 		global $cgb;
 		$out = '';
 		foreach( $cgb->options->options as $oname => $o ) {
@@ -111,13 +111,13 @@ class cgb_admin {
 						<td>';
 				switch( $o['type'] ) {
 					case 'checkbox':
-						$out .= cgb_admin::show_checkbox( $oname, $cgb->options->get( $oname ), $o['caption'] );
+						$out .= $this->show_checkbox( $oname, $cgb->options->get( $oname ), $o['caption'] );
 						break;
 					case 'text':
-						$out .= cgb_admin::show_text( $oname, $cgb->options->get( $oname ) );
+						$out .= $this->show_text( $oname, $cgb->options->get( $oname ) );
 						break;
 					case 'textarea':
-						$out .= cgb_admin::show_textarea( $oname, $cgb->options->get( $oname ) );
+						$out .= $this->show_textarea( $oname, $cgb->options->get( $oname ) );
 						break;
 				}
 				$out .= '
@@ -140,7 +140,7 @@ class cgb_admin {
 		return $out;
 	}
 
-	private static function show_checkbox( $name, $value, $caption ) {
+	private function show_checkbox( $name, $value, $caption ) {
 		$out = '
 							<label for="'.$name.'">
 								<input name="'.$name.'" type="checkbox" id="'.$name.'" value="1"';
@@ -153,13 +153,13 @@ class cgb_admin {
 		return $out;
 	}
 
-	private static function show_text( $name, $value ) {
+	private function show_text( $name, $value ) {
 		$out = '
 							<input name="'.$name.'" type="text" id="'.$name.'" value="'.$value.'" />';
 		return $out;
 	}
 
-	private static function show_textarea( $name, $value ) {
+	private function show_textarea( $name, $value ) {
 		$out = '
 							<textarea name="'.$name.'" id="'.$name.'" rows="20" class="large-text code">'.$value.'</textarea>';
 		return $out;

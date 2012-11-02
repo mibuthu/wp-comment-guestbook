@@ -51,6 +51,14 @@ class cgb_options {
 			                                                     You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
 			                                                     The code given as an example is a slightly modified version of the code given in the twentyeleven theme.' ),
 
+			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Additional comment form',
+			                                       'caption' => 'Add an additional comment form below the comments',
+			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled' ),
+
 			'cgb_ignore_comments_open'   => array( 'section' => 'general',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '1',

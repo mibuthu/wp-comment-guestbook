@@ -72,6 +72,13 @@ class cgb_comments_functions {
 					<div class="nav-next">'.$this->get_comment_nav_label().'</div>';
 	}
 
+	public function show_form_below_comments_html() {
+		global $cgb;
+		if( $cgb->options->get( 'cgb_form_below_comments' ) !== '' ) {
+			comment_form();
+		}
+	}
+
 	private function get_comment_nav_label( $previous=false ) {
 		ob_start();
 		if( $previous ) {

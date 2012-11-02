@@ -53,20 +53,23 @@ class cgb_admin {
 				$out .= '
 					</table>';
 				break;
-			case 'comment_form' :
-				$out .= '
-						<p>This is an early version of this plugin. No settings are available yet.</p>';
-				break;
-			case 'comment_form_html' :
-				$out .= '
-						<p>This is an early version of this plugin. No settings are available yet.</p>';
-				break;
 			case 'comment_html' :
 				$out .= '
 					<table class="form-table">';
 				$out .= $this->show_options( 'comment_html', 'newline' );
 				$out .= '
 					</table>';
+				break;
+			case 'comment_form' :
+				$out .= '
+					<table class="form-table">';
+				$out .= $this->show_options( 'comment_form' );
+				$out .= '
+					</table>';
+				break;
+			case 'comment_form_html' :
+				$out .= '
+						<p>This is an early version of this plugin. No settings are available yet.</p>';
 				break;
 			default : // 'general'
 				$out .= '
@@ -89,8 +92,11 @@ class cgb_admin {
 	}
 
 	private function create_tabs( $current = 'general' )  {
-		$tabs = array( 'general' => 'General settings', 'comment_list' => 'Comment-list settings', /*'comment_form' => 'Comment-form settings',*/
-						/*'comment_form_html' => 'Comment-form html code',*/ 'comment_html' => 'Comment html code' );
+		$tabs = array( 'general' => 'General settings',
+		               'comment_list' => 'Comment-list settings',
+		               'comment_html' => 'Comment html code',
+		               'comment_form' => 'Comment-form settings'/*,
+		               'comment_form_html' => 'Comment-form html code'*/ );
 		$out = '<h3 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';

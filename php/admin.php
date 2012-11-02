@@ -120,6 +120,9 @@ class cgb_admin {
 					case 'checkbox':
 						$out .= $this->show_checkbox( $oname, $cgb->options->get( $oname ), $o['caption'] );
 						break;
+					case 'radio':
+						$out .= $this->show_radio( $oname, $cgb->options->get( $oname ), $o['caption'] );
+						break;
 					case 'text':
 						$out .= $this->show_text( $oname, $cgb->options->get( $oname ) );
 						break;
@@ -157,6 +160,23 @@ class cgb_admin {
 		$out .= ' />
 								'.$caption.'
 							</label>';
+		return $out;
+	}
+
+	private function show_radio( $name, $value, $caption ) {
+		$out = '
+							<fieldset>';
+		foreach( $caption as $okey => $ocaption ) {
+			$checked = ($value === $okey) ? 'checked="checked" ' : '';
+			$out .= '
+								<label title="'.$ocaption.'">
+									<input type="radio" '.$checked.'value="'.$okey.'" name="'.$name.'">
+									<span>'.$ocaption.'</span>
+								</label>
+								<br />';
+		}
+		$out .= '
+							</fieldset>';
 		return $out;
 	}
 

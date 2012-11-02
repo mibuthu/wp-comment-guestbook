@@ -29,9 +29,7 @@ $cgb_func = new cgb_comments_functions();
    ?>
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 		<nav id="comment-nav-above">
-			<h1 class="assistive-text"><?php _e( 'Comment navigation', $cgb_func->l10n_domain ); ?></h1>
-			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', $cgb_func->l10n_domain ) ); ?></div>
-			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', $cgb_func->l10n_domain ) ); ?></div>
+			<?php $cgb_func->show_nav_html(); ?>
 		</nav>
 		<?php endif; // check for comment navigation ?>
 
@@ -46,9 +44,7 @@ $cgb_func = new cgb_comments_functions();
 
 		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 		<nav id="comment-nav-below">
-			<h1 class="assistive-text"><?php _e( 'Comment navigation', $cgb_func->l10n_domain ); ?></h1>
-			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', $cgb_func->l10n_domain ) ); ?></div>
-			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;' , $cgb_func->l10n_domain) ); ?></div>
+			<?php $cgb_func->show_nav_html(); ?>
 		</nav>
 		<?php endif; // check for comment navigation ?>
 

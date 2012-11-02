@@ -17,12 +17,19 @@ class cgb_options {
 			                                       'caption' => 'Adjust the comment list output',
 			                                       'desc'    => 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.' ),
 
+			'cgb_clist_order'            => array( 'section' => 'comment_list',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Comment list order',
+			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard comment order only for the guestbook page.' ),
+
 			'cgb_clist_comment_callback' => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',
 			                                       'std_val' => '--func--comment_callback',
 			                                       'label'   => 'Comment callback function',
 			                                       'desc'    => 'This option sets the name of comment callback function which outputs the html-code to view each comment.<br />
-			                                                     You only require this function if "Commentlist adjustment" was enabled, but no comment adjustment will be used.<br />
+			                                                     You only require this function if "Comment list adjustment" was enabled, but no comment adjustment will be used.<br />
 			                                                     Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default, if it was found. <br />
 			                                                     If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
 			                                                     If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
@@ -34,7 +41,7 @@ class cgb_options {
 			                                       'label'   => 'Comment adjustment',
 			                                       'caption' => 'Adjust the html-output of each comment',
 			                                       'desc'    => 'This option specifies if the comment html code should be replaced with the html code given in "Comment html code" on the guestbook page.<br />
-	 		                                                    If "Comment list adjustment" is disabled this option has no effect.' ),
+	 		                                                     If "Comment list adjustment" is disabled this option has no effect.' ),
 
 			'cgb_comment_html'           => array( 'section' => 'comment_html',
 			                                       'type'    => 'textarea',

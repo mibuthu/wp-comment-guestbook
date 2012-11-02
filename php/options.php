@@ -59,6 +59,7 @@ class cgb_options {
 			register_setting( 'cgb_'.$o['section'], $oname );
 		}
 	}
+
 /*
 	public function set( $name, $value ) {
 		if( isset( $this->options[$name] ) ) {
@@ -79,6 +80,26 @@ class cgb_options {
 		}
 		else {
 			return null;
+		}
+	}
+
+	/**
+	 * Upgrades renamed or modified options to the actual version
+	 *
+	 * Version 0.1.0 to 0.1.1:
+	 *   cgb_clist_comment_adjust -> cgb_comment_adjust
+	 *   cgb_clist_comment_html   -> cgb_comment_html
+	 */
+	public function version_upgrade() {
+		$value = get_option( 'cgb_clist_comment_adjust', null );
+		if( $value != null ) {
+			add_option( 'cgb_comment_adjust', $value, '', 'no' );
+			delete_option( 'cgb_clist_comment_adjust' );
+		}
+		$value = get_option( 'cgb_clist_comment_html', null );
+		if( $value != null ) {
+			add_option( 'cgb_comment_html', $value, '', 'no' );
+			delete_option( 'cgb_clist_comment_html' );
 		}
 	}
 
@@ -120,4 +141,3 @@ class cgb_options {
 		return $out;
 	}
 }
-

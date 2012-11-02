@@ -40,6 +40,16 @@ class comment_guestbook {
 	 */
 	public function __construct() {
 
+		// Include required php-files
+		require_once( 'php/options.php' );
+		require_once( 'php/admin.php' );
+		require_once( 'php/sc_comment-guestbook.php' );
+
+		// Initialisize required objects
+		$this->options = new cgb_options();
+		$this->admin = new cgb_admin();
+		$this->shortcode = new sc_comment_guestbook();
+
 		// TODO: replace "plugin-name-locale" with a unique value for your plugin
 		//load_plugin_textdomain( 'plugin-name-locale', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 
@@ -51,45 +61,15 @@ class comment_guestbook {
 		//add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_styles' ) );
 		//add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_scripts' ) );
 
-		//register_activation_hook( __FILE__, array( &$this, 'activate' ) );
-		//register_deactivation_hook( __FILE__, array( &$this, 'deactivate' ) );
-
-		// Include required php-files
-		require_once( 'php/options.php' );
-		require_once( 'php/admin.php' );
-		require_once( 'php/sc_comment-guestbook.php' );
-
-		// Initialisize required objects
-		$this->options = new cgb_options();
-		$this->admin = new cgb_admin();
-		$this->shortcode = new sc_comment_guestbook();
-
 		// Register all actions and shortcodes
+		// for version upgrade:
+		add_action( 'plugins_loaded', array( &$this->options, 'version_upgrade' ) );
 		// for admin page:
 		add_action( 'admin_init', array( &$this->options, 'register' ) );
-		add_action( 'admin_init', array( &$this, 'upgrade_options' ) );
 		add_action( 'admin_menu', array( &$this->admin, 'register_pages' ) );
 		// for front page:
 		add_shortcode( 'comment-guestbook', array( &$this->shortcode, 'show_html' ) );
 	} // end constructor
-
-	/**
-	 * Fired when the plugin is activated.
-	 *
-	 * @params	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog
-	 */
-	//public function activate( $network_wide ) {
-		// TODO define activation functionality here
-	//} // end activate
-
-	/**
-	 * Fired when the plugin is deactivated.
-	 *
-	 * @params	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog
-	 */
-	//public function deactivate( $network_wide ) {
-		// TODO define deactivation functionality here
-	//} // end deactivate
 
 	/**
 	 * Registers and enqueues admin-specific styles.
@@ -131,23 +111,6 @@ class comment_guestbook {
 		wp_enqueue_script( 'plugin-name-plugin-script' );
 	} // end register_plugin_scripts
 */
-
-	// This function upgrades the renamed options
-	// Version 0.1.0 to 0.1.1:
-	//    cgb_clist_comment_adjust -> cgb_comment_adjust
-	//    cgb_clist_comment_html   -> cgb_comment_html
-	public function upgrade_options() {
-		$value = get_option( 'cgb_clist_comment_adjust', null );
-		if( $value != null ) {
-			add_option( 'cgb_comment_adjust', $value, '', 'no' );
-			delete_option( 'cgb_clist_comment_adjust' );
-		}
-		$value = get_option( 'cgb_clist_comment_html', null );
-		if( $value != null ) {
-			add_option( 'cgb_comment_html', $value, '', 'no' );
-			delete_option( 'cgb_clist_comment_html' );
-		}
-	}
 } // end class
 
 // create a class instance

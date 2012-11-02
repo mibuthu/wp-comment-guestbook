@@ -68,7 +68,7 @@ class comment_guestbook {
 		// for admin page:
 		add_action( 'admin_init', array( &$this->options, 'register' ) );
 		add_action( 'admin_init', array( &$this, 'upgrade_options' ) );
-		add_action( 'admin_menu', array( &$this, 'action_admin' ) );
+		add_action( 'admin_menu', array( &$this->admin, 'register_pages' ) );
 		// for front page:
 		add_shortcode( 'comment-guestbook', array( &$this->shortcode, 'show_html' ) );
 	} // end constructor
@@ -147,15 +147,6 @@ class comment_guestbook {
 			add_option( 'cgb_comment_html', $value, '', 'no' );
 			delete_option( 'cgb_clist_comment_html' );
 		}
-	}
-
-	/**
-	 * Admin Action:
-	 *
-	 * Add and register all admin pages in the admin menu
-	 */
-	public function action_admin() {
-		add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( &$this->admin, 'show_main' ) );
 	}
 } // end class
 

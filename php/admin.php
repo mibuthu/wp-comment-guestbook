@@ -5,6 +5,13 @@ require_once( CGB_PATH.'php/options.php' );
 // This class handles all available admin pages
 class cgb_admin {
 
+	/**
+	 * Add and register all admin pages in the admin menu
+	 */
+	public function register_pages() {
+		add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( &$this, 'show_main' ) );
+	}
+
 	// show the main admin page as a submenu of "Comments"
 	public function show_main() {
 		if (!current_user_can( 'edit_posts' ))  {

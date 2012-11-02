@@ -1,10 +1,25 @@
 <?php
 require_once( CGB_PATH.'php/options.php' );
 
-// This class handles all available admin pages
+// This class handles all required function to display the comment list
 class cgb_comments_functions {
+	public $l10n_domain;
 
-	public static function show_single_comment_html( $comment, $args, $depth ) {
+	public function __construct() {
+		global $cgb;
+		$this->l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
+	}
+
+	public function list_comments() {
+		global $cgb;
+		if( $cgb->options->get( 'cgb_comment_adjust' ) == '' ) {
+			wp_list_comments( array( 'callback' => $cgb->options->get( 'cgb_clist_comment_callback' ) ) );
+		}
+		else {
+			wp_list_comments( array( 'callback' => array( &$this, 'show_comment_html' ) ) );
+		}
+	}
+	public function show_comment_html( $comment, $args, $depth ) {
 		global $cgb;
 		$GLOBALS['comment'] = $comment;
 		$l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );

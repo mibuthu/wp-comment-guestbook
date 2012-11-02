@@ -2,14 +2,12 @@
 /**
  * The custom template for displaying Comments for comment-guestbook plugin.
  */
-
-require_once( CGB_PATH.'php/options.php' );
-global $cgb;
-$l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
+require_once( CGB_PATH.'php/comments-functions.php' );
+$cgb_func = new cgb_comments_functions();
 ?>
 	<div id="comments">
 	<?php if ( post_password_required() ) : ?>
-		<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', $l10n_domain ); ?></p>
+		<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', $cgb_func->l10n_domain ); ?></p>
 	<?php
 			/* Stop the rest of comments.php from being processed,
 			 * but don't kill the script entirely -- we still have
@@ -31,9 +29,9 @@ $l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
    ?>
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 		<nav id="comment-nav-above">
-			<h1 class="assistive-text"><?php _e( 'Comment navigation', $l10n_domain ); ?></h1>
-			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', $l10n_domain ) ); ?></div>
-			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', $l10n_domain ) ); ?></div>
+			<h1 class="assistive-text"><?php _e( 'Comment navigation', $cgb_func->l10n_domain ); ?></h1>
+			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', $cgb_func->l10n_domain ) ); ?></div>
+			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', $cgb_func->l10n_domain ) ); ?></div>
 		</nav>
 		<?php endif; // check for comment navigation ?>
 
@@ -42,21 +40,15 @@ $l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
 				/* Loop through and list the comments. Tell wp_list_comments()
 				 * to use the specified function to format the comments.
 				 */
-				if( $cgb->options->get( 'cgb_comment_adjust' ) == '' ) {
-					wp_list_comments( array( 'callback' => $cgb->options->get( 'cgb_clist_comment_callback' ) ) );
-				}
-				else {
-					require_once( CGB_PATH.'php/comments-functions.php' );
-					wp_list_comments( array( 'callback' => array( 'cgb_comments_functions', 'show_single_comment_html' ) ) );
-				}
+				$cgb_func->list_comments();
 			?>
 		</ol>
 
 		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 		<nav id="comment-nav-below">
-			<h1 class="assistive-text"><?php _e( 'Comment navigation', $l10n_domain ); ?></h1>
-			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', $l10n_domain ) ); ?></div>
-			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;' , $l10n_domain) ); ?></div>
+			<h1 class="assistive-text"><?php _e( 'Comment navigation', $cgb_func->l10n_domain ); ?></h1>
+			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', $cgb_func->l10n_domain ) ); ?></div>
+			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;' , $cgb_func->l10n_domain) ); ?></div>
 		</nav>
 		<?php endif; // check for comment navigation ?>
 
@@ -66,7 +58,7 @@ $l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
 		 */
 		elseif ( ! comments_open() && ! is_page() && post_type_supports( get_post_type(), 'comments' ) ) :
 	?>
-		<p class="nocomments"><?php _e( 'Comments are closed.', $l10n_domain ); ?></p>
+		<p class="nocomments"><?php _e( 'Comments are closed.', $cgb_func->l10n_domain ); ?></p>
 	<?php endif; ?>
 	<?php /*comment_form();*/ ?>
 

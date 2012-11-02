@@ -22,7 +22,7 @@ class sc_comment_guestbook {
 	private function init_filters() {
 		global $cgb;
 		// Add filter to overwrite comments_opten status
-		if( '' !== $cgb->options->get( 'cgb_overwrite_comment_status' ) ) {
+		if( '' !== $cgb->options->get( 'cgb_ignore_comments_open' ) ) {
 			add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
 		}
 		// Add filter to show the adjusted comment style

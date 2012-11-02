@@ -46,8 +46,8 @@ $l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );
 					wp_list_comments( array( 'callback' => $cgb->options->get( 'cgb_clist_comment_callback' ) ) );
 				}
 				else {
-					require_once( CGB_PATH.'php/comment.php' );
-					wp_list_comments( array( 'callback' => array( 'cgb_comment', 'show_html' ) ) );
+					require_once( CGB_PATH.'php/comments-functions.php' );
+					wp_list_comments( array( 'callback' => array( 'cgb_comments_functions', 'show_single_comment_html' ) ) );
 				}
 			?>
 		</ol>

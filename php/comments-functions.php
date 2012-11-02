@@ -2,9 +2,9 @@
 require_once( CGB_PATH.'php/options.php' );
 
 // This class handles all available admin pages
-class cgb_comment {
+class cgb_comments_functions {
 
-	public static function show_html( $comment, $args, $depth ) {
+	public static function show_single_comment_html( $comment, $args, $depth ) {
 		global $cgb;
 		$GLOBALS['comment'] = $comment;
 		$l10n_domain = $cgb->options->get( 'cgb_l10n_domain' );

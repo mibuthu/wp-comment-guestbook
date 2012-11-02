@@ -51,6 +51,13 @@ class cgb_options {
 			                                                     You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
 			                                                     The code given as an example is a slightly modified version of the code given in the twentyeleven theme.' ),
 
+			'cgb_ignore_comments_open'   => array( 'section' => 'general',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '1',
+			                                       'label'   => 'Guestbook page comment status',
+			                                       'caption' => 'Allow comments on the guestbook page',
+			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the guestbook page will be ignored.' ),
+
 			'cgb_l10n_domain'            => array( 'section' => 'general',
 			                                       'type'    => 'text',
 			                                       'std_val' => 'default',

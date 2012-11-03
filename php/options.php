@@ -153,17 +153,17 @@ class cgb_options {
 	public function version_upgrade() {
 		$value = get_option( 'cgb_clist_comment_adjust', null );
 		if( $value != null ) {
-			add_option( 'cgb_comment_adjust', $value, '', 'no' );
+			add_option( 'cgb_comment_adjust', $value );
 			delete_option( 'cgb_clist_comment_adjust' );
 		}
 		$value = get_option( 'cgb_clist_comment_html', null );
 		if( $value != null ) {
-			add_option( 'cgb_comment_html', $value, '', 'no' );
+			add_option( 'cgb_comment_html', $value );
 			delete_option( 'cgb_clist_comment_html' );
 		}
 		$value = get_option( 'cgb_clist_comment_callback', null );
 		if( $value != null ) {
-			add_option( 'cgb_comment_callback', $value, '', 'no' );
+			add_option( 'cgb_comment_callback', $value );
 			delete_option( 'cgb_clist_comment_callback' );
 		}
 	}

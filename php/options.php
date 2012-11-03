@@ -27,7 +27,7 @@ class cgb_options {
 			                                       'std_val' => '1',
 			                                       'label'   => 'Guestbook comment status',
 			                                       'caption' => 'Allow comments on the guestbook page',
-			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the guestbook page will be ignored.' ),
+			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the page will be overwritten.' ),
 
 			'cgb_l10n_domain'            => array( 'section' => 'general',
 			                                       'type'    => 'text',
@@ -50,7 +50,7 @@ class cgb_options {
 			                                       'label'   => 'Comment list order',
 			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first' ),
 			                                       'desc'    => 'This option allows you to overwrite the standard order for top level comments only for the guestbook page.<br />
-			                                                     "Comment list adjustment" must be enabled.' ),
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
 			'cgb_clist_child_order'      => array( 'section' => 'comment_list',
 			                                       'type'    => 'radio',
@@ -58,7 +58,7 @@ class cgb_options {
 			                                       'label'   => 'Comment list child order',
 			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest child comments first', 'desc' => 'Newest child comments first' ),
 			                                       'desc'    => 'This option allows you to overwrite the standard order for all child comments only for the guestbook page.<br />
-			                                                     "Comment list adjustment" must be enabled.' ),
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
 			'cgb_clist_default_page'     => array( 'section' => 'comment_list',
 			                                       'type'    => 'radio',
@@ -66,7 +66,7 @@ class cgb_options {
 			                                       'label'   => 'Comment list default page',
 			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page' ),
 			                                       'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
-			                                                     "Comment list adjustment" must be enabled.' ),
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
 			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
@@ -74,17 +74,17 @@ class cgb_options {
 			                                       'label'   => 'Additional comment form',
 			                                       'caption' => 'Add an additional comment form below the comments',
 			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
-			                                                     This option is only available if "Comment list adjustment" is enabled' ),
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
 			'cgb_comment_callback'       => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',
 			                                       'std_val' => '--func--comment_callback',
 			                                       'label'   => 'Comment callback function',
 			                                       'desc'    => 'This option sets the name of comment callback function which outputs the html-code to view each comment.<br />
-			                                                     You only require this function if "Comment list adjustment" was enabled, but no comment adjustment will be used.<br />
-			                                                     Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default, if it was found. <br />
+			                                                     You only require this function if "Comment list adjustment" is enabled and Comment adjustment is disabled.<br />
+			                                                     Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default. <br />
 			                                                     If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
-			                                                     If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
+			                                                     If you want to insert the function of your theme manually, you can find the name in file "functions.php" in your theme directory.<br />
 			                                                     Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
 
 			'cgb_comment_adjust'         => array( 'section' => 'comment_html',
@@ -101,7 +101,9 @@ class cgb_options {
 			                                       'label'   => 'Comment html code',
 			                                       'desc'    => 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
 			                                                     You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
-			                                                     The code given as an example is a slightly modified version of the code given in the twentyeleven theme.' )
+			                                                     The code given as an example is a slightly modified version of the twentyeleven theme.<br />
+			                                                     If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
+			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".' )
 		);
 	}
 

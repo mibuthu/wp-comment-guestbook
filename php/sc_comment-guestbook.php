@@ -36,6 +36,9 @@ class sc_comment_guestbook {
 			if( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
 				add_filter( 'comments_array', array( &$this, 'filter_comments_array' ) );
 			}
+			if( 'default' !== $this->options->get( 'cgb_clist_default_page' ) ) {
+				add_filter( 'option_default_comments_page', array( &$this, 'filter_comments_default_page') );
+			}
 		}
 	}
 
@@ -51,6 +54,17 @@ class sc_comment_guestbook {
 	public function filter_comments_array( $comments ) {
 		// Invert array if clist order desc is required
 		return array_reverse( $comments );
+	}
+
+	public function filter_comments_default_page( $page ) {
+		// Overwrite comments default page
+		if( 'first' === $this->options->get( 'cgb_clist_default_page' ) ) {
+			$page = 'oldest';
+		}
+		elseif( 'last' === $this->options->get( 'cgb_clist_default_page' ) ) {
+			$page = 'newest';
+		}
+		return $page;
 	}
 }
 ?>

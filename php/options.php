@@ -60,6 +60,14 @@ class cgb_options {
 			                                       'desc'    => 'This option allows you to overwrite the standard order for all child comments only for the guestbook page.<br />
 			                                                     "Comment list adjustment" must be enabled.' ),
 
+			'cgb_clist_default_page'     => array( 'section' => 'comment_list',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Comment list default page',
+			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
+			                                                     "Comment list adjustment" must be enabled.' ),
+
 			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',

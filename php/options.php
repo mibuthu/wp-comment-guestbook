@@ -3,8 +3,19 @@
 // This class handles all available options
 class cgb_options {
 
+	private static $instance;
 	public $group;
 	public $options;
+
+	public static function &get_instance() {
+		// Create class instance if required
+		if( !isset( self::$instance ) ) {
+			self::$instance = new cgb_options();
+			self::$instance->init();
+		}
+		// Return class instance
+		return self::$instance;
+	}
 
 	public function __construct() {
 		$this->group = 'comment-guestbook';
@@ -74,6 +85,10 @@ class cgb_options {
 			                                                     Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
 			                                                     See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' )
 		);
+	}
+
+	public function init() {
+		add_action( 'admin_init', array( &$this, 'register' ) );
 	}
 
 	public function register() {

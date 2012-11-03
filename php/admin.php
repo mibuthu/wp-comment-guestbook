@@ -5,6 +5,12 @@ require_once( CGB_PATH.'php/options.php' );
 // This class handles all available admin pages
 class cgb_admin {
 
+	public $options;
+
+	public function __construct() {
+		// get options instance
+		$this->options = &cgb_options::get_instance();
+	}
 	/**
 	 * Add and register all admin pages in the admin menu
 	 */
@@ -110,9 +116,8 @@ class cgb_admin {
 	// available options:  'right'   ... description will be displayed on the right side of the option (standard value)
 	//                     'newline' ... description will be displayed below the option
 	private function show_options( $section, $desc_pos='right' ) {
-		global $cgb;
 		$out = '';
-		foreach( $cgb->options->options as $oname => $o ) {
+		foreach( $this->options->options as $oname => $o ) {
 			if( $o['section'] == $section ) {
 				$out .= '
 						<tr valign="top">
@@ -124,16 +129,16 @@ class cgb_admin {
 						<td>';
 				switch( $o['type'] ) {
 					case 'checkbox':
-						$out .= $this->show_checkbox( $oname, $cgb->options->get( $oname ), $o['caption'] );
+						$out .= $this->show_checkbox( $oname, $this->options->get( $oname ), $o['caption'] );
 						break;
 					case 'radio':
-						$out .= $this->show_radio( $oname, $cgb->options->get( $oname ), $o['caption'] );
+						$out .= $this->show_radio( $oname, $this->options->get( $oname ), $o['caption'] );
 						break;
 					case 'text':
-						$out .= $this->show_text( $oname, $cgb->options->get( $oname ) );
+						$out .= $this->show_text( $oname, $this->options->get( $oname ) );
 						break;
 					case 'textarea':
-						$out .= $this->show_textarea( $oname, $cgb->options->get( $oname ) );
+						$out .= $this->show_textarea( $oname, $this->options->get( $oname ) );
 						break;
 				}
 				$out .= '

@@ -30,9 +30,6 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // MAIN PLUGIN CLASS
 class comment_guestbook {
-	public $admin;
-	public $options;
-	public $shortcode;
 
 	/**
 	 * Constructor:
@@ -40,35 +37,29 @@ class comment_guestbook {
 	 */
 	public function __construct() {
 
-		// Include required php-files
-		require_once( 'php/options.php' );
-		require_once( 'php/admin.php' );
-		require_once( 'php/sc_comment-guestbook.php' );
-
-		// Initialisize required objects
-		$this->options = new cgb_options();
-		$this->admin = new cgb_admin();
-		$this->shortcode = new sc_comment_guestbook();
-
+		// ALWAYS:
 		// TODO: replace "plugin-name-locale" with a unique value for your plugin
 		//load_plugin_textdomain( 'plugin-name-locale', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+		// Register shortcodes
+		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
 
-		// Register admin styles and scripts
-		//add_action( 'admin_print_styles', array( &$this, 'register_admin_styles' ) );
-		//add_action( 'admin_enqueue_scripts', array( &$this, 'register_admin_scripts' ) );
-
-		// Register site styles and scripts
-		//add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_styles' ) );
-		//add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_scripts' ) );
-
-		// Register all actions and shortcodes
-		// for version upgrade:
-		add_action( 'plugins_loaded', array( &$this->options, 'version_upgrade' ) );
-		// for admin page:
-		add_action( 'admin_init', array( &$this->options, 'register' ) );
-		add_action( 'admin_menu', array( &$this->admin, 'register_pages' ) );
-		// for front page:
-		add_shortcode( 'comment-guestbook', array( &$this->shortcode, 'show_html' ) );
+		// ADMIN PAGE:
+		if ( is_admin() ) {
+			// Include required php-files and initialize required objects
+			require_once( 'php/admin.php' );
+			$admin = new cgb_admin();
+			// Register actions
+			//add_action( 'admin_print_styles', array( &$this, 'register_admin_styles' ) );
+			//add_action( 'admin_enqueue_scripts', array( &$this, 'register_admin_scripts' ) );
+			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
+			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );
+		}
+		// FRONT PAGE:
+		//else {
+			// Register actions
+			//add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_styles' ) );
+			//add_action( 'wp_enqueue_scripts', array( &$this, 'register_plugin_scripts' ) );
+		//}
 	} // end constructor
 
 	/**
@@ -111,6 +102,12 @@ class comment_guestbook {
 		wp_enqueue_script( 'plugin-name-plugin-script' );
 	} // end register_plugin_scripts
 */
+
+	public function shortcode_comment_guestbook( $atts ) {
+		require_once( 'php/sc_comment-guestbook.php' );
+		$shortcode = new sc_comment_guestbook();
+		return $shortcode->show_html( $atts );
+	}
 } // end class
 
 // create a class instance

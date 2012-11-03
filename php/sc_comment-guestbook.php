@@ -3,6 +3,12 @@ require_once( CGB_PATH.'php/options.php' );
 
 // This class handles the shortcode [comment-guestbook]
 class sc_comment_guestbook {
+	private $options;
+
+	public function __construct() {
+		// get options instance
+		$this->options = &cgb_options::get_instance();
+	}
 
 	// main function to show the rendered HTML output
 	public function show_html( $atts ) {
@@ -20,15 +26,14 @@ class sc_comment_guestbook {
 	}
 
 	private function init_filters() {
-		global $cgb;
-		// Add filter to overwrite comments_opten status
-		if( '' !== $cgb->options->get( 'cgb_ignore_comments_open' ) ) {
+		// Filter to overwrite comments_opten status
+		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
 			add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
 		}
-		// Add filter to show the adjusted comment style
-		if( $cgb->options->get( 'cgb_clist_adjust' ) == 1 ) {
+		// Filter to show the adjusted comment style
+		if( 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
 			add_filter( 'comments_template', array( &$this, 'filter_comments_template' ) );
-			if( $cgb->options->get( 'cgb_clist_order' ) === 'desc' ) {
+			if( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
 				add_filter( 'comments_array', array( &$this, 'filter_comments_array' ) );
 			}
 		}

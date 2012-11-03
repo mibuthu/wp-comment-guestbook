@@ -49,7 +49,16 @@ class cgb_options {
 			                                       'std_val' => 'default',
 			                                       'label'   => 'Comment list order',
 			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first' ),
-			                                       'desc'    => 'This option allows you to overwrite the standard comment order only for the guestbook page.' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard order for top level comments only for the guestbook page.<br />
+			                                                     "Comment list adjustment" must be enabled.' ),
+
+			'cgb_clist_child_order'      => array( 'section' => 'comment_list',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Comment list child order',
+			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest child comments first', 'desc' => 'Newest child comments first' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard order for all child comments only for the guestbook page.<br />
+			                                                     "Comment list adjustment" must be enabled.' ),
 
 			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',

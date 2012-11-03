@@ -26,18 +26,26 @@ class cgb_comments_functions {
 	public function list_comments() {
 		// Prepare wp_list_comments args
 		//comment callback function
-		if( $this->options->get( 'cgb_comment_adjust' ) === '' ) {
+		if( '' === $this->options->get( 'cgb_comment_adjust' ) ) {
 			$args['callback'] = $this->options->get( 'cgb_comment_callback' );
 		}
 		else {
 			$args['callback'] = array( &$this, 'show_comment_html' );
 		}
-		//correct order of comments
-		if( $this->options->get( 'cgb_clist_order' ) !== 'default' ) {
+		//correct order of top level comments
+		if( 'default' !== $this->options->get( 'cgb_clist_order' ) ) {
 			$args['reverse_top_level'] = false;
 		}
-		if( $this->options->get( 'cgb_clist_order' ) === 'desc' ) {
+		//correct order of child comments
+		if( 'desc' === $this->options->get( 'cgb_clist_child_order' ) ) {
 			$args['reverse_children'] = true;
+		}
+		elseif( 'asc' === $this->options->get( 'cgb_clist_child_order' ) ) {
+			$args['reverse_children'] = false;
+		}
+		//change child order if top level order is desc due to array_reverse
+		if( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
+			$args['reverse_children'] = isset( $args['reverse_children'] ) ? !$args['reverse_children'] : true;
 		}
 
 		// Print comments

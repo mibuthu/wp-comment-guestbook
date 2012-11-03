@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 0.1.2
+Stable tag: 0.2.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,9 +14,12 @@ Add a guestbook site which uses the wordpress integrated comments.
 
 == Description ==
 
-The purpose of this plugin is to add a guestbook site which uses the wordpress integrated comments. Simply insert the shortcode [comment-guestbook] into a page to enable this plugin. Find a detailed description and some options to modify the output on the admin page under Comments -> Guestbook.
+The purpose of this plugin is to add a guestbook site which uses the wordpress integrated comments.
 
-This is a very early version of this plugin, so the options to modify the output are very limited in this version.
+Simply insert the shortcode [comment-guestbook] into a page to enable this plugin.
+
+On the admin page (goto Comments -> Guestbook) you can find a detailed description and a lot options to manipulate the output.
+
 
 If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
 
@@ -30,8 +33,11 @@ If you want to install the plugin manually download the zip-file and extract the
 
 == Frequently Asked Questions ==
 
-not available yet, will be added in a later release
+= Where can I find the settings to manipulate the output (e.g. of the comment list)? =
 
+You can find a lot of options on the admin page in the submenu "Comments" -> "Guestbook".
+
+There you have the possibility to change the output of e.g the comment list only for the guestbook page, independent from the general Wordpress settings.
 
 == Screenshots ==
 
@@ -39,6 +45,11 @@ not available yet, will be added in a later release
 2. Example site
 
 == Changelog ==
+
+= 0.2.0 (2010-11-03) =
+
+* Internal code changes
+* Added several new options to modify the output (find details on the admin page)
 
 = 0.1.2 (2012-09-01) =
 
@@ -67,4 +78,4 @@ not available yet, will be added in a later release
 
 == Upgrade Notice ==
 
-not available yet, will be added in a later release
+The easiest way to upgrade is the use the wordpress integrated update mechanism. No additional steps are required.

@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.1.2
+Version: 0.2.0
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -24,50 +24,41 @@ You can view a copy of the HTML version of the GNU General Public
 License at http://www.gnu.org/copyleft/gpl.html
 */
 
-// general definitions
+// GENERAL DEFINITIONS
 define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 
-// ADMIN PAGE:
-if ( is_admin() ) {
-	add_action( 'admin_menu', 'on_cgb_admin' ); // add admin pages in admin menu
-	add_action( 'admin_init', 'on_cgb_upgrade_options' ); // upgrade the renamed options (this can be removed in a later version)
-	add_action( 'admin_init', 'on_cgb_register_settings' ); // register settings
-}
-// FRONT PAGE:
-else {
-	add_shortcode( 'comment-guestbook', 'on_cgb_sc_comment_guestbook' ); // add shortcode [comment-guestbook]
-}
+// MAIN PLUGIN CLASS
+class comment_guestbook {
 
-function on_cgb_admin() {
-	require_once( 'php/admin.php' );
-	add_submenu_page( 'edit-comments.php', 'Comment Guestbook', 'Guestbook', 'edit_posts', 'cgb_admin_main', array( 'cgb_admin', 'show_main' ) );
-}
+	/**
+	 * Constructor:
+	 * Initializes the plugin.
+	 */
+	public function __construct() {
 
-function on_cgb_register_settings() {
-	require_once( 'php/options.php' );
-	cgb_options::register();
-}
+		// ALWAYS:
+		// Register shortcodes
+		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
 
-function on_cgb_sc_comment_guestbook( $atts ) {
-	require_once( 'php/sc_comment-guestbook.php' );
-	return sc_comment_guestbook::show_html( $atts );
-}
+		// ADMIN PAGE:
+		if ( is_admin() ) {
+			// Include required php-files and initialize required objects
+			require_once( 'php/admin.php' );
+			$admin = new cgb_admin();
+			// Register actions
+			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
+			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );
+		}
+	} // end constructor
 
-// This function upgrades the renamed options
-// Version 0.1.0 to 0.1.1:
-//    cgb_clist_comment_adjust -> cgb_comment_adjust
-//    cgb_clist_comment_html   -> cgb_comment_html
-function on_cgb_upgrade_options() {
-	$value = get_option( 'cgb_clist_comment_adjust', null );
-	if( $value != null ) {
-		add_option( 'cgb_comment_adjust', $value, '', 'no' );
-		delete_option( 'cgb_clist_comment_adjust' );
+	public function shortcode_comment_guestbook( $atts ) {
+		require_once( 'php/sc_comment-guestbook.php' );
+		$shortcode = new sc_comment_guestbook();
+		return $shortcode->show_html( $atts );
 	}
-	$value = get_option( 'cgb_clist_comment_html', null );
-	if( $value != null ) {
-		add_option( 'cgb_comment_html', $value, '', 'no' );
-		delete_option( 'cgb_clist_comment_html' );
-	}
-}
+} // end class
+
+// create a class instance
+$cgb = new comment_guestbook();
 ?>

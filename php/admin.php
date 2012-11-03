@@ -24,10 +24,12 @@ class cgb_admin {
 			wp_die( __('You do not have sufficient permissions to access this page.') );
 		}
 
-		$out ='
+		$out = '
 			<div class="wrap nosubsub" style="padding-bottom:15px">
 			<div id="icon-edit-comments" class="icon32"><br /></div><h2>Comment Guestbook</h2>
-			</div>
+			</div>';
+		$out .= $this->show_messages();
+		$out .= '
 			<h3>Create a guestbook page</h3>
 			<div style="padding:0 15px">
 				<p>"Comment guestbook" works by using a "shortcode" in a page.</p>
@@ -200,6 +202,16 @@ class cgb_admin {
 	private function show_textarea( $name, $value ) {
 		$out = '
 							<textarea name="'.$name.'" id="'.$name.'" rows="20" class="large-text code">'.$value.'</textarea>';
+		return $out;
+	}
+
+	private function show_messages() {
+		$out = '';
+		// settings updated
+		if( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) {
+			$out .= '
+					<div id="message" class="updated below-h2"><p><strong>Settings saved.</strong></p></div>';
+		}
 		return $out;
 	}
 }

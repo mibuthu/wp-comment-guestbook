@@ -27,7 +27,7 @@ class cgb_comments_functions {
 		// Prepare wp_list_comments args
 		//comment callback function
 		if( $this->options->get( 'cgb_comment_adjust' ) === '' ) {
-			$args['callback'] = $this->options->get( 'cgb_clist_comment_callback' );
+			$args['callback'] = $this->options->get( 'cgb_comment_callback' );
 		}
 		else {
 			$args['callback'] = array( &$this, 'show_comment_html' );

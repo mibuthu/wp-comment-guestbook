@@ -51,7 +51,15 @@ class cgb_options {
 			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first' ),
 			                                       'desc'    => 'This option allows you to overwrite the standard comment order only for the guestbook page.' ),
 
-			'cgb_clist_comment_callback' => array( 'section' => 'comment_list',
+			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Additional comment form',
+			                                       'caption' => 'Add an additional comment form below the comments',
+			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled' ),
+
+			'cgb_comment_callback'       => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',
 			                                       'std_val' => '--func--comment_callback',
 			                                       'label'   => 'Comment callback function',
@@ -61,14 +69,6 @@ class cgb_options {
 			                                                     If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
 			                                                     If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
 			                                                     Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
-
-			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
-			                                       'type'    => 'checkbox',
-			                                       'std_val' => '',
-			                                       'label'   => 'Additional comment form',
-			                                       'caption' => 'Add an additional comment form below the comments',
-			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
-			                                                     This option is only available if "Comment list adjustment" is enabled' ),
 
 			'cgb_comment_adjust'         => array( 'section' => 'comment_html',
 			                                       'type'    => 'checkbox',
@@ -125,8 +125,11 @@ class cgb_options {
 	 * Upgrades renamed or modified options to the actual version
 	 *
 	 * Version 0.1.0 to 0.1.1:
-	 *   cgb_clist_comment_adjust -> cgb_comment_adjust
-	 *   cgb_clist_comment_html   -> cgb_comment_html
+	 *   cgb_clist_comment_adjust   -> cgb_comment_adjust
+	 *   cgb_clist_comment_html     -> cgb_comment_html
+	 *
+	 * Version 0.1.2 to 0.2.0:
+	 *   cgb_clist_comment_callback -> cgb_comment_callback
 	 */
 	public function version_upgrade() {
 		$value = get_option( 'cgb_clist_comment_adjust', null );
@@ -138,6 +141,11 @@ class cgb_options {
 		if( $value != null ) {
 			add_option( 'cgb_comment_html', $value, '', 'no' );
 			delete_option( 'cgb_clist_comment_html' );
+		}
+		$value = get_option( 'cgb_clist_comment_callback', null );
+		if( $value != null ) {
+			add_option( 'cgb_comment_callback', $value, '', 'no' );
+			delete_option( 'cgb_clist_comment_callback' );
 		}
 	}
 

@@ -21,6 +21,22 @@ class cgb_options {
 		$this->group = 'comment-guestbook';
 
 		$this->options = array(
+
+			'cgb_ignore_comments_open'   => array( 'section' => 'general',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '1',
+			                                       'label'   => 'Guestbook comment status',
+			                                       'caption' => 'Allow comments on the guestbook page',
+			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the guestbook page will be ignored.' ),
+
+			'cgb_l10n_domain'            => array( 'section' => 'general',
+			                                       'type'    => 'text',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Domain for translation',
+			                                       'desc'    => 'Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
+			                                                     Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
+			                                                     See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' ),
+
 			'cgb_clist_adjust'           => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',
@@ -46,6 +62,14 @@ class cgb_options {
 			                                                     If you want to insert the function of your theme manually, you can find the name in "functions.php" in your theme directory.<br />
 			                                                     Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
 
+			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Additional comment form',
+			                                       'caption' => 'Add an additional comment form below the comments',
+			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled' ),
+
 			'cgb_comment_adjust'         => array( 'section' => 'comment_html',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',
@@ -60,30 +84,7 @@ class cgb_options {
 			                                       'label'   => 'Comment html code',
 			                                       'desc'    => 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
 			                                                     You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
-			                                                     The code given as an example is a slightly modified version of the code given in the twentyeleven theme.' ),
-
-			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
-			                                       'type'    => 'checkbox',
-			                                       'std_val' => '',
-			                                       'label'   => 'Additional comment form',
-			                                       'caption' => 'Add an additional comment form below the comments',
-			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
-			                                                     This option is only available if "Comment list adjustment" is enabled' ),
-
-			'cgb_ignore_comments_open'   => array( 'section' => 'general',
-			                                       'type'    => 'checkbox',
-			                                       'std_val' => '1',
-			                                       'label'   => 'Guestbook page comment status',
-			                                       'caption' => 'Allow comments on the guestbook page',
-			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the guestbook page will be ignored.' ),
-
-			'cgb_l10n_domain'            => array( 'section' => 'general',
-			                                       'type'    => 'text',
-			                                       'std_val' => 'default',
-			                                       'label'   => 'Domain for translation',
-			                                       'desc'    => 'Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
-			                                                     Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
-			                                                     See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' )
+			                                                     The code given as an example is a slightly modified version of the code given in the twentyeleven theme.' )
 		);
 	}
 

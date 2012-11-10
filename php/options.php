@@ -68,6 +68,15 @@ class cgb_options {
 			                                       'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
+			'cgb_clist_num_pagination'   => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Numbered pagination links',
+			                                       'caption' => 'Create a numbered pagination navigation',
+			                                       'desc'    => 'If this option is enabled a numbered list of all the comment pages is displayed.<br />
+			                                                     Normally only a next and previous links are shown.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
+
 			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',

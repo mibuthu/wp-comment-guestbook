@@ -71,6 +71,9 @@ class sc_comment_guestbook {
 		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />\n';
 		}
+		if( 'desc' === $this->options->get( 'cgb_clist_order' ) && 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
+			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />\n';
+		}
 		return $html;
 	}
 }

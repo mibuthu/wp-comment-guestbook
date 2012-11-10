@@ -53,9 +53,13 @@ class comment_guestbook {
 
 		// FRONT PAGE:
 		else {
-			// Set fiter to overwrite comments_open status
+			// Set filter to overwrite comments_open status
 			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
 				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
+			}
+			// Fix link after adding a comment (required if clist_order = desc)
+			if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
+				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 			}
 		}
 	} // end constructor
@@ -70,6 +74,14 @@ class comment_guestbook {
 		return true;
 	}
 
+	public function filter_comment_post_redirect ( $location ) {
+		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
+		global $comment_id;
+		$num_pages = get_comment_pages_count( get_comments( array( 'post_id' => get_comment( $comment_id )->comment_post_ID ) ) );
+		$page = get_page_of_comment( $comment_id, array( 'per_page' => get_option('comments_per_page' ) ) );
+		$location = get_comment_link( $comment_id, array( 'page' => $num_pages - $page + 1 ) );
+		return $location;
+	}
 } // end class
 
 // create a class instance

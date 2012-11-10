@@ -50,6 +50,14 @@ class comment_guestbook {
 			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
 			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );
 		}
+
+		// FRONT PAGE:
+		else {
+			// Set fiter to overwrite comments_open status
+			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
+				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
+			}
+		}
 	} // end constructor
 
 	public function shortcode_comment_guestbook( $atts ) {
@@ -57,6 +65,11 @@ class comment_guestbook {
 		$shortcode = new sc_comment_guestbook();
 		return $shortcode->show_html( $atts );
 	}
+
+	public function filter_comments_open( $open ) {
+		return true;
+	}
+
 } // end class
 
 // create a class instance

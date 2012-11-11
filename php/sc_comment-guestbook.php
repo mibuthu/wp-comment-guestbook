@@ -26,9 +26,10 @@ class sc_comment_guestbook {
 	}
 
 	private function init_filters() {
-		// Filter to overwrite comments_opten status
+		global $cgb;
+		// Filter to overwrite comments_open status
 		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
-			add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
+			add_filter( 'comments_open', array( &$cgb, 'filter_comments_open' ) );
 		}
 		// Filter to show the adjusted comment style
 		if( 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
@@ -40,10 +41,8 @@ class sc_comment_guestbook {
 				add_filter( 'option_default_comments_page', array( &$this, 'filter_comments_default_page') );
 			}
 		}
-	}
-
-	public function filter_comments_open( $open ) {
-		return true;
+		// Filter to add comment id fields to identify required filters
+		add_filter( 'comment_id_fields', array( &$this, 'filter_comment_id_fields' ) );
 	}
 
 	public function filter_comments_template( $file ) {
@@ -65,6 +64,17 @@ class sc_comment_guestbook {
 			$page = 'newest';
 		}
 		return $page;
+	}
+
+	public function filter_comment_id_fields( $html ) {
+		// Add fields comment form to identify a guestbook comment when overwrite of comment status is required
+		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
+			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />\n';
+		}
+		if( 'desc' === $this->options->get( 'cgb_clist_order' ) && 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
+			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />\n';
+		}
+		return $html;
 	}
 }
 ?>

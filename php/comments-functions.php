@@ -74,15 +74,63 @@ class cgb_comments_functions {
 	}
 
 	public function show_nav_html() {
-		echo '<h1 class="assistive-text">'.__( 'Comment navigation', $this->l10n_domain ).'</h1>
+		// Numbered Pagination
+		if( '' !== $this->options->get( 'cgb_clist_num_pagination' ) ) {
+			echo '<div class="pagination" style="text-align:center;">';
+			paginate_comments_links( array( 'prev_text' => $this->nav_label_prev, 'next_text' => $this->nav_label_next ) );
+			echo '</div>';
+		}
+		// Only previous and next links
+		else {
+			echo '<h1 class="assistive-text">'.__( 'Comment navigation', $this->l10n_domain ).'</h1>
 					<div class="nav-previous">'.$this->get_comment_nav_label( true ).'</div>
 					<div class="nav-next">'.$this->get_comment_nav_label().'</div>';
+		}
 	}
 
 	public function show_form_below_comments_html() {
 		if( '' !== $this->options->get( 'cgb_form_below_comments' ) ) {
 			comment_form();
 		}
+	}
+
+	public function get_page_of_desc_commentlist( $comment_id, $comment_author=null ) {
+		global $wpdb;
+		if( !$comment = get_comment( $comment_id ) ) {
+			return;
+		}
+		// Set initial comment author (required for threaded comments)
+		if( null === $comment_author ) {
+			$comment_author = $comment->comment_author;
+		}
+		$per_page = get_option('comments_per_page' );
+		if( $per_page < 1 ) {
+			return 1;
+		}
+		if( get_option( 'thread_comments' ) ) {
+			$max_depth = get_option( 'thread_comments_depth' );
+		}
+		else {
+			$max_depth = -1;
+		}
+		// Find this comment's top level parent if threading is enabled
+		if( $max_depth > 1 && 0 != $comment->comment_parent ) {
+			return $this->get_page_of_desc_commentlist( $comment->comment_parent, $comment_author );
+		}
+		// Count comments newer than this one
+		$newer_comments = $wpdb->get_var( $wpdb->prepare(
+				'SELECT COUNT(comment_ID) FROM '.$wpdb->comments.
+				' WHERE comment_post_ID = %d AND comment_parent = 0 AND'.
+				' (comment_approved = "1" OR (comment_approved = "0" AND comment_author = "%s"))'.
+				' AND comment_date_gmt > "%s"',
+				$comment->comment_post_ID, $comment_author, $comment->comment_date_gmt ) );
+		// No older comments? Then it's page #1.
+		error_log( 'newer_comments: '.$newer_comments );
+		if( 0 == $newer_comments ) {
+			return 1;
+		}
+		// Divide comments older than this one by comments per page to get this comment's page number
+		return ceil( ( $newer_comments + 1 ) / $per_page );
 	}
 
 	private function get_comment_nav_label( $previous=false ) {

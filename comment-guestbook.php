@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.2.0
+Version: 0.2.1
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -50,12 +50,38 @@ class comment_guestbook {
 			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
 			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );
 		}
+
+		// FRONT PAGE:
+		else {
+			// Set filter to overwrite comments_open status
+			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
+				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
+			}
+			// Fix link after adding a comment (required if clist_order = desc)
+			if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
+				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
+			}
+		}
 	} // end constructor
 
 	public function shortcode_comment_guestbook( $atts ) {
 		require_once( 'php/sc_comment-guestbook.php' );
 		$shortcode = new sc_comment_guestbook();
 		return $shortcode->show_html( $atts );
+	}
+
+	public function filter_comments_open( $open ) {
+		return true;
+	}
+
+	public function filter_comment_post_redirect ( $location ) {
+		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
+		global $comment_id;
+		require_once( 'php/comments-functions.php' );
+		$cgb_func = new cgb_comments_functions();
+		$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
+		$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+		return $location;
 	}
 } // end class
 

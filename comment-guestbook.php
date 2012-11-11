@@ -77,9 +77,10 @@ class comment_guestbook {
 	public function filter_comment_post_redirect ( $location ) {
 		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
 		global $comment_id;
-		$num_pages = get_comment_pages_count( get_comments( array( 'post_id' => get_comment( $comment_id )->comment_post_ID ) ) );
-		$page = get_page_of_comment( $comment_id, array( 'per_page' => get_option('comments_per_page' ) ) );
-		$location = get_comment_link( $comment_id, array( 'page' => $num_pages - $page + 1 ) );
+		require_once( 'php/comments-functions.php' );
+		$cgb_func = new cgb_comments_functions();
+		$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
+		$location = get_comment_link( $comment_id, array( 'page' => $page ) );
 		return $location;
 	}
 } // end class

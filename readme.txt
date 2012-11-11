@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.2
 Tested up to: 3.5
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,7 +46,13 @@ There you have the possibility to change the output of e.g the comment list only
 
 == Changelog ==
 
-= 0.2.0 (2010-11-03) =
+= 0.2.1 (2012-11-11) =
+
+* Fixed overwriting of Allow comments status
+* Fixed redirected page after creating a new comment when Comment list order is Newest comments first
+* Added a new option to create a numbered pagination navigation
+
+= 0.2.0 (2012-11-03) =
 
 * Internal code changes
 * Added several new options to modify the output (find details on the admin page)

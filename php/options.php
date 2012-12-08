@@ -17,7 +17,7 @@ class cgb_options {
 		return self::$instance;
 	}
 
-	public function __construct() {
+	private function __construct() {
 		$this->group = 'comment-guestbook';
 
 		$this->options = array(

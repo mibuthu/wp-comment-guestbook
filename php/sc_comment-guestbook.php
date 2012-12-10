@@ -69,10 +69,10 @@ class sc_comment_guestbook {
 	public function filter_comment_id_fields( $html ) {
 		// Add fields comment form to identify a guestbook comment when overwrite of comment status is required
 		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
-			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />\n';
+			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
 		}
 		if( 'desc' === $this->options->get( 'cgb_clist_order' ) && 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
-			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />\n';
+			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />';
 		}
 		return $html;
 	}

@@ -196,7 +196,7 @@ class cgb_options {
 	if ( "0" != $comment->comment_parent )
 		$avatar_size = 39;
 	echo get_avatar( $comment, $avatar_size );
-	printf( \'<a href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>\',
+	printf( \'<a href="%1$s"><time datetime="%2$s">%3$s</time></a>\',
 		esc_url( get_comment_link( $comment->comment_ID ) ),
 		get_comment_time( "c" ),
 		sprintf( __( \'%1$s at %2$s<br />\', $l10n_domain ), get_comment_date(), get_comment_time() ) );

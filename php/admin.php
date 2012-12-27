@@ -105,7 +105,7 @@ class cgb_admin {
 		$out = '<h3 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
-			$out .= "<a class='nav-tab$class' href='?page=cgb_admin_main&tab=$tab'>$name</a>";
+			$out .= "<a class='nav-tab$class' href='?page=cgb_admin_main&amp;tab=$tab'>$name</a>";
 		}
 		$out .= '</h3>';
 		return $out;
@@ -119,8 +119,8 @@ class cgb_admin {
 		foreach( $this->options->options as $oname => $o ) {
 			if( $o['section'] == $section ) {
 				$out .= '
-						<tr valign="top">
-							<th scope="row">';
+						<tr style="vertical-align:top;">
+							<th>';
 				if( $o['label'] != '' ) {
 					$out .= '<label for="'.$oname.'">'.$o['label'].':</label>';
 				}
@@ -151,10 +151,6 @@ class cgb_admin {
 				$out .= '
 						<td class="description">'.$o['desc'].'</td>
 					</tr>';
-				if( $desc_pos == 'newline' ) {
-					$out .= '
-						<tr><td></td></tr>';
-				}
 			}
 		}
 		return $out;

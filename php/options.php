@@ -17,7 +17,7 @@ class cgb_options {
 		return self::$instance;
 	}
 
-	public function __construct() {
+	private function __construct() {
 		$this->group = 'comment-guestbook';
 
 		$this->options = array(
@@ -77,14 +77,6 @@ class cgb_options {
 			                                                     Normally only a next and previous links are shown.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
-			'cgb_form_below_comments'    => array( 'section' => 'comment_list',
-			                                       'type'    => 'checkbox',
-			                                       'std_val' => '',
-			                                       'label'   => 'Additional comment form',
-			                                       'caption' => 'Add an additional comment form below the comments',
-			                                       'desc'    => 'With this option you can add an additional comment form below the comment list.<br />
-			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
-
 			'cgb_comment_callback'       => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',
 			                                       'std_val' => '--func--comment_callback',
@@ -112,7 +104,30 @@ class cgb_options {
 			                                                     You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
 			                                                     The code given as an example is a slightly modified version of the twentyeleven theme.<br />
 			                                                     If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
-			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".' )
+			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".' ),
+
+			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show form below comments',
+			                                       'caption' => 'Add a comment form in the comment section below the comments',
+			                                       'desc'    => 'With this option you can add a comment form in the comment section below the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+
+			'cgb_form_above_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show form above comments',
+			                                       'caption' => 'Add a comment form in the comment section above the comments',
+			                                       'desc'    => 'With this option you can add a comment form in the comment section above the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+
+			'cgb_form_in_page'           => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '1',
+			                                       'label'   => 'Show form in page/post',
+			                                       'caption' => 'Add a comment form in the page/post section',
+			                                       'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.' )
 		);
 	}
 
@@ -196,7 +211,7 @@ class cgb_options {
 	if ( "0" != $comment->comment_parent )
 		$avatar_size = 39;
 	echo get_avatar( $comment, $avatar_size );
-	printf( \'<a href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>\',
+	printf( \'<a href="%1$s"><time datetime="%2$s">%3$s</time></a>\',
 		esc_url( get_comment_link( $comment->comment_ID ) ),
 		get_comment_time( "c" ),
 		sprintf( __( \'%1$s at %2$s<br />\', $l10n_domain ), get_comment_date(), get_comment_time() ) );

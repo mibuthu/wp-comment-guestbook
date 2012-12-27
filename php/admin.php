@@ -53,45 +53,23 @@ class cgb_admin {
 		ob_end_clean();
 		$out .= '
 				<div style="padding:0 10px">';
-		switch( $_GET['tab'] ) {
-			case 'comment_list' :
-				$out .= '
-					<table class="form-table">';
-				$out .= $this->show_options( 'comment_list' );
-				$out .= '
-					</table>';
-				break;
-			case 'comment_html' :
-				$out .= '
-					<table class="form-table">';
-				$out .= $this->show_options( 'comment_html', 'newline' );
-				$out .= '
-					</table>';
-				break;
-			case 'comment_form' :
-				$out .= '
-						<p>This is an early version of this plugin. No settings are available yet.</p>';
-				break;
-			case 'comment_form_html' :
-				$out .= '
-						<p>This is an early version of this plugin. No settings are available yet.</p>';
-				break;
-			default : // 'general'
-				$out .= '
-					<table class="form-table">';
-				$out .= $this->show_options( 'general' );
-				$out .= '
-					</table>';
-				break;
+		// define the tab to display
+		$tab = $_GET['tab'];
+		if( 'general' !== $tab && 'comment_list' !== $tab && 'comment_html' !== $tab && 'comment_form' !== $tab ) {
+			$tab = 'general';
 		}
-		$out .=
-				'</div>';
+		$out .= '
+				<table class="form-table">';
+		$out .= $this->show_options( $tab );
+		$out .= '
+				</table>
+				</div>';
 		ob_start();
 		submit_button();
 		$out .= ob_get_contents();
 		ob_end_clean();
 		$out .='
-				</form>
+			</form>
 			</div>';
 		echo $out;
 	}
@@ -100,27 +78,29 @@ class cgb_admin {
 		$tabs = array( 'general' => 'General settings',
 		               'comment_list' => 'Comment-list settings',
 		               'comment_html' => 'Comment html code',
-		               /*'comment_form' => 'Comment-form settings',
-		               'comment_form_html' => 'Comment-form html code'*/ );
+		               'comment_form' => 'Comment-form settings'
+		               /*'comment_form_html' => 'Comment-form html code'*/ );
 		$out = '<h3 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
-			$out .= "<a class='nav-tab$class' href='?page=cgb_admin_main&tab=$tab'>$name</a>";
+			$out .= "<a class='nav-tab$class' href='?page=cgb_admin_main&amp;tab=$tab'>$name</a>";
 		}
 		$out .= '</h3>';
 		return $out;
 	}
 
-	// $desc_pos specifies where the descpription will be displayed.
-	// available options:  'right'   ... description will be displayed on the right side of the option (standard value)
-	//                     'newline' ... description will be displayed below the option
-	private function show_options( $section, $desc_pos='right' ) {
+	private function show_options( $section ) {
+		// define which sections should show the description in a new line instead on to right side of the option
+		$desc_new_line = false;
+		if( 'comment_html' === $section ) {
+			$desc_new_line = true;
+		}
 		$out = '';
 		foreach( $this->options->options as $oname => $o ) {
 			if( $o['section'] == $section ) {
 				$out .= '
-						<tr valign="top">
-							<th scope="row">';
+						<tr style="vertical-align:top;">
+							<th>';
 				if( $o['label'] != '' ) {
 					$out .= '<label for="'.$oname.'">'.$o['label'].':</label>';
 				}
@@ -142,7 +122,7 @@ class cgb_admin {
 				}
 				$out .= '
 						</td>';
-				if( $desc_pos == 'newline' ) {
+				if( $desc_new_line ) {
 					$out .= '
 					</tr>
 					<tr>
@@ -151,10 +131,6 @@ class cgb_admin {
 				$out .= '
 						<td class="description">'.$o['desc'].'</td>
 					</tr>';
-				if( $desc_pos == 'newline' ) {
-					$out .= '
-						<tr><td></td></tr>';
-				}
 			}
 		}
 		return $out;

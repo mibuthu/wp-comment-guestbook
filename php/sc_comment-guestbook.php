@@ -3,9 +3,19 @@ require_once( CGB_PATH.'php/options.php' );
 
 // This class handles the shortcode [comment-guestbook]
 class sc_comment_guestbook {
+	private static $instance;
 	private $options;
 
-	public function __construct() {
+	public static function &get_instance() {
+		// Create class instance if required
+		if( !isset( self::$instance ) ) {
+			self::$instance = new sc_comment_guestbook();
+		}
+		// Return class instance
+		return self::$instance;
+	}
+
+	private function __construct() {
 		// get options instance
 		$this->options = &cgb_options::get_instance();
 	}
@@ -13,14 +23,17 @@ class sc_comment_guestbook {
 	// main function to show the rendered HTML output
 	public function show_html( $atts ) {
 		$this->init_filters();
+		$out = '';
 		if( comments_open() ) {
-			ob_start();
-				comment_form();
-				$out = ob_get_contents();
-			ob_end_clean();
+			if( '' !== $this->options->get( 'cgb_form_in_page' ) ) {
+				ob_start();
+					comment_form();
+					$out .= ob_get_contents();
+				ob_end_clean();
+			}
 		}
 		else {
-			$out = '<div id="respond" style="text-align:center">Guestbook is closed</div>';
+			$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
 		}
 		return $out;
 	}
@@ -69,10 +82,10 @@ class sc_comment_guestbook {
 	public function filter_comment_id_fields( $html ) {
 		// Add fields comment form to identify a guestbook comment when overwrite of comment status is required
 		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
-			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />\n';
+			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
 		}
 		if( 'desc' === $this->options->get( 'cgb_clist_order' ) && 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
-			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />\n';
+			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />';
 		}
 		return $html;
 	}

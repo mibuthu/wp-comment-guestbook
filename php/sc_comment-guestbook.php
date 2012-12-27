@@ -3,9 +3,19 @@ require_once( CGB_PATH.'php/options.php' );
 
 // This class handles the shortcode [comment-guestbook]
 class sc_comment_guestbook {
+	private static $instance;
 	private $options;
 
-	public function __construct() {
+	public static function &get_instance() {
+		// Create class instance if required
+		if( !isset( self::$instance ) ) {
+			self::$instance = new sc_comment_guestbook();
+		}
+		// Return class instance
+		return self::$instance;
+	}
+
+	private function __construct() {
 		// get options instance
 		$this->options = &cgb_options::get_instance();
 	}

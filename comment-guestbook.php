@@ -30,12 +30,14 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // MAIN PLUGIN CLASS
 class comment_guestbook {
+	private $shortcode;
 
 	/**
 	 * Constructor:
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
+		$this->shortcode = NULL;
 
 		// ALWAYS:
 		// Register shortcodes
@@ -65,9 +67,11 @@ class comment_guestbook {
 	} // end constructor
 
 	public function shortcode_comment_guestbook( $atts ) {
-		require_once( 'php/sc_comment-guestbook.php' );
-		$shortcode = new sc_comment_guestbook();
-		return $shortcode->show_html( $atts );
+		if( NULL == $this->shortcode ) {
+			require_once( 'php/sc_comment-guestbook.php' );
+			$this->shortcode = sc_comment_guestbook::get_instance();
+		}
+		return $this->shortcode->show_html( $atts );
 	}
 
 	public function filter_comments_open( $open ) {

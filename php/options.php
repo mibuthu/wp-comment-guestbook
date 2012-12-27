@@ -106,21 +106,28 @@ class cgb_options {
 			                                                     If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
 			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".' ),
 
-			'cgb_form_above_comments'    => array( 'section' => 'comment_form',
-			                                       'type'    => 'checkbox',
-			                                       'std_val' => '',
-			                                       'label'   => 'Form above the comment list',
-			                                       'caption' => 'Add a comment form in the comment section above the comment list',
-			                                       'desc'    => 'With this option you can add a comment form in the comment section above the comment list.<br />
-			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
-
 			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',
-			                                       'label'   => 'Form below the comment list',
-			                                       'caption' => 'Add a comment form in the comment section below the comment list',
+			                                       'label'   => 'Show form below comments',
+			                                       'caption' => 'Add a comment form in the comment section below the comments',
 			                                       'desc'    => 'With this option you can add a comment form in the comment section below the comment list.<br />
-			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' )
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+
+			'cgb_form_above_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show form above comments',
+			                                       'caption' => 'Add a comment form in the comment section above the comments',
+			                                       'desc'    => 'With this option you can add a comment form in the comment section above the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+
+			'cgb_form_in_page'           => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '1',
+			                                       'label'   => 'Show form in page/post',
+			                                       'caption' => 'Add a comment form in the page/post section',
+			                                       'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.' )
 		);
 	}
 

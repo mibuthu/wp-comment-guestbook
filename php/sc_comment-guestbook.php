@@ -23,14 +23,17 @@ class sc_comment_guestbook {
 	// main function to show the rendered HTML output
 	public function show_html( $atts ) {
 		$this->init_filters();
+		$out = '';
 		if( comments_open() ) {
-			ob_start();
-				comment_form();
-				$out = ob_get_contents();
-			ob_end_clean();
+			if( '' !== $this->options->get( 'cgb_form_in_page' ) ) {
+				ob_start();
+					comment_form();
+					$out .= ob_get_contents();
+				ob_end_clean();
+			}
 		}
 		else {
-			$out = '<div id="respond" style="text-align:center">Guestbook is closed</div>';
+			$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
 		}
 		return $out;
 	}

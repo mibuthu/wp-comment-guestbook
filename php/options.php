@@ -106,13 +106,21 @@ class cgb_options {
 			                                                     If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
 			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".' ),
 
+			'cgb_form_above_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Form above the comment list',
+			                                       'caption' => 'Add a comment form in the comment section above the comment list',
+			                                       'desc'    => 'With this option you can add a comment form in the comment section above the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+
 			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',
 			                                       'label'   => 'Form below the comment list',
 			                                       'caption' => 'Add a comment form in the comment section below the comment list',
-			                                       'desc'    => 'With this option you can add a commnet for in the comment section below the comment form.<br />
-			                                                     This option is only available if "Comment list adjustment" is enabled.' )
+			                                       'desc'    => 'With this option you can add a comment form in the comment section below the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' )
 		);
 	}
 

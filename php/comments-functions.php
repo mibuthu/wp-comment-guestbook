@@ -88,8 +88,11 @@ class cgb_comments_functions {
 		}
 	}
 
-	public function show_form_below_comments_html() {
-		if( '' !== $this->options->get( 'cgb_form_below_comments' ) ) {
+	public function show_comment_form_html( $location ) {
+		if( 'above_comments' === $location && '' !== $this->options->get( 'cgb_form_above_comments' ) ) {
+			comment_form();
+		}
+		if( 'below_comments' === $location && '' !== $this->options->get( 'cgb_form_below_comments' ) ) {
 			comment_form();
 		}
 	}

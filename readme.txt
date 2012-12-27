@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.2
 Tested up to: 3.5
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -41,10 +41,18 @@ There you have the possibility to change the output of e.g the comment list only
 
 == Screenshots ==
 
-1. Admin page
-2. Example site
+1. Admin page (comment-list settings)
+2. Admin page (comment-form settings)
+3. Example guestbook site
 
 == Changelog ==
+
+= 0.2.2 (2012-12-27) =
+
+* Added section for comment form settings on admin page
+* Added options to define comment form position(s)
+* Fixed html-code on front page
+* Small html-code fixes on admin page
 
 = 0.2.1 (2012-11-11) =
 

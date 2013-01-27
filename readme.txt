@@ -34,10 +34,11 @@ If you want to install the plugin manually download the zip-file and extract the
 == Frequently Asked Questions ==
 
 = Where can I find the settings to manipulate the output (e.g. of the comment list)? =
+You can find a lot of options on the admin page in the submenu "Comments" -> "Guestbook". There you have the possibility to change the output of e.g the comment list only for the guestbook page, independent from the general Wordpress settings.
 
-You can find a lot of options on the admin page in the submenu "Comments" -> "Guestbook".
+= Can I call the shortcode directly via php e.g. for my own template, theme or plugin? =
+Yes, you can create an instance of the "sc_comment_guestbook" class which located in "php/sc_comment-guestbook.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
 
-There you have the possibility to change the output of e.g the comment list only for the guestbook page, independent from the general Wordpress settings.
 
 == Screenshots ==
 

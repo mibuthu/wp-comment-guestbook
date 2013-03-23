@@ -47,7 +47,8 @@ class sc_comment_guestbook {
 		// Filter to show the adjusted comment style
 		if( 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
 			add_filter( 'comments_template', array( &$this, 'filter_comments_template' ) );
-			if( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
+			error_log( 'clist_order init: '.$this->options->get( 'cgb_clist_order' ) );
+			if( 'desc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
 				add_filter( 'comments_array', array( &$this, 'filter_comments_array' ) );
 			}
 			if( 'default' !== $this->options->get( 'cgb_clist_default_page' ) ) {
@@ -64,8 +65,16 @@ class sc_comment_guestbook {
 	}
 
 	public function filter_comments_array( $comments ) {
+		error_log( 'clist_order filter: '.$this->options->get( 'cgb_clist_order' ) );
+		// Set correct comments list if the comments of all posts/pages should be displayed
+		if( '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+			$comments = get_comments( array( 'status' => 'approve', 'order' => 'ASC' ) );
+		}
 		// Invert array if clist order desc is required
-		return array_reverse( $comments );
+		if( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
+			$comments = array_reverse( $comments );
+		}
+		return $comments;
 	}
 
 	public function filter_comments_default_page( $page ) {

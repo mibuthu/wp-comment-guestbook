@@ -77,6 +77,14 @@ class cgb_options {
 			                                                     Normally only a next and previous links are shown.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
+			'cgb_clist_show_all'         => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show all comments',
+			                                       'caption' => 'Show the comments of all posts and pages',
+			                                       'desc'    => 'Normally only the comments of the actual guestbook site are shown.<br />
+			                                                     With this option the comments of all posts and pages of your sites will be displayed.' ),
+
 			'cgb_comment_callback'       => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',
 			                                       'std_val' => '--func--comment_callback',

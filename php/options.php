@@ -224,6 +224,8 @@ class cgb_options {
 		get_comment_time( "c" ),
 		sprintf( __( \'%1$s at %2$s<br />\', $l10n_domain ), get_comment_date(), get_comment_time() ) );
 	printf( \'<span class="fn">%s</span>\', get_comment_author_link() );
+	if( $is_comment_from_other_page && "0" == $comment->comment_parent )
+		echo \' \'.__( \'in\', $l10n_domain ).\' \'.$other_page_link;
 	edit_comment_link( __( "Edit", $l10n_domain ), \'<span class="edit-link">\', "</span>" ); ?>
 </div><!-- .comment-author .vcard -->
 <?php if ( $comment->comment_approved == "0" ) : ?>

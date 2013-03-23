@@ -35,42 +35,45 @@ class cgb_admin {
 				<p>"Comment guestbook" works by using a "shortcode" in a page.</p>
 				<p>To create a guestbook goto "Pages" &rarr; "Add new" in the admin menu and create a new page. Choose your page title e.g. "Guestbook" and add the shortcode <code>[comment-guestbook]</code> in the text field.<br />
 				You can add additional text and html code if you want to display something else on that page. That´s all you have to do. Save and publish the page to finish the guestbook creation.</p>
-				<p>The shortcode will be replaced by the comment form. And the comment list can be adjusted with the options below.</p>
-				<br />
-			</div>
-			<h3>Comment Guestbook Settings</h3>';
-		if( !isset( $_GET['tab'] ) ) {
-			$_GET['tab'] = 'general';
-		}
-		$out .= $this->create_tabs( $_GET['tab'] );
-		$out .= '<div id="posttype-page" class="posttypediv">';
-		$out .= '
-			<form method="post" action="options.php">
-			';
-		ob_start();
-		settings_fields( 'cgb_'.$_GET['tab'] );
-		$out .= ob_get_contents();
-		ob_end_clean();
-		$out .= '
-				<div style="padding:0 10px">';
-		// define the tab to display
-		$tab = $_GET['tab'];
-		if( 'general' !== $tab && 'comment_list' !== $tab && 'comment_html' !== $tab && 'comment_form' !== $tab ) {
-			$tab = 'general';
-		}
-		$out .= '
-				<table class="form-table">';
-		$out .= $this->show_options( $tab );
-		$out .= '
-				</table>
-				</div>';
-		ob_start();
-		submit_button();
-		$out .= ob_get_contents();
-		ob_end_clean();
-		$out .='
-			</form>
 			</div>';
+		if( current_user_can( 'manage_options' ) ) {
+			// show settings
+			$out .= '
+				<br />
+				<h3>Comment Guestbook Settings</h3>';
+			if( !isset( $_GET['tab'] ) ) {
+				$_GET['tab'] = 'general';
+			}
+			$out .= $this->create_tabs( $_GET['tab'] );
+			$out .= '<div id="posttype-page" class="posttypediv">';
+			$out .= '
+				<form method="post" action="options.php">
+				';
+			ob_start();
+			settings_fields( 'cgb_'.$_GET['tab'] );
+			$out .= ob_get_contents();
+			ob_end_clean();
+			$out .= '
+					<div style="padding:0 10px">';
+			// define the tab to display
+			$tab = $_GET['tab'];
+			if( 'general' !== $tab && 'comment_list' !== $tab && 'comment_html' !== $tab && 'comment_form' !== $tab ) {
+				$tab = 'general';
+			}
+			$out .= '
+					<table class="form-table">';
+			$out .= $this->show_options( $tab );
+			$out .= '
+					</table>
+					</div>';
+			ob_start();
+			submit_button();
+			$out .= ob_get_contents();
+			ob_end_clean();
+			$out .='
+				</form>
+				</div>';
+		}
 		echo $out;
 	}
 

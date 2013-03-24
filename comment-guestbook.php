@@ -42,6 +42,8 @@ class comment_guestbook {
 		// ALWAYS:
 		// Register shortcodes
 		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
+		// Register widgets
+		add_action( 'widgets_init', array( &$this, 'widget_init' ) );
 
 		// ADMIN PAGE:
 		if ( is_admin() ) {
@@ -72,6 +74,12 @@ class comment_guestbook {
 			$this->shortcode = sc_comment_guestbook::get_instance();
 		}
 		return $this->shortcode->show_html( $atts );
+	}
+
+	public function widget_init() {
+		// Widget "comment-guestbook"
+		require_once( 'php/comment-guestbook_widget.php' );
+		return register_widget( 'comment_guestbook_widget' );
 	}
 
 	public function filter_comments_open( $open ) {

@@ -68,6 +68,16 @@ class cgb_options {
 			                                       'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
+			'cgb_clist_show_all'         => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show all comments',
+			                                       'caption' => 'Show comments of all posts and pages',
+			                                       'desc'    => 'Normally only the comments of the actual guestbook site are shown.<br />
+			                                                     With this option the comments of all posts and pages of your sites will be displayed.<br />
+			                                                     It is recommended to enable "Comment Adjustment in Section "Comment html code" if you enable this option.<br />
+			                                                     There you have the possibility to include a reference to the original page/post of the comment.' ),
+
 			'cgb_clist_num_pagination'   => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',
@@ -76,14 +86,6 @@ class cgb_options {
 			                                       'desc'    => 'If this option is enabled a numbered list of all the comment pages is displayed.<br />
 			                                                     Normally only a next and previous links are shown.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
-
-			'cgb_clist_show_all'         => array( 'section' => 'comment_list',
-			                                       'type'    => 'checkbox',
-			                                       'std_val' => '',
-			                                       'label'   => 'Show all comments',
-			                                       'caption' => 'Show the comments of all posts and pages',
-			                                       'desc'    => 'Normally only the comments of the actual guestbook site are shown.<br />
-			                                                     With this option the comments of all posts and pages of your sites will be displayed.' ),
 
 			'cgb_comment_callback'       => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',

@@ -49,7 +49,11 @@ class comment_guestbook_widget extends WP_Widget {
 		if( empty( $instance['num_comments'] ) || ! $num_comments = absint( $instance['num_comments'] ) ) {
 			$num_comments = 5;
 		}
-		$comments = get_comments( apply_filters( 'widget_comments_args', array( 'number' => $num_comments, 'status' => 'approve', 'post_status' => 'publish' ) ) );
+		$comment_args = array( 'number' => $num_comments, 'status' => 'approve', 'post_status' => 'publish' );
+		if( 'true' === $instance['gb_comments_only'] ) {
+			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
+		}
+		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
 		$out .= $before_widget;
 		if( $title ) {
 			$out .= $before_title . $title . $after_title;
@@ -118,6 +122,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$instance['show_comment_text'] = ( isset( $new_instance['show_comment_text'] ) && 1==$new_instance['show_comment_text'] ) ? 'true' : 'false';
 		$instance['comment_text_length'] = strip_tags( $new_instance['comment_text_length'] );
 		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
+		$instance['gb_comments_only'] = ( isset( $new_instance['gb_comments_only'] ) && 1==$new_instance['gb_comments_only'] ) ? 'true' : 'false';
 		$instance['link_to_page'] = ( isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
 		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
 		$instance['hide_gb_page_title'] = ( isset( $new_instance['hide_gb_page_title'] ) && 1==$new_instance['hide_gb_page_title'] ) ? 'true' : 'false';
@@ -148,6 +153,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$show_comment_text =    isset( $instance['show_comment_text'] )    ? $instance['show_comment_text']    : 'true';
 		$comment_text_length =  isset( $instance['comment_text_length'] )  ? $instance['comment_text_length']  : '25';
 		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
+		$gb_comments_only =     isset( $instance['gb_comments_only'] )     ? $instance['gb_comments_only']     : 'false';
 		$link_to_page =         isset( $instance['link_to_page'] )         ? $instance['link_to_page']         : 'false';
 		$link_to_page_caption = isset( $instance['link_to_page_caption'] ) ? $instance['link_to_page_caption'] : __( 'goto guestbook page', 'text_domain' );
 		$hide_gb_page_title =   isset( $instance['hide_gb_page_title'] )   ? $instance['hide_gb_page_title']   : 'false';
@@ -158,6 +164,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$show_author_checked =         'true'===$show_author        || 1==$show_author        ? 'checked = "checked" ' : '';
 		$show_page_title_checked =     'true'===$show_page_title    || 1==$show_page_title    ? 'checked = "checked" ' : '';
 		$show_comment_text_checked =   'true'===$show_comment_text  || 1==$show_comment_text  ? 'checked = "checked" ' : '';
+		$gb_comments_only_checked =    'true'===$gb_comments_only   || 1==$gb_comments_only   ? 'checked = "checked" ' : '';
 		$link_to_page_checked   =      'true'===$link_to_page       || 1==$link_to_page       ? 'checked = "checked" ' : '';
 		$hide_gb_page_title_checked =  'true'===$hide_gb_page_title || 1==$hide_gb_page_title ? 'checked = "checked" ' : '';
 
@@ -211,6 +218,11 @@ class comment_guestbook_widget extends WP_Widget {
 		<p style="margin:1em 0 0.6em 0">
 			<label for="'.$this->get_field_id( 'url_to_page' ).'">'.__( 'URL to the linked guestbook page:' ).'</label>
 			<input class="widefat" id="'.$this->get_field_id( 'url_to_page' ).'" name="'.$this->get_field_name( 'url_to_page' ).'" type="text" value="'.esc_attr( $url_to_page ).'" />
+		</p>';
+		// $gb_comments_only
+		$out .= '
+		<p style="margin:0 0 0.6em 0.9em">
+			<label><input class="widefat" id="'.$this->get_field_id( 'gb_comments_only' ).'" name="'.$this->get_field_name( 'gb_comments_only' ).'" type="checkbox" '.$gb_comments_only_checked.'value="1" /> '.__( 'Show GB-comments only' ).'</label>
 		</p>';
 		// $link_to_page
 		$out .= '

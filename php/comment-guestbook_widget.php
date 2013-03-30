@@ -58,42 +58,43 @@ class comment_guestbook_widget extends WP_Widget {
 		if( $title ) {
 			$out .= $before_title . $title . $after_title;
 		}
-		$out .= '<ul id="recentcomments">';
+		$out .= '<ul class="cgb-widget">';
 		if( $comments ) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.)
 			$post_ids = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
 			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 			foreach( (array) $comments as $comment) {
-				$out .= '<li class="recentcomments">';
+				$out .= '<li class="cgb-widget-item">';
 				if( 'true' === $instance['link_to_comment'] ) {
 					$out .= '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">';
 				}
 				if( 'true' === $instance['show_date'] ) {
-					$out .= get_comment_date().': ';
+					$out .= '<span class="cgb-date">'.get_comment_date().': </span>';
 				}
 				if( 'true' === $instance['show_author'] ) {
-					$out .= get_comment_author();
+					$out .= '<span class="cgb-author">'.get_comment_author().'</span>';
 				}
 				if( 'true' === $instance['show_page_title'] ) {
 					if( 'false' === $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) != $comment->comment_post_ID ) {
+						$out .= '<span class="cgb-widget-title">';
 						if( 'true' === $instance['show_author'] ) {
 							$out .= ' '.__( 'in' ).' ';
 						}
-						$out .= get_the_title( $comment->comment_post_ID );
+						$out .= get_the_title( $comment->comment_post_ID ).'</span';
 					}
 				}
 				if( 'true' === $instance['link_to_comment'] ) {
 					$out .= '</a>';
 				}
 				if( 'true' === $instance['show_comment_text'] ) {
-					$out .= '<br />'.$this->truncate( $instance['comment_text_length'], get_comment_text() );
+					$out .= '<div class="cgb-widget-text">'.$this->truncate( $instance['comment_text_length'], get_comment_text() ).'</div>';
 				}
 				$out .= '</li>';
 			}
 		}
 		$out .= '</ul>';
 		if( 'true' === $instance['link_to_page'] ) {
-			$out .= '<div style="clear:both"><a title="'.$instance['link_to_page_caption'].'" href="'.$instance[ 'url_to_page'].'">'.$instance['link_to_page_caption'].'</a></div>';
+			$out .= '<div class="cgb-widget-pagelink" style="clear:both"><a title="'.$instance['link_to_page_caption'].'" href="'.$instance[ 'url_to_page'].'">'.$instance['link_to_page_caption'].'</a></div>';
 		}
 		$out .= $after_widget;
 		echo $out;

@@ -16,6 +16,7 @@ Add a guestbook site which uses the wordpress integrated comments.
 
 The purpose of this plugin is to add a guestbook site which uses the wordpress integrated comments.
 Using the wordpress integrated comments system has some important advantages:
+
 * Consistent styling of guestbook form and comment list for every theme you are using.
 * All wordpress comment features are available for the guestbook comments also (e.g. E-Mail Notification, listing in "All Comments" on admin page,...)
 * All plugins which are modifying the comment list or comment form will also work with Comment Guestbook automatically (e.g. a captcha plugin for antispam).
@@ -51,6 +52,7 @@ You can find a lot of options on the admin page in the submenu "Comments" -> "Gu
 
 = I have included the shortcode in my guestbook page but the comment form and/or the comment list are not appearing. =
 Please check if comments are enabled for your guestbook page. There are several places to change these setting:
+
 * General wordpress discussion setting (Settings -> Discussion -> "Allow people to post comments on new articles"): This setting changes the behavior for all pages and post, but can be overwritten from the settings below.
 * Post/page discussion setting (Discussion box -> "Allow comments." in post/page edit screen): This setting overwrites the general wordpress setting for each page or post. If you cannot see the Discussion box you have to enable it in the Screen Option.
 * Theme settings: A lot of themes have their own options for displaying the comment list. They often will overwrite the wordpress settings.

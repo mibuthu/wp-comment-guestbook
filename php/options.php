@@ -68,6 +68,16 @@ class cgb_options {
 			                                       'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
+			'cgb_clist_show_all'         => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show all comments',
+			                                       'caption' => 'Show comments of all posts and pages',
+			                                       'desc'    => 'Normally only the comments of the actual guestbook site are shown.<br />
+			                                                     With this option the comments of all posts and pages of your sites will be displayed.<br />
+			                                                     It is recommended to enable "Comment Adjustment in Section "Comment html code" if you enable this option.<br />
+			                                                     There you have the possibility to include a reference to the original page/post of the comment.' ),
+
 			'cgb_clist_num_pagination'   => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
 			                                       'std_val' => '',
@@ -101,10 +111,18 @@ class cgb_options {
 			                                       'std_val' => '--func--comment_html',
 			                                       'label'   => 'Comment html code',
 			                                       'desc'    => 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
-			                                                     You can use php-code to get the required comment data. Use the php variable $l10n_domain to get the "Domain for translation" value.<br />
+			                                                     You can use php-code to get the required comment data. The following variables and objects are availabe:<br />
+			                                                     - <code>$l10n_domain</code> ... Use this php variable to get the "Domain for translation" value.<br />
+			                                                     - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank">relevant wordpress codex site</a>.<br />
+			                                                     - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />
+			                                                     - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />
+			                                                     - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />
+			                                                     Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank">wordpress codex</a> for datails).<br />
 			                                                     The code given as an example is a slightly modified version of the twentyeleven theme.<br />
 			                                                     If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
-			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".' ),
+			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".<br />
+			                                                     If you have enabled the option "Show all comments" it is recommended to enable "Comment adjustment" and add a link to the original page of the comment.<br />
+			                                                     Example: <code>if( $is_comment_from_other_page && "0" == $comment->comment_parent ) { echo \' \'.__( \'Link to page:\', $l10n_domain ).\' \'.$other_page_link; }</code>' ),
 
 			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
 			                                       'type'    => 'checkbox',
@@ -216,6 +234,8 @@ class cgb_options {
 		get_comment_time( "c" ),
 		sprintf( __( \'%1$s at %2$s<br />\', $l10n_domain ), get_comment_date(), get_comment_time() ) );
 	printf( \'<span class="fn">%s</span>\', get_comment_author_link() );
+	if( $is_comment_from_other_page && "0" == $comment->comment_parent )
+		echo \' \'.__( \'in\', $l10n_domain ).\' \'.$other_page_link;
 	edit_comment_link( __( "Edit", $l10n_domain ), \'<span class="edit-link">\', "</span>" ); ?>
 </div><!-- .comment-author .vcard -->
 <?php if ( $comment->comment_approved == "0" ) : ?>

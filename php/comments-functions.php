@@ -55,6 +55,9 @@ class cgb_comments_functions {
 	public function show_comment_html( $comment, $args, $depth ) {
 		$GLOBALS['comment'] = $comment;
 		$l10n_domain = $this->options->get( 'cgb_l10n_domain' );
+		$is_comment_from_other_page = ( get_the_ID() != $comment->comment_post_ID );
+		$other_page_title = $is_comment_from_other_page ? get_the_title( $comment->comment_post_ID ) : '';
+		$other_page_link = $is_comment_from_other_page ? '<a href="'.get_page_link($comment->comment_post_ID).'">'.$other_page_title.'</a>' : '';
 		switch ( $comment->comment_type ) {
 			case 'pingback' :
 			case 'trackback' :
@@ -128,7 +131,6 @@ class cgb_comments_functions {
 				' AND comment_date_gmt > "%s"',
 				$comment->comment_post_ID, $comment_author, $comment->comment_date_gmt ) );
 		// No older comments? Then it's page #1.
-		error_log( 'newer_comments: '.$newer_comments );
 		if( 0 == $newer_comments ) {
 			return 1;
 		}

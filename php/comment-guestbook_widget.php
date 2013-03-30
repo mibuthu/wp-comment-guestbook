@@ -66,7 +66,11 @@ class comment_guestbook_widget extends WP_Widget {
 				}
 				$out .= get_comment_date().': ';
 				$out .= get_comment_author();
-				$out .= ' '.__( 'in' ).' '.get_the_title( $comment->comment_post_ID );
+				if( 'true' === $instance['show_page_title'] ) {
+					if( 'false' === $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) != $comment->comment_post_ID ) {
+						$out .= ' '.__( 'in' ).' '.get_the_title( $comment->comment_post_ID );
+					}
+				}
 				if( 'true' === $instance['link_to_comment'] ) {
 					$out .= '</a>';
 				}
@@ -98,10 +102,12 @@ class comment_guestbook_widget extends WP_Widget {
 		$instance = array();
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['num_comments'] = strip_tags( $new_instance['num_comments'] );
-		$instance['link_to_comment'] = (isset( $new_instance['link_to_comment'] ) && 1==$new_instance['link_to_comment'] ) ? 'true' : 'false';
-		$instance['link_to_page'] = (isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
-		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
+		$instance['link_to_comment'] = ( isset( $new_instance['link_to_comment'] ) && 1==$new_instance['link_to_comment'] ) ? 'true' : 'false';
+		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
 		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
+		$instance['link_to_page'] = ( isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
+		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
+		$instance['hide_gb_page_title'] = ( isset( $new_instance['hide_gb_page_title'] ) && 1==$new_instance['hide_gb_page_title'] ) ? 'true' : 'false';
 
 		$this->flush_widget_cache();
 		$alloptions = wp_cache_get( 'alloptions', 'options' );
@@ -122,12 +128,18 @@ class comment_guestbook_widget extends WP_Widget {
 	public function form( $instance ) {
 		$title =                isset( $instance['title'] )                ? $instance['title']                : __( 'Recent guestbook entries', 'text_domain' );
 		$num_comments =         isset( $instance['num_comments'] )         ? $instance['num_comments']         : '5';
-		$link_to_comment =      isset( $instance['link_to_comment'] )        ? $instance['link_to_comment']    : 'false';
+		$link_to_comment =      isset( $instance['link_to_comment'] )      ? $instance['link_to_comment']      : 'false';
+		$show_page_title =      isset( $instance['show_page_title'])       ? $instance['show_page_title']      : 'false';
+		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
 		$link_to_page =         isset( $instance['link_to_page'] )         ? $instance['link_to_page']         : 'false';
 		$link_to_page_caption = isset( $instance['link_to_page_caption'] ) ? $instance['link_to_page_caption'] : __( 'goto guestbook page', 'text_domain' );
-		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
-		$link_to_comment_checked = 'true'===$link_to_comment || 1==$link_to_comment ? 'checked = "checked" ' : '';
-		$link_to_page_checked =  'true'===$link_to_page  || 1==$link_to_page ? 'checked = "checked" ' : '';
+		$hide_gb_page_title =   isset( $instance['hide_gb_page_title'] )   ? $instance['hide_gb_page_title']   : 'false';
+		//$hide_gb_
+		// set checked text for checkboxes
+		$link_to_comment_checked =     'true'===$link_to_comment    || 1==$link_to_comment    ? 'checked = "checked" ' : '';
+		$show_page_title_checked =     'true'===$show_page_title    || 1==$show_page_title    ? 'checked = "checked" ' : '';
+		$link_to_page_checked   =      'true'===$link_to_page       || 1==$link_to_page       ? 'checked = "checked" ' : '';
+		$hide_gb_page_title_checked =  'true'===$hide_gb_page_title || 1==$hide_gb_page_title ? 'checked = "checked" ' : '';
 
 		$out = '';
 		// $title
@@ -147,22 +159,32 @@ class comment_guestbook_widget extends WP_Widget {
 		<p>
 			<label><input class="widefat" id="'.$this->get_field_id( 'link_to_comment' ).'" name="'.$this->get_field_name( 'link_to_comment' ).'" type="checkbox" '.$link_to_comment_checked.'value="1" /> '.__( 'Add a link to each comment' ).'</label>
 		</p>';
+		// $show_page_title
+		$out .= '
+		<p>
+			<label><input class="widefat" id="'.$this->get_field_id( 'show_page_title' ).'" name="'.$this->get_field_name( 'show_page_title' ).'" type="checkbox" '.$show_page_title_checked.'value="1" /> '.__( 'Show title of comment page' ).'</label>
+		</p>';
+		// $url_to_page
+		$out .= '
+		<p style="margin:1em 0 0.6em 0">
+			<label for="'.$this->get_field_id( 'url_to_page' ).'">'.__( 'URL to the linked guestbook page:' ).'</label>
+			<input class="widefat" id="'.$this->get_field_id( 'url_to_page' ).'" name="'.$this->get_field_name( 'url_to_page' ).'" type="text" value="'.esc_attr( $url_to_page ).'" />
+		</p>';
 		// $link_to_page
 		$out .= '
-		<p style="margin:0 0 0.4em 0em">
+		<p style="margin:0 0 0.4em 0.9em">
 			<label><input class="widefat" id="'.$this->get_field_id( 'link_to_page' ).'" name="'.$this->get_field_name( 'link_to_page' ).'" type="checkbox" '.$link_to_page_checked.'value="1" /> '.__( 'Add a link to guestbook page' ).'</label>
 		</p>';
 		// $link_to_page_caption
 		$out .= '
-		<p style="margin:0 0 0.6em 1.2em">
+		<p style="margin:0 0 0.8em 1.8em">
 			<label for="'.$this->get_field_id( 'link_to_page_caption' ).'">'.__( 'Caption for the link:' ).'</label>
 			<input class="widefat" id="'.$this->get_field_id( 'link_to_page_caption' ).'" name="'.$this->get_field_name( 'link_to_page_caption' ).'" type="text" value="'.esc_attr( $link_to_page_caption ).'" />
 		</p>';
-		// $url_to_page
+		// $hide_gb_page_title
 		$out .= '
-		<p style="margin:0 0 1em 1.2em">
-			<label for="'.$this->get_field_id( 'url_to_page' ).'">'.__( 'URL to the linked eventlist page:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'url_to_page' ).'" name="'.$this->get_field_name( 'url_to_page' ).'" type="text" value="'.esc_attr( $url_to_page ).'" />
+		<p style="margin:0 0 1em 0.9em">
+			<label><input class="widefat" id="'.$this->get_field_id( 'hide_gb_page_title' ).'" name="'.$this->get_field_name( 'hide_gb_page_title' ).'" type="checkbox" '.$hide_gb_page_title_checked.'value="1" /> '.__( 'Hide guestbook page title' ).'</label>
 		</p>';
 		echo $out;
 	}

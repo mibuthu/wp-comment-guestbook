@@ -81,7 +81,8 @@ class comment_guestbook_widget extends WP_Widget {
 				if( 'true' === $instance['link_to_comment'] ) {
 					$out .= '</a>';
 				}
-				$out .= '<br />'.get_comment_text();
+				if( 'true' === $instance['show_comment_text'] ) {
+				}
 				$out .= '</li>';
 			}
 		}
@@ -113,6 +114,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$instance['show_date'] = ( isset( $new_instance['show_date'] ) && 1==$new_instance['show_date'] ) ? 'true' : 'false';
 		$instance['show_author'] = ( isset( $new_instance['show_author'] ) && 1==$new_instance['show_author'] ) ? 'true' : 'false';
 		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
+		$instance['show_comment_text'] = ( isset( $new_instance['show_comment_text'] ) && 1==$new_instance['show_comment_text'] ) ? 'true' : 'false';
 		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
 		$instance['link_to_page'] = ( isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
 		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
@@ -140,7 +142,8 @@ class comment_guestbook_widget extends WP_Widget {
 		$link_to_comment =      isset( $instance['link_to_comment'] )      ? $instance['link_to_comment']      : 'false';
 		$show_date =            isset( $instance['show_date'] )            ? $instance['show_date']            : 'false';
 		$show_author =          isset( $instance['show_author'] )          ? $instance['show_author']          : 'true';
-		$show_page_title =      isset( $instance['show_page_title'])       ? $instance['show_page_title']      : 'false';
+		$show_page_title =      isset( $instance['show_page_title'] )      ? $instance['show_page_title']      : 'false';
+		$show_comment_text =    isset( $instance['show_comment_text'] )    ? $instance['show_comment_text']    : 'true';
 		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
 		$link_to_page =         isset( $instance['link_to_page'] )         ? $instance['link_to_page']         : 'false';
 		$link_to_page_caption = isset( $instance['link_to_page_caption'] ) ? $instance['link_to_page_caption'] : __( 'goto guestbook page', 'text_domain' );
@@ -151,6 +154,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$show_date_checked =           'true'===$show_date          || 1==$show_date          ? 'checked = "checked" ' : '';
 		$show_author_checked =         'true'===$show_author        || 1==$show_author        ? 'checked = "checked" ' : '';
 		$show_page_title_checked =     'true'===$show_page_title    || 1==$show_page_title    ? 'checked = "checked" ' : '';
+		$show_comment_text_checked =   'true'===$show_comment_text  || 1==$show_comment_text  ? 'checked = "checked" ' : '';
 		$link_to_page_checked   =      'true'===$link_to_page       || 1==$link_to_page       ? 'checked = "checked" ' : '';
 		$hide_gb_page_title_checked =  'true'===$hide_gb_page_title || 1==$hide_gb_page_title ? 'checked = "checked" ' : '';
 
@@ -186,6 +190,11 @@ class comment_guestbook_widget extends WP_Widget {
 		$out .= '
 		<p>
 			<label><input class="widefat" id="'.$this->get_field_id( 'show_page_title' ).'" name="'.$this->get_field_name( 'show_page_title' ).'" type="checkbox" '.$show_page_title_checked.'value="1" /> '.__( 'Show title of comment page' ).'</label>
+		</p>';
+		// $show_comment_text
+		$out .= '
+		<p>
+			<label><input class="widefat" id="'.$this->get_field_id( 'show_comment_text' ).'" name="'.$this->get_field_name( 'show_comment_text' ).'" type="checkbox" '.$show_comment_text_checked.'value="1" /> '.__( 'Show comment text' ).'</label>
 		</p>';
 		// $url_to_page
 		$out .= '

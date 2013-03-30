@@ -131,7 +131,6 @@ class cgb_comments_functions {
 				' AND comment_date_gmt > "%s"',
 				$comment->comment_post_ID, $comment_author, $comment->comment_date_gmt ) );
 		// No older comments? Then it's page #1.
-		error_log( 'newer_comments: '.$newer_comments );
 		if( 0 == $newer_comments ) {
 			return 1;
 		}

@@ -82,6 +82,7 @@ class comment_guestbook_widget extends WP_Widget {
 					$out .= '</a>';
 				}
 				if( 'true' === $instance['show_comment_text'] ) {
+					$out .= '<br />'.$this->truncate( $instance['comment_text_length'], get_comment_text() );
 				}
 				$out .= '</li>';
 			}
@@ -115,6 +116,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$instance['show_author'] = ( isset( $new_instance['show_author'] ) && 1==$new_instance['show_author'] ) ? 'true' : 'false';
 		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
 		$instance['show_comment_text'] = ( isset( $new_instance['show_comment_text'] ) && 1==$new_instance['show_comment_text'] ) ? 'true' : 'false';
+		$instance['comment_text_length'] = strip_tags( $new_instance['comment_text_length'] );
 		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
 		$instance['link_to_page'] = ( isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
 		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
@@ -144,11 +146,12 @@ class comment_guestbook_widget extends WP_Widget {
 		$show_author =          isset( $instance['show_author'] )          ? $instance['show_author']          : 'true';
 		$show_page_title =      isset( $instance['show_page_title'] )      ? $instance['show_page_title']      : 'false';
 		$show_comment_text =    isset( $instance['show_comment_text'] )    ? $instance['show_comment_text']    : 'true';
+		$comment_text_length =  isset( $instance['comment_text_length'] )  ? $instance['comment_text_length']  : '25';
 		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
 		$link_to_page =         isset( $instance['link_to_page'] )         ? $instance['link_to_page']         : 'false';
 		$link_to_page_caption = isset( $instance['link_to_page_caption'] ) ? $instance['link_to_page_caption'] : __( 'goto guestbook page', 'text_domain' );
 		$hide_gb_page_title =   isset( $instance['hide_gb_page_title'] )   ? $instance['hide_gb_page_title']   : 'false';
-		//$hide_gb_
+
 		// set checked text for checkboxes
 		$link_to_comment_checked =     'true'===$link_to_comment    || 1==$link_to_comment    ? 'checked = "checked" ' : '';
 		$show_date_checked =           'true'===$show_date          || 1==$show_date          ? 'checked = "checked" ' : '';
@@ -193,8 +196,15 @@ class comment_guestbook_widget extends WP_Widget {
 		</p>';
 		// $show_comment_text
 		$out .= '
-		<p>
+		<p style="margin:0 0 0.2em 0">
 			<label><input class="widefat" id="'.$this->get_field_id( 'show_comment_text' ).'" name="'.$this->get_field_name( 'show_comment_text' ).'" type="checkbox" '.$show_comment_text_checked.'value="1" /> '.__( 'Show comment text' ).'</label>
+		</p>';
+		// $comment_text_length
+		$out .= '
+		<p style="margin:0 0 0.6em 0.9em">
+			<label for="'.$this->get_field_id( 'comment_text_length' ).'">'.__( 'Truncate text to ' ).'</label>
+			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'comment_text_length' ).'" name="'.$this->get_field_name( 'comment_text_length' ).'" type="text" value="'.esc_attr( $comment_text_length ).'" />
+			<label>'.__( 'characters' ).'</label>
 		</p>';
 		// $url_to_page
 		$out .= '
@@ -219,6 +229,76 @@ class comment_guestbook_widget extends WP_Widget {
 			<label><input class="widefat" id="'.$this->get_field_id( 'hide_gb_page_title' ).'" name="'.$this->get_field_name( 'hide_gb_page_title' ).'" type="checkbox" '.$hide_gb_page_title_checked.'value="1" /> '.__( 'Hide guestbook page title' ).'</label>
 		</p>';
 		echo $out;
+	}
+
+	/** ************************************************************************
+	 * Function to truncate and shorten text
+	 *
+	 * @param int $max_length The length to which the text should be shortened
+	 * @param string $html The html code which should be shortened
+	 ***************************************************************************/
+	private function truncate( $max_length, $html ) {
+		if( $max_length > 0 && strlen( $html ) > $max_length ) {
+			$printedLength = 0;
+			$position = 0;
+			$tags = array();
+			$out = '';
+			while ($printedLength < $max_length && preg_match('{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+				list($tag, $tagPosition) = $match[0];
+				// Print text leading up to the tag
+				$str = substr($html, $position, $tagPosition - $position);
+				if ($printedLength + strlen($str) > $max_length) {
+					$out .= substr($str, 0, $max_length - $printedLength);
+					$printedLength = $max_length;
+					break;
+				}
+				$out .= $str;
+				$printedLength += strlen($str);
+				if ($tag[0] == '&') {
+					// Handle the entity
+					$out .= $tag;
+					$printedLength++;
+				}
+				else {
+					// Handle the tag
+					$tagName = $match[1][0];
+					if ($tag[1] == '/')
+					{
+						// This is a closing tag
+						$openingTag = array_pop($tags);
+						assert($openingTag == $tagName); // check that tags are properly nested
+						$out .= $tag;
+					}
+					else if ($tag[strlen($tag) - 2] == '/') {
+						// Self-closing tag
+						$out .= $tag;
+					}
+					else {
+						// Opening tag
+						$out .= $tag;
+						$tags[] = $tagName;
+					}
+				}
+				// Continue after the tag
+				$position = $tagPosition + strlen($tag);
+			}
+			// Print any remaining text
+			if ($printedLength < $max_length && $position < strlen($html)) {
+				$out .= substr($html, $position, $max_length - $printedLength);
+			}
+			// Print "..." if the html is not complete
+			if( strlen( $html) != $position ) {
+				$out .= ' ...';
+			}
+			// Close any open tags.
+			while (!empty($tags)) {
+				$out .= '</'.array_pop($tags).'>';
+			}
+			return $out;
+		}
+		else {
+			return $html;
+		}
 	}
 }
 ?>

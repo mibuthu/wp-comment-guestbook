@@ -61,12 +61,14 @@ class comment_guestbook_widget extends WP_Widget {
 			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 			foreach( (array) $comments as $comment) {
 				$out .= '<li class="recentcomments">';
+				$out .= get_comment_date().' ';
 				if( 'true' === $instance['link_to_comment'] ) {
-					$out .= sprintf( _x( '%1$s on %2$s', 'widgets' ), get_comment_author_link(), '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">'.get_the_title( $comment->comment_post_ID ).'</a>' );
+					$out .= sprintf( _x( '%1$s in %2$s', 'widgets' ), get_comment_author(), '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">'.get_the_title( $comment->comment_post_ID ).'</a>' );
 				}
 				else {
-					$out .= sprintf( _x( '%1$s on %2$s', 'widgets' ), get_comment_author_link(), get_the_title( $comment->comment_post_ID ) );
+					$out .= sprintf( _x( '%1$s in %2$s', 'widgets' ), get_comment_author(), get_the_title( $comment->comment_post_ID ) );
 				}
+				$out .= '<br />'.get_comment_text();
 				$out .= '</li>';
 			}
 		}

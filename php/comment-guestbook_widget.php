@@ -80,7 +80,7 @@ class comment_guestbook_widget extends WP_Widget {
 						if( 'true' === $instance['show_author'] ) {
 							$out .= ' '.__( 'in' ).' ';
 						}
-						$out .= get_the_title( $comment->comment_post_ID ).'</span';
+						$out .= get_the_title( $comment->comment_post_ID ).'</span>';
 					}
 				}
 				if( 'true' === $instance['link_to_comment'] ) {

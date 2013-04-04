@@ -80,7 +80,7 @@ class comment_guestbook_widget extends WP_Widget {
 						if( 'true' === $instance['show_author'] ) {
 							$out .= ' '.__( 'in' ).' ';
 						}
-						$out .= get_the_title( $comment->comment_post_ID ).'</span>';
+						$out .= $this->truncate( $instance['page_title_length'], get_the_title( $comment->comment_post_ID ) ).'</span>';
 					}
 				}
 				if( 'true' === $instance['link_to_comment'] ) {
@@ -120,6 +120,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$instance['show_date'] = ( isset( $new_instance['show_date'] ) && 1==$new_instance['show_date'] ) ? 'true' : 'false';
 		$instance['show_author'] = ( isset( $new_instance['show_author'] ) && 1==$new_instance['show_author'] ) ? 'true' : 'false';
 		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
+		$instance['page_title_length'] = strip_tags( $new_instance['page_title_length'] );
 		$instance['show_comment_text'] = ( isset( $new_instance['show_comment_text'] ) && 1==$new_instance['show_comment_text'] ) ? 'true' : 'false';
 		$instance['comment_text_length'] = strip_tags( $new_instance['comment_text_length'] );
 		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
@@ -151,6 +152,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$show_date =            isset( $instance['show_date'] )            ? $instance['show_date']            : 'false';
 		$show_author =          isset( $instance['show_author'] )          ? $instance['show_author']          : 'true';
 		$show_page_title =      isset( $instance['show_page_title'] )      ? $instance['show_page_title']      : 'false';
+		$page_title_length =    isset( $instance['page_title_length'] )    ? $instance['page_title_length']    : '18';
 		$show_comment_text =    isset( $instance['show_comment_text'] )    ? $instance['show_comment_text']    : 'true';
 		$comment_text_length =  isset( $instance['comment_text_length'] )  ? $instance['comment_text_length']  : '25';
 		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
@@ -199,8 +201,15 @@ class comment_guestbook_widget extends WP_Widget {
 		</p>';
 		// $show_page_title
 		$out .= '
-		<p>
+		<p style="margin:0 0 0.2em 0">
 			<label><input class="widefat" id="'.$this->get_field_id( 'show_page_title' ).'" name="'.$this->get_field_name( 'show_page_title' ).'" type="checkbox" '.$show_page_title_checked.'value="1" /> '.__( 'Show title of comment page' ).'</label>
+		</p>';
+		// $page_title_length
+		$out .= '
+		<p style="margin:0 0 0.6em 0.9em">
+			<label for="'.$this->get_field_id( 'page_title_length' ).'">'.__( 'Truncate title to ' ).'</label>
+			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'page_title_length' ).'" name="'.$this->get_field_name( 'page_title_length' ).'" type="text" value="'.esc_attr( $page_title_length ).'" />
+			<label>'.__( 'characters' ).'</label>
 		</p>';
 		// $show_comment_text
 		$out .= '

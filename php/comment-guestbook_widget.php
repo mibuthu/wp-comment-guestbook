@@ -69,7 +69,7 @@ class comment_guestbook_widget extends WP_Widget {
 					$out .= '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">';
 				}
 				if( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date">'.get_comment_date().': </span>';
+					$out .= '<span class="cgb-date" title="'.__('Date of comment:').' '.get_comment_date().'">'.get_comment_date( $instance['date_format'] ).' </span>';
 				}
 				if( 'true' === $instance['show_author'] ) {
 					$out .= '<span class="cgb-author">'.get_comment_author().'</span>';
@@ -118,6 +118,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$instance['num_comments'] = strip_tags( $new_instance['num_comments'] );
 		$instance['link_to_comment'] = ( isset( $new_instance['link_to_comment'] ) && 1==$new_instance['link_to_comment'] ) ? 'true' : 'false';
 		$instance['show_date'] = ( isset( $new_instance['show_date'] ) && 1==$new_instance['show_date'] ) ? 'true' : 'false';
+		$instance['date_format'] = strip_tags( $new_instance['date_format'] );
 		$instance['show_author'] = ( isset( $new_instance['show_author'] ) && 1==$new_instance['show_author'] ) ? 'true' : 'false';
 		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
 		$instance['page_title_length'] = strip_tags( $new_instance['page_title_length'] );
@@ -150,6 +151,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$num_comments =         isset( $instance['num_comments'] )         ? $instance['num_comments']         : '5';
 		$link_to_comment =      isset( $instance['link_to_comment'] )      ? $instance['link_to_comment']      : 'false';
 		$show_date =            isset( $instance['show_date'] )            ? $instance['show_date']            : 'false';
+		$date_format =          isset( $instance['date_format'] )          ? $instance['date_format']          : get_option( 'date_format' );
 		$show_author =          isset( $instance['show_author'] )          ? $instance['show_author']          : 'true';
 		$show_page_title =      isset( $instance['show_page_title'] )      ? $instance['show_page_title']      : 'false';
 		$page_title_length =    isset( $instance['page_title_length'] )    ? $instance['page_title_length']    : '18';
@@ -191,8 +193,14 @@ class comment_guestbook_widget extends WP_Widget {
 		</p>';
 		// $show_date
 		$out .= '
-		<p>
+		<p style="margin:0 0 0.2em 0">
 			<label><input class="widefat" id="'.$this->get_field_id( 'show_date' ).'" name="'.$this->get_field_name( 'show_date' ).'" type="checkbox" '.$show_date_checked.'value="1" /> '.__( 'Show comment date' ).'</label>
+		</p>';
+		// $date_format
+		$out .= '
+		<p style="margin:0 0 0.6em 0.9em">
+			<label for="'.$this->get_field_id( 'date_format' ).'">'.__( 'Date format: ' ).'</label>
+			<input style="width:100px" class="widefat" id="'.$this->get_field_id( 'date_format' ).'" name="'.$this->get_field_name( 'date_format' ).'" type="text" value="'.esc_attr( $date_format ).'" />
 		</p>';
 		// $show_author
 		$out .= '

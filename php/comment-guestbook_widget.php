@@ -154,19 +154,21 @@ class comment_guestbook_widget extends WP_Widget {
 			return;
 		}
 		extract($args, EXTR_SKIP);
-		$out = '';
-		$title = apply_filters( 'widget_title', $instance['title'] );
-		if( empty( $instance['num_comments'] ) || ! $num_comments = absint( $instance['num_comments'] ) ) {
-			$num_comments = 5;
+		foreach( $this->options as $item => $option ) {
+			if( ! isset( $instance[$item] ) ) {
+				$instance[$item] = $option['std_value'];
+			}
 		}
-		$comment_args = array( 'number' => $num_comments, 'status' => 'approve', 'post_status' => 'publish' );
+		$out = '';
+		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
+		$comment_args = array( 'number' => absint( $instance['num_comments'] ), 'status' => 'approve', 'post_status' => 'publish' );
 		if( 'true' === $instance['gb_comments_only'] ) {
 			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
 		}
 		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
 		$out .= $before_widget;
-		if( $title ) {
-			$out .= $before_title . $title . $after_title;
+		if( $instance['title'] ) {
+			$out .= $before_title . $instance['title'] . $after_title;
 		}
 		$out .= '<ul class="cgb-widget">';
 		if( $comments ) {
@@ -251,7 +253,7 @@ class comment_guestbook_widget extends WP_Widget {
 		$out = '';
 		foreach( $this->options as $item => $option ) {
 			if( ! isset( $instance[$item] ) ) {
-				$instance[item] = $option['std_value'];
+				$instance[$item] = $option['std_value'];
 			}
 			$style_text = ( null===$option['form_style'] ) ? '' : ' style="'.$option['form_style'].'"';
 			if( 'checkbox' === $option['type'] ) {

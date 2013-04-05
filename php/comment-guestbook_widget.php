@@ -69,14 +69,14 @@ class comment_guestbook_widget extends WP_Widget {
 					$out .= '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">';
 				}
 				if( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date" title="'.__('Date of comment:').' '.get_comment_date().'">'.get_comment_date( $instance['date_format'] ).' </span>';
+					$out .= '<span class="cgb-date" title="'.__( 'Date of comment:' ).' '.get_comment_date().'">'.get_comment_date( $instance['date_format'] ).' </span>';
 				}
 				if( 'true' === $instance['show_author'] ) {
-					$out .= '<span class="cgb-author">'.get_comment_author().'</span>';
+					$out .= '<span class="cgb-author" title="'.__( 'Comment author:' ).' '.get_comment_author().'">'.get_comment_author().'</span>';
 				}
 				if( 'true' === $instance['show_page_title'] ) {
 					if( 'false' === $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) != $comment->comment_post_ID ) {
-						$out .= '<span class="cgb-widget-title">';
+						$out .= '<span class="cgb-widget-title" title="'.__( 'Page of Comment:' ).' '.get_the_title( $comment->comment_post_ID ).'">';
 						if( 'true' === $instance['show_author'] ) {
 							$out .= ' '.__( 'in' ).' ';
 						}
@@ -87,7 +87,7 @@ class comment_guestbook_widget extends WP_Widget {
 					$out .= '</a>';
 				}
 				if( 'true' === $instance['show_comment_text'] ) {
-					$out .= '<div class="cgb-widget-text">'.$this->truncate( $instance['comment_text_length'], get_comment_text() ).'</div>';
+					$out .= '<div class="cgb-widget-text" title="'.strip_tags( get_comment_text() ).'">'.$this->truncate( $instance['comment_text_length'], get_comment_text() ).'</div>';
 				}
 				$out .= '</li>';
 			}

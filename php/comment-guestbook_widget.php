@@ -224,28 +224,19 @@ class comment_guestbook_widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['num_comments'] = strip_tags( $new_instance['num_comments'] );
-		$instance['link_to_comment'] = ( isset( $new_instance['link_to_comment'] ) && 1==$new_instance['link_to_comment'] ) ? 'true' : 'false';
-		$instance['show_date'] = ( isset( $new_instance['show_date'] ) && 1==$new_instance['show_date'] ) ? 'true' : 'false';
-		$instance['date_format'] = strip_tags( $new_instance['date_format'] );
-		$instance['show_author'] = ( isset( $new_instance['show_author'] ) && 1==$new_instance['show_author'] ) ? 'true' : 'false';
-		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
-		$instance['page_title_length'] = strip_tags( $new_instance['page_title_length'] );
-		$instance['show_comment_text'] = ( isset( $new_instance['show_comment_text'] ) && 1==$new_instance['show_comment_text'] ) ? 'true' : 'false';
-		$instance['comment_text_length'] = strip_tags( $new_instance['comment_text_length'] );
-		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
-		$instance['gb_comments_only'] = ( isset( $new_instance['gb_comments_only'] ) && 1==$new_instance['gb_comments_only'] ) ? 'true' : 'false';
-		$instance['link_to_page'] = ( isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
-		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
-		$instance['hide_gb_page_title'] = ( isset( $new_instance['hide_gb_page_title'] ) && 1==$new_instance['hide_gb_page_title'] ) ? 'true' : 'false';
-
+		foreach( $this->options as $item => $option ) {
+			if( 'checkbox' === $option['type'] ) {
+				$instance[$item] = ( isset( $new_instance[$item] ) && 1==$new_instance[$item] ) ? 'true' : 'false';
+			}
+			else { // 'text'
+				$instance[$item] = strip_tags( $new_instance[$item] );
+			}
+		}
 		$this->flush_widget_cache();
 		$alloptions = wp_cache_get( 'alloptions', 'options' );
 		if ( isset($alloptions['widget_recent_comments']) ) {
 			delete_option('widget_recent_comments');
 		}
-
 		return $instance;
 	}
 

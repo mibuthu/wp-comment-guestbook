@@ -59,8 +59,15 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'true',
 			                                 'caption'       => __( 'Show comment author' ),
 			                                 'caption_after' => null,
-			                                 'form_style'    => null,
+			                                 'form_style'    => 'margin:0 0 0.2em 0',
 			                                 'form_width'    => null ),
+
+			'author_length' =>        array( 'type'          => 'text',
+			                                 'std_value'     => '18',
+			                                 'caption'       => __( 'Truncate author to' ),
+			                                 'caption_after' => __( 'characters' ),
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => 30 ),
 
 			'show_page_title' =>      array( 'type'          => 'checkbox',
 			                                 'std_value'     => 'false',
@@ -184,7 +191,7 @@ class comment_guestbook_widget extends WP_Widget {
 					$out .= '<span class="cgb-date" title="'.__( 'Date of comment:' ).' '.get_comment_date().'">'.get_comment_date( $instance['date_format'] ).' </span>';
 				}
 				if( 'true' === $instance['show_author'] ) {
-					$out .= '<span class="cgb-author" title="'.__( 'Comment author:' ).' '.get_comment_author().'">'.get_comment_author().'</span>';
+					$out .= '<span class="cgb-author" title="'.__( 'Comment author:' ).' '.get_comment_author().'">'.$this->truncate( $instance['author_length'], get_comment_author() ).'</span>';
 				}
 				if( 'true' === $instance['show_page_title'] ) {
 					if( 'false' === $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) != $comment->comment_post_ID ) {

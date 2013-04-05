@@ -104,6 +104,13 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => null ),
 
+			'hide_gb_page_title' =>   array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Hide guestbook page title' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => null ),
+
 			'link_to_page' =>         array( 'type'          => 'checkbox',
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Add a link to guestbook page' ),
@@ -116,13 +123,6 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'caption'       => __( 'Caption for the link:' ),
 			                                 'caption_after' => null,
 			                                 'form_style'    => 'margin:0 0 0.8em 1.8em',
-			                                 'form_width'    => null ),
-
-			'hide_gb_page_title' =>   array( 'type'          => 'checkbox',
-			                                 'std_value'     => 'false',
-			                                 'caption'       => __( 'Hide guestbook page title' ),
-			                                 'caption_after' => null,
-			                                 'form_style'    => 'margin:0 0 1em 0.9em',
 			                                 'form_width'    => null )
 		);
 	}

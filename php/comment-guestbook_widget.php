@@ -183,7 +183,7 @@ class comment_guestbook_widget extends WP_Widget {
 		// $num_comments
 		$out .= '
 		<p>
-			<label for="'.$this->get_field_id( 'num_comments' ).'">'.__( 'Number of displayed comments:' ).'</label>
+			<label for="'.$this->get_field_id( 'num_comments' ).'">'.__( 'Number of comments:' ).'</label>
 			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'num_comments' ).'" name="'.$this->get_field_name( 'num_comments' ).'" type="text" value="'.esc_attr( $num_comments ).'" />
 		</p>';
 		// $link_to_comment

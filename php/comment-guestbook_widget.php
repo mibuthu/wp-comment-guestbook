@@ -163,102 +163,43 @@ class comment_guestbook_widget extends WP_Widget {
 		$link_to_page_caption = isset( $instance['link_to_page_caption'] ) ? $instance['link_to_page_caption'] : __( 'goto guestbook page', 'text_domain' );
 		$hide_gb_page_title =   isset( $instance['hide_gb_page_title'] )   ? $instance['hide_gb_page_title']   : 'false';
 
-		// set checked text for checkboxes
-		$link_to_comment_checked =     'true'===$link_to_comment    || 1==$link_to_comment    ? 'checked = "checked" ' : '';
-		$show_date_checked =           'true'===$show_date          || 1==$show_date          ? 'checked = "checked" ' : '';
-		$show_author_checked =         'true'===$show_author        || 1==$show_author        ? 'checked = "checked" ' : '';
-		$show_page_title_checked =     'true'===$show_page_title    || 1==$show_page_title    ? 'checked = "checked" ' : '';
-		$show_comment_text_checked =   'true'===$show_comment_text  || 1==$show_comment_text  ? 'checked = "checked" ' : '';
-		$gb_comments_only_checked =    'true'===$gb_comments_only   || 1==$gb_comments_only   ? 'checked = "checked" ' : '';
-		$link_to_page_checked   =      'true'===$link_to_page       || 1==$link_to_page       ? 'checked = "checked" ' : '';
-		$hide_gb_page_title_checked =  'true'===$hide_gb_page_title || 1==$hide_gb_page_title ? 'checked = "checked" ' : '';
-
 		$out = '';
-		// $title
-		$out .= '
-		<p>
-			<label for="'.$this->get_field_id( 'title' ).'">'.__( 'Title:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'title' ).'" name="'.$this->get_field_name( 'title' ).'" type="text" value="'.esc_attr( $title ).'" />
-		</p>';
-		// $num_comments
-		$out .= '
-		<p>
-			<label for="'.$this->get_field_id( 'num_comments' ).'">'.__( 'Number of comments:' ).'</label>
-			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'num_comments' ).'" name="'.$this->get_field_name( 'num_comments' ).'" type="text" value="'.esc_attr( $num_comments ).'" />
-		</p>';
-		// $link_to_comment
-		$out .= '
-		<p>
-			<label><input class="widefat" id="'.$this->get_field_id( 'link_to_comment' ).'" name="'.$this->get_field_name( 'link_to_comment' ).'" type="checkbox" '.$link_to_comment_checked.'value="1" /> '.__( 'Add a link to each comment' ).'</label>
-		</p>';
-		// $show_date
-		$out .= '
-		<p style="margin:0 0 0.2em 0">
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_date' ).'" name="'.$this->get_field_name( 'show_date' ).'" type="checkbox" '.$show_date_checked.'value="1" /> '.__( 'Show comment date' ).'</label>
-		</p>';
-		// $date_format
-		$out .= '
-		<p style="margin:0 0 0.6em 0.9em">
-			<label for="'.$this->get_field_id( 'date_format' ).'">'.__( 'Date format: ' ).'</label>
-			<input style="width:100px" class="widefat" id="'.$this->get_field_id( 'date_format' ).'" name="'.$this->get_field_name( 'date_format' ).'" type="text" value="'.esc_attr( $date_format ).'" />
-		</p>';
-		// $show_author
-		$out .= '
-		<p>
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_author' ).'" name="'.$this->get_field_name( 'show_author' ).'" type="checkbox" '.$show_author_checked.'value="1" /> '.__( 'Show comment author' ).'</label>
-		</p>';
-		// $show_page_title
-		$out .= '
-		<p style="margin:0 0 0.2em 0">
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_page_title' ).'" name="'.$this->get_field_name( 'show_page_title' ).'" type="checkbox" '.$show_page_title_checked.'value="1" /> '.__( 'Show title of comment page' ).'</label>
-		</p>';
-		// $page_title_length
-		$out .= '
-		<p style="margin:0 0 0.6em 0.9em">
-			<label for="'.$this->get_field_id( 'page_title_length' ).'">'.__( 'Truncate title to ' ).'</label>
-			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'page_title_length' ).'" name="'.$this->get_field_name( 'page_title_length' ).'" type="text" value="'.esc_attr( $page_title_length ).'" />
-			<label>'.__( 'characters' ).'</label>
-		</p>';
-		// $show_comment_text
-		$out .= '
-		<p style="margin:0 0 0.2em 0">
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_comment_text' ).'" name="'.$this->get_field_name( 'show_comment_text' ).'" type="checkbox" '.$show_comment_text_checked.'value="1" /> '.__( 'Show comment text' ).'</label>
-		</p>';
-		// $comment_text_length
-		$out .= '
-		<p style="margin:0 0 0.6em 0.9em">
-			<label for="'.$this->get_field_id( 'comment_text_length' ).'">'.__( 'Truncate text to ' ).'</label>
-			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'comment_text_length' ).'" name="'.$this->get_field_name( 'comment_text_length' ).'" type="text" value="'.esc_attr( $comment_text_length ).'" />
-			<label>'.__( 'characters' ).'</label>
-		</p>';
-		// $url_to_page
-		$out .= '
-		<p style="margin:1em 0 0.6em 0">
-			<label for="'.$this->get_field_id( 'url_to_page' ).'">'.__( 'URL to the linked guestbook page:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'url_to_page' ).'" name="'.$this->get_field_name( 'url_to_page' ).'" type="text" value="'.esc_attr( $url_to_page ).'" />
-		</p>';
-		// $gb_comments_only
-		$out .= '
-		<p style="margin:0 0 0.6em 0.9em">
-			<label><input class="widefat" id="'.$this->get_field_id( 'gb_comments_only' ).'" name="'.$this->get_field_name( 'gb_comments_only' ).'" type="checkbox" '.$gb_comments_only_checked.'value="1" /> '.__( 'Show GB-comments only' ).'</label>
-		</p>';
-		// $link_to_page
-		$out .= '
-		<p style="margin:0 0 0.4em 0.9em">
-			<label><input class="widefat" id="'.$this->get_field_id( 'link_to_page' ).'" name="'.$this->get_field_name( 'link_to_page' ).'" type="checkbox" '.$link_to_page_checked.'value="1" /> '.__( 'Add a link to guestbook page' ).'</label>
-		</p>';
-		// $link_to_page_caption
-		$out .= '
-		<p style="margin:0 0 0.8em 1.8em">
-			<label for="'.$this->get_field_id( 'link_to_page_caption' ).'">'.__( 'Caption for the link:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'link_to_page_caption' ).'" name="'.$this->get_field_name( 'link_to_page_caption' ).'" type="text" value="'.esc_attr( $link_to_page_caption ).'" />
-		</p>';
-		// $hide_gb_page_title
-		$out .= '
-		<p style="margin:0 0 1em 0.9em">
-			<label><input class="widefat" id="'.$this->get_field_id( 'hide_gb_page_title' ).'" name="'.$this->get_field_name( 'hide_gb_page_title' ).'" type="checkbox" '.$hide_gb_page_title_checked.'value="1" /> '.__( 'Hide guestbook page title' ).'</label>
-		</p>';
+		$out .= $this->form_item( 'title', 'text', $title, __( 'Title:' ) );
+		$out .= $this->form_item( 'num_comments', 'text', $num_comments, __( 'Number of comments:' ), null, null, 30 );
+		$out .= $this->form_item( 'link_to_comment', 'checkbox', $link_to_comment, __( 'Add a link to each comment' ) );
+		$out .= $this->form_item( 'show_date', 'checkbox', $show_date, __( 'Show comment date' ), null, 'margin:0 0 0.2em 0' );
+		$out .= $this->form_item( 'date_format', 'text', $date_format, __( 'Date format:' ), null, 'margin:0 0 0.6em 0.9em' );
+		$out .= $this->form_item( 'show_author', 'checkbox', $show_author, __( 'Show comment author' ) );
+		$out .= $this->form_item( 'show_page_title', 'checkbox', $show_page_title, __( 'Show title of comment page' ), null, 'margin:0 0 0.2em 0' );
+		$out .= $this->form_item( 'page_title_length', 'text', $page_title_length, __( 'Truncate title to' ), __( 'characters' ), 'margin:0 0 0.6em 0.9em', 30 );
+		$out .= $this->form_item( 'show_comment_text', 'checkbox', $show_comment_text, __( 'Show comment text' ), null, 'margin:0 0 0.2em 0' );
+		$out .= $this->form_item( 'comment_text_length', 'text', $comment_text_length, __( 'Truncate text to ' ), __( 'characters' ), 'margin:0 0 0.6em 0.9em', 30 );
+		$out .= $this->form_item( 'url_to_page', 'text', $url_to_page, __( 'URL to the linked guestbook page:' ), null, 'margin:1em 0 0.6em 0' );
+		$out .= $this->form_item( 'gb_comments_only', 'checkbox', $gb_comments_only, __( 'Show GB-comments only' ), null, 'margin:0 0 0.6em 0.9em' );
+		$out .= $this->form_item( 'link_to_page', 'checkbox', $link_to_page, __( 'Add a link to guestbook page' ), null, 'margin:0 0 0.2em 0.9em' );
+		$out .= $this->form_item( 'link_to_page_caption', 'text', $link_to_page_caption, __( 'Caption for the link:' ), null, 'margin:0 0 0.8em 1.8em' );
+		$out .= $this->form_item( 'hide_gb_page_title', 'checkbox', $hide_gb_page_title, __( 'Hide guestbook page title' ), null, 'margin:0 0 1em 0.9em' );
 		echo $out;
+	}
+
+	private function form_item( $item, $type, $value, $caption, $caption_after=null, $style=null, $width=null ) {
+		$style_text = ( null===$style ) ? '' : ' style="'.$style.'"';
+		if( 'checkbox' === $type ) {
+			$checked_text = ( 'true'===$value || 1==$value ) ? 'checked = "checked" ' : '';
+			return '
+				<p'.$style_text.'>
+					<label><input class="widefat" id="'.$this->get_field_id( $item ).'" name="'.$this->get_field_name( $item ).'" type="checkbox" '.$checked_text.'value="1" /> '.$caption.'</label>
+				</p>';
+		}
+		else {
+			$width_text = ( null === $width ) ? '' : 'style="width:'.$width.'px" ';
+			$caption_after_text = ( null === $caption_after ) ? '' : '<label>'.$caption_after.'</label>';
+			return '
+				<p'.$style_text.'>
+					<label for="'.$this->get_field_id( $item ).'">'.$caption.' </label>
+					<input '.$width_text.'class="widefat" id="'.$this->get_field_id( $item ).'" name="'.$this->get_field_name( $item ).'" type="text" value="'.esc_attr( $value ).'" />'.$caption_after_text.'
+				</p>';
+		}
 	}
 
 	/** ************************************************************************

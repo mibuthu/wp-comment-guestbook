@@ -319,10 +319,7 @@ class comment_guestbook_widget extends WP_Widget {
 						while( 0 != $toplevel_comment->comment_parent ) {
 							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
 						}
-						error_log( 'toplevel_comments: '.implode(', ', $toplevel_comments));
-						error_log( 'toplevel_comment: '.$toplevel_comment->comment_ID );
 						$oldercoms = array_search( $toplevel_comment->comment_ID, $toplevel_comments );
-						error_log( 'oldercoms: '.$oldercoms );
 						$link_args['page'] = ceil( ( $oldercoms + 1 ) / get_option( 'comments_per_page' ) );
 					}
 				}

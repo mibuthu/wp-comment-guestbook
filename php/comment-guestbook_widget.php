@@ -5,6 +5,7 @@
 class comment_guestbook_widget extends WP_Widget {
 
 	private $options;
+	private $items;
 
 	/**
 	 * Register widget with WordPress.
@@ -18,8 +19,8 @@ class comment_guestbook_widget extends WP_Widget {
 		add_action( 'comment_post', array($this, 'flush_widget_cache') );
 		add_action( 'transition_comment_status', array($this, 'flush_widget_cache') );
 
-		// define all available options
-		$this->options = array(
+		// define all available items
+		$this->items = array(
 			'title' =>                array( 'type'          => 'text',
 			                                 'std_value'     => __( 'Recent guestbook entries', 'text_domain' ),
 			                                 'caption'       => __( 'Title:' ),
@@ -161,9 +162,9 @@ class comment_guestbook_widget extends WP_Widget {
 			return;
 		}
 		extract($args, EXTR_SKIP);
-		foreach( $this->options as $item => $option ) {
-			if( ! isset( $instance[$item] ) ) {
-				$instance[$item] = $option['std_value'];
+		foreach( $this->items as $itemname => $item ) {
+			if( ! isset( $instance[$itemname] ) ) {
+				$instance[$itemname] = $item['std_value'];
 			}
 		}
 		$out = '';
@@ -233,12 +234,12 @@ class comment_guestbook_widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		foreach( $this->options as $item => $option ) {
-			if( 'checkbox' === $option['type'] ) {
-				$instance[$item] = ( isset( $new_instance[$item] ) && 1==$new_instance[$item] ) ? 'true' : 'false';
+		foreach( $this->items as $itemname => $item ) {
+			if( 'checkbox' === $item['type'] ) {
+				$instance[$itemname] = ( isset( $new_instance[$itemname] ) && 1==$new_instance[$itemname] ) ? 'true' : 'false';
 			}
 			else { // 'text'
-				$instance[$item] = strip_tags( $new_instance[$item] );
+				$instance[$itemname] = strip_tags( $new_instance[$itemname] );
 			}
 		}
 		$this->flush_widget_cache();
@@ -258,25 +259,25 @@ class comment_guestbook_widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$out = '';
-		foreach( $this->options as $item => $option ) {
-			if( ! isset( $instance[$item] ) ) {
-				$instance[$item] = $option['std_value'];
+		foreach( $this->items as $itemname => $item ) {
+			if( ! isset( $instance[$itemname] ) ) {
+				$instance[$itemname] = $item['std_value'];
 			}
-			$style_text = ( null===$option['form_style'] ) ? '' : ' style="'.$option['form_style'].'"';
-			if( 'checkbox' === $option['type'] ) {
-				$checked_text = ( 'true'===$instance[$item] || 1==$instance[$item] ) ? 'checked = "checked" ' : '';
+			$style_text = ( null===$item['form_style'] ) ? '' : ' style="'.$item['form_style'].'"';
+			if( 'checkbox' === $item['type'] ) {
+				$checked_text = ( 'true'===$instance[$itemname] || 1==$instance[$itemname] ) ? 'checked = "checked" ' : '';
 				$out .= '
 					<p'.$style_text.'>
-						<label><input class="widefat" id="'.$this->get_field_id( $item ).'" name="'.$this->get_field_name( $item ).'" type="checkbox" '.$checked_text.'value="1" /> '.$option['caption'].'</label>
+						<label><input class="widefat" id="'.$this->get_field_id( $itemname ).'" name="'.$this->get_field_name( $itemname ).'" type="checkbox" '.$checked_text.'value="1" /> '.$item['caption'].'</label>
 					</p>';
 			}
 			else { // 'text'
-				$width_text = ( null === $option['form_width'] ) ? '' : 'style="width:'.$option['form_width'].'px" ';
-				$caption_after_text = ( null === $option['caption_after'] ) ? '' : '<label>'.$option['caption_after'].'</label>';
+				$width_text = ( null === $item['form_width'] ) ? '' : 'style="width:'.$item['form_width'].'px" ';
+				$caption_after_text = ( null === $item['caption_after'] ) ? '' : '<label>'.$item['caption_after'].'</label>';
 				$out .= '
 					<p'.$style_text.'>
-						<label for="'.$this->get_field_id( $item ).'">'.$option['caption'].' </label>
-						<input '.$width_text.'class="widefat" id="'.$this->get_field_id( $item ).'" name="'.$this->get_field_name( $item ).'" type="text" value="'.esc_attr( $instance[$item] ).'" />'.$caption_after_text.'
+						<label for="'.$this->get_field_id( $itemname ).'">'.$item['caption'].' </label>
+						<input '.$width_text.'class="widefat" id="'.$this->get_field_id( $itemname ).'" name="'.$this->get_field_name( $itemname ).'" type="text" value="'.esc_attr( $instance[$itemname] ).'" />'.$caption_after_text.'
 					</p>';
 			}
 		}

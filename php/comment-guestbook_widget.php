@@ -305,7 +305,7 @@ class comment_guestbook_widget extends WP_Widget {
 						// shortcode is being used in that page or post
 						$args = array( 'status' => 'approve', 'order' => $this->options->get( 'cgb_clist_order' ) );
 						if( '' === $this->options->get( 'cgb_clist_show_all' ) ) {
-							$args['ID'] = $comment->comment_post_ID;
+							$args['post_id'] = $comment->comment_post_ID;
 						}
 						$comments = get_comments( $args );
 						$toplevel_comments = array();

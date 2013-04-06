@@ -1,4 +1,6 @@
 <?php
+require_once( CGB_PATH.'php/options.php' );
+
 /**
  * Comment Guestbook Widget
 */
@@ -18,6 +20,7 @@ class comment_guestbook_widget extends WP_Widget {
 		);
 		add_action( 'comment_post', array($this, 'flush_widget_cache') );
 		add_action( 'transition_comment_status', array($this, 'flush_widget_cache') );
+		$this->options = &cgb_options::get_instance();
 
 		// define all available items
 		$this->items = array(
@@ -186,7 +189,7 @@ class comment_guestbook_widget extends WP_Widget {
 			foreach( (array) $comments as $comment) {
 				$out .= '<li class="cgb-widget-item">';
 				if( 'true' === $instance['link_to_comment'] ) {
-					$out .= '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">';
+					$out .= '<a href="'.$this->get_comment_link( $comment ).'">';
 				}
 				if( 'true' === $instance['show_date'] ) {
 					$out .= '<span class="cgb-date" title="'.__( 'Date of comment:' ).' '.get_comment_date().'">'.get_comment_date( $instance['date_format'] ).' </span>';
@@ -282,6 +285,50 @@ class comment_guestbook_widget extends WP_Widget {
 			}
 		}
 		echo $out;
+	}
+
+	/** **************************************************************************
+	 * Function to get guestbook specific comment link for pages/posts
+	 * where the 'comment-guestbook' shortcode is being used.
+	 *
+	 * @param object $comment Wordpress comment object of the comment to retrieve
+	 *****************************************************************************/
+	private function get_comment_link( $comment ) {
+		$link_args = array();
+		if( 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
+			if( 0 != get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
+				if( 'desc' === $this->options->get( 'cgb_clist_order' ) || 'asc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+					$pattern = get_shortcode_regex();
+					if( preg_match_all( '/'. $pattern .'/s', get_post( $comment->comment_post_ID )->post_content, $matches )
+							&& array_key_exists( 2, $matches )
+							&& in_array( 'comment-guestbook', $matches[2] ) ) {
+						// shortcode is being used in that page or post
+						$args = array( 'status' => 'approve', 'order' => $this->options->get( 'cgb_clist_order' ) );
+						if( '' === $this->options->get( 'cgb_clist_show_all' ) ) {
+							$args['ID'] = $comment->comment_post_ID;
+						}
+						$comments = get_comments( $args );
+						$toplevel_comments = array();
+						foreach( $comments as $_comment ) {
+							if( 0 == $_comment->comment_parent ) {
+								 $toplevel_comments[] = $_comment->comment_ID;
+							}
+						}
+						// switch actual comment to top-level comment
+						$toplevel_comment = $comment;
+						while( 0 != $toplevel_comment->comment_parent ) {
+							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
+						}
+						error_log( 'toplevel_comments: '.implode(', ', $toplevel_comments));
+						error_log( 'toplevel_comment: '.$toplevel_comment->comment_ID );
+						$oldercoms = array_search( $toplevel_comment->comment_ID, $toplevel_comments );
+						error_log( 'oldercoms: '.$oldercoms );
+						$link_args['page'] = ceil( ( $oldercoms + 1 ) / get_option( 'comments_per_page' ) );
+					}
+				}
+			}
+		}
+		return esc_url( get_comment_link( $comment->comment_ID, $link_args ) );
 	}
 
 	/** ************************************************************************

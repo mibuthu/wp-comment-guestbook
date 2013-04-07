@@ -66,8 +66,9 @@ Yes, you can create an instance of the "sc_comment_guestbook" class which locate
 
 1. Admin page (comment-list settings)
 2. Admin page (comment-form settings)
-3. Example guestbook site
-4. Example guestbook widget
+3. Widget options on admin page
+4. Example guestbook site
+5. Example guestbook widget
 
 == Changelog ==
 

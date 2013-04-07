@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.2
 Tested up to: 3.5.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,10 +66,19 @@ Yes, you can create an instance of the "sc_comment_guestbook" class which locate
 
 1. Admin page (comment-list settings)
 2. Admin page (comment-form settings)
-3. Example guestbook site
-4. Example guestbook widget
+3. Widget options on admin page
+4. Example guestbook site
+5. Example guestbook widget
 
 == Changelog ==
+
+= 0.3.1 (2013-04-07) =
+
+* Fixed link to comment in widget for some special settings
+* Added widget option to truncate author
+* Added widget option to truncate page title
+* Added widget option to change the date format
+* A lot of code cleanup in widget class
 
 = 0.3.0 (2013-03-30) =
 

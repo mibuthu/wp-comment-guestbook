@@ -1,8 +1,13 @@
 <?php
+require_once( CGB_PATH.'php/options.php' );
+
 /**
  * Comment Guestbook Widget
 */
 class comment_guestbook_widget extends WP_Widget {
+
+	private $options;
+	private $items;
 
 	/**
 	 * Register widget with WordPress.
@@ -15,6 +20,122 @@ class comment_guestbook_widget extends WP_Widget {
 		);
 		add_action( 'comment_post', array($this, 'flush_widget_cache') );
 		add_action( 'transition_comment_status', array($this, 'flush_widget_cache') );
+		$this->options = &cgb_options::get_instance();
+
+		// define all available items
+		$this->items = array(
+			'title' =>                array( 'type'          => 'text',
+			                                 'std_value'     => __( 'Recent guestbook entries', 'text_domain' ),
+			                                 'caption'       => __( 'Title:' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => null,
+			                                 'form_width'    => null ),
+
+			'num_comments' =>         array( 'type'          => 'text',
+			                                 'std_value'     => '5',
+			                                 'caption'       => __( 'Number of comments:' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => null,
+			                                 'form_width'    => 30 ),
+
+			'link_to_comment' =>      array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Add a link to each comment' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => null,
+			                                 'form_width'    => null ),
+
+			'show_date' =>            array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Show comment date' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.2em 0',
+			                                 'form_width'    => null ),
+
+			'date_format' =>          array( 'type'          => 'text',
+			                                 'std_value'     => get_option( 'date_format' ),
+			                                 'caption'       => __( 'Date format:' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => 100 ),
+
+			'show_author' =>          array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'true',
+			                                 'caption'       => __( 'Show comment author' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.2em 0',
+			                                 'form_width'    => null ),
+
+			'author_length' =>        array( 'type'          => 'text',
+			                                 'std_value'     => '18',
+			                                 'caption'       => __( 'Truncate author to' ),
+			                                 'caption_after' => __( 'characters' ),
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => 30 ),
+
+			'show_page_title' =>      array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Show title of comment page' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.2em 0',
+			                                 'form_width'    => null ),
+
+			'page_title_length' =>    array( 'type'          => 'text',
+			                                 'std_value'     => '18',
+			                                 'caption'       => __( 'Truncate title to' ),
+			                                 'caption_after' => __( 'characters' ),
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => 30 ),
+
+			'show_comment_text' =>    array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'true',
+			                                 'caption'       => __( 'Show comment text' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.2em 0',
+			                                 'form_width'    => null ),
+
+			'comment_text_length' =>  array( 'type'          => 'text',
+			                                 'std_value'     => '25',
+			                                 'caption'       => __( 'Truncate text to ' ),
+			                                 'caption_after' => __( 'characters' ),
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => 30 ),
+
+			'url_to_page' =>          array( 'type'          => 'text',
+			                                 'std_value'     => '',
+			                                 'caption'       => __( 'URL to the linked guestbook page:' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:1em 0 0.6em 0',
+			                                 'form_width'    => null ),
+
+			'gb_comments_only' =>     array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Show GB-comments only' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => null ),
+
+			'hide_gb_page_title' =>   array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Hide guestbook page title' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
+			                                 'form_width'    => null ),
+
+			'link_to_page' =>         array( 'type'          => 'checkbox',
+			                                 'std_value'     => 'false',
+			                                 'caption'       => __( 'Add a link to guestbook page' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.2em 0.9em',
+			                                 'form_width'    => null ),
+
+			'link_to_page_caption' => array( 'type'          => 'text',
+			                                 'std_value'     => __( 'goto guestbook page', 'text_domain' ),
+			                                 'caption'       => __( 'Caption for the link:' ),
+			                                 'caption_after' => null,
+			                                 'form_style'    => 'margin:0 0 0.8em 1.8em',
+			                                 'form_width'    => null )
+		);
 	}
 
 	public function flush_widget_cache() {
@@ -44,19 +165,21 @@ class comment_guestbook_widget extends WP_Widget {
 			return;
 		}
 		extract($args, EXTR_SKIP);
-		$out = '';
-		$title = apply_filters( 'widget_title', $instance['title'] );
-		if( empty( $instance['num_comments'] ) || ! $num_comments = absint( $instance['num_comments'] ) ) {
-			$num_comments = 5;
+		foreach( $this->items as $itemname => $item ) {
+			if( ! isset( $instance[$itemname] ) ) {
+				$instance[$itemname] = $item['std_value'];
+			}
 		}
-		$comment_args = array( 'number' => $num_comments, 'status' => 'approve', 'post_status' => 'publish' );
+		$out = '';
+		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
+		$comment_args = array( 'number' => absint( $instance['num_comments'] ), 'status' => 'approve', 'post_status' => 'publish' );
 		if( 'true' === $instance['gb_comments_only'] ) {
 			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
 		}
 		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
 		$out .= $before_widget;
-		if( $title ) {
-			$out .= $before_title . $title . $after_title;
+		if( $instance['title'] ) {
+			$out .= $before_title . $instance['title'] . $after_title;
 		}
 		$out .= '<ul class="cgb-widget">';
 		if( $comments ) {
@@ -66,28 +189,28 @@ class comment_guestbook_widget extends WP_Widget {
 			foreach( (array) $comments as $comment) {
 				$out .= '<li class="cgb-widget-item">';
 				if( 'true' === $instance['link_to_comment'] ) {
-					$out .= '<a href="'.esc_url( get_comment_link( $comment->comment_ID ) ).'">';
+					$out .= '<a href="'.$this->get_comment_link( $comment ).'">';
 				}
 				if( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date">'.get_comment_date().': </span>';
+					$out .= '<span class="cgb-date" title="'.__( 'Date of comment:' ).' '.get_comment_date().'">'.get_comment_date( $instance['date_format'] ).' </span>';
 				}
 				if( 'true' === $instance['show_author'] ) {
-					$out .= '<span class="cgb-author">'.get_comment_author().'</span>';
+					$out .= '<span class="cgb-author" title="'.__( 'Comment author:' ).' '.get_comment_author().'">'.$this->truncate( $instance['author_length'], get_comment_author() ).'</span>';
 				}
 				if( 'true' === $instance['show_page_title'] ) {
 					if( 'false' === $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) != $comment->comment_post_ID ) {
-						$out .= '<span class="cgb-widget-title">';
+						$out .= '<span class="cgb-widget-title" title="'.__( 'Page of Comment:' ).' '.get_the_title( $comment->comment_post_ID ).'">';
 						if( 'true' === $instance['show_author'] ) {
 							$out .= ' '.__( 'in' ).' ';
 						}
-						$out .= get_the_title( $comment->comment_post_ID ).'</span>';
+						$out .= $this->truncate( $instance['page_title_length'], get_the_title( $comment->comment_post_ID ) ).'</span>';
 					}
 				}
 				if( 'true' === $instance['link_to_comment'] ) {
 					$out .= '</a>';
 				}
 				if( 'true' === $instance['show_comment_text'] ) {
-					$out .= '<div class="cgb-widget-text">'.$this->truncate( $instance['comment_text_length'], get_comment_text() ).'</div>';
+					$out .= '<div class="cgb-widget-text" title="'.strip_tags( get_comment_text() ).'">'.$this->truncate( $instance['comment_text_length'], get_comment_text() ).'</div>';
 				}
 				$out .= '</li>';
 			}
@@ -114,26 +237,19 @@ class comment_guestbook_widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['num_comments'] = strip_tags( $new_instance['num_comments'] );
-		$instance['link_to_comment'] = ( isset( $new_instance['link_to_comment'] ) && 1==$new_instance['link_to_comment'] ) ? 'true' : 'false';
-		$instance['show_date'] = ( isset( $new_instance['show_date'] ) && 1==$new_instance['show_date'] ) ? 'true' : 'false';
-		$instance['show_author'] = ( isset( $new_instance['show_author'] ) && 1==$new_instance['show_author'] ) ? 'true' : 'false';
-		$instance['show_page_title'] = ( isset( $new_instance['show_page_title'] ) && 1==$new_instance['show_page_title'] ) ? 'true' : 'false';
-		$instance['show_comment_text'] = ( isset( $new_instance['show_comment_text'] ) && 1==$new_instance['show_comment_text'] ) ? 'true' : 'false';
-		$instance['comment_text_length'] = strip_tags( $new_instance['comment_text_length'] );
-		$instance['url_to_page'] = strip_tags( $new_instance['url_to_page'] );
-		$instance['gb_comments_only'] = ( isset( $new_instance['gb_comments_only'] ) && 1==$new_instance['gb_comments_only'] ) ? 'true' : 'false';
-		$instance['link_to_page'] = ( isset( $new_instance['link_to_page'] ) && 1==$new_instance['link_to_page'] ) ? 'true' : 'false';
-		$instance['link_to_page_caption'] = strip_tags( $new_instance['link_to_page_caption'] );
-		$instance['hide_gb_page_title'] = ( isset( $new_instance['hide_gb_page_title'] ) && 1==$new_instance['hide_gb_page_title'] ) ? 'true' : 'false';
-
+		foreach( $this->items as $itemname => $item ) {
+			if( 'checkbox' === $item['type'] ) {
+				$instance[$itemname] = ( isset( $new_instance[$itemname] ) && 1==$new_instance[$itemname] ) ? 'true' : 'false';
+			}
+			else { // 'text'
+				$instance[$itemname] = strip_tags( $new_instance[$itemname] );
+			}
+		}
 		$this->flush_widget_cache();
 		$alloptions = wp_cache_get( 'alloptions', 'options' );
 		if ( isset($alloptions['widget_recent_comments']) ) {
 			delete_option('widget_recent_comments');
 		}
-
 		return $instance;
 	}
 
@@ -145,103 +261,71 @@ class comment_guestbook_widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title =                isset( $instance['title'] )                ? $instance['title']                : __( 'Recent guestbook entries', 'text_domain' );
-		$num_comments =         isset( $instance['num_comments'] )         ? $instance['num_comments']         : '5';
-		$link_to_comment =      isset( $instance['link_to_comment'] )      ? $instance['link_to_comment']      : 'false';
-		$show_date =            isset( $instance['show_date'] )            ? $instance['show_date']            : 'false';
-		$show_author =          isset( $instance['show_author'] )          ? $instance['show_author']          : 'true';
-		$show_page_title =      isset( $instance['show_page_title'] )      ? $instance['show_page_title']      : 'false';
-		$show_comment_text =    isset( $instance['show_comment_text'] )    ? $instance['show_comment_text']    : 'true';
-		$comment_text_length =  isset( $instance['comment_text_length'] )  ? $instance['comment_text_length']  : '25';
-		$url_to_page =          isset( $instance['url_to_page'] )          ? $instance['url_to_page']          : '';
-		$gb_comments_only =     isset( $instance['gb_comments_only'] )     ? $instance['gb_comments_only']     : 'false';
-		$link_to_page =         isset( $instance['link_to_page'] )         ? $instance['link_to_page']         : 'false';
-		$link_to_page_caption = isset( $instance['link_to_page_caption'] ) ? $instance['link_to_page_caption'] : __( 'goto guestbook page', 'text_domain' );
-		$hide_gb_page_title =   isset( $instance['hide_gb_page_title'] )   ? $instance['hide_gb_page_title']   : 'false';
-
-		// set checked text for checkboxes
-		$link_to_comment_checked =     'true'===$link_to_comment    || 1==$link_to_comment    ? 'checked = "checked" ' : '';
-		$show_date_checked =           'true'===$show_date          || 1==$show_date          ? 'checked = "checked" ' : '';
-		$show_author_checked =         'true'===$show_author        || 1==$show_author        ? 'checked = "checked" ' : '';
-		$show_page_title_checked =     'true'===$show_page_title    || 1==$show_page_title    ? 'checked = "checked" ' : '';
-		$show_comment_text_checked =   'true'===$show_comment_text  || 1==$show_comment_text  ? 'checked = "checked" ' : '';
-		$gb_comments_only_checked =    'true'===$gb_comments_only   || 1==$gb_comments_only   ? 'checked = "checked" ' : '';
-		$link_to_page_checked   =      'true'===$link_to_page       || 1==$link_to_page       ? 'checked = "checked" ' : '';
-		$hide_gb_page_title_checked =  'true'===$hide_gb_page_title || 1==$hide_gb_page_title ? 'checked = "checked" ' : '';
-
 		$out = '';
-		// $title
-		$out .= '
-		<p>
-			<label for="'.$this->get_field_id( 'title' ).'">'.__( 'Title:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'title' ).'" name="'.$this->get_field_name( 'title' ).'" type="text" value="'.esc_attr( $title ).'" />
-		</p>';
-		// $num_comments
-		$out .= '
-		<p>
-			<label for="'.$this->get_field_id( 'num_comments' ).'">'.__( 'Number of displayed comments:' ).'</label>
-			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'num_comments' ).'" name="'.$this->get_field_name( 'num_comments' ).'" type="text" value="'.esc_attr( $num_comments ).'" />
-		</p>';
-		// $link_to_comment
-		$out .= '
-		<p>
-			<label><input class="widefat" id="'.$this->get_field_id( 'link_to_comment' ).'" name="'.$this->get_field_name( 'link_to_comment' ).'" type="checkbox" '.$link_to_comment_checked.'value="1" /> '.__( 'Add a link to each comment' ).'</label>
-		</p>';
-		// $show_date
-		$out .= '
-		<p>
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_date' ).'" name="'.$this->get_field_name( 'show_date' ).'" type="checkbox" '.$show_date_checked.'value="1" /> '.__( 'Show comment date' ).'</label>
-		</p>';
-		// $show_author
-		$out .= '
-		<p>
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_author' ).'" name="'.$this->get_field_name( 'show_author' ).'" type="checkbox" '.$show_author_checked.'value="1" /> '.__( 'Show comment author' ).'</label>
-		</p>';
-		// $show_page_title
-		$out .= '
-		<p>
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_page_title' ).'" name="'.$this->get_field_name( 'show_page_title' ).'" type="checkbox" '.$show_page_title_checked.'value="1" /> '.__( 'Show title of comment page' ).'</label>
-		</p>';
-		// $show_comment_text
-		$out .= '
-		<p style="margin:0 0 0.2em 0">
-			<label><input class="widefat" id="'.$this->get_field_id( 'show_comment_text' ).'" name="'.$this->get_field_name( 'show_comment_text' ).'" type="checkbox" '.$show_comment_text_checked.'value="1" /> '.__( 'Show comment text' ).'</label>
-		</p>';
-		// $comment_text_length
-		$out .= '
-		<p style="margin:0 0 0.6em 0.9em">
-			<label for="'.$this->get_field_id( 'comment_text_length' ).'">'.__( 'Truncate text to ' ).'</label>
-			<input style="width:30px" class="widefat" id="'.$this->get_field_id( 'comment_text_length' ).'" name="'.$this->get_field_name( 'comment_text_length' ).'" type="text" value="'.esc_attr( $comment_text_length ).'" />
-			<label>'.__( 'characters' ).'</label>
-		</p>';
-		// $url_to_page
-		$out .= '
-		<p style="margin:1em 0 0.6em 0">
-			<label for="'.$this->get_field_id( 'url_to_page' ).'">'.__( 'URL to the linked guestbook page:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'url_to_page' ).'" name="'.$this->get_field_name( 'url_to_page' ).'" type="text" value="'.esc_attr( $url_to_page ).'" />
-		</p>';
-		// $gb_comments_only
-		$out .= '
-		<p style="margin:0 0 0.6em 0.9em">
-			<label><input class="widefat" id="'.$this->get_field_id( 'gb_comments_only' ).'" name="'.$this->get_field_name( 'gb_comments_only' ).'" type="checkbox" '.$gb_comments_only_checked.'value="1" /> '.__( 'Show GB-comments only' ).'</label>
-		</p>';
-		// $link_to_page
-		$out .= '
-		<p style="margin:0 0 0.4em 0.9em">
-			<label><input class="widefat" id="'.$this->get_field_id( 'link_to_page' ).'" name="'.$this->get_field_name( 'link_to_page' ).'" type="checkbox" '.$link_to_page_checked.'value="1" /> '.__( 'Add a link to guestbook page' ).'</label>
-		</p>';
-		// $link_to_page_caption
-		$out .= '
-		<p style="margin:0 0 0.8em 1.8em">
-			<label for="'.$this->get_field_id( 'link_to_page_caption' ).'">'.__( 'Caption for the link:' ).'</label>
-			<input class="widefat" id="'.$this->get_field_id( 'link_to_page_caption' ).'" name="'.$this->get_field_name( 'link_to_page_caption' ).'" type="text" value="'.esc_attr( $link_to_page_caption ).'" />
-		</p>';
-		// $hide_gb_page_title
-		$out .= '
-		<p style="margin:0 0 1em 0.9em">
-			<label><input class="widefat" id="'.$this->get_field_id( 'hide_gb_page_title' ).'" name="'.$this->get_field_name( 'hide_gb_page_title' ).'" type="checkbox" '.$hide_gb_page_title_checked.'value="1" /> '.__( 'Hide guestbook page title' ).'</label>
-		</p>';
+		foreach( $this->items as $itemname => $item ) {
+			if( ! isset( $instance[$itemname] ) ) {
+				$instance[$itemname] = $item['std_value'];
+			}
+			$style_text = ( null===$item['form_style'] ) ? '' : ' style="'.$item['form_style'].'"';
+			if( 'checkbox' === $item['type'] ) {
+				$checked_text = ( 'true'===$instance[$itemname] || 1==$instance[$itemname] ) ? 'checked = "checked" ' : '';
+				$out .= '
+					<p'.$style_text.'>
+						<label><input class="widefat" id="'.$this->get_field_id( $itemname ).'" name="'.$this->get_field_name( $itemname ).'" type="checkbox" '.$checked_text.'value="1" /> '.$item['caption'].'</label>
+					</p>';
+			}
+			else { // 'text'
+				$width_text = ( null === $item['form_width'] ) ? '' : 'style="width:'.$item['form_width'].'px" ';
+				$caption_after_text = ( null === $item['caption_after'] ) ? '' : '<label>'.$item['caption_after'].'</label>';
+				$out .= '
+					<p'.$style_text.'>
+						<label for="'.$this->get_field_id( $itemname ).'">'.$item['caption'].' </label>
+						<input '.$width_text.'class="widefat" id="'.$this->get_field_id( $itemname ).'" name="'.$this->get_field_name( $itemname ).'" type="text" value="'.esc_attr( $instance[$itemname] ).'" />'.$caption_after_text.'
+					</p>';
+			}
+		}
 		echo $out;
+	}
+
+	/** **************************************************************************
+	 * Function to get guestbook specific comment link for pages/posts
+	 * where the 'comment-guestbook' shortcode is being used.
+	 *
+	 * @param object $comment Wordpress comment object of the comment to retrieve
+	 *****************************************************************************/
+	private function get_comment_link( $comment ) {
+		$link_args = array();
+		if( 1 == $this->options->get( 'cgb_clist_adjust' ) ) {
+			if( 0 != get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
+				if( 'desc' === $this->options->get( 'cgb_clist_order' ) || 'asc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+					$pattern = get_shortcode_regex();
+					if( preg_match_all( '/'. $pattern .'/s', get_post( $comment->comment_post_ID )->post_content, $matches )
+							&& array_key_exists( 2, $matches )
+							&& in_array( 'comment-guestbook', $matches[2] ) ) {
+						// shortcode is being used in that page or post
+						$args = array( 'status' => 'approve', 'order' => $this->options->get( 'cgb_clist_order' ) );
+						if( '' === $this->options->get( 'cgb_clist_show_all' ) ) {
+							$args['post_id'] = $comment->comment_post_ID;
+						}
+						$comments = get_comments( $args );
+						$toplevel_comments = array();
+						foreach( $comments as $_comment ) {
+							if( 0 == $_comment->comment_parent ) {
+								 $toplevel_comments[] = $_comment->comment_ID;
+							}
+						}
+						// switch actual comment to top-level comment
+						$toplevel_comment = $comment;
+						while( 0 != $toplevel_comment->comment_parent ) {
+							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
+						}
+						$oldercoms = array_search( $toplevel_comment->comment_ID, $toplevel_comments );
+						$link_args['page'] = ceil( ( $oldercoms + 1 ) / get_option( 'comments_per_page' ) );
+					}
+				}
+			}
+		}
+		return esc_url( get_comment_link( $comment->comment_ID, $link_args ) );
 	}
 
 	/** ************************************************************************

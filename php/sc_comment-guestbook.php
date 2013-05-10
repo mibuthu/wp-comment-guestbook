@@ -87,6 +87,7 @@ class sc_comment_guestbook {
 	}
 
 	public function filter_comment_id_fields( $html ) {
+		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="1" />';
 		// Add fields comment form to identify a guestbook comment when overwrite of comment status is required
 		if( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';

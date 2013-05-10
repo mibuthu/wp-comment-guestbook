@@ -29,6 +29,15 @@ class cgb_options {
 			                                       'caption' => 'Allow comments on the guestbook page',
 			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the page will be overwritten.' ),
 
+			'cgb_message_after_comment'  => array( 'section' => 'general',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Show message after comment',
+			                                       'caption' => array( 'default' => 'Standard WP-setting (normally no message)', 'guestbook_only' => 'Show message on guestbook page only', 'always' => 'Show message on all posts/pages' ),
+			                                       'desc'    => 'This option allows to enable to show a message after a comment was made.<br />
+			                                                         You have the ability to show the message in all pages/posts or only on the guestbook page.<br />
+			                                                         There are some additional options availabe to change the message text and format' ),
+
 			'cgb_l10n_domain'            => array( 'section' => 'general',
 			                                       'type'    => 'text',
 			                                       'std_val' => 'default',

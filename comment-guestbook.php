@@ -25,6 +25,7 @@ License at http://www.gnu.org/copyleft/gpl.html
 */
 
 // GENERAL DEFINITIONS
+define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
 define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 
@@ -57,14 +58,17 @@ class comment_guestbook {
 
 		// FRONT PAGE:
 		else {
+			// Add js to show message after comment
+			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
+				add_action( 'init', array( &$this, 'frontpage_init' ) );
+				add_action( 'wp_footer', array( &$this, 'frontpage_footer' ) );
+			}
 			// Set filter to overwrite comments_open status
 			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
 				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
 			}
-			// Fix link after adding a comment (required if clist_order = desc)
-			if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
-				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
-			}
+			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
+			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 		}
 	} // end constructor
 
@@ -82,17 +86,37 @@ class comment_guestbook {
 		return register_widget( 'comment_guestbook_widget' );
 	}
 
+	public function frontpage_init() {
+		wp_register_script( 'block_ui', 'http://malsup.github.com/jquery.blockUI.js', array( 'jquery' ), true );
+		wp_register_script( 'cgb_comment_guestbook', CGB_URL.'js/comment-guestbook.js', array( 'block_ui' ), true );
+	}
+
+	public function frontpage_footer() {
+		wp_print_scripts( 'cgb_comment_guestbook' );
+	}
+
 	public function filter_comments_open( $open ) {
 		return true;
 	}
 
 	public function filter_comment_post_redirect ( $location ) {
 		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
-		global $comment_id;
-		require_once( 'php/comments-functions.php' );
-		$cgb_func = new cgb_comments_functions();
-		$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
-		$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+		if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
+			global $comment_id;
+			require_once( 'php/comments-functions.php' );
+			$cgb_func = new cgb_comments_functions();
+			$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
+			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+		}
+		// add query for message after comment
+		require_once( CGB_PATH.'php/options.php' );
+		$options = cgb_options::get_instance();
+		if( 'always' === $options->get( 'cgb_message_after_comment' ) ||
+				( 'guestbook_only' === $option->get( 'cgb_message_after_comment' ) && isset( $_POST['is_cgb_comment'] ) ) ) {
+			$url_array = explode( '#', $location );
+			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
+			$location = $url_array[0].$query_delimiter.'cmessage=1#'.$url_array[1];
+		}
 		return $location;
 	}
 } // end class

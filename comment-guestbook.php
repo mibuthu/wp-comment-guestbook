@@ -31,6 +31,7 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // MAIN PLUGIN CLASS
 class comment_guestbook {
+	private $options;
 	private $shortcode;
 
 	/**
@@ -38,7 +39,8 @@ class comment_guestbook {
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
-		$this->shortcode = NULL;
+		$this->options = null;
+		$this->shortcode = null;
 
 		// ALWAYS:
 		// Register shortcodes
@@ -58,6 +60,10 @@ class comment_guestbook {
 
 		// FRONT PAGE:
 		else {
+			require_once( CGB_PATH.'php/options.php' );
+			$this->options = cgb_options::get_instance();
+			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
+			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 			// Add js to show message after comment
 			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
 				add_action( 'init', array( &$this, 'frontpage_init' ) );
@@ -67,8 +73,6 @@ class comment_guestbook {
 			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
 				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
 			}
-			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
-			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 		}
 	} // end constructor
 
@@ -92,6 +96,7 @@ class comment_guestbook {
 	}
 
 	public function frontpage_footer() {
+		$this->print_script_variables();
 		wp_print_scripts( 'cgb_comment_guestbook' );
 	}
 
@@ -109,15 +114,22 @@ class comment_guestbook {
 			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
 		}
 		// add query for message after comment
-		require_once( CGB_PATH.'php/options.php' );
-		$options = cgb_options::get_instance();
-		if( 'always' === $options->get( 'cgb_message_after_comment' ) ||
-				( 'guestbook_only' === $option->get( 'cgb_message_after_comment' ) && isset( $_POST['is_cgb_comment'] ) ) ) {
+		if( 'always' === $this->options->get( 'cgb_message_after_comment' ) ||
+				( 'guestbook_only' === $this->option->get( 'cgb_message_after_comment' ) && isset( $_POST['is_cgb_comment'] ) ) ) {
 			$url_array = explode( '#', $location );
 			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
 			$location = $url_array[0].$query_delimiter.'cmessage=1#'.$url_array[1];
 		}
 		return $location;
+	}
+
+	public function print_script_variables() {
+		$out = '
+			<script type="text/javascript">
+				var cmessage_text = "'.$this->options->get( 'cgb_message_after_comment_text' ).'";
+				var cmessage_type = 1;
+			</script>';
+		echo $out;
 	}
 } // end class
 

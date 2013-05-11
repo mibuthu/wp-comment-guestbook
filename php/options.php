@@ -50,16 +50,19 @@ class cgb_options {
 			                                       'type'    => 'text',
 			                                       'std_val' => 'Thanks for your comment',
 			                                       'label'   => 'Text for message after comment',
-			                                       'desc'    => 'This option allows you to change the text for the message after a new comment' ),
+			                                       'desc'    => 'This option allows you to change the text for the message after a new comment<br />
+			                                                     This option has no influence if "Standard-WP-setting" is selected for "Show message after comment"' ),
 
 			'cgb_cmessage_type'          => array( 'section' => 'cmessage',
 			                                       'type'    => 'radio',
 			                                       'std_val' => 'inline',
 			                                       'label'   => 'Type of message after comment',
-			                                       'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in an overlay' ),
+			                                       'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in overlay' ),
 			                                       'desc'    => 'This option allows to change the format of the message after a new comment.<br />
-			                                                     With "inline" the message is shown directly below the comment in a div added by javascript.<br />
-			                                                     With "overlay" the message is shown in an overlay for 2 seconds.<br />' ),
+			                                                     With "inline" the message is shown directly below the comment in a div added via javascript.<br />
+			                                                     With "overlay" the message is shown in an overlay div.<br />
+			                                                     The message will be slided in with an animation and after a short time the message will be slided out.<br />
+			                                                     This option has no influence if "Standard-WP-setting" is selected for "Show message after new comment"' ),
 
 			'cgb_clist_adjust'           => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',

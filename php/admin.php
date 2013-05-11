@@ -79,7 +79,7 @@ class cgb_admin {
 
 	private function create_tabs( $current = 'general' )  {
 		$tabs = array( 'general'      => 'General settings',
-		               'cmessage'     => 'Message after Comment',
+		               'cmessage'     => 'Message after new Comment',
 		               'comment_list' => 'Comment-list settings',
 		               'comment_html' => 'Comment html code',
 		               'comment_form' => 'Comment-form settings',
@@ -173,7 +173,7 @@ class cgb_admin {
 
 	private function show_text( $name, $value ) {
 		$out = '
-							<input name="'.$name.'" type="text" id="'.$name.'" value="'.$value.'" />';
+							<input name="'.$name.'" type="text" id="'.$name.'" style="width:230px" value="'.$value.'" />';
 		return $out;
 	}
 

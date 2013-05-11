@@ -127,7 +127,7 @@ class comment_guestbook {
 		$out = '
 			<script type="text/javascript">
 				var cmessage_text = "'.$this->options->get( 'cgb_message_after_comment_text' ).'";
-				var cmessage_type = 1;
+				var cmessage_type = "'.$this->options->get( 'cgb_message_after_comment_type' ).'";
 			</script>';
 		echo $out;
 	}

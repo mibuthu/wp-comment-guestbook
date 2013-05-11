@@ -44,6 +44,14 @@ class cgb_options {
 			                                           'label'   => 'Text for message after comment',
 			                                           'desc'    => 'This option allows you to change the text for the message after a comment' ),
 
+			'cgb_message_after_comment_type' => array( 'section' => 'general',
+			                                           'type'    => 'radio',
+			                                           'std_val' => 'inline',
+			                                           'label'   => 'Type of message after comment',
+			                                           'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in an overlay' ),
+			                                           'desc'    => 'This option allows to change the format of the message after a comment.<br />
+			                                                         With "inline" the message is shown directly below the comment in a div added by javascript.<br />
+			                                                         With "overlay" the message is shown in an overlay for 2 seconds.<br />' ),
 
 			'cgb_l10n_domain'                => array( 'section' => 'general',
 			                                           'type'    => 'text',

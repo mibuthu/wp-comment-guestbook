@@ -24,8 +24,7 @@ class CGB_CMessage {
 	}
 
 	public function register_scripts() {
-		wp_register_script( 'block_ui', 'http://malsup.github.com/jquery.blockUI.js', array( 'jquery' ), true );
-		wp_register_script( 'cgb_cmessage', CGB_URL.'js/cmessage.js', array( 'block_ui' ), true );
+		wp_register_script( 'cgb_cmessage', CGB_URL.'js/cmessage.js', array( 'jquery' ), true );
 	}
 
 	public function print_scripts() {

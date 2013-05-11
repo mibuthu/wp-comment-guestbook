@@ -31,7 +31,6 @@ define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 // MAIN PLUGIN CLASS
 class comment_guestbook {
-	private $options;
 	private $shortcode;
 
 	/**
@@ -39,7 +38,6 @@ class comment_guestbook {
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
-		$this->options = null;
 		$this->shortcode = null;
 
 		// ALWAYS:
@@ -60,14 +58,13 @@ class comment_guestbook {
 
 		// FRONT PAGE:
 		else {
-			require_once( CGB_PATH.'php/options.php' );
-			$this->options = cgb_options::get_instance();
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
 			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
-			// Add js to show message after comment
+			// Add message after comment
 			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
-				add_action( 'init', array( &$this, 'frontpage_init' ) );
-				add_action( 'wp_footer', array( &$this, 'frontpage_footer' ) );
+				require_once( CGB_PATH.'php/cmessage.php' );
+				$cmessage = CGB_cmessage::get_instance();
+				$cmessage->init();
 			}
 			// Set filter to overwrite comments_open status
 			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
@@ -90,16 +87,6 @@ class comment_guestbook {
 		return register_widget( 'comment_guestbook_widget' );
 	}
 
-	public function frontpage_init() {
-		wp_register_script( 'block_ui', 'http://malsup.github.com/jquery.blockUI.js', array( 'jquery' ), true );
-		wp_register_script( 'cgb_comment_guestbook', CGB_URL.'js/comment-guestbook.js', array( 'block_ui' ), true );
-	}
-
-	public function frontpage_footer() {
-		$this->print_script_variables();
-		wp_print_scripts( 'cgb_comment_guestbook' );
-	}
-
 	public function filter_comments_open( $open ) {
 		return true;
 	}
@@ -114,22 +101,10 @@ class comment_guestbook {
 			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
 		}
 		// add query for message after comment
-		if( 'always' === $this->options->get( 'cgb_cmessage' ) ||
-				( 'guestbook_only' === $this->option->get( 'cgb_cmessage' ) && isset( $_POST['is_cgb_comment'] ) ) ) {
-			$url_array = explode( '#', $location );
-			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
-			$location = $url_array[0].$query_delimiter.'cmessage=1#'.$url_array[1];
-		}
+		require_once( CGB_PATH.'php/cmessage.php' );
+		$cmessage = CGB_cmessage::get_instance();
+		$location = $cmessage->add_cmessage_indicator( $location );
 		return $location;
-	}
-
-	public function print_script_variables() {
-		$out = '
-			<script type="text/javascript">
-				var cmessage_text = "'.$this->options->get( 'cgb_cmessage_text' ).'";
-				var cmessage_type = "'.$this->options->get( 'cgb_cmessage_type' ).'";
-			</script>';
-		echo $out;
 	}
 } // end class
 

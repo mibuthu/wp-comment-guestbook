@@ -28,7 +28,8 @@ Other features and options:
 * Option to show numbered pagination links for the comment list.
 * Ajdust the comment html-code for the guestbook page.
 * Option to include all comments of your site in the comment list on the guestbook page.
-* Sidebar widget to show recent comments with a lot of options
+* Sidebar widget to show recent comments with a lot of options.
+* Show a message after a new comment was made. This option you can also enable for all post/pages in your blog).
 
 Simply insert the shortcode [comment-guestbook] into a page to enable this plugin.
 
@@ -40,7 +41,7 @@ If you want to follow the development status have a look at the [git-repository 
 
 == Installation ==
 
-The easiest version of installing is to go to the admin page. There you can install new plugins in the menu Plugins -> Add new. Search for "Comment Guestbook" and press "Install now".
+The easiest way to install is using the wordpress plugin installation mechanism. On the admin page you can install new plugins in "Plugins" -> "Add new". Search for "Comment Guestbook" and press "Install now".
 
 If you want to install the plugin manually download the zip-file and extract the files in your wp-content/plugins folder.
 

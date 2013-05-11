@@ -22,154 +22,154 @@ class cgb_options {
 
 		$this->options = array(
 
-			'cgb_ignore_comments_open'       => array( 'section' => 'general',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '1',
-			                                           'label'   => 'Guestbook comment status',
-			                                           'caption' => 'Allow comments on the guestbook page',
-			                                           'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the page will be overwritten.' ),
+			'cgb_ignore_comments_open'   => array( 'section' => 'general',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '1',
+			                                       'label'   => 'Guestbook comment status',
+			                                       'caption' => 'Allow comments on the guestbook page',
+			                                       'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the page will be overwritten.' ),
 
-			'cgb_message_after_comment'      => array( 'section' => 'general',
-			                                           'type'    => 'radio',
-			                                           'std_val' => 'default',
-			                                           'label'   => 'Show message after comment',
-			                                           'caption' => array( 'default' => 'Standard WP-setting (normally no message)', 'guestbook_only' => 'Show message on guestbook page only', 'always' => 'Show message on all posts/pages' ),
-			                                           'desc'    => 'This option allows to enable to show a message after a comment was made.<br />
-			                                                         You have the ability to show the message in all pages/posts or only on the guestbook page.<br />
-			                                                         There are some additional options availabe to change the message text and format' ),
+			'cgb_l10n_domain'            => array( 'section' => 'general',
+			                                       'type'    => 'text',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Domain for translation',
+			                                       'desc'    => 'Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
+			                                                     Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
+			                                                     See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' ),
 
-			'cgb_message_after_comment_text' => array( 'section' => 'general',
-			                                           'type'    => 'text',
-			                                           'std_val' => 'Thanks for your comment',
-			                                           'label'   => 'Text for message after comment',
-			                                           'desc'    => 'This option allows you to change the text for the message after a comment' ),
+			'cgb_cmessage'               => array( 'section' => 'cmessage',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Show message after comment',
+			                                       'caption' => array( 'default' => 'Standard WP-setting (no message)', 'guestbook_only' => 'Show message on guestbook page only', 'always' => 'Show message on all posts/pages' ),
+			                                       'desc'    => 'This option allows to enable to show a message after a new comment was made.<br />
+			                                                     You have the ability to show the message in all pages/posts or only on the guestbook page.<br />
+			                                                     There are some additional options availabe to change the message text and format' ),
 
-			'cgb_message_after_comment_type' => array( 'section' => 'general',
-			                                           'type'    => 'radio',
-			                                           'std_val' => 'inline',
-			                                           'label'   => 'Type of message after comment',
-			                                           'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in an overlay' ),
-			                                           'desc'    => 'This option allows to change the format of the message after a comment.<br />
-			                                                         With "inline" the message is shown directly below the comment in a div added by javascript.<br />
-			                                                         With "overlay" the message is shown in an overlay for 2 seconds.<br />' ),
+			'cgb_cmessage_text'          => array( 'section' => 'cmessage',
+			                                       'type'    => 'text',
+			                                       'std_val' => 'Thanks for your comment',
+			                                       'label'   => 'Text for message after comment',
+			                                       'desc'    => 'This option allows you to change the text for the message after a new comment' ),
 
-			'cgb_l10n_domain'                => array( 'section' => 'general',
-			                                           'type'    => 'text',
-			                                           'std_val' => 'default',
-			                                           'label'   => 'Domain for translation',
-			                                           'desc'    => 'Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
-			                                                         Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
-			                                                         See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' ),
+			'cgb_cmessage_type'          => array( 'section' => 'cmessage',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'inline',
+			                                       'label'   => 'Type of message after comment',
+			                                       'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in an overlay' ),
+			                                       'desc'    => 'This option allows to change the format of the message after a new comment.<br />
+			                                                     With "inline" the message is shown directly below the comment in a div added by javascript.<br />
+			                                                     With "overlay" the message is shown in an overlay for 2 seconds.<br />' ),
 
-			'cgb_clist_adjust'               => array( 'section' => 'comment_list',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '',
-			                                           'label'   => 'Comment list adjustment',
-			                                           'caption' => 'Adjust the comment list output',
-			                                           'desc'    => 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.' ),
+			'cgb_clist_adjust'           => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Comment list adjustment',
+			                                       'caption' => 'Adjust the comment list output',
+			                                       'desc'    => 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.' ),
 
-			'cgb_clist_order'                => array( 'section' => 'comment_list',
-			                                           'type'    => 'radio',
-			                                           'std_val' => 'default',
-			                                           'label'   => 'Comment list order',
-			                                           'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first' ),
-			                                           'desc'    => 'This option allows you to overwrite the standard order for top level comments only for the guestbook page.<br />
-			                                                         This option is only available if "Comment list adjustment" is enabled.' ),
+			'cgb_clist_order'            => array( 'section' => 'comment_list',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Comment list order',
+			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard order for top level comments only for the guestbook page.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
-			'cgb_clist_child_order'          => array( 'section' => 'comment_list',
-			                                           'type'    => 'radio',
-			                                           'std_val' => 'default',
-			                                           'label'   => 'Comment list child order',
-			                                           'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest child comments first', 'desc' => 'Newest child comments first' ),
-			                                           'desc'    => 'This option allows you to overwrite the standard order for all child comments only for the guestbook page.<br />
-			                                                         This option is only available if "Comment list adjustment" is enabled.' ),
+			'cgb_clist_child_order'      => array( 'section' => 'comment_list',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Comment list child order',
+			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'asc' => 'Oldest child comments first', 'desc' => 'Newest child comments first' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard order for all child comments only for the guestbook page.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
-			'cgb_clist_default_page'         => array( 'section' => 'comment_list',
-			                                           'type'    => 'radio',
-			                                           'std_val' => 'default',
-			                                           'label'   => 'Comment list default page',
-			                                           'caption' => array( 'default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page' ),
-			                                           'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
-			                                                         This option is only available if "Comment list adjustment" is enabled.' ),
+			'cgb_clist_default_page'     => array( 'section' => 'comment_list',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Comment list default page',
+			                                       'caption' => array( 'default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page' ),
+			                                       'desc'    => 'This option allows you to overwrite the standard default page only for the guestbook page.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
-			'cgb_clist_show_all'             => array( 'section' => 'comment_list',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '',
-			                                           'label'   => 'Show all comments',
-			                                           'caption' => 'Show comments of all posts and pages',
-			                                           'desc'    => 'Normally only the comments of the actual guestbook site are shown.<br />
-			                                                         With this option the comments of all posts and pages of your sites will be displayed.<br />
-			                                                         It is recommended to enable "Comment Adjustment in Section "Comment html code" if you enable this option.<br />
-			                                                         There you have the possibility to include a reference to the original page/post of the comment.' ),
+			'cgb_clist_show_all'         => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show all comments',
+			                                       'caption' => 'Show comments of all posts and pages',
+			                                       'desc'    => 'Normally only the comments of the actual guestbook site are shown.<br />
+			                                                     With this option the comments of all posts and pages of your sites will be displayed.<br />
+			                                                     It is recommended to enable "Comment Adjustment in Section "Comment html code" if you enable this option.<br />
+			                                                     There you have the possibility to include a reference to the original page/post of the comment.' ),
 
-			'cgb_clist_num_pagination'       => array( 'section' => 'comment_list',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '',
-			                                           'label'   => 'Numbered pagination links',
-			                                           'caption' => 'Create a numbered pagination navigation',
-			                                           'desc'    => 'If this option is enabled a numbered list of all the comment pages is displayed.<br />
-			                                                         Normally only a next and previous links are shown.<br />
-			                                                         This option is only available if "Comment list adjustment" is enabled.' ),
+			'cgb_clist_num_pagination'   => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Numbered pagination links',
+			                                       'caption' => 'Create a numbered pagination navigation',
+			                                       'desc'    => 'If this option is enabled a numbered list of all the comment pages is displayed.<br />
+			                                                     Normally only a next and previous links are shown.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
-			'cgb_comment_callback'           => array( 'section' => 'comment_list',
-			                                           'type'    => 'text',
-			                                           'std_val' => '--func--comment_callback',
-			                                           'label'   => 'Comment callback function',
-			                                           'desc'    => 'This option sets the name of comment callback function which outputs the html-code to view each comment.<br />
-			                                                         You only require this function if "Comment list adjustment" is enabled and Comment adjustment is disabled.<br />
-			                                                         Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default. <br />
-			                                                         If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
-			                                                         If you want to insert the function of your theme manually, you can find the name in file "functions.php" in your theme directory.<br />
-			                                                         Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
+			'cgb_comment_callback'       => array( 'section' => 'comment_list',
+			                                       'type'    => 'text',
+			                                       'std_val' => '--func--comment_callback',
+			                                       'label'   => 'Comment callback function',
+			                                       'desc'    => 'This option sets the name of comment callback function which outputs the html-code to view each comment.<br />
+			                                                     You only require this function if "Comment list adjustment" is enabled and Comment adjustment is disabled.<br />
+			                                                     Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default. <br />
+			                                                     If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
+			                                                     If you want to insert the function of your theme manually, you can find the name in file "functions.php" in your theme directory.<br />
+			                                                     Normally it is called "themename_comment", e.g. for twentyeleven theme: "twentyeleven_comment".' ),
 
-			'cgb_comment_adjust'             => array( 'section' => 'comment_html',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '',
-			                                           'label'   => 'Comment adjustment',
-			                                           'caption' => 'Adjust the html-output of each comment',
-			                                           'desc'    => 'This option specifies if the comment html code should be replaced with the html code given in "Comment html code" on the guestbook page.<br />
-	 		                                                         If "Comment list adjustment" is disabled this option has no effect.' ),
+			'cgb_comment_adjust'         => array( 'section' => 'comment_html',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Comment adjustment',
+			                                       'caption' => 'Adjust the html-output of each comment',
+			                                       'desc'    => 'This option specifies if the comment html code should be replaced with the html code given in "Comment html code" on the guestbook page.<br />
+	 		                                                     If "Comment list adjustment" is disabled this option has no effect.' ),
 
-			'cgb_comment_html'               => array( 'section' => 'comment_html',
-			                                           'type'    => 'textarea',
-			                                           'std_val' => '--func--comment_html',
-			                                           'label'   => 'Comment html code',
-			                                           'desc'    => 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
-			                                                         You can use php-code to get the required comment data. The following variables and objects are availabe:<br />
-			                                                         - <code>$l10n_domain</code> ... Use this php variable to get the "Domain for translation" value.<br />
-			                                                         - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank">relevant wordpress codex site</a>.<br />
-			                                                         - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />
-			                                                         - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />
-			                                                         - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />
-			                                                         Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank">wordpress codex</a> for datails).<br />
-			                                                         The code given as an example is a slightly modified version of the twentyeleven theme.<br />
-			                                                         If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
-			                                                         E.g. for twentyeleven the function is called "twentyeleven_comment".<br />
-			                                                         If you have enabled the option "Show all comments" it is recommended to enable "Comment adjustment" and add a link to the original page of the comment.<br />
-			                                                         Example: <code>if( $is_comment_from_other_page && "0" == $comment->comment_parent ) { echo \' \'.__( \'Link to page:\', $l10n_domain ).\' \'.$other_page_link; }</code>' ),
+			'cgb_comment_html'           => array( 'section' => 'comment_html',
+			                                       'type'    => 'textarea',
+			                                       'std_val' => '--func--comment_html',
+			                                       'label'   => 'Comment html code',
+			                                       'desc'    => 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
+			                                                     You can use php-code to get the required comment data. The following variables and objects are availabe:<br />
+			                                                     - <code>$l10n_domain</code> ... Use this php variable to get the "Domain for translation" value.<br />
+			                                                     - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank">relevant wordpress codex site</a>.<br />
+			                                                     - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />
+			                                                     - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />
+			                                                     - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />
+			                                                     Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank">wordpress codex</a> for datails).<br />
+			                                                     The code given as an example is a slightly modified version of the twentyeleven theme.<br />
+			                                                     If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
+			                                                     E.g. for twentyeleven the function is called "twentyeleven_comment".<br />
+			                                                     If you have enabled the option "Show all comments" it is recommended to enable "Comment adjustment" and add a link to the original page of the comment.<br />
+			                                                     Example: <code>if( $is_comment_from_other_page && "0" == $comment->comment_parent ) { echo \' \'.__( \'Link to page:\', $l10n_domain ).\' \'.$other_page_link; }</code>' ),
 
-			'cgb_form_below_comments'        => array( 'section' => 'comment_form',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '',
-			                                           'label'   => 'Show form below comments',
-			                                           'caption' => 'Add a comment form in the comment section below the comments',
-			                                           'desc'    => 'With this option you can add a comment form in the comment section below the comment list.<br />
-			                                                         This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+			'cgb_form_below_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show form below comments',
+			                                       'caption' => 'Add a comment form in the comment section below the comments',
+			                                       'desc'    => 'With this option you can add a comment form in the comment section below the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
 
-			'cgb_form_above_comments'        => array( 'section' => 'comment_form',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '',
-			                                           'label'   => 'Show form above comments',
-			                                           'caption' => 'Add a comment form in the comment section above the comments',
-			                                           'desc'    => 'With this option you can add a comment form in the comment section above the comment list.<br />
-			                                                         This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
+			'cgb_form_above_comments'    => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Show form above comments',
+			                                       'caption' => 'Add a comment form in the comment section above the comments',
+			                                       'desc'    => 'With this option you can add a comment form in the comment section above the comment list.<br />
+			                                                     This option is only available if "Comment list adjustment" in "Comment list settings" is enabled.' ),
 
-			'cgb_form_in_page'               => array( 'section' => 'comment_form',
-			                                           'type'    => 'checkbox',
-			                                           'std_val' => '1',
-			                                           'label'   => 'Show form in page/post',
-			                                           'caption' => 'Add a comment form in the page/post section',
-			                                           'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.' ),
+			'cgb_form_in_page'           => array( 'section' => 'comment_form',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '1',
+			                                       'label'   => 'Show form in page/post',
+			                                       'caption' => 'Add a comment form in the page/post section',
+			                                       'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.' ),
 		);
 	}
 

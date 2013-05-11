@@ -114,8 +114,8 @@ class comment_guestbook {
 			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
 		}
 		// add query for message after comment
-		if( 'always' === $this->options->get( 'cgb_message_after_comment' ) ||
-				( 'guestbook_only' === $this->option->get( 'cgb_message_after_comment' ) && isset( $_POST['is_cgb_comment'] ) ) ) {
+		if( 'always' === $this->options->get( 'cgb_cmessage' ) ||
+				( 'guestbook_only' === $this->option->get( 'cgb_cmessage' ) && isset( $_POST['is_cgb_comment'] ) ) ) {
 			$url_array = explode( '#', $location );
 			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
 			$location = $url_array[0].$query_delimiter.'cmessage=1#'.$url_array[1];
@@ -126,8 +126,8 @@ class comment_guestbook {
 	public function print_script_variables() {
 		$out = '
 			<script type="text/javascript">
-				var cmessage_text = "'.$this->options->get( 'cgb_message_after_comment_text' ).'";
-				var cmessage_type = "'.$this->options->get( 'cgb_message_after_comment_type' ).'";
+				var cmessage_text = "'.$this->options->get( 'cgb_cmessage_text' ).'";
+				var cmessage_type = "'.$this->options->get( 'cgb_cmessage_type' ).'";
 			</script>';
 		echo $out;
 	}

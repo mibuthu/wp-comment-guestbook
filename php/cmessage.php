@@ -30,7 +30,7 @@ class CGB_CMessage {
 
 	public function print_scripts() {
 		$this->print_script_variables();
-		wp_print_scripts( 'cgb_comment_guestbook' );
+		wp_print_scripts( 'cgb_cmessage' );
 	}
 
 	public function add_cmessage_indicator( $url ) {

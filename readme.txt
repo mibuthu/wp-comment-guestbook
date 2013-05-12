@@ -2,9 +2,9 @@
 Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
-Requires at least: 3.2
+Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.3.1
+Stable tag: 0.4.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -75,6 +75,11 @@ Yes, you can create an instance of the "sc_comment_guestbook" class which locate
 8. Example guestbook widget
 
 == Changelog ==
+
+= 0.4.0 (2013-05-12) =
+
+* Added the possibility to show a message after a new comment was made
+* Minor security improvements
 
 = 0.3.1 (2013-04-07) =
 

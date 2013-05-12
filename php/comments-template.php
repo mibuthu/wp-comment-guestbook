@@ -2,6 +2,10 @@
 /**
  * The custom template for displaying Comments for comment-guestbook plugin.
  */
+if( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once( CGB_PATH.'php/comments-functions.php' );
 $cgb_func = new cgb_comments_functions();
 ?>

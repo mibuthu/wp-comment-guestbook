@@ -57,7 +57,7 @@ class cgb_admin {
 					<div style="padding:0 10px">';
 			// define the tab to display
 			$tab = $_GET['tab'];
-			if( 'general' !== $tab && 'comment_list' !== $tab && 'comment_html' !== $tab && 'comment_form' !== $tab ) {
+			if( 'general' !== $tab && 'cmessage' !== $tab && 'comment_list' !== $tab && 'comment_html' !== $tab && 'comment_form' !== $tab ) {
 				$tab = 'general';
 			}
 			$out .= '
@@ -78,11 +78,13 @@ class cgb_admin {
 	}
 
 	private function create_tabs( $current = 'general' )  {
-		$tabs = array( 'general' => 'General settings',
+		$tabs = array( 'general'      => 'General settings',
+		               'cmessage'     => 'Message after new Comment',
 		               'comment_list' => 'Comment-list settings',
 		               'comment_html' => 'Comment html code',
-		               'comment_form' => 'Comment-form settings'
-		               /*'comment_form_html' => 'Comment-form html code'*/ );
+		               'comment_form' => 'Comment-form settings',
+		               /*'comment_form_html' => 'Comment-form html code',*/
+		);
 		$out = '<h3 class="nav-tab-wrapper">';
 		foreach( $tabs as $tab => $name ){
 			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
@@ -171,7 +173,7 @@ class cgb_admin {
 
 	private function show_text( $name, $value ) {
 		$out = '
-							<input name="'.$name.'" type="text" id="'.$name.'" value="'.$value.'" />';
+							<input name="'.$name.'" type="text" id="'.$name.'" style="width:230px" value="'.$value.'" />';
 		return $out;
 	}
 

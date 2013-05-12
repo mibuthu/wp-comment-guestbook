@@ -1,4 +1,8 @@
 <?php
+if( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once( CGB_PATH.'php/options.php' );
 
 // This class handles all required function to display the comment list

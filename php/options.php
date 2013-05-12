@@ -1,4 +1,7 @@
 <?php
+if( !defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // This class handles all available options
 class cgb_options {
@@ -36,6 +39,33 @@ class cgb_options {
 			                                       'desc'    => 'Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
 			                                                     Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
 			                                                     See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />' ),
+
+			'cgb_cmessage'               => array( 'section' => 'cmessage',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'default',
+			                                       'label'   => 'Show message after comment',
+			                                       'caption' => array( 'default' => 'Standard WP-setting (no message)', 'guestbook_only' => 'Show message on guestbook page only', 'always' => 'Show message on all posts/pages' ),
+			                                       'desc'    => 'This option allows to enable to show a message after a new comment was made.<br />
+			                                                     You have the ability to show the message in all pages/posts or only on the guestbook page.<br />
+			                                                     There are some additional options availabe to change the message text and format' ),
+
+			'cgb_cmessage_text'          => array( 'section' => 'cmessage',
+			                                       'type'    => 'text',
+			                                       'std_val' => 'Thanks for your comment',
+			                                       'label'   => 'Text for message after comment',
+			                                       'desc'    => 'This option allows you to change the text for the message after a new comment<br />
+			                                                     This option has no influence if "Standard-WP-setting" is selected for "Show message after comment"' ),
+
+			'cgb_cmessage_type'          => array( 'section' => 'cmessage',
+			                                       'type'    => 'radio',
+			                                       'std_val' => 'inline',
+			                                       'label'   => 'Type of message after comment',
+			                                       'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in overlay' ),
+			                                       'desc'    => 'This option allows to change the format of the message after a new comment.<br />
+			                                                     With "inline" the message is shown directly below the comment in a div added via javascript.<br />
+			                                                     With "overlay" the message is shown in an overlay div.<br />
+			                                                     The message will be slided in with an animation and after a short time the message will be slided out.<br />
+			                                                     This option has no influence if "Standard-WP-setting" is selected for "Show message after new comment"' ),
 
 			'cgb_clist_adjust'           => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',
@@ -145,7 +175,7 @@ class cgb_options {
 			                                       'std_val' => '1',
 			                                       'label'   => 'Show form in page/post',
 			                                       'caption' => 'Add a comment form in the page/post section',
-			                                       'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.' )
+			                                       'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.' ),
 		);
 	}
 

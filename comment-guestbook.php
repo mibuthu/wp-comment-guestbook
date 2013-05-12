@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.3.1
+Version: 0.4.0
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -24,7 +24,12 @@ You can view a copy of the HTML version of the GNU General Public
 License at http://www.gnu.org/copyleft/gpl.html
 */
 
+if( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // GENERAL DEFINITIONS
+define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
 define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
 
@@ -37,7 +42,7 @@ class comment_guestbook {
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
-		$this->shortcode = NULL;
+		$this->shortcode = null;
 
 		// ALWAYS:
 		// Register shortcodes
@@ -57,13 +62,17 @@ class comment_guestbook {
 
 		// FRONT PAGE:
 		else {
+			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
+			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
+			// Add message after comment
+			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
+				require_once( CGB_PATH.'php/cmessage.php' );
+				$cmessage = CGB_cmessage::get_instance();
+				$cmessage->init();
+			}
 			// Set filter to overwrite comments_open status
 			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
 				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
-			}
-			// Fix link after adding a comment (required if clist_order = desc)
-			if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
-				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 			}
 		}
 	} // end constructor
@@ -88,11 +97,17 @@ class comment_guestbook {
 
 	public function filter_comment_post_redirect ( $location ) {
 		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
-		global $comment_id;
-		require_once( 'php/comments-functions.php' );
-		$cgb_func = new cgb_comments_functions();
-		$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
-		$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+		if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
+			global $comment_id;
+			require_once( 'php/comments-functions.php' );
+			$cgb_func = new cgb_comments_functions();
+			$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
+			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+		}
+		// add query for message after comment
+		require_once( CGB_PATH.'php/cmessage.php' );
+		$cmessage = CGB_cmessage::get_instance();
+		$location = $cmessage->add_cmessage_indicator( $location );
 		return $location;
 	}
 } // end class

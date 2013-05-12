@@ -2,9 +2,9 @@
 Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
-Requires at least: 3.2
+Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 0.3.1
+Stable tag: 0.4.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,7 +28,8 @@ Other features and options:
 * Option to show numbered pagination links for the comment list.
 * Ajdust the comment html-code for the guestbook page.
 * Option to include all comments of your site in the comment list on the guestbook page.
-* Sidebar widget to show recent comments with a lot of options
+* Sidebar widget to show recent comments with a lot of options.
+* Show a message after a new comment was made. This option you can also enable for all post/pages in your blog).
 
 Simply insert the shortcode [comment-guestbook] into a page to enable this plugin.
 
@@ -40,7 +41,7 @@ If you want to follow the development status have a look at the [git-repository 
 
 == Installation ==
 
-The easiest version of installing is to go to the admin page. There you can install new plugins in the menu Plugins -> Add new. Search for "Comment Guestbook" and press "Install now".
+The easiest way to install is using the wordpress plugin installation mechanism. On the admin page you can install new plugins in "Plugins" -> "Add new". Search for "Comment Guestbook" and press "Install now".
 
 If you want to install the plugin manually download the zip-file and extract the files in your wp-content/plugins folder.
 
@@ -64,13 +65,21 @@ Yes, you can create an instance of the "sc_comment_guestbook" class which locate
 
 == Screenshots ==
 
-1. Admin page (comment-list settings)
-2. Admin page (comment-form settings)
-3. Widget options on admin page
-4. Example guestbook site
-5. Example guestbook widget
+1. Admin page (general settings)
+2. Admin page (message after new comment settings)
+3. Admin page (comment-list settings)
+4. Admin page (comment html code)
+4. Admin page (comment-form settings)
+6. Widget options on admin page
+7. Example guestbook site
+8. Example guestbook widget
 
 == Changelog ==
+
+= 0.4.0 (2013-05-12) =
+
+* Added the possibility to show a message after a new comment was made
+* Minor security improvements
 
 = 0.3.1 (2013-04-07) =
 

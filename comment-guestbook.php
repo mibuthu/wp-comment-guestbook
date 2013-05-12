@@ -24,6 +24,10 @@ You can view a copy of the HTML version of the GNU General Public
 License at http://www.gnu.org/copyleft/gpl.html
 */
 
+if( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // GENERAL DEFINITIONS
 define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
 define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );

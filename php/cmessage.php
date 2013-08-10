@@ -99,6 +99,8 @@ class CGB_CMessage {
 			<script type="text/javascript">
 				var cmessage_text = "'.$this->options->get('cgb_cmessage_text').'";
 				var cmessage_type = "'.$this->options->get('cgb_cmessage_type').'";
+				var cmessage_duration = '.(int)$this->options->get('cgb_cmessage_duration').';
+				var cmessage_styles = "'.str_replace(array('&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n"), ' ', $this->options->get('cgb_cmessage_styles')).'";
 			</script>';
 		echo $out;
 	}

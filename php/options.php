@@ -52,20 +52,36 @@ class cgb_options {
 			'cgb_cmessage_text'          => array( 'section' => 'cmessage',
 			                                       'type'    => 'text',
 			                                       'std_val' => 'Thanks for your comment',
-			                                       'label'   => 'Text for message after comment',
+			                                       'label'   => 'Message text',
 			                                       'desc'    => 'This option allows you to change the text for the message after a new comment<br />
 			                                                     This option has no influence if "Standard-WP-setting" is selected for "Show message after comment"' ),
 
 			'cgb_cmessage_type'          => array( 'section' => 'cmessage',
 			                                       'type'    => 'radio',
 			                                       'std_val' => 'inline',
-			                                       'label'   => 'Type of message after comment',
+			                                       'label'   => 'Message type',
 			                                       'caption' => array( 'inline' => 'Show the message inline', 'overlay' => 'Show the message in overlay' ),
 			                                       'desc'    => 'This option allows to change the format of the message after a new comment.<br />
 			                                                     With "inline" the message is shown directly below the comment in a div added via javascript.<br />
 			                                                     With "overlay" the message is shown in an overlay div.<br />
 			                                                     The message will be slided in with an animation and after a short time the message will be slided out.<br />
 			                                                     This option has no influence if "Standard-WP-setting" is selected for "Show message after new comment"' ),
+
+			'cgb_cmessage_duration'      => array( 'section' => 'cmessage',
+			                                       'type'    => 'text',
+			                                       'std_val' => '3000',
+			                                       'label'   => 'Message duration',
+			                                       'desc'    => 'How long should the message after a new comment should be displayed?<br />
+			                                                     Normally the message after a new comment will be removed after a certain time.<br />
+			                                                     You can define this duration with in milliseconds.<br />
+			                                                     Set the value to 0 if you do not want to hide the message.'),
+
+			'cgb_cmessage_styles'        => array( 'section' => 'cmessage',
+			                                       'type'    => 'textarea',
+			                                       'std_val' => 'background-color:rgb(255, 255, 224);&#10;border-color:rgb(230, 219, 85);&#10;color:rgb(51, 51, 51);&#10;padding:6px 20px;&#10;text-align:center;&#10;border-radius:5px;&#10;border-width:1px;&#10;border-style:solid',
+			                                       'label'   => 'Message styles',
+			                                       'desc'    => 'With this option you can define the css styles for the message after a new comment.<br />
+			                                                     The given code will be used for the style attribute of the message surrounding div tag.'),
 
 			'cgb_clist_adjust'           => array( 'section' => 'comment_list',
 			                                       'type'    => 'checkbox',

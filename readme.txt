@@ -3,8 +3,8 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 0.4.0
+Tested up to: 3.6
+Stable tag: 0.4.1
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ Other features and options:
 * Ajdust the comment html-code for the guestbook page.
 * Option to include all comments of your site in the comment list on the guestbook page.
 * Sidebar widget to show recent comments with a lot of options.
-* Show a message after a new comment was made. This option you can also enable for all post/pages in your blog).
+* Show a message after a new comment was made. This option you can also enable for all post/pages in your blog.
 
 Simply insert the shortcode [comment-guestbook] into a page to enable this plugin.
 
@@ -75,6 +75,12 @@ Yes, you can create an instance of the "sc_comment_guestbook" class which locate
 8. Example guestbook widget
 
 == Changelog ==
+
+= 0.4.1 (2013-08-11) =
+
+* Added tooltip help texts for the widget options
+* Added additional options for message after a new comment (duration, style)
+* Removed cmessage attribute from all link URLs after an new comment was made
 
 = 0.4.0 (2013-05-12) =
 

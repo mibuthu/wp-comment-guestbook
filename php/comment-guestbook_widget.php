@@ -32,6 +32,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => __( 'Recent guestbook entries', 'text_domain' ),
 			                                 'caption'       => __( 'Title:' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('The title for the widget'),
 			                                 'form_style'    => null,
 			                                 'form_width'    => null ),
 
@@ -39,6 +40,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => '5',
 			                                 'caption'       => __( 'Number of comments:' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('The number of comments to display'),
 			                                 'form_style'    => null,
 			                                 'form_width'    => 30 ),
 
@@ -46,6 +48,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Add a link to each comment' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('With this option you can add a link to the comment for every displayed comment.'),
 			                                 'form_style'    => null,
 			                                 'form_width'    => null ),
 
@@ -53,6 +56,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Show comment date' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('This option defines if the comment date will be displayed.'),
 			                                 'form_style'    => 'margin:0 0 0.2em 0',
 			                                 'form_width'    => null ),
 
@@ -60,6 +64,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => get_option( 'date_format' ),
 			                                 'caption'       => __( 'Date format:' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('This option defines the displayed comment date format. You can use all available date formats defined in PHP. Search for php date format to get an overview of the available options.'),
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => 100 ),
 
@@ -67,6 +72,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'true',
 			                                 'caption'       => __( 'Show comment author' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('This option defines if the comment author will be displayed.'),
 			                                 'form_style'    => 'margin:0 0 0.2em 0',
 			                                 'form_width'    => null ),
 
@@ -74,6 +80,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => '18',
 			                                 'caption'       => __( 'Truncate author to' ),
 			                                 'caption_after' => __( 'characters' ),
+			                                 'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to 0 to view the full author.'),
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => 30 ),
 
@@ -81,6 +88,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Show title of comment page' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('This options specifies if the page title of the comment page will be displayed.'),
 			                                 'form_style'    => 'margin:0 0 0.2em 0',
 			                                 'form_width'    => null ),
 
@@ -88,6 +96,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => '18',
 			                                 'caption'       => __( 'Truncate title to' ),
 			                                 'caption_after' => __( 'characters' ),
+			                                 'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to 0 to view the full title.'),
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => 30 ),
 
@@ -95,6 +104,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'true',
 			                                 'caption'       => __( 'Show comment text' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('The options specifies if the comment text will be displayed in the widget.'),
 			                                 'form_style'    => 'margin:0 0 0.2em 0',
 			                                 'form_width'    => null ),
 
@@ -102,6 +112,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => '25',
 			                                 'caption'       => __( 'Truncate text to ' ),
 			                                 'caption_after' => __( 'characters' ),
+			                                 'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to 0 to view the full text.'),
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => 30 ),
 
@@ -109,6 +120,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => '',
 			                                 'caption'       => __( 'URL to the linked guestbook page:' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('This options specifies the url to the guestbook page. This option is required if you want to use one of the options below.'),
 			                                 'form_style'    => 'margin:1em 0 0.6em 0',
 			                                 'form_width'    => null ),
 
@@ -116,6 +128,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Show GB-comments only' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('Only show comments from the guestbook page specified above.'),
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => null ),
 
@@ -123,6 +136,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Hide guestbook page title' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('With this option you can hide the page title for guestbook comments if you have enabled the option Show title of comment page. This option is only working if the URL to the guestbook page was set.'),
 			                                 'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                 'form_width'    => null ),
 
@@ -130,6 +144,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => 'false',
 			                                 'caption'       => __( 'Add a link to guestbook page' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('The option adds a link to the guestbook page below the comment list. This option requires the URL to the guestbook page.'),
 			                                 'form_style'    => 'margin:0 0 0.2em 0.9em',
 			                                 'form_width'    => null ),
 
@@ -137,6 +152,7 @@ class comment_guestbook_widget extends WP_Widget {
 			                                 'std_value'     => __( 'goto guestbook page', 'text_domain' ),
 			                                 'caption'       => __( 'Caption for the link:' ),
 			                                 'caption_after' => null,
+			                                 'tooltip'       => __('Set the caption for the link to guestbook page.'),
 			                                 'form_style'    => 'margin:0 0 0.8em 1.8em',
 			                                 'form_width'    => null )
 		);
@@ -274,7 +290,7 @@ class comment_guestbook_widget extends WP_Widget {
 			if( 'checkbox' === $item['type'] ) {
 				$checked_text = ( 'true'===$instance[$itemname] || 1==$instance[$itemname] ) ? 'checked = "checked" ' : '';
 				$out .= '
-					<p'.$style_text.'>
+					<p'.$style_text.' title="'.$item['tooltip'].'">
 						<label><input class="widefat" id="'.$this->get_field_id( $itemname ).'" name="'.$this->get_field_name( $itemname ).'" type="checkbox" '.$checked_text.'value="1" /> '.$item['caption'].'</label>
 					</p>';
 			}
@@ -282,7 +298,7 @@ class comment_guestbook_widget extends WP_Widget {
 				$width_text = ( null === $item['form_width'] ) ? '' : 'style="width:'.$item['form_width'].'px" ';
 				$caption_after_text = ( null === $item['caption_after'] ) ? '' : '<label>'.$item['caption_after'].'</label>';
 				$out .= '
-					<p'.$style_text.'>
+					<p'.$style_text.' title="'.$item['tooltip'].'">
 						<label for="'.$this->get_field_id( $itemname ).'">'.$item['caption'].' </label>
 						<input '.$width_text.'class="widefat" id="'.$this->get_field_id( $itemname ).'" name="'.$this->get_field_name( $itemname ).'" type="text" value="'.esc_attr( $instance[$itemname] ).'" />'.$caption_after_text.'
 					</p>';

@@ -1,8 +1,11 @@
-(function($) {
-	// show the message after a comment was made
-	var message_style = 'background-color:rgb(255, 255, 224); border-color:rgb(230, 219, 85); color:rgb(51, 51, 51); padding:6px 20px; '
-	                  + 'text-align:center; border-radius:5px; border-width:1px; border-style:solid';
-	var cmessage = $('<div id="cmessage" style="'+message_style+'; display:none"><strong>'+window.cmessage_text+'</strong></div>');
+jQuery(document).ready(function($) {
+	// remove the cmessage indicator from all urls in the commentlist
+	$('#comments a').each(function() {
+		$(this).attr('href', remove_url_parameter($(this).attr('href'), 'cmessage'));
+	});
+
+	// prepare the message after a new comment
+	var cmessage = $('<div id="cmessage" style="'+window.cmessage_styles+'; display:none"><strong>'+window.cmessage_text+'</strong></div>');
 	if ( window.cmessage_type == 'overlay' ) {
 		cmessage.appendTo('body')
 			.css('position','fixed')
@@ -16,9 +19,33 @@
 		cmessage.appendTo(hash)
 			.css('margin', '6px');
 	}
+
+	// show message after comment
 	cmessage
 		.delay(500)
 		.slideDown()
-		.delay(3000)
+		.delay(window.cmessage_duration)
 		.slideUp();
-})(jQuery);
+
+	// function to remove an url parameter from an url
+	function remove_url_parameter(url, parameter) {
+		var fragment = url.split('#');
+		var urlparts= fragment[0].split('?');
+		if(urlparts.length>=2) {
+			var urlBase=urlparts.shift(); //get first part, and remove from array
+			var queryString=urlparts.join("?"); //join it back up
+			var prefix = encodeURIComponent(parameter)+'=';
+			var pars = queryString.split(/[&;]/g);
+			for(var i= pars.length; i-->0;) {               //reverse iteration as may be destructive
+				if(pars[i].lastIndexOf(prefix, 0)!==-1) {   //idiom for string.startsWith
+					pars.splice(i, 1);
+				}
+			}
+			url = urlBase+'?'+pars.join('&');
+			if(fragment[1]) {
+				url += "#" + fragment[1];
+			}
+		}
+		return url;
+	}
+});

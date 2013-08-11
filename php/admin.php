@@ -1,4 +1,7 @@
 <?php
+if( !defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 require_once( CGB_PATH.'php/options.php' );
 
@@ -177,9 +180,9 @@ class cgb_admin {
 		return $out;
 	}
 
-	private function show_textarea( $name, $value ) {
+	private function show_textarea($name, $value) {
 		$out = '
-							<textarea name="'.$name.'" id="'.$name.'" rows="20" class="large-text code">'.$value.'</textarea>';
+							<textarea name="'.$name.'" id="'.$name.'" rows="12" class="large-text code">'.$value.'</textarea>';
 		return $out;
 	}
 

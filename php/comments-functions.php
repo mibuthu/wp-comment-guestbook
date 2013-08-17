@@ -80,19 +80,27 @@ class cgb_comments_functions {
 		}
 	}
 
-	public function show_nav_html() {
-		// Numbered Pagination
-		if( '' !== $this->options->get( 'cgb_clist_num_pagination' ) ) {
-			echo '<div class="pagination" style="text-align:center;">';
-			paginate_comments_links( array( 'prev_text' => $this->nav_label_prev, 'next_text' => $this->nav_label_next ) );
-			echo '</div>';
-		}
-		// Only previous and next links
-		else {
-			echo '<h1 class="assistive-text">'.__( 'Comment navigation', $this->l10n_domain ).'</h1>
+	public function show_nav_html($location) {
+		if(get_comment_pages_count() > 1 && get_option('page_comments')) {
+			$nav_id = 'comment-nav-'.('above_comments' === $location ? 'above' : 'below');
+			echo '<nav id="'.$nav_id.'">';
+
+			// Numbered Pagination
+			if( '' !== $this->options->get( 'cgb_clist_num_pagination' ) ) {
+				echo '<div class="pagination" style="text-align:center;">';
+				paginate_comments_links( array( 'prev_text' => $this->nav_label_prev, 'next_text' => $this->nav_label_next ) );
+				echo '</div>';
+			}
+			// Only previous and next links
+			else {
+				echo '<h1 class="assistive-text">'.__( 'Comment navigation', $this->l10n_domain ).'</h1>
 					<div class="nav-previous">'.$this->get_comment_nav_label( true ).'</div>
 					<div class="nav-next">'.$this->get_comment_nav_label().'</div>';
+			}
+
+			echo '</nav>';
 		}
+
 	}
 
 	public function show_comment_form_html( $location ) {

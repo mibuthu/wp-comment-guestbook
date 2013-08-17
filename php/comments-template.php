@@ -10,7 +10,7 @@ require_once(CGB_PATH.'php/options.php');
 require_once(CGB_PATH.'php/comments-functions.php');
 
 $cgb_func = new cgb_comments_functions();
-$options = cgb_options::get_instance();
+$cgb_options = cgb_options::get_instance();
 
 global $wp_query;
 $in_page = !isset($wp_query->comments);
@@ -22,8 +22,8 @@ if($in_page) {
 }
 
 // Show comment incl comment forms
-if(('' === $options->get('cgb_clist_in_page_content') && !$in_page) ||
-		('' !== $options->get('cgb_clist_in_page_content') && $in_page)) {
+if(('' === $cgb_options->get('cgb_clist_in_page_content') && !$in_page) ||
+		('' !== $cgb_options->get('cgb_clist_in_page_content') && $in_page)) {
 	echo '
 			<div id="comments">';
 
@@ -40,37 +40,13 @@ if(('' === $options->get('cgb_clist_in_page_content') && !$in_page) ||
 
 	// are comments available?
 	if(have_comments()) {
-		/* TODO: Insert an option to add a title before the comment list
-		<h2 id="comments-title">
-			<?php
-				printf( get_the_title().' Entries:' );
-			?>
-		</h2>
-		*/
-		// comment navigation above list
-		if(get_comment_pages_count() > 1 && get_option('page_comments')) {
-			echo '
-				<nav id="comment-nav-above">';
-			$cgb_func->show_nav_html();
-			echo '
-				</nav>';
-		}
-
-		// comment list
-		echo '
-				<ol class="commentlist">';
+		// TODO: Insert an option to add a title before the comment list
+		// echo '<h2 id="comments-title">'.get_the_title().' Entries:</h2>';
+		$cgb_func->show_nav_html('above_comments');
+		echo '<ol class="commentlist">';
 		$cgb_func->list_comments();
-		echo '
-				</ol>';
-
-		// comment navigation below list
-		if(get_comment_pages_count() > 1 && get_option('page_comments')) {
-			echo '
-				<nav id="comment-nav-below">';
-			$cgb_func->show_nav_html();
-			echo '
-				</nav>';
-		}
+		echo '</ol>';
+		$cgb_func->show_nav_html('below_comments');
 	}
 
 	// comment form below comments

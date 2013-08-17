@@ -8,6 +8,13 @@ if(!defined('ABSPATH')) {
 
 require_once(CGB_PATH.'php/comments-functions.php');
 $cgb_func = new cgb_comments_functions();
+
+// prepare $wp_query->comments when template is displayed
+global $wp_query;
+if(!isset($wp_query->comments)) {
+	$wp_query->comments = get_comments(array('post_id' => $wp_query->post->ID, 'status' => 'approve', 'order' => 'ASC'));
+	$wp_query->comment_count = count($wp_query->comments);
+}
 ?>
 	<div id="comments">
 	<?php $cgb_func->show_comment_form_html('above_comments') ?>

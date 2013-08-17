@@ -39,6 +39,9 @@ class sc_comment_guestbook {
 		else {
 			$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
 		}
+		if('' !== $this->options->get('cgb_clist_in_page_content')) {
+			include(CGB_PATH.'php/comments-template.php');
+		}
 		return $out;
 	}
 

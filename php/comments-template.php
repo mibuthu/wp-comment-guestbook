@@ -6,59 +6,76 @@ if(!defined('ABSPATH')) {
 	exit;
 }
 
+require_once(CGB_PATH.'php/options.php');
 require_once(CGB_PATH.'php/comments-functions.php');
-$cgb_func = new cgb_comments_functions();
 
-// prepare $wp_query->comments when template is displayed
+$cgb_func = new cgb_comments_functions();
+$options = cgb_options::get_instance();
+
 global $wp_query;
-if(!isset($wp_query->comments)) {
+$in_page = !isset($wp_query->comments);
+
+// Prepare $wp_query when template is displayed in post/page content
+if($in_page) {
 	$wp_query->comments = get_comments(array('post_id' => $wp_query->post->ID, 'status' => 'approve', 'order' => 'ASC'));
 	$wp_query->comment_count = count($wp_query->comments);
 }
-?>
-	<div id="comments">
-	<?php $cgb_func->show_comment_form_html('above_comments') ?>
-	<?php if(post_password_required()) : ?>
-		<p class="nopassword"><?php _e('This post is password protected. Enter the password to view any comments.', $cgb_func->l10n_domain); ?></p>
-	<?php
-			/* Stop the rest of comments.php from being processed,
-			 * but don't kill the script entirely -- we still have
-			 * to fully load the template.
-			 */
-			echo '</div><!-- #comments -->';
-			return;
-		endif;
-	?>
 
-	<?php if(have_comments()) : ?>
-		<?php /* TODO: Insert an option to add a title before the comment list
+// Show comment incl comment forms
+if(('' === $options->get('cgb_clist_in_page_content') && !$in_page) ||
+		('' !== $options->get('cgb_clist_in_page_content') && $in_page)) {
+	echo '
+			<div id="comments">';
+
+	// comment form above comments
+	$cgb_func->show_comment_form_html('above_comments');
+
+	// is password required?
+	if(post_password_required()) {
+		echo '
+				<p class="nopassword">'.__('This post is password protected. Enter the password to view any comments.', $cgb_func->l10n_domain).'</p>
+			</div><!-- #comments -->';
+		return;
+	}
+
+	// are comments available?
+	if(have_comments()) {
+		/* TODO: Insert an option to add a title before the comment list
 		<h2 id="comments-title">
 			<?php
 				printf( get_the_title().' Entries:' );
 			?>
 		</h2>
 		*/
-		?>
-		<?php if(get_comment_pages_count() > 1 && get_option('page_comments')) : // are there comments to navigate through ?>
-			<nav id="comment-nav-above">
-				<?php $cgb_func->show_nav_html(); ?>
-			</nav>
-		<?php endif; // check for comment navigation ?>
+		// comment navigation above list
+		if(get_comment_pages_count() > 1 && get_option('page_comments')) {
+			echo '
+				<nav id="comment-nav-above">';
+			$cgb_func->show_nav_html();
+			echo '
+				</nav>';
+		}
 
-		<ol class="commentlist">
-			<?php
-				/* Loop through and list the comments. Tell wp_list_comments()
-				 * to use the specified function to format the comments.
-				 */
-				$cgb_func->list_comments();
-			?>
-		</ol>
+		// comment list
+		echo '
+				<ol class="commentlist">';
+		$cgb_func->list_comments();
+		echo '
+				</ol>';
 
-		<?php if(get_comment_pages_count() > 1 && get_option('page_comments')) : // are there comments to navigate through ?>
-		<nav id="comment-nav-below">
-			<?php $cgb_func->show_nav_html(); ?>
-		</nav>
-		<?php endif; // check for comment navigation ?>
-	<?php endif; ?>
-	<?php $cgb_func->show_comment_form_html('below_comments') ?>
-	</div><!-- #comments -->
+		// comment navigation below list
+		if(get_comment_pages_count() > 1 && get_option('page_comments')) {
+			echo '
+				<nav id="comment-nav-below">';
+			$cgb_func->show_nav_html();
+			echo '
+				</nav>';
+		}
+	}
+
+	// comment form below comments
+	$cgb_func->show_comment_form_html('below_comments');
+	echo '
+			</div><!-- #comments -->';
+}
+?>

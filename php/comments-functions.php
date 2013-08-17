@@ -7,12 +7,22 @@ require_once( CGB_PATH.'php/options.php' );
 
 // This class handles all required function to display the comment list
 class cgb_comments_functions {
+	private static $instance;
 	public $l10n_domain;
 	private $options;
 	private $nav_label_prev;
 	private $nav_label_next;
 
-	public function __construct() {
+	public static function &get_instance() {
+		// Create class instance if required
+		if(!isset(self::$instance)) {
+			self::$instance = new cgb_comments_functions();
+		}
+		// Return class instance
+		return self::$instance;
+	}
+
+	private function __construct() {
 		// get options instance
 		$this->options = &cgb_options::get_instance();
 		// set language domain

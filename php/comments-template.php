@@ -9,8 +9,8 @@ if(!defined('ABSPATH')) {
 require_once(CGB_PATH.'php/options.php');
 require_once(CGB_PATH.'php/comments-functions.php');
 
-$cgb_func = new cgb_comments_functions();
 $cgb_options = cgb_options::get_instance();
+$cgb_func = cgb_comments_functions::get_instance();
 
 global $wp_query;
 $in_page = !isset($wp_query->comments);

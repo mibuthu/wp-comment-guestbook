@@ -133,6 +133,16 @@ class cgb_options {
 			                                                     Normally only a next and previous links are shown.<br />
 			                                                     This option is only available if "Comment list adjustment" is enabled.' ),
 
+			'cgb_clist_in_page_content'  => array( 'section' => 'comment_list',
+			                                       'type'    => 'checkbox',
+			                                       'std_val' => '',
+			                                       'label'   => 'Comment list in page content',
+			                                       'caption' => 'Show the comment list in the page content',
+			                                       'desc'    => 'If this option is enabled the comment list is displayed directly in the post/page content and will be removed from the comment area.<br />
+			                                                     This can help you in some cases to display the comment list, for example if your theme does not have a comment area at all.<br />
+			                                                     The comment list will be displayed instead of the shortcode, the comment form in the page section will be hidden and the comment form in the comment sections will be displayed before and/or after the comment list like specified in the comment form options.<br />
+			                                                     This option is only available if "Comment list adjustment" is enabled.'),
+
 			'cgb_comment_callback'       => array( 'section' => 'comment_list',
 			                                       'type'    => 'text',
 			                                       'std_val' => '--func--comment_callback',

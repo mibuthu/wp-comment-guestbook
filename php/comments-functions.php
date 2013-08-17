@@ -161,7 +161,20 @@ class cgb_comments_functions {
 	}
 
 	public function get_comments($post_id) {
-		$comments = get_comments(array('post_id' => $post_id, 'status' => 'approve', 'order' => 'ASC'));
+		// TODO: Use API instead of SELECTs. (see same todo in wp-includes/comment-template.php line 881 (tag 3.6)
+		global $wpdb;
+		$commenter = wp_get_current_commenter();
+		$comment_author = $commenter['comment_author'];
+		$comment_author_email = $commenter['comment_author_email'];
+		if(get_current_user_id()) {
+			$comments = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->comments.' WHERE comment_post_ID = %d AND (comment_approved = "1" OR (user_id = %d AND comment_approved = "0")) ORDER BY comment_date_gmt', $post_id, get_current_user_id()));
+		}
+		else if(empty($comment_author)) {
+			$comments = get_comments(array('post_id' => $post_id, 'status' => 'approve', 'order' => 'ASC'));
+		}
+		else {
+			$comments = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->comments.' WHERE comment_post_ID = %d AND (comment_approved = "1" OR (comment_author = %s AND comment_author_email = %s AND comment_approved = "0")) ORDER BY comment_date_gmt', $post_id, wp_specialchars_decode($comment_author,ENT_QUOTES), $comment_author_email));
+		}
 		return $comments;
 	}
 

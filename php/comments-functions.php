@@ -150,6 +150,11 @@ class cgb_comments_functions {
 		return ceil( ( $newer_comments + 1 ) / $per_page );
 	}
 
+	public function get_comments($post_id) {
+		$comments = get_comments(array('post_id' => $post_id, 'status' => 'approve', 'order' => 'ASC'));
+		return $comments;
+	}
+
 	private function get_comment_nav_label( $previous=false ) {
 		ob_start();
 		if( $previous ) {

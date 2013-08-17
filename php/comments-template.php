@@ -17,7 +17,7 @@ $in_page = !isset($wp_query->comments);
 
 // Prepare $wp_query when template is displayed in post/page content
 if($in_page) {
-	$wp_query->comments = get_comments(array('post_id' => $wp_query->post->ID, 'status' => 'approve', 'order' => 'ASC'));
+	$wp_query->comments = $cgb_func->get_comments($wp_query->post->ID);
 	$wp_query->comment_count = count($wp_query->comments);
 }
 

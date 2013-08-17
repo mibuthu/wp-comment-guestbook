@@ -70,14 +70,16 @@ class sc_comment_guestbook {
 		return CGB_PATH.'php/comments-template.php';
 	}
 
-	public function filter_comments_array( $comments ) {
+	public function filter_comments_array($comments) {
 		// Set correct comments list if the comments of all posts/pages should be displayed
-		if( '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
-			$comments = get_comments( array( 'status' => 'approve', 'order' => 'ASC' ) );
+		if('' !== $this->options->get('cgb_clist_show_all')) {
+			require_once(CGB_PATH.'php/comments-functions.php');
+			$cgb_func = cgb_comments_functions::get_instance();
+			$comments = $cgb_func->get_comments(null);
 		}
 		// Invert array if clist order desc is required
-		if( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
-			$comments = array_reverse( $comments );
+		if('desc' === $this->options->get('cgb_clist_order')) {
+			$comments = array_reverse($comments);
 		}
 		return $comments;
 	}

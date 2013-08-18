@@ -40,7 +40,7 @@ class SC_Comment_Guestbook {
 			$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
 		}
 		if('' !== $this->options->get('cgb_clist_in_page_content')) {
-			include(CGB_PATH.'php/comments-template.php');
+			include(CGB_PATH.'includes/comments-template.php');
 		}
 		return $out;
 	}
@@ -67,7 +67,7 @@ class SC_Comment_Guestbook {
 
 	public function filter_comments_template($file) {
 		// Set customized comments-template fie if a commentlist output modification is required
-		return CGB_PATH.'php/comments-template.php';
+		return CGB_PATH.'includes/comments-template.php';
 	}
 
 	public function filter_comments_array($comments) {

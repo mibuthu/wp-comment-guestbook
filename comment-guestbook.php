@@ -66,8 +66,8 @@ class comment_guestbook {
 			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 			// Add message after comment
 			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
-				require_once( CGB_PATH.'php/cmessage.php' );
-				$cmessage = CGB_cmessage::get_instance();
+				require_once( CGB_PATH.'includes/cmessage.php' );
+				$cmessage = CGB_CMessage::get_instance();
 				$cmessage->init();
 			}
 			// Set filter to overwrite comments_open status
@@ -105,8 +105,8 @@ class comment_guestbook {
 			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
 		}
 		// add query for message after comment
-		require_once( CGB_PATH.'php/cmessage.php' );
-		$cmessage = CGB_cmessage::get_instance();
+		require_once( CGB_PATH.'includes/cmessage.php' );
+		$cmessage = CGB_CMessage::get_instance();
 		$location = $cmessage->add_cmessage_indicator( $location );
 		return $location;
 	}

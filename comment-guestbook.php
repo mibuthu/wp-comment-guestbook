@@ -88,7 +88,7 @@ class Comment_Guestbook {
 	public function widget_init() {
 		// Widget "comment-guestbook"
 		require_once('includes/widget.php');
-		return register_widget('comment_guestbook_widget');
+		return register_widget('CGB_Widget');
 	}
 
 	public function filter_comments_open($open) {

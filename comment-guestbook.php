@@ -99,8 +99,8 @@ class comment_guestbook {
 		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
 		if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
 			global $comment_id;
-			require_once( 'php/comments-functions.php' );
-			$cgb_func = new cgb_comments_functions();
+			require_once( 'includes/comments-functions.php' );
+			$cgb_func = CGB_Comments_Functions::get_instance();
 			$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
 			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
 		}

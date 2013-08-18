@@ -7,10 +7,10 @@ if(!defined('ABSPATH')) {
 }
 
 require_once(CGB_PATH.'includes/options.php');
-require_once(CGB_PATH.'php/comments-functions.php');
+require_once(CGB_PATH.'includes/comments-functions.php');
 
 $cgb_options = CGB_Options::get_instance();
-$cgb_func = cgb_comments_functions::get_instance();
+$cgb_func = CGB_Comments_Functions::get_instance();
 
 global $wp_query;
 $in_page = !isset($wp_query->comments);

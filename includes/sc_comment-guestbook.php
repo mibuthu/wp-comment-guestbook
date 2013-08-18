@@ -73,8 +73,8 @@ class SC_Comment_Guestbook {
 	public function filter_comments_array($comments) {
 		// Set correct comments list if the comments of all posts/pages should be displayed
 		if('' !== $this->options->get('cgb_clist_show_all')) {
-			require_once(CGB_PATH.'php/comments-functions.php');
-			$cgb_func = cgb_comments_functions::get_instance();
+			require_once(CGB_PATH.'includes/comments-functions.php');
+			$cgb_func = CGB_Comments_Functions::get_instance();
 			$comments = $cgb_func->get_comments(null);
 		}
 		// Invert array if clist order desc is required

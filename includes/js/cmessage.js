@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 
 	// prepare the message after a new comment
 	var cmessage = $('<div id="cmessage" style="'+window.cmessage_styles+'; display:none"><strong>'+window.cmessage_text+'</strong></div>');
-	if ( window.cmessage_type == 'overlay' ) {
+	if(window.cmessage_type == 'overlay') {
 		cmessage.appendTo('body')
 			.css('position','fixed')
 			.css('z-index','2000')

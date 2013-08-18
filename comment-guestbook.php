@@ -24,13 +24,13 @@ You can view a copy of the HTML version of the GNU General Public
 License at http://www.gnu.org/copyleft/gpl.html
 */
 
-if( !defined( 'ABSPATH' ) ) {
+if(!defined('ABSPATH')) {
 	exit;
 }
 
 // GENERAL DEFINITIONS
-define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
-define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
+define('CGB_URL', plugin_dir_url(__FILE__));
+define('CGB_PATH', plugin_dir_path(__FILE__));
 
 
 // MAIN PLUGIN CLASS
@@ -46,43 +46,43 @@ class comment_guestbook {
 
 		// ALWAYS:
 		// Register shortcodes
-		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
+		add_shortcode('comment-guestbook', array(&$this, 'shortcode_comment_guestbook'));
 		// Register widgets
-		add_action( 'widgets_init', array( &$this, 'widget_init' ) );
+		add_action('widgets_init', array(&$this, 'widget_init'));
 
 		// ADMIN PAGE:
-		if ( is_admin() ) {
+		if (is_admin()) {
 			// Include required php-files and initialize required objects
 			require_once('admin/admin.php');
 			$admin = new CGB_Admin();
 			// Register actions
-			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
-			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );
+			add_action('plugins_loaded', array(&$admin->options, 'version_upgrade'));
+			add_action('admin_menu', array(&$admin, 'register_pages'));
 		}
 
 		// FRONT PAGE:
 		else {
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
-			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
+			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
 			// Add message after comment
-			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
-				require_once( CGB_PATH.'includes/cmessage.php' );
+			if(isset($_GET['cmessage']) && 1 == $_GET['cmessage']) {
+				require_once(CGB_PATH.'includes/cmessage.php');
 				$cmessage = CGB_CMessage::get_instance();
 				$cmessage->init();
 			}
 			// Set filter to overwrite comments_open status
-			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
-				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
+			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
+				add_filter('comments_open', array(&$this, 'filter_comments_open'));
 			}
 		}
 	} // end constructor
 
-	public function shortcode_comment_guestbook( $atts ) {
-		if( NULL == $this->shortcode ) {
-			require_once( 'includes/sc_comment-guestbook.php' );
+	public function shortcode_comment_guestbook($atts) {
+		if(NULL == $this->shortcode) {
+			require_once('includes/sc_comment-guestbook.php');
 			$this->shortcode = SC_Comment_Guestbook::get_instance();
 		}
-		return $this->shortcode->show_html( $atts );
+		return $this->shortcode->show_html($atts);
 	}
 
 	public function widget_init() {
@@ -91,23 +91,23 @@ class comment_guestbook {
 		return register_widget('comment_guestbook_widget');
 	}
 
-	public function filter_comments_open( $open ) {
+	public function filter_comments_open($open) {
 		return true;
 	}
 
-	public function filter_comment_post_redirect ( $location ) {
+	public function filter_comment_post_redirect ($location) {
 		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
-		if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
+		if(isset($_POST['cgb_clist_order']) && 'desc' === $_POST['cgb_clist_order']) {
 			global $comment_id;
-			require_once( 'includes/comments-functions.php' );
+			require_once('includes/comments-functions.php');
 			$cgb_func = CGB_Comments_Functions::get_instance();
-			$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
-			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+			$page = $cgb_func->get_page_of_desc_commentlist($comment_id);
+			$location = get_comment_link($comment_id, array('page' => $page));
 		}
 		// add query for message after comment
-		require_once( CGB_PATH.'includes/cmessage.php' );
+		require_once(CGB_PATH.'includes/cmessage.php');
 		$cmessage = CGB_CMessage::get_instance();
-		$location = $cmessage->add_cmessage_indicator( $location );
+		$location = $cmessage->add_cmessage_indicator($location);
 		return $location;
 	}
 } // end class

@@ -80,7 +80,7 @@ class CGB_Admin {
 		echo $out;
 	}
 
-	private function create_tabs($current = 'general')  {
+	private function create_tabs($current = 'general') {
 		$tabs = array('general'      => 'General settings',
 		              'cmessage'     => 'Message after new Comment',
 		              'comment_list' => 'Comment-list settings',

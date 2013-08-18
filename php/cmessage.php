@@ -63,7 +63,7 @@ class CGB_CMessage {
 	 * Registers the cmessage script
 	 */
 	public function register_scripts() {
-		wp_register_script('cgb_cmessage', CGB_URL.'js/cmessage.js', array('jquery'), true);
+		wp_register_script('cgb_cmessage', CGB_URL.'includes/js/cmessage.js', array('jquery'), true);
 	}
 
 	/**

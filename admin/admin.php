@@ -82,11 +82,11 @@ class CGB_Admin {
 
 	private function create_tabs($current = 'general')  {
 		$tabs = array('general'      => 'General settings',
-		               'cmessage'     => 'Message after new Comment',
-		               'comment_list' => 'Comment-list settings',
-		               'comment_html' => 'Comment html code',
-		               'comment_form' => 'Comment-form settings',
-		               /*'comment_form_html' => 'Comment-form html code',*/
+		              'cmessage'     => 'Message after new Comment',
+		              'comment_list' => 'Comment-list settings',
+		              'comment_html' => 'Comment html code',
+		              'comment_form' => 'Comment-form settings',
+		              /*'comment_form_html' => 'Comment-form html code',*/
 		);
 		$out = '<h3 class="nav-tab-wrapper">';
 		foreach($tabs as $tab => $name) {

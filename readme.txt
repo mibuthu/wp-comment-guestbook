@@ -60,7 +60,7 @@ Please check if comments are enabled for your guestbook page. There are several 
 * Guestbook settings (Comments -> Guestbook -> General Settings -> "Guestbook comment status": This option will overwrite the wordpress settings for the guestbook page. But the theme settings can still causes problems.
 
 = Can I call the shortcode directly via php e.g. for my own template, theme or plugin? =
-Yes, you can create an instance of the "sc_comment_guestbook" class which located in "php/sc_comment-guestbook.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
+Yes, you can create an instance of the "SC_Comment_Guestbook" class which located in "includes/sc_comment-guestbook.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
 
 
 == Screenshots ==

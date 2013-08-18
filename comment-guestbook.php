@@ -79,8 +79,8 @@ class comment_guestbook {
 
 	public function shortcode_comment_guestbook( $atts ) {
 		if( NULL == $this->shortcode ) {
-			require_once( 'php/sc_comment-guestbook.php' );
-			$this->shortcode = sc_comment_guestbook::get_instance();
+			require_once( 'includes/sc_comment-guestbook.php' );
+			$this->shortcode = SC_Comment_Guestbook::get_instance();
 		}
 		return $this->shortcode->show_html( $atts );
 	}

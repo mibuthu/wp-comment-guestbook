@@ -34,7 +34,7 @@ define('CGB_PATH', plugin_dir_path(__FILE__));
 
 
 // MAIN PLUGIN CLASS
-class comment_guestbook {
+class Comment_Guestbook {
 	private $shortcode;
 
 	/**
@@ -113,5 +113,5 @@ class comment_guestbook {
 } // end class
 
 // create a class instance
-$cgb = new comment_guestbook();
+$cgb = new Comment_Guestbook();
 ?>

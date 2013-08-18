@@ -53,8 +53,8 @@ class comment_guestbook {
 		// ADMIN PAGE:
 		if ( is_admin() ) {
 			// Include required php-files and initialize required objects
-			require_once( 'php/admin.php' );
-			$admin = new cgb_admin();
+			require_once('admin/admin.php');
+			$admin = new CGB_Admin();
 			// Register actions
 			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
 			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );

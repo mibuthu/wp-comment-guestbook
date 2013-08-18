@@ -6,10 +6,10 @@ if(!defined('ABSPATH')) {
 	exit;
 }
 
-require_once(CGB_PATH.'php/options.php');
+require_once(CGB_PATH.'includes/options.php');
 require_once(CGB_PATH.'php/comments-functions.php');
 
-$cgb_options = cgb_options::get_instance();
+$cgb_options = CGB_Options::get_instance();
 $cgb_func = cgb_comments_functions::get_instance();
 
 global $wp_query;

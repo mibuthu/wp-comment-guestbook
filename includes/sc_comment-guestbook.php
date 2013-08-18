@@ -3,7 +3,7 @@ if(!defined('ABSPATH')) {
 	exit;
 }
 
-require_once(CGB_PATH.'php/options.php');
+require_once(CGB_PATH.'includes/options.php');
 
 // This class handles the shortcode [comment-guestbook]
 class SC_Comment_Guestbook {
@@ -21,7 +21,7 @@ class SC_Comment_Guestbook {
 
 	private function __construct() {
 		// get options instance
-		$this->options = &cgb_options::get_instance();
+		$this->options = &CGB_Options::get_instance();
 	}
 
 	// main function to show the rendered HTML output

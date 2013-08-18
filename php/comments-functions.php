@@ -3,7 +3,7 @@ if( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once( CGB_PATH.'php/options.php' );
+require_once( CGB_PATH.'includes/options.php' );
 
 // This class handles all required function to display the comment list
 class cgb_comments_functions {
@@ -24,7 +24,7 @@ class cgb_comments_functions {
 
 	private function __construct() {
 		// get options instance
-		$this->options = &cgb_options::get_instance();
+		$this->options = &CGB_Options::get_instance();
 		// set language domain
 		$this->l10n_domain = $this->options->get( 'cgb_l10n_domain' );
 		$this->nav_label_prev = __( '&larr; Older Comments', $this->l10n_domain );

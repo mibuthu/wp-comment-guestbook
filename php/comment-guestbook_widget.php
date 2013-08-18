@@ -3,7 +3,7 @@ if( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once( CGB_PATH.'php/options.php' );
+require_once( CGB_PATH.'includes/options.php' );
 
 /**
  * Comment Guestbook Widget
@@ -24,7 +24,7 @@ class comment_guestbook_widget extends WP_Widget {
 		);
 		add_action( 'comment_post', array($this, 'flush_widget_cache') );
 		add_action( 'transition_comment_status', array($this, 'flush_widget_cache') );
-		$this->options = &cgb_options::get_instance();
+		$this->options = &CGB_Options::get_instance();
 
 		// define all available items
 		$this->items = array(

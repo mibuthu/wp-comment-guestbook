@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) {
 /**
  * Includes
 */
-require_once(CGB_PATH.'php/options.php');
+require_once(CGB_PATH.'includes/options.php');
 
 
 
@@ -48,7 +48,7 @@ class CGB_CMessage {
 	 * Constructor
 	 */
 	protected function __construct() {
-		$this->options = &cgb_options::get_instance();
+		$this->options = &CGB_Options::get_instance();
 	}
 
 	/**

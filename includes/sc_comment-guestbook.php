@@ -26,7 +26,7 @@ class SC_Comment_Guestbook {
 
 	// main function to show the rendered HTML output
 	public function show_html($atts) {
-		$this->init_filters();
+		$this->init_sc();
 		$out = '';
 		if('' === $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
 			// Show comment form
@@ -49,8 +49,14 @@ class SC_Comment_Guestbook {
 		}
 	}
 
-	private function init_filters() {
+	private function init_sc() {
 		global $cgb;
+
+		// Add comment reply script in footer(required if comment status is overwritten)
+		if('' !== $this->options->get('cgb_ignore_comments_open')) {
+			add_action('wp_footer', array(&$this, 'enqueue_sc_scripts'));
+		}
+
 		// Filter to overwrite comments_open status
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			add_filter('comments_open', array(&$cgb, 'filter_comments_open'));
@@ -67,6 +73,10 @@ class SC_Comment_Guestbook {
 		}
 		// Filter to add comment id fields to identify required filters
 		add_filter('comment_id_fields', array(&$this, 'filter_comment_id_fields'));
+	}
+
+	public function enqueue_sc_scripts() {
+		wp_enqueue_script('comment-reply', false, array(), false, true);
 	}
 
 	public function filter_comments_template($file) {

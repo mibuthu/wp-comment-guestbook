@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 0.4.1
+Stable tag: 0.5.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -54,13 +54,17 @@ You can find a lot of options on the admin page in the submenu "Comments" -> "Gu
 = I have included the shortcode in my guestbook page but the comment form and/or the comment list are not appearing. =
 Please check if comments are enabled for your guestbook page. There are several places to change these setting:
 
-* General wordpress discussion setting (Settings -> Discussion -> "Allow people to post comments on new articles"): This setting changes the behavior for all pages and post, but can be overwritten from the settings below.
+* General wordpress discussion setting (Settings -> Discussion -> "Allow people to post comments on new articles"): This setting changes the behavior for all pages and post, but can be overwritten by the settings below.
 * Post/page discussion setting (Discussion box -> "Allow comments." in post/page edit screen): This setting overwrites the general wordpress setting for each page or post. If you cannot see the Discussion box you have to enable it in the Screen Option.
 * Theme settings: A lot of themes have their own options for displaying the comment list. They often will overwrite the wordpress settings.
 * Guestbook settings (Comments -> Guestbook -> General Settings -> "Guestbook comment status": This option will overwrite the wordpress settings for the guestbook page. But the theme settings can still causes problems.
 
+If you still have problems after checking all these possibilities there is one more option available in the Guestbook settings (Comments -> Guestbook -> Comment-list settings -> "Show the comment list in the page content".
+If you enable this option the comment list will be displayed in the page content instead of the seperate comment section. After that the comment list should be displayed also with themes which specifies no comment section for pages.
+Have a look at the option description on the settings page for detailed information.
+
 = Can I call the shortcode directly via php e.g. for my own template, theme or plugin? =
-Yes, you can create an instance of the "sc_comment_guestbook" class which located in "php/sc_comment-guestbook.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
+Yes, you can create an instance of the "SC_Comment_Guestbook" class which located in "includes/sc_comment-guestbook.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
 
 
 == Screenshots ==
@@ -75,6 +79,13 @@ Yes, you can create an instance of the "sc_comment_guestbook" class which locate
 8. Example guestbook widget
 
 == Changelog ==
+
+= 0.5.0 (2013-08-24) =
+
+* Added option to show comment list in page content (to support users with theme issues)
+* A lot of code cleanup
+* Fixed showing wrong page after entering a new comment
+* Avoid displaying 2 comment forms in succession
 
 = 0.4.1 (2013-08-11) =
 

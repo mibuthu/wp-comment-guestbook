@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.4.1
+Version: 0.5.0
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -24,17 +24,17 @@ You can view a copy of the HTML version of the GNU General Public
 License at http://www.gnu.org/copyleft/gpl.html
 */
 
-if( !defined( 'ABSPATH' ) ) {
+if(!defined('ABSPATH')) {
 	exit;
 }
 
 // GENERAL DEFINITIONS
-define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
-define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
+define('CGB_URL', plugin_dir_url(__FILE__));
+define('CGB_PATH', plugin_dir_path(__FILE__));
 
 
 // MAIN PLUGIN CLASS
-class comment_guestbook {
+class Comment_Guestbook {
 	private $shortcode;
 
 	/**
@@ -46,72 +46,74 @@ class comment_guestbook {
 
 		// ALWAYS:
 		// Register shortcodes
-		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
+		add_shortcode('comment-guestbook', array(&$this, 'shortcode_comment_guestbook'));
 		// Register widgets
-		add_action( 'widgets_init', array( &$this, 'widget_init' ) );
+		add_action('widgets_init', array(&$this, 'widget_init'));
 
 		// ADMIN PAGE:
-		if ( is_admin() ) {
+		if (is_admin()) {
 			// Include required php-files and initialize required objects
-			require_once( 'php/admin.php' );
-			$admin = new cgb_admin();
+			require_once('admin/admin.php');
+			$admin = new CGB_Admin();
 			// Register actions
-			add_action( 'plugins_loaded', array( &$admin->options, 'version_upgrade' ) );
-			add_action( 'admin_menu', array( &$admin, 'register_pages' ) );
+			add_action('plugins_loaded', array(&$admin->options, 'version_upgrade'));
+			add_action('admin_menu', array(&$admin, 'register_pages'));
 		}
 
 		// FRONT PAGE:
 		else {
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
-			add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
+			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
 			// Add message after comment
-			if( isset( $_GET['cmessage'] ) && 1 == $_GET['cmessage'] ) {
-				require_once( CGB_PATH.'php/cmessage.php' );
-				$cmessage = CGB_cmessage::get_instance();
+			if(isset($_GET['cmessage']) && 1 == $_GET['cmessage']) {
+				require_once(CGB_PATH.'includes/cmessage.php');
+				$cmessage = CGB_CMessage::get_instance();
 				$cmessage->init();
 			}
 			// Set filter to overwrite comments_open status
-			if( isset( $_POST['cgb_comments_status'] ) && 'open' === $_POST['cgb_comments_status'] ) {
-				add_filter( 'comments_open', array( &$this, 'filter_comments_open' ) );
+			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
+				add_filter('comments_open', array(&$this, 'filter_comments_open'));
 			}
 		}
 	} // end constructor
 
-	public function shortcode_comment_guestbook( $atts ) {
-		if( NULL == $this->shortcode ) {
-			require_once( 'php/sc_comment-guestbook.php' );
-			$this->shortcode = sc_comment_guestbook::get_instance();
+	public function shortcode_comment_guestbook($atts) {
+		if(NULL == $this->shortcode) {
+			require_once('includes/sc_comment-guestbook.php');
+			$this->shortcode = SC_Comment_Guestbook::get_instance();
 		}
-		return $this->shortcode->show_html( $atts );
+		return $this->shortcode->show_html($atts);
 	}
 
 	public function widget_init() {
 		// Widget "comment-guestbook"
-		require_once( 'php/comment-guestbook_widget.php' );
-		return register_widget( 'comment_guestbook_widget' );
+		require_once('includes/widget.php');
+		return register_widget('CGB_Widget');
 	}
 
-	public function filter_comments_open( $open ) {
+	public function filter_comments_open($open) {
 		return true;
 	}
 
-	public function filter_comment_post_redirect ( $location ) {
-		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
-		if( isset( $_POST['cgb_clist_order'] ) && 'desc' === $_POST['cgb_clist_order'] ) {
+	public function filter_comment_post_redirect ($location) {
+		// page must be corrected due to available comment guestbook options
+		// this is only required for cgb_comments and only if it is not a comment from another page (check by comparing 'is_cgb_comment' and 'comment_post_ID' POST values)
+		if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
 			global $comment_id;
-			require_once( 'php/comments-functions.php' );
-			$cgb_func = new cgb_comments_functions();
-			$page = $cgb_func->get_page_of_desc_commentlist( $comment_id );
-			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+			require_once('includes/comments-functions.php');
+			$cgb_func = CGB_Comments_Functions::get_instance();
+			$page = $cgb_func->get_page_of_comment($comment_id);
+			$location = get_comment_link($comment_id, array('page' => $page));
 		}
+
 		// add query for message after comment
-		require_once( CGB_PATH.'php/cmessage.php' );
-		$cmessage = CGB_cmessage::get_instance();
-		$location = $cmessage->add_cmessage_indicator( $location );
+		require_once(CGB_PATH.'includes/cmessage.php');
+		$cmessage = CGB_CMessage::get_instance();
+		$location = $cmessage->add_cmessage_indicator($location);
 		return $location;
 	}
 } // end class
 
 // create a class instance
-$cgb = new comment_guestbook();
+$cgb = new Comment_Guestbook();
 ?>

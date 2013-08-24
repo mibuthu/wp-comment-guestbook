@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) {
 /**
  * Includes
 */
-require_once(CGB_PATH.'php/options.php');
+require_once(CGB_PATH.'includes/options.php');
 
 
 
@@ -48,7 +48,7 @@ class CGB_CMessage {
 	 * Constructor
 	 */
 	protected function __construct() {
-		$this->options = &cgb_options::get_instance();
+		$this->options = &CGB_Options::get_instance();
 	}
 
 	/**
@@ -63,7 +63,7 @@ class CGB_CMessage {
 	 * Registers the cmessage script
 	 */
 	public function register_scripts() {
-		wp_register_script('cgb_cmessage', CGB_URL.'js/cmessage.js', array('jquery'), true);
+		wp_register_script('cgb_cmessage', CGB_URL.'includes/js/cmessage.js', array('jquery'), true);
 	}
 
 	/**

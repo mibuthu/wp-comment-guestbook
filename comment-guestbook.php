@@ -96,14 +96,16 @@ class Comment_Guestbook {
 	}
 
 	public function filter_comment_post_redirect ($location) {
-		// if cgb_clist_order is 'desc' the page must be changed due to the reversed comment list order:
-		if(isset($_POST['cgb_clist_order']) && 'desc' === $_POST['cgb_clist_order']) {
+		// page must be corrected due to available comment guestbook options
+		// this is only required for cgb_comments and only if it is not a comment from another page (check by comparing 'is_cgb_comment' and 'comment_post_ID' POST values)
+		if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
 			global $comment_id;
 			require_once('includes/comments-functions.php');
 			$cgb_func = CGB_Comments_Functions::get_instance();
-			$page = $cgb_func->get_page_of_desc_commentlist($comment_id);
+			$page = $cgb_func->get_page_of_comment($comment_id);
 			$location = get_comment_link($comment_id, array('page' => $page));
 		}
+
 		// add query for message after comment
 		require_once(CGB_PATH.'includes/cmessage.php');
 		$cmessage = CGB_CMessage::get_instance();

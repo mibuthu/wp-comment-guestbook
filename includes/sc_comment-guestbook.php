@@ -111,13 +111,12 @@ class SC_Comment_Guestbook {
 	}
 
 	public function filter_comment_id_fields($html) {
-		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="1" />';
+		// Add field to verify the comment was made in guestbook page
+		// use the post-id as value (this allows a compare between 'comment_post_ID' and 'is_cgb_comment' values
+		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="'.get_the_ID().'" />';
 		// Add fields comment form to identify a guestbook comment when overwrite of comment status is required
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
-		}
-		if('desc' === $this->options->get('cgb_clist_order') && 1 == $this->options->get('cgb_clist_adjust')) {
-			$html .= '<input type="hidden" name="cgb_clist_order" id="cgb_clist_order" value="desc" />';
 		}
 		return $html;
 	}

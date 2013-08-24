@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 0.4.1
+Stable tag: 0.5.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,13 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 8. Example guestbook widget
 
 == Changelog ==
+
+= 0.5.0 (2013-08-24) =
+
+* Added option to show comment list in page content (to support users with theme issues)
+* A lot of code cleanup
+* Fixed showing wrong page after entering a new comment
+* Avoid displaying 2 comment forms in succession
 
 = 0.4.1 (2013-08-11) =
 

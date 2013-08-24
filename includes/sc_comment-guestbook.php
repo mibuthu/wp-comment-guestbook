@@ -27,11 +27,12 @@ class SC_Comment_Guestbook {
 	// main function to show the rendered HTML output
 	public function show_html($atts) {
 		$this->init_sc();
-		$out = '';
 		if('' === $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
 			// Show comment form
+			$out = '';
 			if(comments_open()) {
-				if('' !== $this->options->get('cgb_form_in_page')) {
+				// to only show one form above the comment list the form_in_page is not displayed of form_above_comments is enabled
+				if('' !== $this->options->get('cgb_form_in_page') && ('' === $this->options->get('cgb_form_above_comments') || '' === $this->options->get('cgb_clist_adjust'))) {
 					ob_start();
 						comment_form();
 						$out .= ob_get_contents();

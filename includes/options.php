@@ -201,7 +201,8 @@ class CGB_Options {
 			                                      'std_val' => '1',
 			                                      'label'   => 'Show form in page/post',
 			                                      'caption' => 'Add a comment form in the page/post section',
-			                                      'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.'),
+			                                      'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.<br />
+			                                                    If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.'),
 		);
 	}
 

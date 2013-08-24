@@ -27,7 +27,11 @@ class SC_Comment_Guestbook {
 	// main function to show the rendered HTML output
 	public function show_html($atts) {
 		$this->init_sc();
-		if('' === $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
+		if('' !== $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
+			// Show comments template in page content
+			include(CGB_PATH.'includes/comments-template.php');
+		}
+		else {
 			// Show comment form
 			$out = '';
 			if(comments_open()) {
@@ -43,10 +47,6 @@ class SC_Comment_Guestbook {
 				$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
 			}
 			return $out;
-		}
-		else {
-			// Show comments template in page content
-			include(CGB_PATH.'includes/comments-template.php');
 		}
 	}
 

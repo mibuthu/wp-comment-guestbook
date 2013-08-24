@@ -28,21 +28,25 @@ class SC_Comment_Guestbook {
 	public function show_html($atts) {
 		$this->init_filters();
 		$out = '';
-		if(comments_open()) {
-			if('' !== $this->options->get('cgb_form_in_page')) {
-				ob_start();
-					comment_form();
-					$out .= ob_get_contents();
-				ob_end_clean();
+		if('' === $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
+			// Show comment form
+			if(comments_open()) {
+				if('' !== $this->options->get('cgb_form_in_page')) {
+					ob_start();
+						comment_form();
+						$out .= ob_get_contents();
+					ob_end_clean();
+				}
 			}
+			else {
+				$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
+			}
+			return $out;
 		}
 		else {
-			$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
-		}
-		if('' !== $this->options->get('cgb_clist_in_page_content')) {
+			// Show comments template in page content
 			include(CGB_PATH.'includes/comments-template.php');
 		}
-		return $out;
 	}
 
 	private function init_filters() {

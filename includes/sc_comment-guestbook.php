@@ -60,7 +60,7 @@ class SC_Comment_Guestbook {
 
 		// Filter to overwrite comments_open status
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
-			add_filter('comments_open', array(&$cgb, 'filter_comments_open'));
+			add_filter('comments_open', array(&$cgb, 'filter_comments_open'), 50);
 		}
 		// Filter to show the adjusted comment style
 		if(1 == $this->options->get('cgb_clist_adjust')) {

@@ -72,7 +72,7 @@ class Comment_Guestbook {
 			}
 			// Set filter to overwrite comments_open status
 			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
-				add_filter('comments_open', array(&$this, 'filter_comments_open'));
+				add_filter('comments_open', array(&$this, 'filter_comments_open'), 50);
 			}
 		}
 	} // end constructor

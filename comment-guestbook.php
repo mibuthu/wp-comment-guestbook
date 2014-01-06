@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.5.0
+Version: 0.5.1
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 
@@ -72,7 +72,7 @@ class Comment_Guestbook {
 			}
 			// Set filter to overwrite comments_open status
 			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
-				add_filter('comments_open', array(&$this, 'filter_comments_open'));
+				add_filter('comments_open', array(&$this, 'filter_comments_open'), 50);
 			}
 		}
 	} // end constructor

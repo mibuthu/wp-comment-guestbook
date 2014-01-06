@@ -3,8 +3,8 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 3.6
-Stable tag: 0.5.0
+Tested up to: 3.8
+Stable tag: 0.5.1
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,12 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 8. Example guestbook widget
 
 == Changelog ==
+
+= 0.5.1 (2014-01-06) =
+
+* Fix to show the comment list in page content at the correct position
+* Fix an issue with comments_open filter in combination with some other plugins
+* Added escaping of html title attribute in widget
 
 = 0.5.0 (2013-08-24) =
 

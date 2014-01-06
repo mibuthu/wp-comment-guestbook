@@ -29,7 +29,11 @@ class SC_Comment_Guestbook {
 		$this->init_sc();
 		if('' !== $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
 			// Show comments template in page content
-			include(CGB_PATH.'includes/comments-template.php');
+			ob_start();
+				include(CGB_PATH.'includes/comments-template.php');
+				$out = ob_get_contents();
+			ob_end_clean();
+			return $out;
 		}
 		else {
 			// Show comment form
@@ -60,7 +64,7 @@ class SC_Comment_Guestbook {
 
 		// Filter to overwrite comments_open status
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
-			add_filter('comments_open', array(&$cgb, 'filter_comments_open'));
+			add_filter('comments_open', array(&$cgb, 'filter_comments_open'), 50);
 		}
 		// Filter to show the adjusted comment style
 		if(1 == $this->options->get('cgb_clist_adjust')) {

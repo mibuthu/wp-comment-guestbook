@@ -82,8 +82,8 @@ class CGB_CMessage {
 	 * @return The URL with additional cmessage indicator
 	 */
 	public function add_cmessage_indicator($url) {
-		if('always' === $this->options->get('cgb_cmessage') ||
-				('guestbook_only' === $this->options->get('cgb_cmessage') && isset($_POST['is_cgb_comment']))) {
+		if(('' != $this->options->get('cgb_page_add_cmessage') && !isset($_POST['is_cgb_comment']))
+				|| ('' != $this->options->get('cgb_add_cmessage') && isset($_POST['is_cgb_comment']))) {
 			$url_array = explode('#', $url);
 			$query_delimiter = (false !== strpos($url_array[0], '?')) ? '&' : '?';
 			$url = $url_array[0].$query_delimiter.'cmessage=1#'.$url_array[1];

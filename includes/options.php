@@ -58,15 +58,6 @@ class CGB_Options {
 			                                                    Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
 			                                                    See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.<br />'),
 
-			'cgb_cmessage'               => array('section' => 'cmessage',
-			                                      'type'    => 'radio',
-			                                      'std_val' => 'default',
-			                                      'label'   => 'Show message after comment',
-			                                      'caption' => array('default' => 'Standard WP-setting (no message)', 'guestbook_only' => 'Show message on guestbook page only', 'always' => 'Show message on all posts/pages'),
-			                                      'desc'    => 'This option allows to enable to show a message after a new comment was made.<br />
-			                                                    You have the ability to show the message in all pages/posts or only on the guestbook page.<br />
-			                                                    There are some additional options availabe to change the message text and format'),
-
 			'cgb_cmessage_text'          => array('section' => 'cmessage',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'Thanks for your comment',
@@ -221,6 +212,22 @@ class CGB_Options {
 			                                      'caption' => 'Add a comment form in the page/post section',
 			                                      'desc'    => 'With this option you can add a comment form in the page or post section. The form will be displayed at the position of the shortcode.<br />
 			                                                    If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.'),
+
+			'cgb_add_cmessage'           => array('section' => 'comment_form',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Message after comment'),
+			                                      'caption' => __('Show a "Thank you" message after a new guestbook comment'),
+			                                      'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
+			                                                       There are many additional options availabe to change the message text and format')),
+
+			'cgb_page_add_cmessage'      => array('section' => 'page_comments',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Message after comment'),
+			                                      'caption' => __('Show a "Thank you" message after a new comment'),
+			                                      'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
+			                                                       There are many additional options availabe to change the message text and format')),
 		);
 	}
 
@@ -260,28 +267,19 @@ class CGB_Options {
 	/**
 	 * Upgrades renamed or modified options to the actual version
 	 *
-	 * Version 0.1.0 to 0.1.1:
-	 *   cgb_clist_comment_adjust   -> cgb_comment_adjust
-	 *   cgb_clist_comment_html     -> cgb_comment_html
-	 *
-	 * Version 0.1.2 to 0.2.0:
-	 *   cgb_clist_comment_callback -> cgb_comment_callback
+	 * Version 0.5.1 to 0.6.0:
+	 *   cgb_cmessage -> splitted up in cgb_add_cmessage and cgb_page_add_cmessage
 	 */
 	public function version_upgrade() {
-		$value = get_option('cgb_clist_comment_adjust', null);
-		if($value != null) {
-			add_option('cgb_comment_adjust', $value);
-			delete_option('cgb_clist_comment_adjust');
-		}
-		$value = get_option('cgb_clist_comment_html', null);
-		if($value != null) {
-			add_option('cgb_comment_html', $value);
-			delete_option('cgb_clist_comment_html');
-		}
-		$value = get_option('cgb_clist_comment_callback', null);
-		if($value != null) {
-			add_option('cgb_comment_callback', $value);
-			delete_option('cgb_clist_comment_callback');
+		$value = get_option('cgb_cmessage', null);
+		if(null != $value) {
+			if('default' != $value) {
+				add_option('cgb_add_cmessage', '1');
+			}
+			if('always' == $value) {
+				add_option('cgb_page_add_cmessage', '1');
+			}
+			delete_option('cgb_cmessage');
 		}
 	}
 

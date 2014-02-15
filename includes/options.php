@@ -38,7 +38,7 @@ class CGB_Options {
 			                          'desc'    => __('In this section you can find all settings do modify the message after a new comment.<br />
 			                                           You can enable the message in Comment-form settings for the guestbook page and in Comments in all posts/pages settings for all other comments.')),
 			'page_comments'  => array('caption' => __('Comments in all posts/pages'),
-			                          'desc'    => __('In this sections you can set options to change the comments of all posts and pages (exept the guestbook page).'))
+			                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages (exept the guestbook pages).'))
 		);
 
 		$this->options = array(

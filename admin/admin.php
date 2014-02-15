@@ -40,30 +40,27 @@ class CGB_Admin {
 				You can add additional text and html code if you want to display something else on that page. That´s all you have to do. Save and publish the page to finish the guestbook creation.</p>
 			</div>';
 		if(current_user_can('manage_options')) {
-			// show settings
+			// show options
+			//define the tab to display
+			$tab = $_GET['tab'];
+			if(!isset($this->options->sections[$tab])) {
+				$tab = 'general';
+			}
 			$out .= '
 				<br />
 				<h3>Comment Guestbook Settings</h3>';
-			if(!isset($_GET['tab'])) {
-				$_GET['tab'] = 'general';
-			}
-			$out .= $this->create_tabs($_GET['tab']);
+
+			$out .= $this->show_sections($tab);
 			$out .= '<div id="posttype-page" class="posttypediv">';
 			$out .= '
 				<form method="post" action="options.php">
 				';
 			ob_start();
-			settings_fields('cgb_'.$_GET['tab']);
+			settings_fields('cgb_'.$tab);
 			$out .= ob_get_contents();
 			ob_end_clean();
 			$out .= '
-					<div style="padding:0 10px">';
-			// define the tab to display
-			$tab = $_GET['tab'];
-			if('general' !== $tab && 'cmessage' !== $tab && 'comment_list' !== $tab && 'comment_html' !== $tab && 'comment_form' !== $tab) {
-				$tab = 'general';
-			}
-			$out .= '
+					<div style="padding:0 10px">
 					<table class="form-table">';
 			$out .= $this->show_options($tab);
 			$out .= '
@@ -80,20 +77,14 @@ class CGB_Admin {
 		echo $out;
 	}
 
-	private function create_tabs($current = 'general') {
-		$tabs = array('general'      => 'General settings',
-		              'cmessage'     => 'Message after new Comment',
-		              'comment_list' => 'Comment-list settings',
-		              'comment_html' => 'Comment html code',
-		              'comment_form' => 'Comment-form settings',
-		              /*'comment_form_html' => 'Comment-form html code',*/
-		);
+	private function show_sections($current = 'general') {
 		$out = '<h3 class="nav-tab-wrapper">';
-		foreach($tabs as $tab => $name) {
-			$class = ($tab == $current) ? ' nav-tab-active' : '';
-			$out .= "<a class='nav-tab$class' href='?page=cgb_admin_main&amp;tab=$tab'>$name</a>";
+		foreach($this->options->sections as $tabname => $tab) {
+			$class = ($tabname == $current) ? ' nav-tab-active' : '';
+			$out .= '<a class="nav-tab'.$class.'" href="?page=cgb_admin_main&amp;tab='.$tabname.'">'.$tab['caption'].'</a>';
 		}
-		$out .= '</h3>';
+		$out .= '</h3>
+				<div style="padding:0 15px">'.$this->options->sections[$current]['desc'].'</div>';
 		return $out;
 	}
 

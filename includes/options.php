@@ -8,6 +8,7 @@ class CGB_Options {
 
 	private static $instance;
 	public $group;
+	public $sections;
 	public $options;
 
 	public static function &get_instance() {
@@ -22,6 +23,23 @@ class CGB_Options {
 
 	private function __construct() {
 		$this->group = 'comment-guestbook';
+
+		$this->sections = array(
+			'general'        => array('caption' => __('General settings'),
+			                          'desc'    => __('In this section you can find some general settings for this plugin.')),
+			'comment_form'   => array('caption' => __('Comment-form settings'),
+			                          'desc'    => __('In this section you can find all available settings to modify the comment form.')),
+			'comment_list'   => array('caption' => __('Comment-list settings'),
+			                          'desc'    => __('In this section you can find all available settings to modify the comments list.<br />
+			                                           If you want to do any change here you have to enable the option "Comment list adjustment" first.')),
+			'comment_html'   => array('caption' => __('Comment html code'),
+			                          'desc'    => __('In this section you can change the whole code for the comment output.')),
+			'cmessage'       => array('caption' => __('Message after new Comment'),
+			                          'desc'    => __('In this section you can find all settings do modify the message after a new comment.<br />
+			                                           You can enable the message in Comment-form settings for the guestbook page and in Comments in all posts/pages settings for all other comments.')),
+			'page_comments'  => array('caption' => __('Comments in all posts/pages'),
+			                          'desc'    => __('In this sections you can set options to change the comments of all posts and pages (exept the guestbook page).'))
+		);
 
 		$this->options = array(
 

@@ -50,6 +50,15 @@ class CGB_Options {
 			                                      'caption' => 'Allow comments on the guestbook page',
 			                                      'desc'    => 'Always allow comments on the guestbook page. If enabled the comment status of the page will be overwritten.'),
 
+			'cgb_adjust_output'          => array('section' => 'general',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Guestbook comment adjustments'),
+			                                      'caption' => __('Adjust the guestbook comment output'),
+			                                      'desc'    => __('This general option specifies if the comments in the guestbook page should be adjusted.<br />
+			                                                       If this option is disabled the standard output specified in the theme will be used.
+			                                                       Switching on this option is required to make most of the other guestbook options working (see option descriptions).')),
+
 			'cgb_l10n_domain'            => array('section' => 'general',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'default',
@@ -91,13 +100,6 @@ class CGB_Options {
 			                                      'label'   => 'Message styles',
 			                                      'desc'    => 'With this option you can define the css styles for the message after a new comment.<br />
 			                                                    The given code will be used for the style attribute of the message surrounding div tag.'),
-
-			'cgb_clist_adjust'           => array('section' => 'comment_list',
-			                                      'type'    => 'checkbox',
-			                                      'std_val' => '',
-			                                      'label'   => 'Comment list adjustment',
-			                                      'caption' => 'Adjust the comment list output',
-			                                      'desc'    => 'This option specifies if the comment list in the guestbook page should be adjusted or if the standard list specified in the theme should be used.'),
 
 			'cgb_clist_order'            => array('section' => 'comment_list',
 			                                      'type'    => 'radio',
@@ -268,9 +270,15 @@ class CGB_Options {
 	 * Upgrades renamed or modified options to the actual version
 	 *
 	 * Version 0.5.1 to 0.6.0:
+	 *   cgb_clist_adjust -> cgb_adjust_output
 	 *   cgb_cmessage -> splitted up in cgb_add_cmessage and cgb_page_add_cmessage
 	 */
 	public function version_upgrade() {
+		$value = get_option('cgb_clist_adjust', null);
+		if(null != $value) {
+			add_option('cgb_adjust_output', $value);
+			delete_option('cgb_clist_adjust');
+		}
 		$value = get_option('cgb_cmessage', null);
 		if(null != $value) {
 			if('default' != $value) {

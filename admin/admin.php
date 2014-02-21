@@ -40,12 +40,14 @@ class CGB_Admin {
 				You can add additional text and html code if you want to display something else on that page. That´s all you have to do. Save and publish the page to finish the guestbook creation.</p>
 			</div>';
 		if(current_user_can('manage_options')) {
-			// show options
-			//define the tab to display
-			$tab = $_GET['tab'];
-			if(!isset($this->options->sections[$tab])) {
+			// define the tab to display
+			if(isset($_GET['tab']) && isset($this->options->sections[$_GET['tab']])) {
+				$tab = $_GET['tab'];
+			}
+			else {
 				$tab = 'general';
 			}
+			// show options
 			$out .= '
 				<br />
 				<h3>Comment Guestbook Settings</h3>';

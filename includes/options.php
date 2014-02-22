@@ -36,7 +36,7 @@ class CGB_Options {
 			                                           <strong>Attention:</strong> If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.')),
 			'comment_html'   => array('caption' => __('Comment html code'),
 			                          'desc'    => __('In this section you can change the html code for the comment output in guestbook pages.')),
-			'cmessage'       => array('caption' => __('Message after new Comment'),
+			'cmessage'       => array('caption' => __('Message after new comment'),
 			                          'desc'    => __('In this section you can find settings to modify the message after a new comment.<br />
 			                                           You can enable the message in the "Comment-form settings" for the guestbook page.<br />
 			                                           This options are also valid for all other posts and pages if you enable the message in the "Comments in all posts/page" section.')),

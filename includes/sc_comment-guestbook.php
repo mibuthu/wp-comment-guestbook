@@ -27,7 +27,7 @@ class SC_Comment_Guestbook {
 	// main function to show the rendered HTML output
 	public function show_html($atts) {
 		$this->init_sc();
-		if('' !== $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_clist_adjust')) {
+		if('' !== $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_adjust_output')) {
 			// Show comments template in page content
 			ob_start();
 				include(CGB_PATH.'includes/comments-template.php');
@@ -40,7 +40,7 @@ class SC_Comment_Guestbook {
 			$out = '';
 			if(comments_open()) {
 				// to only show one form above the comment list the form_in_page is not displayed of form_above_comments is enabled
-				if('' !== $this->options->get('cgb_form_in_page') && ('' === $this->options->get('cgb_form_above_comments') || '' === $this->options->get('cgb_clist_adjust'))) {
+				if('' !== $this->options->get('cgb_form_in_page') && ('' === $this->options->get('cgb_form_above_comments') || '' === $this->options->get('cgb_adjust_output'))) {
 					ob_start();
 						comment_form();
 						$out .= ob_get_contents();
@@ -67,7 +67,7 @@ class SC_Comment_Guestbook {
 			add_filter('comments_open', array(&$cgb, 'filter_comments_open'), 50);
 		}
 		// Filter to show the adjusted comment style
-		if(1 == $this->options->get('cgb_clist_adjust')) {
+		if('' !== $this->options->get('cgb_adjust_output')) {
 			add_filter('comments_template', array(&$this, 'filter_comments_template'));
 			if('desc' === $this->options->get('cgb_clist_order') || '' !== $this->options->get('cgb_clist_show_all')) {
 				add_filter('comments_array', array(&$this, 'filter_comments_array'));

@@ -3,13 +3,13 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 3.8
-Stable tag: 0.5.1
+Tested up to: 3.8.1
+Stable tag: 0.6.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add a guestbook site which uses the wordpress integrated comments.
+Add a guestbook page which uses the wordpress integrated comments.
 
 
 == Description ==
@@ -21,19 +21,20 @@ Using the wordpress integrated comments system has some important advantages:
 * All wordpress comment features are available for the guestbook comments also (e.g. E-Mail Notification, listing in "All Comments" on admin page,...)
 * All plugins which are modifying the comment list or comment form will also work with Comment Guestbook automatically (e.g. a captcha plugin for antispam).
 
-Other features and options:
+=Other features and options:=
+* Setup comment form position (in page, above comment list, below comment list). You can also use more than one.
+* Adjust the comment form (change texts, hide elements)
+* Ajdust the comment order (newest first, oldest first)
+* Option to show numbered pagination links for the comment list
+* Ajdust the comment html-code for the guestbook page
+* Option to include all comments of your site in the comment list on the guestbook page
+* Sidebar widget to show recent comments with a lot of options
+* Show a message after a new comment was made. This option you can also enable for all post/pages in your blog
 
-* Setup comment form position (in page, above comment list, below comment list). You can also use more than one of them.
-* Ajdust the comment order to your requirements.
-* Option to show numbered pagination links for the comment list.
-* Ajdust the comment html-code for the guestbook page.
-* Option to include all comments of your site in the comment list on the guestbook page.
-* Sidebar widget to show recent comments with a lot of options.
-* Show a message after a new comment was made. This option you can also enable for all post/pages in your blog.
+=Usage:=
+Simply insert the shortcode `[comment-guestbook]` into a page to enable this plugin.
 
-Simply insert the shortcode [comment-guestbook] into a page to enable this plugin.
-
-On the admin page (goto Comments -> Guestbook) you can find a detailed description and a lot options to modify the output.
+On the admin page (goto Comments -> About Guestbook) you can find a detailed description and a lot options to modify the output.
 
 
 If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
@@ -69,43 +70,46 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 
 == Screenshots ==
 
-1. Admin page (general settings)
-2. Admin page (message after new comment settings)
-3. Admin page (comment-list settings)
-4. Admin page (comment html code)
-4. Admin page (comment-form settings)
-6. Widget options on admin page
-7. Example guestbook site
-8. Example guestbook widget
+1.  Admin about page
+2.  Admin settings page (General settings tab)
+3.  Admin settings page (Comment-form settings tab)
+4.  Admin settings page (Comment-list settings tab)
+5.  Admin settings page (Comment html code tab)
+6.  Admin settings page (Message after new comment tab)
+7.  Admin settings page (Comments in other posts/pages tab)
+8.  Widget options on admin page
+9.  Example guestbook site
+10. Example guestbook widget
 
 == Changelog ==
 
-= 0.5.1 (2014-01-06) =
+= 0.6.0 (2014-02-22) =
+* Splitted admin page in about and settings page
+* Moved settings page to "Settings"
+* Rearranged settings sections
+* Added some options to change the comment form
 
+= 0.5.1 (2014-01-06) =
 * Fix to show the comment list in page content at the correct position
 * Fix an issue with comments_open filter in combination with some other plugins
 * Added escaping of html title attribute in widget
 
 = 0.5.0 (2013-08-24) =
-
 * Added option to show comment list in page content (to support users with theme issues)
 * A lot of code cleanup
 * Fixed showing wrong page after entering a new comment
 * Avoid displaying 2 comment forms in succession
 
 = 0.4.1 (2013-08-11) =
-
 * Added tooltip help texts for the widget options
 * Added additional options for message after a new comment (duration, style)
 * Removed cmessage attribute from all link URLs after an new comment was made
 
 = 0.4.0 (2013-05-12) =
-
 * Added the possibility to show a message after a new comment was made
 * Minor security improvements
 
 = 0.3.1 (2013-04-07) =
-
 * Fixed link to comment in widget for some special settings
 * Added widget option to truncate author
 * Added widget option to truncate page title
@@ -113,53 +117,42 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 * A lot of code cleanup in widget class
 
 = 0.3.0 (2013-03-30) =
-
 * Fixed required user capability to change guestbook options
 * Added option to show comments of all pages/posts on guestbook page
 * Added widget to show recent comments with a lot of options
 * Improved some help texts on admin page
 
 = 0.2.2 (2012-12-27) =
-
 * Added section for comment form settings on admin page
 * Added options to define comment form position(s)
 * Fixed html-code on front page
 * Small html-code fixes on admin page
 
 = 0.2.1 (2012-11-11) =
-
 * Fixed overwriting of Allow comments status
 * Fixed redirected page after creating a new comment when Comment list order is Newest comments first
 * Added a new option to create a numbered pagination navigation
 
 = 0.2.0 (2012-11-03) =
-
 * Internal code changes
 * Added several new options to modify the output (find details on the admin page)
 
 = 0.1.2 (2012-09-01) =
-
 * Fixed all php warnings
 * Added screenshots
 
 = 0.1.1 (2012-06-24) =
-
 * Rearrangement of settings on admin page via different tabs
 
 = 0.1.0 (2012-04-30) =
-
 * Allow adjustment of comment html code
-
 * Added the options "Comment adjustment", "Comment html code" and "Domain for translation"
 
 = 0.0.2 (2012-04-08) =
-
 * Allow adjustment of comment list output
-
 * Added the options "adjust comment list output" and "comment callback function" on the admin page
 
 = 0.0.1 (2012-04-03) =
-
 * Initial release
 
 == Upgrade Notice ==

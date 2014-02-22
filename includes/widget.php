@@ -315,7 +315,7 @@ class CGB_Widget extends WP_Widget {
 	 *****************************************************************************/
 	private function get_comment_link($comment) {
 		$link_args = array();
-		if(1 == $this->options->get('cgb_clist_adjust')) {
+		if('' !== $this->options->get('cgb_adjust_output')) {
 			if(0 != get_option('page_comments') && 0 < get_option('comments_per_page')) {
 				if('desc' === $this->options->get('cgb_clist_order') || 'asc' === $this->options->get('cgb_clist_order') || '' !== $this->options->get('cgb_clist_show_all')) {
 					$pattern = get_shortcode_regex();

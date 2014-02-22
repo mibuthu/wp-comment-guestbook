@@ -115,10 +115,10 @@ class CGB_Comments_Functions {
 
 	public function show_comment_form_html($location) {
 		if('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) {
-			comment_form();
+			comment_form($this->get_guestbook_comment_form_args());
 		}
 		if('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments')) {
-			comment_form();
+			comment_form($this->get_guestbook_comment_form_args());
 		}
 	}
 
@@ -215,6 +215,27 @@ class CGB_Comments_Functions {
 		$out = ob_get_contents();
 		ob_end_clean();
 		return $out;
+	}
+
+	public function get_guestbook_comment_form_args() {
+		$args = array();
+		// title_reply
+		if('default' != $this->options->get('cgb_form_title_reply')) {
+			$args['title_reply'] = $this->options->get('cgb_form_title_reply');
+		}
+		// title_reply_to
+		if('default' != $this->options->get('cgb_form_title_reply_to')) {
+			$args['title_reply_to'] = $this->options->get('cgb_form_title_reply_to');
+		}
+		// comment_notes_before
+		if('default' != $this->options->get('cgb_form_notes_before')) {
+			$args['comment_notes_before'] = $this->options->get('cgb_form_notes_before');
+		}
+		// comment_notes_after
+		if('default' != $this->options->get('cgb_form_notes_after')) {
+			$args['comment_notes_after'] = $this->options->get('cgb_form_notes_after');
+		}
+		return $args;
 	}
 }
 ?>

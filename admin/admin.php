@@ -33,23 +33,23 @@ class CGB_Admin {
 	 * Add and register all admin pages in the admin menu
 	 */
 	public function register_pages() {
-		add_submenu_page('edit-comments.php', 'About Comment Guestbook', 'About Guestbook', 'edit_posts', 'cgb_admin_main', array(&$this, 'show_about_page'));
-		add_submenu_page('options-general.php', 'Comment Guestbook Settings', 'Guestbook', 'manage_options', 'cgb_admin_options', array(&$this, 'show_settings_page'));
+		$page = add_submenu_page('edit-comments.php', 'About Comment Guestbook', 'About Guestbook', 'edit_posts', 'cgb_admin_main', array(&$this, 'show_about_page'));
+		$page = add_submenu_page('options-general.php', 'Comment Guestbook Settings', 'Guestbook', 'manage_options', 'cgb_admin_options', array(&$this, 'show_settings_page'));
+		add_action('admin_print_scripts-'.$page, array(&$this, 'embed_settings_scripts'));
 	}
 
 	public function show_about_page() {
 		require_once(CGB_PATH.'admin/includes/admin-about.php');
 		CGB_Admin_About::get_instance()->show_about();
 	}
-/*
-	public function embed_about_scripts() {
-		require_once(CGB_PATH.'admin/includes/admin-about.php');
-		CGB_Admin_About::get_instance()->embed_about_scripts();
-	}
-*/
+
 	public function show_settings_page() {
 		require_once(CGB_PATH.'admin/includes/admin-settings.php');
 		CGB_Admin_Settings::get_instance()->show_settings();
+	}
+
+	public function embed_settings_scripts() {
+		wp_enqueue_style('cgb_admin_settings', CGB_URL.'admin/css/admin_settings.css');
 	}
 }
 ?>

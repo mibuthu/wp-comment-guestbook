@@ -51,7 +51,7 @@ class CGB_Admin_Settings {
 		$out .= ob_get_contents();
 		ob_end_clean();
 		$out .= '
-				<div style="padding:0 10px">
+				<div class="cgb-settings">
 				<table class="form-table">';
 		$out .= $this->show_options($tab);
 		$out .= '
@@ -74,7 +74,7 @@ class CGB_Admin_Settings {
 			$out .= '<a class="nav-tab'.$class.'" href="?page=cgb_admin_options&amp;tab='.$tabname.'">'.$tab['caption'].'</a>';
 		}
 		$out .= '</h3>
-				<div style="padding:0 15px">'.$this->options->sections[$current]['desc'].'</div>';
+				<div class="section-desc">'.$this->options->sections[$current]['desc'].'</div>';
 		return $out;
 	}
 

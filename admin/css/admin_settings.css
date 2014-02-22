@@ -1,0 +1,12 @@
+.cgb-settings {
+	padding: 0 10px;
+}
+
+.section-desc {
+	padding: 1em 0 2em 15px;
+}
+
+.form-table th, .form-table td {
+	vertical-align: top;
+	padding: 15px 10px 15px 0;
+};

@@ -34,6 +34,7 @@ class CGB_Admin {
 	 */
 	public function register_pages() {
 		$page = add_submenu_page('edit-comments.php', 'About Comment Guestbook', 'About Guestbook', 'edit_posts', 'cgb_admin_main', array(&$this, 'show_about_page'));
+		add_action('admin_print_scripts-'.$page, array(&$this, 'embed_about_scripts'));
 		$page = add_submenu_page('options-general.php', 'Comment Guestbook Settings', 'Guestbook', 'manage_options', 'cgb_admin_options', array(&$this, 'show_settings_page'));
 		add_action('admin_print_scripts-'.$page, array(&$this, 'embed_settings_scripts'));
 	}
@@ -46,6 +47,10 @@ class CGB_Admin {
 	public function show_settings_page() {
 		require_once(CGB_PATH.'admin/includes/admin-settings.php');
 		CGB_Admin_Settings::get_instance()->show_settings();
+	}
+
+	public function embed_about_scripts() {
+		wp_enqueue_style('cgb_admin_about', CGB_URL.'admin/css/admin_about.css');
 	}
 
 	public function embed_settings_scripts() {

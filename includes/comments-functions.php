@@ -227,6 +227,14 @@ class CGB_Comments_Functions {
 		if('std' != $this->options->get('cgb_form_title_reply_to')) {
 			$args['title_reply_to'] = $this->options->get('cgb_form_title_reply_to');
 		}
+		// comment_notes_before
+		if('std' != $this->options->get('cgb_form_notes_before')) {
+			$args['comment_notes_before'] = $this->options->get('cgb_form_notes_before');
+		}
+		// comment_notes_after
+		if('std' != $this->options->get('cgb_form_notes_after')) {
+			$args['comment_notes_after'] = $this->options->get('cgb_form_notes_after');
+		}
 		return $args;
 	}
 }

@@ -237,6 +237,20 @@ class CGB_Options {
 			                                      'desc'    => __('With this option you can specify a specific title for the comment form (when replying to a comment).<br />
 			                                                       The standard is "std" to use the wordpress default title. Enter an empty string to hide the title.')),
 
+			'cgb_form_notes_before'      => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'std',
+			                                      'label'   => __('Notes before form fields'),
+			                                      'desc'    => __('With this option you can overwrite the text for the notes before the comment form fields.<br />
+			                                                       The standard is "std" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+
+			'cgb_form_notes_after'       => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'std',
+			                                      'label'   => __('Notes after form fields'),
+			                                      'desc'    => __('With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />
+			                                                       The standard is "std" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+
 			'cgb_page_add_cmessage'      => array('section' => 'page_comments',
 			                                      'type'    => 'checkbox',
 			                                      'std_val' => '',

@@ -3,8 +3,8 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 3.8
-Stable tag: 0.5.1
+Tested up to: 3.8.1
+Stable tag: 0.6.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -83,32 +83,33 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 
 == Changelog ==
 
-= 0.5.1 (2014-01-06) =
+= 0.6.0 (2014-02-22) =
+* Splitted admin page in about and settings page
+* Moved settings page to "Settings"
+* Rearranged settings sections
+* Added some options to change the comment form
 
+= 0.5.1 (2014-01-06) =
 * Fix to show the comment list in page content at the correct position
 * Fix an issue with comments_open filter in combination with some other plugins
 * Added escaping of html title attribute in widget
 
 = 0.5.0 (2013-08-24) =
-
 * Added option to show comment list in page content (to support users with theme issues)
 * A lot of code cleanup
 * Fixed showing wrong page after entering a new comment
 * Avoid displaying 2 comment forms in succession
 
 = 0.4.1 (2013-08-11) =
-
 * Added tooltip help texts for the widget options
 * Added additional options for message after a new comment (duration, style)
 * Removed cmessage attribute from all link URLs after an new comment was made
 
 = 0.4.0 (2013-05-12) =
-
 * Added the possibility to show a message after a new comment was made
 * Minor security improvements
 
 = 0.3.1 (2013-04-07) =
-
 * Fixed link to comment in widget for some special settings
 * Added widget option to truncate author
 * Added widget option to truncate page title
@@ -116,53 +117,42 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 * A lot of code cleanup in widget class
 
 = 0.3.0 (2013-03-30) =
-
 * Fixed required user capability to change guestbook options
 * Added option to show comments of all pages/posts on guestbook page
 * Added widget to show recent comments with a lot of options
 * Improved some help texts on admin page
 
 = 0.2.2 (2012-12-27) =
-
 * Added section for comment form settings on admin page
 * Added options to define comment form position(s)
 * Fixed html-code on front page
 * Small html-code fixes on admin page
 
 = 0.2.1 (2012-11-11) =
-
 * Fixed overwriting of Allow comments status
 * Fixed redirected page after creating a new comment when Comment list order is Newest comments first
 * Added a new option to create a numbered pagination navigation
 
 = 0.2.0 (2012-11-03) =
-
 * Internal code changes
 * Added several new options to modify the output (find details on the admin page)
 
 = 0.1.2 (2012-09-01) =
-
 * Fixed all php warnings
 * Added screenshots
 
 = 0.1.1 (2012-06-24) =
-
 * Rearrangement of settings on admin page via different tabs
 
 = 0.1.0 (2012-04-30) =
-
 * Allow adjustment of comment html code
-
 * Added the options "Comment adjustment", "Comment html code" and "Domain for translation"
 
 = 0.0.2 (2012-04-08) =
-
 * Allow adjustment of comment list output
-
 * Added the options "adjust comment list output" and "comment callback function" on the admin page
 
 = 0.0.1 (2012-04-03) =
-
 * Initial release
 
 == Upgrade Notice ==

@@ -3,12 +3,13 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.5.1
+Version: 0.6.0
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
+License: GPLv2
 
 A plugin for the blogging MySQL/PHP-based WordPress.
-Copyright 2012 Michael Burtscher
+Copyright 2012-2014 Michael Burtscher
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNUs General Public License

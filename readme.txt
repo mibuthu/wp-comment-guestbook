@@ -21,7 +21,7 @@ Using the wordpress integrated comments system has some important advantages:
 * All wordpress comment features are available for the guestbook comments also (e.g. E-Mail Notification, listing in "All Comments" on admin page,...)
 * All plugins which are modifying the comment list or comment form will also work with Comment Guestbook automatically (e.g. a captcha plugin for antispam).
 
-=Other features and options:=
+= Other features and options: =
 * Setup comment form position (in page, above comment list, below comment list). You can also use more than one.
 * Adjust the comment form (change texts, hide elements)
 * Ajdust the comment order (newest first, oldest first)
@@ -31,11 +31,10 @@ Using the wordpress integrated comments system has some important advantages:
 * Sidebar widget to show recent comments with a lot of options
 * Show a message after a new comment was made. This option you can also enable for all post/pages in your blog
 
-=Usage:=
+= Usage: =
 Simply insert the shortcode `[comment-guestbook]` into a page to enable this plugin.
 
 On the admin page (goto Comments -> About Guestbook) you can find a detailed description and a lot options to modify the output.
-
 
 If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
 

@@ -40,7 +40,6 @@ class CGB_Admin_Settings {
 			<div class="wrap nosubsub" style="padding-bottom:15px">
 			<div id="icon-edit-comments" class="icon32"><br /></div><h2>Comment Guestbook Settings</h2>
 			</div>';
-		$out .= $this->show_messages();
 		$out .= $this->show_sections($tab);
 		$out .= '<div id="posttype-page" class="posttypediv">';
 		$out .= '
@@ -164,16 +163,6 @@ class CGB_Admin_Settings {
 	private function show_textarea($name, $value) {
 		$out = '
 							<textarea name="'.$name.'" id="'.$name.'" rows="12" class="large-text code">'.$value.'</textarea>';
-		return $out;
-	}
-
-	private function show_messages() {
-		$out = '';
-		// settings updated
-		if(isset($_GET['settings-updated']) && 'true' === $_GET['settings-updated']) {
-			$out .= '
-					<div id="message" class="updated below-h2"><p><strong>Settings saved.</strong></p></div>';
-		}
 		return $out;
 	}
 }

@@ -50,7 +50,7 @@ class CGB_Admin_About {
 			<h4>Comment guestbook widget</h4>
 			<div class="help-content">
 				<p>There is also a <a href="'.admin_url('widgets.php').'">widget</a> called "Comment Guestbook" available.<br />
-				With this widget you can can add a list of the latest guestbook comments in your sidebar.<br />
+				With this widget you can can add a list of the latest comments in your sidebar.<br />
 				Also in the widget you have many options to modify the output.</p>
 			</div>
 			<br />

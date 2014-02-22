@@ -223,6 +223,20 @@ class CGB_Options {
 			                                      'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
 			                                                       There are many additional options availabe to change the message text and format')),
 
+			'cgb_form_title_reply'       => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'std',
+			                                      'label'   => __('Comment form title'),
+			                                      'desc'    => __('With this option you can specify a specific title for the comment form (when not replying to a comment).<br />
+			                                                       The standard is "std" to use the wordpress default title. Enter an empty string to hide the title.')),
+
+			'cgb_form_title_reply_to'    => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'std',
+			                                      'label'   => __('Reply comment form title'),
+			                                      'desc'    => __('With this option you can specify a specific title for the comment form (when replying to a comment).<br />
+			                                                       The standard is "std" to use the wordpress default title. Enter an empty string to hide the title.')),
+
 			'cgb_page_add_cmessage'      => array('section' => 'page_comments',
 			                                      'type'    => 'checkbox',
 			                                      'std_val' => '',

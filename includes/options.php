@@ -104,28 +104,42 @@ class CGB_Options {
 			                                      'std_val' => 'default',
 			                                      'label'   => __('Comment form title'),
 			                                      'desc'    => __('With this option you can specify a specific title for the comment form (when not replying to a comment).<br />
-			                                                       The standard is "std" to use the wordpress default title. Enter an empty string to hide the title.')),
+			                                                       The standard is "default" to use the wordpress default title. Enter an empty string to hide the title.')),
 
 			'cgb_form_title_reply_to'    => array('section' => 'comment_form',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'default',
 			                                      'label'   => __('Reply comment form title'),
 			                                      'desc'    => __('With this option you can specify a specific title for the comment form (when replying to a comment).<br />
-			                                                       The standard is "std" to use the wordpress default title. Enter an empty string to hide the title.')),
+			                                                       The standard is "default" to use the wordpress default title. Enter an empty string to hide the title.')),
 
 			'cgb_form_notes_before'      => array('section' => 'comment_form',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'default',
 			                                      'label'   => __('Notes before form fields'),
 			                                      'desc'    => __('With this option you can overwrite the text for the notes before the comment form fields.<br />
-			                                                       The standard is "std" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+			                                                       The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
 
 			'cgb_form_notes_after'       => array('section' => 'comment_form',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'default',
 			                                      'label'   => __('Notes after form fields'),
 			                                      'desc'    => __('With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />
-			                                                       The standard is "std" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+			                                                       The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+
+			'cgb_form_label_submit'      => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'default',
+			                                      'label'   => __('Label of submit button'),
+			                                      'desc'    => __('With this option you can overwrite the label of the comment form submit button.<br />
+			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
+
+			'cgb_form_cancel_reply'      => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'default',
+			                                      'label'   => __('Label for cancel reply link'),
+			                                      'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
+			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
 			// Comment-list section
 			'cgb_clist_order'            => array('section' => 'comment_list',
 			                                      'type'    => 'radio',

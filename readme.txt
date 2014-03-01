@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ Using the wordpress integrated comments system has some important advantages:
 * All wordpress comment features are available for the guestbook comments also (e.g. E-Mail Notification, listing in "All Comments" on admin page,...)
 * All plugins which are modifying the comment list or comment form will also work with Comment Guestbook automatically (e.g. a captcha plugin for antispam).
 
-=Other features and options:=
+= Other features and options: =
 * Setup comment form position (in page, above comment list, below comment list). You can also use more than one.
 * Adjust the comment form (change texts, hide elements)
 * Ajdust the comment order (newest first, oldest first)
@@ -31,11 +31,10 @@ Using the wordpress integrated comments system has some important advantages:
 * Sidebar widget to show recent comments with a lot of options
 * Show a message after a new comment was made. This option you can also enable for all post/pages in your blog
 
-=Usage:=
+= Usage: =
 Simply insert the shortcode `[comment-guestbook]` into a page to enable this plugin.
 
 On the admin page (goto Comments -> About Guestbook) you can find a detailed description and a lot options to modify the output.
-
 
 If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
 
@@ -82,6 +81,12 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.6.1 (2014-03-01) =
+* added option to change label of submit button
+* added option to change label of reply link
+* fixed option default value in descriptions
+* fixed readme
 
 = 0.6.0 (2014-02-22) =
 * Splitted admin page in about and settings page

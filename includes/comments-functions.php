@@ -235,6 +235,16 @@ class CGB_Comments_Functions {
 		if('default' != $this->options->get('cgb_form_notes_after')) {
 			$args['comment_notes_after'] = $this->options->get('cgb_form_notes_after');
 		}
+		// label_submit
+		$option = $this->options->get('cgb_form_label_submit');
+		if('default' != $option && '' != $option) {
+			$args['label_submit'] = $option;
+		}
+		// cancel_reply_link
+		$option = $this->options->get('cgb_form_cancel_reply');
+		if('default' != $option && '' != $option) {
+			$args['cancel_reply_link'] = $option;
+		}
 		return $args;
 	}
 }

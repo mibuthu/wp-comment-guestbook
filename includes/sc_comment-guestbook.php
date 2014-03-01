@@ -10,6 +10,7 @@ class SC_Comment_Guestbook {
 	private static $instance;
 	private $options;
 
+
 	public static function &get_instance() {
 		// Create class instance if required
 		if(!isset(self::$instance)) {
@@ -41,8 +42,9 @@ class SC_Comment_Guestbook {
 			if(comments_open()) {
 				// to only show one form above the comment list the form_in_page is not displayed of form_above_comments is enabled
 				if('' !== $this->options->get('cgb_form_in_page') && ('' === $this->options->get('cgb_form_above_comments') || '' === $this->options->get('cgb_adjust_output'))) {
+					require_once(CGB_PATH.'includes/comments-functions.php');
 					ob_start();
-						comment_form();
+						comment_form(CGB_Comments_Functions::get_instance()->get_guestbook_comment_form_args());
 						$out .= ob_get_contents();
 					ob_end_clean();
 				}

@@ -133,6 +133,14 @@ class CGB_Options {
 			                                      'label'   => __('Label of submit button'),
 			                                      'desc'    => __('With this option you can overwrite the label of the comment form submit button.<br />
 			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
+
+			'cgb_form_cancel_reply'      => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'default',
+			                                      'label'   => __('Label for cancel reply link'),
+			                                      'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
+			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
+
 			// Comment-list section
 			'cgb_clist_order'            => array('section' => 'comment_list',
 			                                      'type'    => 'radio',

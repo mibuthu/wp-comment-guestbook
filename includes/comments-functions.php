@@ -240,6 +240,11 @@ class CGB_Comments_Functions {
 		if('default' != $option && '' != $option) {
 			$args['label_submit'] = $option;
 		}
+		// cancel_reply_link
+		$option = $this->options->get('cgb_form_cancel_reply');
+		if('default' != $option && '' != $option) {
+			$args['cancel_reply_link'] = $option;
+		}
 		return $args;
 	}
 }

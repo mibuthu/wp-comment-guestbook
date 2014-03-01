@@ -126,6 +126,13 @@ class CGB_Options {
 			                                      'label'   => __('Notes after form fields'),
 			                                      'desc'    => __('With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />
 			                                                       The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+
+			'cgb_form_label_submit'      => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'default',
+			                                      'label'   => __('Label of submit button'),
+			                                      'desc'    => __('With this option you can overwrite the label of the comment form submit button.<br />
+			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
 			// Comment-list section
 			'cgb_clist_order'            => array('section' => 'comment_list',
 			                                      'type'    => 'radio',

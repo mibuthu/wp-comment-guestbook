@@ -235,6 +235,11 @@ class CGB_Comments_Functions {
 		if('default' != $this->options->get('cgb_form_notes_after')) {
 			$args['comment_notes_after'] = $this->options->get('cgb_form_notes_after');
 		}
+		// label_submit
+		$option = $this->options->get('cgb_form_label_submit');
+		if('default' != $option && '' != $option) {
+			$args['label_submit'] = $option;
+		}
 		return $args;
 	}
 }

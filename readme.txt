@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,12 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.6.1 (2014-03-01) =
+* added option to change label of submit button
+* added option to change label of reply link
+* fixed option default value in descriptions
+* fixed readme
 
 = 0.6.0 (2014-02-22) =
 * Splitted admin page in about and settings page

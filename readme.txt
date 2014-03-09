@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 0.6.1
+Stable tag: 0.6.2
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ Using the wordpress integrated comments system has some important advantages:
 = Usage: =
 Simply insert the shortcode `[comment-guestbook]` into a page to enable this plugin.
 
-On the admin page (goto Comments -> About Guestbook) you can find a detailed description and a lot options to modify the output.
+On the admin page (goto Comments -> About Guestbook) you can find a detailed description. In the admin area you can find a settings page with a lot of options to modify the behavior and output.
 
 If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
 
@@ -81,6 +81,11 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.6.2 (2014-03-09) =
+* added option to hide email and website form field
+* added option to change comment label in comment form
+* apply comment form customization also in page/post form
 
 = 0.6.1 (2014-03-01) =
 * added option to change label of submit button

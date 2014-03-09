@@ -219,6 +219,10 @@ class CGB_Comments_Functions {
 
 	public function get_guestbook_comment_form_args() {
 		$args = array();
+		// remove mail field
+		if('' != $this->options->get('cgb_form_remove_mail')) {
+			add_filter('comment_form_field_email', array(&$this, 'form_remove_mail_filter'));
+		}
 		// title_reply
 		if('default' != $this->options->get('cgb_form_title_reply')) {
 			$args['title_reply'] = $this->options->get('cgb_form_title_reply');
@@ -246,6 +250,10 @@ class CGB_Comments_Functions {
 			$args['cancel_reply_link'] = $option;
 		}
 		return $args;
+	}
+
+	public function form_remove_mail_filter() {
+		return '';
 	}
 }
 ?>

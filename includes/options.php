@@ -99,6 +99,13 @@ class CGB_Options {
 			                                      'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
 			                                                       There are many additional options availabe to change the message text and format in the "Message after new comment" section.')),
 
+			'cgb_form_remove_mail'       => array('section' => 'comment_form',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Remove Email field'),
+			                                      'caption' => __('Remove the Email field in comment guestbook form'),
+			                                      'desc'    => __('If this option is enabled Email field will be removed in the comment guestbook form.')),
+
 			'cgb_form_title_reply'       => array('section' => 'comment_form',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'default',

@@ -113,6 +113,13 @@ class CGB_Options {
 			                                      'caption' => __('Remove the Website url field in comment guestbook form'),
 			                                      'desc'    => __('If this option is enabled the website url field will be removed in the comment guestbook form.')),
 
+			'cgb_form_comment_label'     => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'default',
+			                                      'label'   => __('Label for comment field'),
+			                                      'desc'    => __('With this option you can specify a specific label for the comment field.<br />
+			                                                       The standard is "default" to use the wordpress default label. Enter an empty string to hide the label.')),
+
 			'cgb_form_title_reply'       => array('section' => 'comment_form',
 			                                      'type'    => 'text',
 			                                      'std_val' => 'default',

@@ -221,11 +221,15 @@ class CGB_Comments_Functions {
 		$args = array();
 		// remove mail field
 		if('' != $this->options->get('cgb_form_remove_mail')) {
-			add_filter('comment_form_field_email', array(&$this, 'form_field_remove_filter'));
+			add_filter('comment_form_field_email', array(&$this, 'form_field_remove_filter'), 20);
 		}
 		// remove website url field
 		if('' != $this->options->get('cgb_form_remove_website')) {
-			add_filter('comment_form_field_url', array(&$this, 'form_field_remove_filter'));
+			add_filter('comment_form_field_url', array(&$this, 'form_field_remove_filter'), 20);
+		}
+		// change comment field label
+		if('default' != $this->options->get('cgb_form_comment_label')) {
+			add_filter('comment_form_field_comment', array(&$this, 'comment_field_label_filter'), 20);
 		}
 		// title_reply
 		if('default' != $this->options->get('cgb_form_title_reply')) {
@@ -258,6 +262,10 @@ class CGB_Comments_Functions {
 
 	public function form_field_remove_filter() {
 		return '';
+	}
+
+	public function comment_field_label_filter($comment_html) {
+		return preg_replace('/(<label.*>)(.*)(<\/label>)/i', '${1}'.$this->options->get('cgb_form_comment_label').'${3}', $comment_html, 1);
 	}
 }
 ?>

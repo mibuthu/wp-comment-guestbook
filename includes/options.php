@@ -104,7 +104,14 @@ class CGB_Options {
 			                                      'std_val' => '',
 			                                      'label'   => __('Remove Email field'),
 			                                      'caption' => __('Remove the Email field in comment guestbook form'),
-			                                      'desc'    => __('If this option is enabled Email field will be removed in the comment guestbook form.')),
+			                                      'desc'    => __('If this option is enabled the email field will be removed in the comment guestbook form.')),
+
+			'cgb_form_remove_website'    => array('section' => 'comment_form',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Remove Website field'),
+			                                      'caption' => __('Remove the Website url field in comment guestbook form'),
+			                                      'desc'    => __('If this option is enabled the website url field will be removed in the comment guestbook form.')),
 
 			'cgb_form_title_reply'       => array('section' => 'comment_form',
 			                                      'type'    => 'text',

@@ -29,8 +29,8 @@ class CGB_Options {
 			                          'desc'    => __('Some general settings for this plugin.')),
 			'comment_form'   => array('caption' => __('Comment-form settings'),
 			                          'desc'    => __('In this section you can find settings to modify the comment form.<br />
-			                                           <strong>Attention:</strong> If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.
-			                                           Only the options "Show form in page/post" and "Message after comment" are working without it.')),
+			                                           <strong>Attention:</strong><br />If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.<br />
+			                                           Only the options "Show form in page/post" and "Message after comment" are working without it. Also all form modification options are working in the page/post form without "Guestbook comment adjustment" enabled.')),
 			'comment_list'   => array('caption' => __('Comment-list settings'),
 			                          'desc'    => __('In this section you can find settings to modify the comments list.<br />
 			                                           <strong>Attention:</strong> If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.')),
@@ -98,6 +98,27 @@ class CGB_Options {
 			                                      'caption' => __('Show a "Thank you" message after a new guestbook comment'),
 			                                      'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
 			                                                       There are many additional options availabe to change the message text and format in the "Message after new comment" section.')),
+
+			'cgb_form_remove_mail'       => array('section' => 'comment_form',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Remove Email field'),
+			                                      'caption' => __('Remove the Email field in comment guestbook form'),
+			                                      'desc'    => __('If this option is enabled the email field will be removed in the comment guestbook form.')),
+
+			'cgb_form_remove_website'    => array('section' => 'comment_form',
+			                                      'type'    => 'checkbox',
+			                                      'std_val' => '',
+			                                      'label'   => __('Remove Website field'),
+			                                      'caption' => __('Remove the Website url field in comment guestbook form'),
+			                                      'desc'    => __('If this option is enabled the website url field will be removed in the comment guestbook form.')),
+
+			'cgb_form_comment_label'     => array('section' => 'comment_form',
+			                                      'type'    => 'text',
+			                                      'std_val' => 'default',
+			                                      'label'   => __('Label for comment field'),
+			                                      'desc'    => __('With this option you can specify a specific label for the comment field.<br />
+			                                                       The standard is "default" to use the wordpress default label. Enter an empty string to hide the label.')),
 
 			'cgb_form_title_reply'       => array('section' => 'comment_form',
 			                                      'type'    => 'text',

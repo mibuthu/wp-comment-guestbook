@@ -29,8 +29,8 @@ class CGB_Options {
 			                          'desc'    => __('Some general settings for this plugin.')),
 			'comment_form'   => array('caption' => __('Comment-form settings'),
 			                          'desc'    => __('In this section you can find settings to modify the comment form.<br />
-			                                           <strong>Attention:</strong> If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.
-			                                           Only the options "Show form in page/post" and "Message after comment" are working without it.')),
+			                                           <strong>Attention:</strong><br />If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.<br />
+			                                           Only the options "Show form in page/post" and "Message after comment" are working without it. Also all form modification options are working in the page/post form without "Guestbook comment adjustment" enabled.')),
 			'comment_list'   => array('caption' => __('Comment-list settings'),
 			                          'desc'    => __('In this section you can find settings to modify the comments list.<br />
 			                                           <strong>Attention:</strong> If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.')),

@@ -10,7 +10,6 @@ class SC_Comment_Guestbook {
 	private static $instance;
 	private $options;
 
-
 	public static function &get_instance() {
 		// Create class instance if required
 		if(!isset(self::$instance)) {

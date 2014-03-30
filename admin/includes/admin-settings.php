@@ -41,8 +41,8 @@ class CGB_Admin_Settings {
 			<div id="icon-edit-comments" class="icon32"><br /></div><h2>Comment Guestbook Settings</h2>
 			</div>';
 		$out .= $this->show_sections($tab);
-		$out .= '<div id="posttype-page" class="posttypediv">';
 		$out .= '
+			<div id="posttype-page" class="posttypediv">
 			<form method="post" action="options.php">
 			';
 		ob_start();

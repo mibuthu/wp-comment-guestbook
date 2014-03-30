@@ -7,7 +7,6 @@ if(!defined('ABSPATH')) {
 class CGB_Options {
 
 	private static $instance;
-	public $group;
 	public $sections;
 	public $options;
 
@@ -22,8 +21,6 @@ class CGB_Options {
 	}
 
 	private function __construct() {
-		$this->group = 'comment-guestbook';
-
 		$this->sections = array(
 			'general'        => array('caption' => __('General settings'),
 			                          'desc'    => __('Some general settings for this plugin.')),

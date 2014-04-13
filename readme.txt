@@ -3,8 +3,8 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 3.8.1
-Stable tag: 0.6.2
+Tested up to: 3.9
+Stable tag: 0.6.3
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,13 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.6.3 (2014-04-13) =
+* added option to specify comment form args directly
+* show more number in pagination
+* small fix in truncate function
+* small css changes on admin page
+* added check if comment_callback_function exists
 
 = 0.6.2 (2014-03-09) =
 * added option to hide email and website form field

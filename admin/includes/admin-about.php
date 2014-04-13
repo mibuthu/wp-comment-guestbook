@@ -1,6 +1,6 @@
 <?php
-if(!defined('ABSPATH')) {
-	exit;
+if(!defined('WPINC')) {
+	die;
 }
 
 require_once(CGB_PATH.'includes/options.php');
@@ -8,18 +8,16 @@ require_once(CGB_PATH.'includes/options.php');
 // This class handles all data for the admin about page
 class CGB_Admin_About {
 	private static $instance;
-	private $options;
 
 	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
+		// nothing to do
 	}
 
 	public static function &get_instance() {
-		// Create class instance if required
+		// singleton setup
 		if(!isset(self::$instance)) {
-			self::$instance = new CGB_Admin_About();
+			self::$instance = new self;
 		}
-		// Return class instance
 		return self::$instance;
 	}
 

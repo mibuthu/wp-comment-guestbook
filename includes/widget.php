@@ -360,7 +360,7 @@ class CGB_Widget extends WP_Widget {
 			$position = 0;
 			$tags = array();
 			$out = '';
-			while ($printedLength < $max_length && preg_match('{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+			while ($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
 				list($tag, $tagPosition) = $match[0];
 				// Print text leading up to the tag
 				$str = substr($html, $position, $tagPosition - $position);

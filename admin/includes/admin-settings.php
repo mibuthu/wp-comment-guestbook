@@ -41,8 +41,8 @@ class CGB_Admin_Settings {
 			<div id="icon-edit-comments" class="icon32"><br /></div><h2>Comment Guestbook Settings</h2>
 			</div>';
 		$out .= $this->show_sections($tab);
-		$out .= '<div id="posttype-page" class="posttypediv">';
 		$out .= '
+			<div id="posttype-page" class="posttypediv">
 			<form method="post" action="options.php">
 			';
 		ob_start();
@@ -105,7 +105,7 @@ class CGB_Admin_Settings {
 						$out .= $this->show_text($oname, $this->options->get($oname));
 						break;
 					case 'textarea':
-						$out .= $this->show_textarea($oname, $this->options->get($oname));
+						$out .= $this->show_textarea($oname, $this->options->get($oname), (isset($o['rows']) ? $o['rows'] : null));
 						break;
 				}
 				$out .= '
@@ -160,9 +160,10 @@ class CGB_Admin_Settings {
 		return $out;
 	}
 
-	private function show_textarea($name, $value) {
+	private function show_textarea($name, $value, $rows=null) {
+		$rows_text = (null == $rows) ? '' : ' rows="'.$rows.'"';
 		$out = '
-							<textarea name="'.$name.'" id="'.$name.'" rows="12" class="large-text code">'.$value.'</textarea>';
+							<textarea name="'.$name.'" id="'.$name.'"'.$rows_text.' class="large-text code">'.$value.'</textarea>';
 		return $out;
 	}
 }

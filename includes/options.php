@@ -158,6 +158,25 @@ class CGB_Options {
 			                                      'label'   => __('Label for cancel reply link'),
 			                                      'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
 			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
+
+			'cgb_form_args'              => array('section' => 'comment_form',
+			                                      'type'    => 'textarea',
+			                                      'rows'    => 10,
+			                                      'std_val' => '',
+			                                      'label'   => __('Comment form args'),
+			                                      'desc'    => __('With this option you can specify args for the comment form.<br />
+			                                                       This can be required because some themes change the comment form styling direcly with args.<br />
+			                                                       With this option you can insert these specific args in your guestbook form.<br />
+			                                                       A list of all available args and there discription can be found <a href="https://codex.wordpress.org/Function_Reference/comment_form#.24args">here</a>.<br />
+			                                                       The given text must be valid php array, e.g.<br />
+			                                                       <code>array(<br />
+			                                                       &nbsp;&nbsp;\'comment_notes_after\' =&gt; \'&lt;p&gt;\'.sprintf(__(\'You may use these &lt;abbr&gt;HTML&lt;/abbr&gt;<br />
+			                                                       &nbsp;&nbsp;&nbsp;&nbsp;tags and attributes: %s\'), allowed_tags()).\'&lt;/p&gt;\',<br />
+			                                                       &nbsp;&nbsp;\'fields\' =&gt; array(<br />
+			                                                       &nbsp;&nbsp;&nbsp;&nbsp;\'author\' =&gt; \'&lt;input type="text" name="author" /&gt;\',<br />
+			                                                       &nbsp;&nbsp;&nbsp;&nbsp;\'location\' =&gt; \'&lt;input type="text" name="location" /&gt;\')<br />
+			                                                       )</code><br />
+			                                                       This setting will be overwritten with all the specific comment form options listed above.')),
 			// Comment-list section
 			'cgb_clist_order'            => array('section' => 'comment_list',
 			                                      'type'    => 'radio',

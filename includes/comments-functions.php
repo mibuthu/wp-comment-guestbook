@@ -219,6 +219,13 @@ class CGB_Comments_Functions {
 
 	public function get_guestbook_comment_form_args() {
 		$args = array();
+		// form args
+		if('' != $this->options->get('cgb_form_args')) {
+			eval('$args_array = '.$this->options->get('cgb_form_args').';');
+			if(is_array($args_array)) {
+				$args = $args_array;
+			}
+		}
 		// remove mail field
 		if('' != $this->options->get('cgb_form_remove_mail')) {
 			add_filter('comment_form_field_email', array(&$this, 'form_field_remove_filter'), 20);

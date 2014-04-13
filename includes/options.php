@@ -227,6 +227,7 @@ class CGB_Options {
 
 			'cgb_comment_html'           => array('section' => 'comment_html',
 			                                      'type'    => 'textarea',
+			                                      'rows'    => '15',
 			                                      'std_val' => '--func--comment_html',
 			                                      'label'   => __('Comment html code'),
 			                                      'desc'    => __('This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />

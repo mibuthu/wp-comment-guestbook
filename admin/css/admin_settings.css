@@ -9,4 +9,8 @@
 .form-table th, .form-table td {
 	vertical-align: top;
 	padding: 15px 10px 15px 0;
-};
+}
+
+code {
+	font-size: 12px;
+}

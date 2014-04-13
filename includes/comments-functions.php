@@ -98,7 +98,7 @@ class CGB_Comments_Functions {
 			// Numbered Pagination
 			if('' !== $this->options->get('cgb_clist_num_pagination')) {
 				echo '<div class="pagination" style="text-align:center;">';
-				paginate_comments_links(array('prev_text' => $this->nav_label_prev, 'next_text' => $this->nav_label_next));
+				paginate_comments_links(array('prev_text' => $this->nav_label_prev, 'next_text' => $this->nav_label_next, 'mid_size' => 3));
 				echo '</div>';
 			}
 			// Only previous and next links

@@ -40,7 +40,7 @@ class CGB_Comments_Functions {
 	public function list_comments() {
 		// Prepare wp_list_comments args
 		//comment callback function
-		if('' === $this->options->get('cgb_comment_adjust')) {
+		if('' === $this->options->get('cgb_comment_adjust') && function_exists($this->options->get('cgb_comment_adjust'))) {
 			$args['callback'] = $this->options->get('cgb_comment_callback');
 		}
 		else {

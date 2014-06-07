@@ -159,6 +159,15 @@ class CGB_Options {
 			                                      'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
 			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
 
+			'cgb_form_styles'            => array('section' => 'comment_form',
+			                                      'type'    => 'textarea',
+			                                      'rows'    => 6,
+			                                      'std_val' => '',
+			                                      'label'   => __('Comment form styles'),
+			                                      'desc'    => __('With this option you can specify custom css styles for the guestbook comment form.<br />
+			                                                       Enter all required styles like you would do it in a css file, e.g.:<br />
+			                                                       <code>.form-submit { text-align:center; }<br />&nbsp;#submit { font-weight:bold; }</code>')),
+
 			'cgb_form_args'              => array('section' => 'comment_form',
 			                                      'type'    => 'textarea',
 			                                      'rows'    => 10,

@@ -114,6 +114,12 @@ class CGB_Comments_Functions {
 	}
 
 	public function show_comment_form_html($location) {
+		// print form styles
+		echo '
+				<style>
+					'.$this->options->get('cgb_form_styles').'
+				</style>';
+		// show form
 		if('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) {
 			comment_form($this->get_guestbook_comment_form_args());
 		}

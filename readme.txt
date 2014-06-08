@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
 Tested up to: 3.9.1
-Stable tag: 0.6.4
+Stable tag: 0.6.5
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,9 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.6.5 (2014-06-08) =
+* fixed an issue in comment list custom styles code which breaks the comment list
 
 = 0.6.4 (2014-06-08) =
 * added options for custom css styles in comment form and comment list

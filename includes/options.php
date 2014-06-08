@@ -225,6 +225,12 @@ class CGB_Options {
 			                                      'caption' => __('Create a numbered pagination navigation'),
 			                                      'desc'    => __('Normally only a next and previous links are shown. But if this option is enabled a numbered list of all the comment pages is displayed.')),
 
+			'cgb_clist_title'            => array('section' => 'comment_list',
+			                                      'type'    => 'text',
+			                                      'std_val' => '',
+			                                      'label'   => __('Title for the comment list'),
+			                                      'desc'    => __('With this option you can specify an additional title which will be displayed in front of the comment list.')),
+
 			'cgb_clist_in_page_content'  => array('section' => 'comment_list',
 			                                      'type'    => 'checkbox',
 			                                      'std_val' => '',

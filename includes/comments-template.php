@@ -40,8 +40,10 @@ if(('' === $cgb_options->get('cgb_clist_in_page_content') && !$in_page) ||
 
 	// are comments available?
 	if(have_comments()) {
-		// TODO: Insert an option to add a title before the comment list
-		// echo '<h2 id="comments-title">'.get_the_title().' Entries:</h2>';
+		$title = $cgb_options->get('cgb_clist_title');
+		if('' != $title) {
+			echo '<h2 id="comments-title">'.$title.'</h2>';
+		}
 		$cgb_func->show_nav_html('above_comments');
 		echo '<ol class="commentlist">';
 		$cgb_func->list_comments();

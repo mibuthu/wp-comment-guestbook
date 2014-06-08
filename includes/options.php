@@ -159,6 +159,15 @@ class CGB_Options {
 			                                      'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
 			                                                       The standard is "default" or an empty string to use the wordpress default label.')),
 
+			'cgb_form_styles'            => array('section' => 'comment_form',
+			                                      'type'    => 'textarea',
+			                                      'rows'    => 6,
+			                                      'std_val' => '',
+			                                      'label'   => __('Comment form styles'),
+			                                      'desc'    => __('With this option you can specify custom css styles for the guestbook comment form.<br />
+			                                                       Enter all required styles like you would do it in a css file, e.g.:<br />
+			                                                       <code>.form-submit { text-align:center; }<br />&nbsp;#submit { font-weight:bold; }</code>')),
+
 			'cgb_form_args'              => array('section' => 'comment_form',
 			                                      'type'    => 'textarea',
 			                                      'rows'    => 10,
@@ -216,6 +225,12 @@ class CGB_Options {
 			                                      'caption' => __('Create a numbered pagination navigation'),
 			                                      'desc'    => __('Normally only a next and previous links are shown. But if this option is enabled a numbered list of all the comment pages is displayed.')),
 
+			'cgb_clist_title'            => array('section' => 'comment_list',
+			                                      'type'    => 'text',
+			                                      'std_val' => '',
+			                                      'label'   => __('Title for the comment list'),
+			                                      'desc'    => __('With this option you can specify an additional title which will be displayed in front of the comment list.')),
+
 			'cgb_clist_in_page_content'  => array('section' => 'comment_list',
 			                                      'type'    => 'checkbox',
 			                                      'std_val' => '',
@@ -235,6 +250,15 @@ class CGB_Options {
 			                                                       If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
 			                                                       If you want to insert the function of your theme manually, you can find the name normally in file "functions.php" of your theme.<br />
 			                                                       Often it is called "themename_comment", e.g. "twentyeleven_comment" for twentyeleven theme.')),
+
+			'cgb_clist_styles'           => array('section' => 'comment_list',
+			                                      'type'    => 'textarea',
+			                                      'rows'    => 6,
+			                                      'std_val' => '',
+			                                      'label'   => __('Comment list styles'),
+			                                      'desc'    => __('With this option you can specify custom css styles for the guestbook comment list.<br />
+			                                                       Enter all required styles like you would do it in a css file, e.g.:<br />
+			                                                       <code>ol.commentlist { list-style:none; }<br />&nbsp;ul.children { list-style-type:circle; }</code>')),
 			// Comment html code
 			'cgb_comment_adjust'         => array('section' => 'comment_html',
 			                                      'type'    => 'checkbox',

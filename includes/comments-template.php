@@ -40,8 +40,8 @@ if(('' === $cgb_options->get('cgb_clist_in_page_content') && !$in_page) ||
 
 	// are comments available?
 	if(have_comments()) {
-		// print custom form styles
-		$styles = $this->options->get('cgb_clist_styles');
+		// print custom list styles
+		$styles = $cgb_options->get('cgb_clist_styles');
 		if('' != $styles) {
 			echo '
 				<style>

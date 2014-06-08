@@ -250,6 +250,15 @@ class CGB_Options {
 			                                                       If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />
 			                                                       If you want to insert the function of your theme manually, you can find the name normally in file "functions.php" of your theme.<br />
 			                                                       Often it is called "themename_comment", e.g. "twentyeleven_comment" for twentyeleven theme.')),
+
+			'cgb_clist_styles'           => array('section' => 'comment_list',
+			                                      'type'    => 'textarea',
+			                                      'rows'    => 6,
+			                                      'std_val' => '',
+			                                      'label'   => __('Comment list styles'),
+			                                      'desc'    => __('With this option you can specify custom css styles for the guestbook comment list.<br />
+			                                                       Enter all required styles like you would do it in a css file, e.g.:<br />
+			                                                       <code>ol.commentlist { list-style:none; }<br />&nbsp;ul.children { list-style-type:circle; }</code>')),
 			// Comment html code
 			'cgb_comment_adjust'         => array('section' => 'comment_html',
 			                                      'type'    => 'checkbox',

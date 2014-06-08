@@ -40,10 +40,20 @@ if(('' === $cgb_options->get('cgb_clist_in_page_content') && !$in_page) ||
 
 	// are comments available?
 	if(have_comments()) {
+		// print custom form styles
+		$styles = $this->options->get('cgb_clist_styles');
+		if('' != $styles) {
+			echo '
+				<style>
+					'.$styles.'
+				</style>';
+		}
+		// print custom title
 		$title = $cgb_options->get('cgb_clist_title');
 		if('' != $title) {
 			echo '<h2 id="comments-title">'.$title.'</h2>';
 		}
+		// show comment list
 		$cgb_func->show_nav_html('above_comments');
 		echo '<ol class="commentlist">';
 		$cgb_func->list_comments();

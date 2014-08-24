@@ -62,6 +62,8 @@ class Comment_Guestbook {
 		else {
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
 			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
+			// Set filter to overwrite name and email requirement (actual requirement is set via guestbook options)
+			add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
 			// Add message after comment
 			if(isset($_GET['cmessage']) && 1 == $_GET['cmessage']) {
 				require_once(CGB_PATH.'includes/cmessage.php');
@@ -87,6 +89,25 @@ class Comment_Guestbook {
 		// Widget "comment-guestbook"
 		require_once('includes/widget.php');
 		return register_widget('CGB_Widget');
+	}
+
+	public function filter_require_name_email($option_value) {
+		require_once('includes/options.php');
+		$options = CGB_Options::get_instance();
+		global $comment_author;
+		$error_message = false;
+
+		if(isset($comment_author)) {
+			// when E-Mail field is removed
+			if($option_value && $options->get('cgb_form_remove_mail')) {
+				$option_value = false;
+				if('' == $comment_author) {
+					wp_die(__('<strong>ERROR</strong>: please fill the required fields (name).'));
+				}
+			}
+		}
+
+		return $option_value;
 	}
 
 	public function filter_comments_open($open) {

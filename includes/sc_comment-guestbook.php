@@ -67,6 +67,10 @@ class SC_Comment_Guestbook {
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			add_filter('comments_open', array(&$cgb, 'filter_ignore_comments_open'), 50);
 		}
+		// Set filter to overwrite registration requirements for comments on guestbook page
+		if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
+			add_filter('option_comment_registration', array(&$cgb, 'filter_ignore_comment_registration'));
+		}
 		// Filter to show the adjusted comment style
 		if('' !== $this->options->get('cgb_adjust_output')) {
 			add_filter('comments_template', array(&$this, 'filter_comments_template'));

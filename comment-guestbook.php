@@ -61,6 +61,10 @@ class Comment_Guestbook {
 		// FRONT PAGE:
 		else {
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
+			// Set filter to overwrite comments_open status
+			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
+				add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
+			}
 			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
 			// Set filter to overwrite name and email requirement (actual requirement is set via guestbook options)
 			add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
@@ -69,10 +73,6 @@ class Comment_Guestbook {
 				require_once(CGB_PATH.'includes/cmessage.php');
 				$cmessage = CGB_CMessage::get_instance();
 				$cmessage->init();
-			}
-			// Set filter to overwrite comments_open status
-			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
-				add_filter('comments_open', array(&$this, 'filter_comments_open'), 50);
 			}
 		}
 	} // end constructor
@@ -91,6 +91,10 @@ class Comment_Guestbook {
 		return register_widget('CGB_Widget');
 	}
 
+	public function filter_ignore_comments_open($option_value) {
+		return true;
+	}
+
 	public function filter_require_name_email($option_value) {
 		require_once('includes/options.php');
 		$options = CGB_Options::get_instance();
@@ -106,12 +110,7 @@ class Comment_Guestbook {
 				}
 			}
 		}
-
 		return $option_value;
-	}
-
-	public function filter_comments_open($open) {
-		return true;
 	}
 
 	public function filter_comment_post_redirect ($location) {

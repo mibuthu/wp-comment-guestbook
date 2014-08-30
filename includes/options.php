@@ -57,6 +57,15 @@ class CGB_Options {
 			                                           'caption' => __('Allow comments on the guestbook page without registration'),
 			                                           'desc'    => __('If this option is enabled the wordpress setting will be overwritten and comments will be always allowed without registration on the guestbook page.')),
 
+			'cgb_threaded_gb_comments'        => array('section' => 'general',
+			                                           'type'    => 'radio',
+			                                           'std_val' => 'default',
+			                                           'label'   => __('Enable threaded guestbook comments'),
+			                                           'caption' => array('default' => 'Standard WP-discussion setting', 'enabled' => 'Enabled', 'disabled' => 'Disabled'),
+			                                           'desc'    => __('This option allows you to overwrite the threaded comments option for guestbook pages.<br />
+			                                                            If this option is enabled a reply to a given comment is allowed, when disabled it isn´t.<br />
+			                                                            You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the standard value for all comments can be changed.')),
+
 			'cgb_adjust_output'               => array('section' => 'general',
 			                                           'type'    => 'checkbox',
 			                                           'std_val' => '',

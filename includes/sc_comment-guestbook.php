@@ -57,7 +57,6 @@ class SC_Comment_Guestbook {
 
 	private function init_sc() {
 		global $cgb;
-
 		// Add comment reply script in footer(required if comment status is overwritten)
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			add_action('wp_footer', array(&$this, 'enqueue_sc_scripts'));
@@ -67,9 +66,13 @@ class SC_Comment_Guestbook {
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			add_filter('comments_open', array(&$cgb, 'filter_ignore_comments_open'), 50);
 		}
-		// Set filter to overwrite registration requirements for comments on guestbook page
+		// Filter to overwrite registration requirements for comments on guestbook page
 		if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
 			add_filter('option_comment_registration', array(&$cgb, 'filter_ignore_comment_registration'));
+		}
+		// Filter to overwrite threaded comments on guestbook page
+		if('enabled' == $this->options->get('cgb_threaded_gb_comments') || 'disabled' ==  $this->options->get('cgb_threaded_gb_comments')) {
+			add_filter('option_thread_comments', array(&$this, 'filter_threaded_comments'));
 		}
 		// Filter to show the adjusted comment style
 		if('' !== $this->options->get('cgb_adjust_output')) {
@@ -87,6 +90,13 @@ class SC_Comment_Guestbook {
 
 	public function enqueue_sc_scripts() {
 		wp_enqueue_script('comment-reply', false, array(), false, true);
+	}
+
+	public function filter_threaded_comments($option_value) {
+		if('enabled' == $this->options->get('cgb_threaded_gb_comments')) {
+			return 1;
+		}
+		return 0;
 	}
 
 	public function filter_comments_template($file) {

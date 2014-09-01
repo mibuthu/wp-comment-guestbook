@@ -3,8 +3,8 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 3.9.1
-Stable tag: 0.6.5
+Tested up to: 3.9.2
+Stable tag: 0.6.6
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,11 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.6.6 (2014-09-01) =
+* added option to overwrite registration requirement for comments on guestbook pages (this option is enabled by default)
+* added option to enable/disable threaded comments on guestbook pages independent from wordpress settings
+* fixed problem that e-mail was still mandatory if e-mail field is hidden
 
 = 0.6.5 (2014-06-08) =
 * fixed an issue in comment list custom styles code which breaks the comment list

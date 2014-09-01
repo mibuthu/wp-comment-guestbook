@@ -11,6 +11,10 @@
 	padding: 15px 10px 15px 0;
 }
 
+fieldset label {
+	line-height: 1em !important;
+}
+
 code {
 	font-size: 12px;
 }

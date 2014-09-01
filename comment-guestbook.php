@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.6.5
+Version: 0.6.6
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 License: GPLv2
@@ -37,6 +37,7 @@ define('CGB_PATH', plugin_dir_path(__FILE__));
 // MAIN PLUGIN CLASS
 class Comment_Guestbook {
 	private $shortcode;
+	private $options;
 
 	/**
 	 * Constructor:
@@ -44,6 +45,7 @@ class Comment_Guestbook {
 	 */
 	public function __construct() {
 		$this->shortcode = null;
+		$this->options = null;
 
 		// ALWAYS:
 		// Register shortcodes
@@ -60,6 +62,21 @@ class Comment_Guestbook {
 
 		// FRONT PAGE:
 		else {
+			// Filters required after new guestbook comment
+			if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
+				require_once('includes/options.php');
+				$this->options = CGB_Options::get_instance();
+				// Set filter to overwrite comments_open status
+				if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
+					add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
+				}
+				// Set filter to overwrite registration requirements for comments on guestbook page
+				if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
+					add_filter('option_comment_registration', array(&$this, 'filter_ignore_comment_registration'));
+				}
+				// Set filter to overwrite name and email requirement (actual requirement is set via guestbook options)
+				add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
+			}
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
 			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
 			// Add message after comment
@@ -67,10 +84,6 @@ class Comment_Guestbook {
 				require_once(CGB_PATH.'includes/cmessage.php');
 				$cmessage = CGB_CMessage::get_instance();
 				$cmessage->init();
-			}
-			// Set filter to overwrite comments_open status
-			if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
-				add_filter('comments_open', array(&$this, 'filter_comments_open'), 50);
 			}
 		}
 	} // end constructor
@@ -89,8 +102,27 @@ class Comment_Guestbook {
 		return register_widget('CGB_Widget');
 	}
 
-	public function filter_comments_open($open) {
+	public function filter_ignore_comments_open($option_value) {
 		return true;
+	}
+
+	public function filter_ignore_comment_registration($option_value) {
+		return false;
+	}
+
+	public function filter_require_name_email($option_value) {
+		global $comment_author;
+		$error_message = false;
+		if($option_value && isset($comment_author)) {
+			// when E-Mail field is removed
+			if($this->options->get('cgb_form_remove_mail')) {
+				$option_value = false;
+				if('' == $comment_author) {
+					wp_die(__('<strong>ERROR</strong>: please fill the required fields (name).'));
+				}
+			}
+		}
+		return $option_value;
 	}
 
 	public function filter_comment_post_redirect ($location) {

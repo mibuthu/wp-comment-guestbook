@@ -163,7 +163,7 @@ class CGB_Admin_Settings {
 	private function show_textarea($name, $value, $rows=null) {
 		$rows_text = (null == $rows) ? '' : ' rows="'.$rows.'"';
 		$out = '
-							<textarea name="'.$name.'" id="'.$name.'"'.$rows_text.' class="large-text code">'.$value.'</textarea>';
+							<textarea name="'.$name.'" id="'.$name.'"'.$rows_text.' class="large-text code">'.htmlentities($value).'</textarea>';
 		return $out;
 	}
 }

@@ -355,23 +355,23 @@ class CGB_Widget extends WP_Widget {
 	 * @param string $html The html code which should be shortened
 	 ***************************************************************************/
 	private function truncate($max_length, $html) {
-		if($max_length > 0 && strlen($html) > $max_length) {
+		if($max_length > 0 && mb_strlen($html) > $max_length) {
 			$printedLength = 0;
 			$position = 0;
 			$tags = array();
 			$out = '';
-			while ($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+			while($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}u', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
 				list($tag, $tagPosition) = $match[0];
 				// Print text leading up to the tag
-				$str = substr($html, $position, $tagPosition - $position);
-				if ($printedLength + strlen($str) > $max_length) {
-					$out .= substr($str, 0, $max_length - $printedLength);
+				$str = mb_substr($html, $position, $tagPosition - $position);
+				if($printedLength + mb_strlen($str) > $max_length) {
+					$out .= mb_substr($str, 0, $max_length - $printedLength);
 					$printedLength = $max_length;
 					break;
 				}
 				$out .= $str;
-				$printedLength += strlen($str);
-				if ($tag[0] == '&') {
+				$printedLength += mb_strlen($str);
+				if('&' == $tag[0]) {
 					// Handle the entity
 					$out .= $tag;
 					$printedLength++;
@@ -379,14 +379,14 @@ class CGB_Widget extends WP_Widget {
 				else {
 					// Handle the tag
 					$tagName = $match[1][0];
-					if ($tag[1] == '/')
+					if('/' == $tag[1])
 					{
 						// This is a closing tag
 						$openingTag = array_pop($tags);
 						assert($openingTag == $tagName); // check that tags are properly nested
 						$out .= $tag;
 					}
-					else if ($tag[strlen($tag) - 2] == '/') {
+					else if('/' == $tag[mb_strlen($tag) - 2]) {
 						// Self-closing tag
 						$out .= $tag;
 					}
@@ -397,18 +397,18 @@ class CGB_Widget extends WP_Widget {
 					}
 				}
 				// Continue after the tag
-				$position = $tagPosition + strlen($tag);
+				$position = $tagPosition + mb_strlen($tag);
 			}
 			// Print any remaining text
-			if ($printedLength < $max_length && $position < strlen($html)) {
-				$out .= substr($html, $position, $max_length - $printedLength);
+			if($printedLength < $max_length && $position < mb_strlen($html)) {
+				$out .= mb_substr($html, $position, $max_length - $printedLength);
 			}
 			// Print "..." if the html is not complete
-			if(strlen($html) != $position) {
+			if(mb_strlen($html) != $position) {
 				$out .= ' ...';
 			}
 			// Close any open tags.
-			while (!empty($tags)) {
+			while(!empty($tags)) {
 				$out .= '</'.array_pop($tags).'>';
 			}
 			return $out;

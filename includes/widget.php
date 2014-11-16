@@ -80,7 +80,7 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => '18',
 			                                'caption'       => __('Truncate author to'),
 			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to "0" to view the full author or "auto" to automatically truncate the text via css.'),
+			                                'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to [0] to view the full author or set it to [auto] to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                'form_width'    => 42),
 
@@ -96,7 +96,7 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => '18',
 			                                'caption'       => __('Truncate title to'),
 			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to 0 to view the full title or "auto" to automatically truncate the text via css..'),
+			                                'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to [0] to view the full title or set it to [auto] to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                'form_width'    => 42),
 
@@ -112,7 +112,7 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => '25',
 			                                'caption'       => __('Truncate text to'),
 			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to 0 to view the full text or "auto" to automatically truncate the text via css..'),
+			                                'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to [0] to view the full text or set it to [auto] to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                'form_width'    => 42),
 
@@ -128,7 +128,7 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => 'false',
 			                                'caption'       => __('Show GB-comments only'),
 			                                'caption_after' => null,
-			                                'tooltip'       => __('Only show comments from the guestbook page specified above.'),
+			                                'tooltip'       => __('Only show comments from the guestbook page specified above. This option requires the URL to the guestbook page.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                'form_width'    => null),
 

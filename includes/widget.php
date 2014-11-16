@@ -80,9 +80,9 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => '18',
 			                                'caption'       => __('Truncate author to'),
 			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to 0 to view the full author.'),
+			                                'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to [0] to view the full author or set it to [auto] to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 30),
+			                                'form_width'    => 42),
 
 			'show_page_title' =>      array('type'          => 'checkbox',
 			                                'std_value'     => 'false',
@@ -96,9 +96,9 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => '18',
 			                                'caption'       => __('Truncate title to'),
 			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to 0 to view the full title.'),
+			                                'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to [0] to view the full title or set it to [auto] to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 30),
+			                                'form_width'    => 42),
 
 			'show_comment_text' =>    array('type'          => 'checkbox',
 			                                'std_value'     => 'true',
@@ -110,11 +110,11 @@ class CGB_Widget extends WP_Widget {
 
 			'comment_text_length' =>  array('type'          => 'text',
 			                                'std_value'     => '25',
-			                                'caption'       => __('Truncate text to '),
+			                                'caption'       => __('Truncate text to'),
 			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to 0 to view the full text.'),
+			                                'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to [0] to view the full text or set it to [auto] to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 30),
+			                                'form_width'    => 42),
 
 			'url_to_page' =>          array('type'          => 'text',
 			                                'std_value'     => '',
@@ -128,7 +128,7 @@ class CGB_Widget extends WP_Widget {
 			                                'std_value'     => 'false',
 			                                'caption'       => __('Show GB-comments only'),
 			                                'caption_after' => null,
-			                                'tooltip'       => __('Only show comments from the guestbook page specified above.'),
+			                                'tooltip'       => __('Only show comments from the guestbook page specified above. This option requires the URL to the guestbook page.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
 			                                'form_width'    => null),
 
@@ -215,7 +215,7 @@ class CGB_Widget extends WP_Widget {
 					$out .= '<span class="cgb-date" title="'.__('Date of comment:').' '.esc_attr(get_comment_date()).'">'.get_comment_date($instance['date_format']).' </span>';
 				}
 				if('true' === $instance['show_author']) {
-					$out .= '<span class="cgb-author" title="'.__('Comment author:').' '.esc_attr(get_comment_author()).'">'.$this->truncate($instance['author_length'], get_comment_author()).'</span>';
+					$out .= $this->truncate($instance['author_length'], get_comment_author(), 'span', array('class' => 'cgb-author', 'title' => __('Comment author:').' '.esc_attr(get_comment_author())));
 				}
 				if('true' === $instance['show_page_title']) {
 					if('false' === $instance['hide_gb_page_title'] || url_to_postid($instance['url_to_page']) != $comment->comment_post_ID) {
@@ -230,7 +230,7 @@ class CGB_Widget extends WP_Widget {
 					$out .= '</a>';
 				}
 				if('true' === $instance['show_comment_text']) {
-					$out .= '<div class="cgb-widget-text" title="'.esc_attr(get_comment_text()).'">'.$this->truncate($instance['comment_text_length'], get_comment_text()).'</div>';
+					$out .= $this->truncate($instance['comment_text_length'], get_comment_text(), 'div', array('class' => 'cgb-widget-text', 'title' => esc_attr(get_comment_text())));
 				}
 				$out .= '</li>';
 			}
@@ -281,7 +281,9 @@ class CGB_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form($instance) {
-		$out = '';
+		// Display general information at the top
+		$out = '<p>For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.</p>';
+		// Display the options
 		foreach($this->items as $itemname => $item) {
 			if(! isset($instance[$itemname])) {
 				$instance[$itemname] = $item['std_value'];
@@ -296,7 +298,7 @@ class CGB_Widget extends WP_Widget {
 			}
 			else { // 'text'
 				$width_text = (null === $item['form_width']) ? '' : 'style="width:'.$item['form_width'].'px" ';
-				$caption_after_text = (null === $item['caption_after']) ? '' : '<label>'.$item['caption_after'].'</label>';
+				$caption_after_text = (null === $item['caption_after']) ? '' : '<label> '.$item['caption_after'].'</label>';
 				$out .= '
 					<p'.$style_text.' title="'.$item['tooltip'].'">
 						<label for="'.$this->get_field_id($itemname).'">'.$item['caption'].' </label>
@@ -353,25 +355,54 @@ class CGB_Widget extends WP_Widget {
 	 *
 	 * @param int $max_length The length to which the text should be shortened
 	 * @param string $html The html code which should be shortened
+	 * @param string $wrapper_type Defines which kind of wrapper shall be added
+	 *               around the html code if a manual length shall be used.
+	 *               The possible values are "none", "div" and "span".
+	 *               With "none" no wrapper will be added, with "div" and "span"
+	 *               you can define the 2 available wrapper type.
+	 *               If max_length is set to auto a div is mandatory and
+	 *               will be added always.
+	 * @param array $wrapper_div_attributes Additional attributes for the
+	 *              wrapper element. Use the attribute name as the array key.
 	 ***************************************************************************/
-	private function truncate($max_length, $html) {
-		if($max_length > 0 && strlen($html) > $max_length) {
+	private function truncate($max_length, $html, $wrapper_type='none', $wrapper_attributes=array()) {
+		// Apply wrapper and add required css for autolength (if required)
+		$autolength = 'auto' == $max_length ? true : false;
+		if($autolength) {
+			$wrapper_type = 'div';
+		}
+		elseif('div' != $wrapper_type && 'span' != $wrapper_type) {
+			$wrapper_type = 'none';
+		}
+		if('none' != $wrapper_type) {
+			$wrapper_text = '<'.$wrapper_type;
+			foreach($wrapper_attributes as $name => $value) {
+				$wrapper_text .= ' '.$name.'="'.$value.'"';
+			}
+			if($autolength) {
+				$wrapper_text .= ' style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis"';
+			}
+			$html = $wrapper_text.'>'.$html.'</'.$wrapper_type.'>';
+		}
+
+		// Apply manual length
+		if(is_numeric($max_length) && 0 < $max_length && mb_strlen($html) > $max_length) {
 			$printedLength = 0;
 			$position = 0;
 			$tags = array();
 			$out = '';
-			while ($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+			while($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}u', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
 				list($tag, $tagPosition) = $match[0];
 				// Print text leading up to the tag
-				$str = substr($html, $position, $tagPosition - $position);
-				if ($printedLength + strlen($str) > $max_length) {
-					$out .= substr($str, 0, $max_length - $printedLength);
+				$str = mb_substr($html, $position, $tagPosition - $position);
+				if($printedLength + mb_strlen($str) > $max_length) {
+					$out .= mb_substr($str, 0, $max_length - $printedLength);
 					$printedLength = $max_length;
 					break;
 				}
 				$out .= $str;
-				$printedLength += strlen($str);
-				if ($tag[0] == '&') {
+				$printedLength += mb_strlen($str);
+				if('&' == $tag[0]) {
 					// Handle the entity
 					$out .= $tag;
 					$printedLength++;
@@ -379,14 +410,14 @@ class CGB_Widget extends WP_Widget {
 				else {
 					// Handle the tag
 					$tagName = $match[1][0];
-					if ($tag[1] == '/')
+					if('/' == $tag[1])
 					{
 						// This is a closing tag
 						$openingTag = array_pop($tags);
 						assert($openingTag == $tagName); // check that tags are properly nested
 						$out .= $tag;
 					}
-					else if ($tag[strlen($tag) - 2] == '/') {
+					else if('/' == $tag[mb_strlen($tag) - 2]) {
 						// Self-closing tag
 						$out .= $tag;
 					}
@@ -397,25 +428,23 @@ class CGB_Widget extends WP_Widget {
 					}
 				}
 				// Continue after the tag
-				$position = $tagPosition + strlen($tag);
+				$position = $tagPosition + mb_strlen($tag);
 			}
 			// Print any remaining text
-			if ($printedLength < $max_length && $position < strlen($html)) {
-				$out .= substr($html, $position, $max_length - $printedLength);
+			if($printedLength < $max_length && $position < mb_strlen($html)) {
+				$out .= mb_substr($html, $position, $max_length - $printedLength);
 			}
 			// Print "..." if the html is not complete
-			if(strlen($html) != $position) {
+			if(mb_strlen($html) != $position) {
 				$out .= ' ...';
 			}
 			// Close any open tags.
-			while (!empty($tags)) {
+			while(!empty($tags)) {
 				$out .= '</'.array_pop($tags).'>';
 			}
 			return $out;
 		}
-		else {
-			return $html;
-		}
+		return $html;
 	}
 }
 ?>

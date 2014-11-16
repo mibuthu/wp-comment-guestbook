@@ -281,7 +281,9 @@ class CGB_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form($instance) {
-		$out = '';
+		// Display general information at the top
+		$out = '<p>For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.</p>';
+		// Display the options
 		foreach($this->items as $itemname => $item) {
 			if(! isset($instance[$itemname])) {
 				$instance[$itemname] = $item['std_value'];

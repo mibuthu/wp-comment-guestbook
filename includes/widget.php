@@ -82,7 +82,7 @@ class CGB_Widget extends WP_Widget {
 			                                'caption_after' => __('characters'),
 			                                'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to "0" to view the full author or "auto" to automatically truncate the text via css.'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 30),
+			                                'form_width'    => 42),
 
 			'show_page_title' =>      array('type'          => 'checkbox',
 			                                'std_value'     => 'false',
@@ -98,7 +98,7 @@ class CGB_Widget extends WP_Widget {
 			                                'caption_after' => __('characters'),
 			                                'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to 0 to view the full title or "auto" to automatically truncate the text via css..'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 30),
+			                                'form_width'    => 42),
 
 			'show_comment_text' =>    array('type'          => 'checkbox',
 			                                'std_value'     => 'true',
@@ -110,11 +110,11 @@ class CGB_Widget extends WP_Widget {
 
 			'comment_text_length' =>  array('type'          => 'text',
 			                                'std_value'     => '25',
-			                                'caption'       => __('Truncate text to '),
+			                                'caption'       => __('Truncate text to'),
 			                                'caption_after' => __('characters'),
 			                                'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to 0 to view the full text or "auto" to automatically truncate the text via css..'),
 			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 30),
+			                                'form_width'    => 42),
 
 			'url_to_page' =>          array('type'          => 'text',
 			                                'std_value'     => '',
@@ -296,7 +296,7 @@ class CGB_Widget extends WP_Widget {
 			}
 			else { // 'text'
 				$width_text = (null === $item['form_width']) ? '' : 'style="width:'.$item['form_width'].'px" ';
-				$caption_after_text = (null === $item['caption_after']) ? '' : '<label>'.$item['caption_after'].'</label>';
+				$caption_after_text = (null === $item['caption_after']) ? '' : '<label> '.$item['caption_after'].'</label>';
 				$out .= '
 					<p'.$style_text.' title="'.$item['tooltip'].'">
 						<label for="'.$this->get_field_id($itemname).'">'.$item['caption'].' </label>

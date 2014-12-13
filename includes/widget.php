@@ -201,13 +201,15 @@ class CGB_Widget extends WP_Widget {
 		if($instance['title']) {
 			$out .= $before_title . $instance['title'] . $after_title;
 		}
-		$out .= '<ul class="cgb-widget">';
+		$out .= '
+				<ul class="cgb-widget">';
 		if($comments) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.)
 			$post_ids = array_unique(wp_list_pluck($comments, 'comment_post_ID'));
 			_prime_post_caches($post_ids, strpos(get_option('permalink_structure'), '%category%'), false);
 			foreach((array) $comments as $comment) {
-				$out .= '<li class="cgb-widget-item">';
+				$out .= '
+					<li class="cgb-widget-item">';
 				if('true' === $instance['link_to_comment']) {
 					$out .= '<a href="'.$this->get_comment_link($comment).'">';
 				}
@@ -235,9 +237,13 @@ class CGB_Widget extends WP_Widget {
 				$out .= '</li>';
 			}
 		}
-		$out .= '</ul>';
+		$out .= '
+				</ul>
+				';
 		if('true' === $instance['link_to_page']) {
-			$out .= '<div class="cgb-widget-pagelink" style="clear:both"><a title="'.esc_attr($instance['link_to_page_caption']).'" href="'.$instance[ 'url_to_page'].'">'.$instance['link_to_page_caption'].'</a></div>';
+			$out .= '
+				<div class="cgb-widget-pagelink" style="clear:both"><a title="'.esc_attr($instance['link_to_page_caption']).'" href="'.$instance[ 'url_to_page'].'">'.$instance['link_to_page_caption'].'</a></div>
+				';
 		}
 		$out .= $after_widget;
 		echo $out;
@@ -350,21 +356,23 @@ class CGB_Widget extends WP_Widget {
 		return esc_url(get_comment_link($comment->comment_ID, $link_args));
 	}
 
-	/** ************************************************************************
-	 * Function to truncate and shorten text
+	/** **************************************************************************************************
+	 * Truncate HTML, close opened tags
 	 *
-	 * @param int $max_length The length to which the text should be shortened
-	 * @param string $html The html code which should be shortened
-	 * @param string $wrapper_type Defines which kind of wrapper shall be added
-	 *               around the html code if a manual length shall be used.
-	 *               The possible values are "none", "div" and "span".
-	 *               With "none" no wrapper will be added, with "div" and "span"
-	 *               you can define the 2 available wrapper type.
-	 *               If max_length is set to auto a div is mandatory and
-	 *               will be added always.
-	 * @param array $wrapper_div_attributes Additional attributes for the
-	 *              wrapper element. Use the attribute name as the array key.
-	 ***************************************************************************/
+	 * @param int $max_length           The length (number of characters) to which the text will be
+	 *                                  shortened. With "0" the full text will be returned. With "auto"
+	 *                                  also the complete text will be used, but a wrapper div will be
+	 *                                  added which shortens the text to 1 full line via css.
+	 * @param string $html              The html code which should be shortened.
+	 * @param string $wrapper_type      Defines which kind of wrapper shall be added around the html code
+	 *                                  if a manual length shall be used. The possible values are "none",
+	 *                                  "div" and "span". With "none" no wrapper will be added, "div" and
+	 *                                  "span" are the 2 available wrapper types.
+	 *                                  If max_length is set to auto a div is mandatory and will be added
+	 *                                  always, independent of the given value.
+	 * @param array $wrapper_attributes Additional attributes for the wrapper element. The array
+	 *                                  key defines the attribute name.
+	 *****************************************************************************************************/
 	private function truncate($max_length, $html, $wrapper_type='none', $wrapper_attributes=array()) {
 		// Apply wrapper and add required css for autolength (if required)
 		$autolength = 'auto' == $max_length ? true : false;
@@ -386,12 +394,13 @@ class CGB_Widget extends WP_Widget {
 		}
 
 		// Apply manual length
+		mb_internal_encoding("UTF-8");
 		if(is_numeric($max_length) && 0 < $max_length && mb_strlen($html) > $max_length) {
 			$printedLength = 0;
 			$position = 0;
 			$tags = array();
 			$out = '';
-			while($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}u', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+			while($printedLength < $max_length && mb_preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
 				list($tag, $tagPosition) = $match[0];
 				// Print text leading up to the tag
 				$str = mb_substr($html, $position, $tagPosition - $position);
@@ -434,9 +443,9 @@ class CGB_Widget extends WP_Widget {
 			if($printedLength < $max_length && $position < mb_strlen($html)) {
 				$out .= mb_substr($html, $position, $max_length - $printedLength);
 			}
-			// Print "..." if the html is not complete
+			// Print ellipsis ("...") if the html is not complete
 			if(mb_strlen($html) != $position) {
-				$out .= ' ...';
+				$out .= ' &hellip;';
 			}
 			// Close any open tags.
 			while(!empty($tags)) {
@@ -445,6 +454,23 @@ class CGB_Widget extends WP_Widget {
 			return $out;
 		}
 		return $html;
+	}
+}
+
+if(!function_exists("mb_preg_match")) {
+	function mb_preg_match($ps_pattern, $ps_subject, &$pa_matches, $pn_flags=0, $pn_offset=0, $ps_encoding=NULL) {
+		// WARNING! - All this function does is to correct offsets, nothing else:
+		//(code is independent of PREG_PATTER_ORDER / PREG_SET_ORDER)
+		if(is_null($ps_encoding)) {
+			$ps_encoding = mb_internal_encoding();
+		}
+		$pn_offset = strlen(mb_substr($ps_subject, 0, $pn_offset, $ps_encoding));
+		$out = preg_match($ps_pattern, $ps_subject, $pa_matches, $pn_flags, $pn_offset);
+		if($out && ($pn_flags & PREG_OFFSET_CAPTURE))
+			foreach($pa_matches as &$ha_match) {
+				$ha_match[1] = mb_strlen(substr($ps_subject, 0, $ha_match[1]), $ps_encoding);
+			}
+		return $out;
 	}
 }
 ?>

@@ -394,12 +394,13 @@ class CGB_Widget extends WP_Widget {
 		}
 
 		// Apply manual length
+		mb_internal_encoding("UTF-8");
 		if(is_numeric($max_length) && 0 < $max_length && mb_strlen($html) > $max_length) {
 			$printedLength = 0;
 			$position = 0;
 			$tags = array();
 			$out = '';
-			while($printedLength < $max_length && preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}u', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+			while($printedLength < $max_length && mb_preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
 				list($tag, $tagPosition) = $match[0];
 				// Print text leading up to the tag
 				$str = mb_substr($html, $position, $tagPosition - $position);
@@ -453,6 +454,23 @@ class CGB_Widget extends WP_Widget {
 			return $out;
 		}
 		return $html;
+	}
+}
+
+if(!function_exists("mb_preg_match")) {
+	function mb_preg_match($ps_pattern, $ps_subject, &$pa_matches, $pn_flags=0, $pn_offset=0, $ps_encoding=NULL) {
+		// WARNING! - All this function does is to correct offsets, nothing else:
+		//(code is independent of PREG_PATTER_ORDER / PREG_SET_ORDER)
+		if(is_null($ps_encoding)) {
+			$ps_encoding = mb_internal_encoding();
+		}
+		$pn_offset = strlen(mb_substr($ps_subject, 0, $pn_offset, $ps_encoding));
+		$out = preg_match($ps_pattern, $ps_subject, $pa_matches, $pn_flags, $pn_offset);
+		if($out && ($pn_flags & PREG_OFFSET_CAPTURE))
+			foreach($pa_matches as &$ha_match) {
+				$ha_match[1] = mb_strlen(substr($ps_subject, 0, $ha_match[1]), $ps_encoding);
+			}
+		return $out;
 	}
 }
 ?>

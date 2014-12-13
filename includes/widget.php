@@ -356,21 +356,23 @@ class CGB_Widget extends WP_Widget {
 		return esc_url(get_comment_link($comment->comment_ID, $link_args));
 	}
 
-	/** ************************************************************************
-	 * Function to truncate and shorten text
+	/** **************************************************************************************************
+	 * Truncate HTML, close opened tags
 	 *
-	 * @param int $max_length The length to which the text should be shortened
-	 * @param string $html The html code which should be shortened
-	 * @param string $wrapper_type Defines which kind of wrapper shall be added
-	 *               around the html code if a manual length shall be used.
-	 *               The possible values are "none", "div" and "span".
-	 *               With "none" no wrapper will be added, with "div" and "span"
-	 *               you can define the 2 available wrapper type.
-	 *               If max_length is set to auto a div is mandatory and
-	 *               will be added always.
-	 * @param array $wrapper_div_attributes Additional attributes for the
-	 *              wrapper element. Use the attribute name as the array key.
-	 ***************************************************************************/
+	 * @param int $max_length           The length (number of characters) to which the text will be
+	 *                                  shortened. With "0" the full text will be returned. With "auto"
+	 *                                  also the complete text will be used, but a wrapper div will be
+	 *                                  added which shortens the text to 1 full line via css.
+	 * @param string $html              The html code which should be shortened.
+	 * @param string $wrapper_type      Defines which kind of wrapper shall be added around the html code
+	 *                                  if a manual length shall be used. The possible values are "none",
+	 *                                  "div" and "span". With "none" no wrapper will be added, "div" and
+	 *                                  "span" are the 2 available wrapper types.
+	 *                                  If max_length is set to auto a div is mandatory and will be added
+	 *                                  always, independent of the given value.
+	 * @param array $wrapper_attributes Additional attributes for the wrapper element. The array
+	 *                                  key defines the attribute name.
+	 *****************************************************************************************************/
 	private function truncate($max_length, $html, $wrapper_type='none', $wrapper_attributes=array()) {
 		// Apply wrapper and add required css for autolength (if required)
 		$autolength = 'auto' == $max_length ? true : false;

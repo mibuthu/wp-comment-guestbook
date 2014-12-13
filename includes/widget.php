@@ -201,13 +201,15 @@ class CGB_Widget extends WP_Widget {
 		if($instance['title']) {
 			$out .= $before_title . $instance['title'] . $after_title;
 		}
-		$out .= '<ul class="cgb-widget">';
+		$out .= '
+				<ul class="cgb-widget">';
 		if($comments) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.)
 			$post_ids = array_unique(wp_list_pluck($comments, 'comment_post_ID'));
 			_prime_post_caches($post_ids, strpos(get_option('permalink_structure'), '%category%'), false);
 			foreach((array) $comments as $comment) {
-				$out .= '<li class="cgb-widget-item">';
+				$out .= '
+					<li class="cgb-widget-item">';
 				if('true' === $instance['link_to_comment']) {
 					$out .= '<a href="'.$this->get_comment_link($comment).'">';
 				}
@@ -235,9 +237,13 @@ class CGB_Widget extends WP_Widget {
 				$out .= '</li>';
 			}
 		}
-		$out .= '</ul>';
+		$out .= '
+				</ul>
+				';
 		if('true' === $instance['link_to_page']) {
-			$out .= '<div class="cgb-widget-pagelink" style="clear:both"><a title="'.esc_attr($instance['link_to_page_caption']).'" href="'.$instance[ 'url_to_page'].'">'.$instance['link_to_page_caption'].'</a></div>';
+			$out .= '
+				<div class="cgb-widget-pagelink" style="clear:both"><a title="'.esc_attr($instance['link_to_page_caption']).'" href="'.$instance[ 'url_to_page'].'">'.$instance['link_to_page_caption'].'</a></div>
+				';
 		}
 		$out .= $after_widget;
 		echo $out;

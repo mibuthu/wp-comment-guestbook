@@ -443,9 +443,9 @@ class CGB_Widget extends WP_Widget {
 			if($printedLength < $max_length && $position < mb_strlen($html)) {
 				$out .= mb_substr($html, $position, $max_length - $printedLength);
 			}
-			// Print "..." if the html is not complete
+			// Print ellipsis ("...") if the html is not complete
 			if(mb_strlen($html) != $position) {
-				$out .= ' ...';
+				$out .= ' &hellip;';
 			}
 			// Close any open tags.
 			while(!empty($tags)) {

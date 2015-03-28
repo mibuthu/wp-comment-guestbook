@@ -62,10 +62,10 @@ class Comment_Guestbook {
 
 		// FRONT PAGE:
 		else {
+			require_once('includes/options.php');
+			$this->options = CGB_Options::get_instance();
 			// Filters required after new guestbook comment
 			if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
-				require_once('includes/options.php');
-				$this->options = CGB_Options::get_instance();
 				// Set filter to overwrite comments_open status
 				if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
 					add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
@@ -79,6 +79,8 @@ class Comment_Guestbook {
 			}
 			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
 			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
+			// Filters for comments on other pages/posts
+			add_action('comment_form_before_fields', array(&$this, 'page_comment_filters'));
 			// Add message after comment
 			if(isset($_GET['cmessage']) && 1 == $_GET['cmessage']) {
 				require_once(CGB_PATH.'includes/cmessage.php');
@@ -141,6 +143,30 @@ class Comment_Guestbook {
 		$cmessage = CGB_CMessage::get_instance();
 		$location = $cmessage->add_cmessage_indicator($location);
 		return $location;
+	}
+
+	public function page_comment_filters() {
+		global $post;
+		if(!(is_object($post) && strstr($post->post_content, '[comment-guestbook'))) {
+			// remove mail field
+			if('' != $this->options->get('cgb_page_remove_mail')) {
+				add_filter('comment_form_field_email', array(&$this, 'form_field_remove_filter'), 20);
+			}
+			// remove website url field
+			if('' != $this->options->get('cgb_page_remove_website')) {
+				add_filter('comment_form_field_url', array(&$this, 'form_field_remove_filter'), 20);
+			}
+		}
+		// Add message after comment
+		if(isset($_GET['cmessage']) && 1 == $_GET['cmessage']) {
+			require_once(CGB_PATH.'includes/cmessage.php');
+			$cmessage = CGB_CMessage::get_instance();
+			$cmessage->init();
+		}
+	}
+
+	public function form_field_remove_filter() {
+		return '';
 	}
 } // end class
 

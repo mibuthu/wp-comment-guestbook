@@ -38,7 +38,8 @@ class CGB_Options {
 			                                           You can enable the message in the "Comment-form settings" for the guestbook page.<br />
 			                                           This options are also valid for all other posts and pages if you enable the message in the "Comments in all posts/page" section.')),
 			'page_comments'  => array('caption' => __('Comments in other posts/pages'),
-			                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).'))
+			                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).<br />
+			                                           If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs.'))
 		);
 
 		$this->options = array(
@@ -342,6 +343,20 @@ class CGB_Options {
 			                                           'caption' => __('Show a "Thank you" message after a new comment'),
 			                                           'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
 			                                                            There are many additional options availabe to change the message text and format in the "Message after new comment" section.')),
+
+			'cgb_page_remove_mail'            => array('section' => 'page_comments',
+			                                           'type'    => 'checkbox',
+			                                           'std_val' => '',
+			                                           'label'   => __('Remove Email field'),
+			                                           'caption' => __('Remove the Email field in comment forms'),
+			                                           'desc'    => __('If this option is enabled the email field will be removed in comment forms.')),
+
+			'cgb_page_remove_website'         => array('section' => 'page_comments',
+			                                           'type'    => 'checkbox',
+			                                           'std_val' => '',
+			                                           'label'   => __('Remove Website field'),
+			                                           'caption' => __('Remove the Website url field in comment forms'),
+			                                           'desc'    => __('If this option is enabled the website url field will be removed in comment forms.')),
 		);
 	}
 

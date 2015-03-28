@@ -38,7 +38,8 @@ class CGB_Options {
 			                                           You can enable the message in the "Comment-form settings" for the guestbook page.<br />
 			                                           This options are also valid for all other posts and pages if you enable the message in the "Comments in all posts/page" section.')),
 			'page_comments'  => array('caption' => __('Comments in other posts/pages'),
-			                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).'))
+			                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).<br />
+			                                           If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs.'))
 		);
 
 		$this->options = array(

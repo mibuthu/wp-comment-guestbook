@@ -48,6 +48,8 @@ class Comment_Guestbook {
 		$this->options = null;
 
 		// ALWAYS:
+		// Register translation
+		add_action('plugins_loaded', array(&$this, 'load_textdomain'));
 		// Register shortcodes
 		add_shortcode('comment-guestbook', array(&$this, 'shortcode_comment_guestbook'));
 		// Register widgets
@@ -89,6 +91,10 @@ class Comment_Guestbook {
 			}
 		}
 	} // end constructor
+
+	public function load_textdomain() {
+		load_plugin_textdomain('comment-guestbook', false, dirname(plugin_basename(__FILE__)).'/languages');
+	}
 
 	public function shortcode_comment_guestbook($atts) {
 		if(NULL == $this->shortcode) {

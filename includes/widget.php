@@ -1,5 +1,5 @@
 <?php
-if(!defined('ABSPATH')) {
+if(!defined('WPINC')) {
 	exit;
 }
 
@@ -20,7 +20,7 @@ class CGB_Widget extends WP_Widget {
 		parent::__construct(
 				'comment_guestbook_widget', // Base ID
 				'Comment Guestbook', // Name
-				array('description' => __('This widget displays a list of recent comments. If you want to enable a link to the guestbook page you have to insert a link address to the comment-guestbook page.', 'text_domain'),) // Args
+				array('description' => __('This widget displays a list of recent comments.','comment-guestbook'),) // Args
 		);
 		add_action('comment_post', array($this, 'flush_widget_cache'));
 		add_action('transition_comment_status', array($this, 'flush_widget_cache'));
@@ -28,134 +28,33 @@ class CGB_Widget extends WP_Widget {
 
 		// define all available items
 		$this->items = array(
-			'title' =>                array('type'          => 'text',
-			                                'std_value'     => __('Recent guestbook entries', 'text_domain'),
-			                                'caption'       => __('Title:'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('The title for the widget'),
-			                                'form_style'    => null,
-			                                'form_width'    => null),
-
-			'num_comments' =>         array('type'          => 'text',
-			                                'std_value'     => '5',
-			                                'caption'       => __('Number of comments:'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('The number of comments to display'),
-			                                'form_style'    => null,
-			                                'form_width'    => 30),
-
-			'link_to_comment' =>      array('type'          => 'checkbox',
-			                                'std_value'     => 'false',
-			                                'caption'       => __('Add a link to each comment'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('With this option you can add a link to the comment for every displayed comment.'),
-			                                'form_style'    => null,
-			                                'form_width'    => null),
-
-			'show_date' =>            array('type'          => 'checkbox',
-			                                'std_value'     => 'false',
-			                                'caption'       => __('Show comment date'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('This option defines if the comment date will be displayed.'),
-			                                'form_style'    => 'margin:0 0 0.2em 0',
-			                                'form_width'    => null),
-
-			'date_format' =>          array('type'          => 'text',
-			                                'std_value'     => get_option('date_format'),
-			                                'caption'       => __('Date format:'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('This option defines the displayed comment date format. You can use all available date formats defined in PHP. Search for php date format to get an overview of the available options.'),
-			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 100),
-
-			'show_author' =>          array('type'          => 'checkbox',
-			                                'std_value'     => 'true',
-			                                'caption'       => __('Show comment author'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('This option defines if the comment author will be displayed.'),
-			                                'form_style'    => 'margin:0 0 0.2em 0',
-			                                'form_width'    => null),
-
-			'author_length' =>        array('type'          => 'text',
-			                                'std_value'     => '18',
-			                                'caption'       => __('Truncate author to'),
-			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment author is displayed this option limits the number of displayed characters. Set this value to [0] to view the full author or set it to [auto] to automatically truncate the text via css.'),
-			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 42),
-
-			'show_page_title' =>      array('type'          => 'checkbox',
-			                                'std_value'     => 'false',
-			                                'caption'       => __('Show title of comment page'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('This options specifies if the page title of the comment page will be displayed.'),
-			                                'form_style'    => 'margin:0 0 0.2em 0',
-			                                'form_width'    => null),
-
-			'page_title_length' =>    array('type'          => 'text',
-			                                'std_value'     => '18',
-			                                'caption'       => __('Truncate title to'),
-			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment page title is displayed this option limits the number of displayed characters. Set this value to [0] to view the full title or set it to [auto] to automatically truncate the text via css.'),
-			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 42),
-
-			'show_comment_text' =>    array('type'          => 'checkbox',
-			                                'std_value'     => 'true',
-			                                'caption'       => __('Show comment text'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('The options specifies if the comment text will be displayed in the widget.'),
-			                                'form_style'    => 'margin:0 0 0.2em 0',
-			                                'form_width'    => null),
-
-			'comment_text_length' =>  array('type'          => 'text',
-			                                'std_value'     => '25',
-			                                'caption'       => __('Truncate text to'),
-			                                'caption_after' => __('characters'),
-			                                'tooltip'       => __('If the comment text is displayed this option limits the number of displayed characters. Set this value to [0] to view the full text or set it to [auto] to automatically truncate the text via css.'),
-			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => 42),
-
-			'url_to_page' =>          array('type'          => 'text',
-			                                'std_value'     => '',
-			                                'caption'       => __('URL to the linked guestbook page:'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('This options specifies the url to the guestbook page. This option is required if you want to use one of the options below.'),
-			                                'form_style'    => 'margin:1em 0 0.6em 0',
-			                                'form_width'    => null),
-
-			'gb_comments_only' =>     array('type'          => 'checkbox',
-			                                'std_value'     => 'false',
-			                                'caption'       => __('Show GB-comments only'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('Only show comments from the guestbook page specified above. This option requires the URL to the guestbook page.'),
-			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => null),
-
-			'hide_gb_page_title' =>   array('type'          => 'checkbox',
-			                                'std_value'     => 'false',
-			                                'caption'       => __('Hide guestbook page title'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('With this option you can hide the page title for guestbook comments if you have enabled the option Show title of comment page. This option is only working if the URL to the guestbook page was set.'),
-			                                'form_style'    => 'margin:0 0 0.6em 0.9em',
-			                                'form_width'    => null),
-
-			'link_to_page' =>         array('type'          => 'checkbox',
-			                                'std_value'     => 'false',
-			                                'caption'       => __('Add a link to guestbook page'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('The option adds a link to the guestbook page below the comment list. This option requires the URL to the guestbook page.'),
-			                                'form_style'    => 'margin:0 0 0.2em 0.9em',
-			                                'form_width'    => null),
-
-			'link_to_page_caption' => array('type'          => 'text',
-			                                'std_value'     => __('goto guestbook page', 'text_domain'),
-			                                'caption'       => __('Caption for the link:'),
-			                                'caption_after' => null,
-			                                'tooltip'       => __('Set the caption for the link to guestbook page.'),
-			                                'form_style'    => 'margin:0 0 0.8em 1.8em',
-			                                'form_width'    => null)
+			'title' =>                array('std_value'     => __('Recent guestbook entries','comment-guestbook')),
+			'num_comments' =>         array('std_value'     => '5'),
+			'link_to_comment' =>      array('std_value'     => 'false'),
+			'show_date' =>            array('std_value'     => 'false'),
+			'date_format' =>          array('std_value'     => get_option('date_format')),
+			'show_author' =>          array('std_value'     => 'true'),
+			'author_length' =>        array('std_value'     => '18'),
+			'show_page_title' =>      array('std_value'     => 'false'),
+			'page_title_length' =>    array('std_value'     => '18'),
+			'show_comment_text' =>    array('std_value'     => 'true'),
+			'comment_text_length' =>  array('std_value'     => '25'),
+			'url_to_page' =>          array('std_value'     => ''),
+			'gb_comments_only' =>     array('std_value'     => 'false'),
+			'hide_gb_page_title' =>   array('std_value'     => 'false'),
+			'link_to_page' =>         array('std_value'     => 'false'),
+			'link_to_page_caption' => array('std_value'     => __('goto guestbook page','comment-guestbook')),
 		);
+
+		add_action('admin_init', array(&$this, 'load_widget_items_helptexts'), 2);
+	}
+
+	public function load_widget_items_helptexts() {
+		require_once(CGB_PATH.'includes/widget_helptexts.php');
+		foreach($widget_items_helptexts as $name => $values) {
+			$this->items[$name] += $values;
+		}
+		unset($widget_items_helptexts);
 	}
 
 	public function flush_widget_cache() {
@@ -214,16 +113,16 @@ class CGB_Widget extends WP_Widget {
 					$out .= '<a href="'.$this->get_comment_link($comment).'">';
 				}
 				if('true' === $instance['show_date']) {
-					$out .= '<span class="cgb-date" title="'.__('Date of comment:').' '.esc_attr(get_comment_date()).'">'.get_comment_date($instance['date_format']).' </span>';
+					$out .= '<span class="cgb-date" title="'.__('Date of comment','comment-guestbook').': '.esc_attr(get_comment_date()).'">'.get_comment_date($instance['date_format']).' </span>';
 				}
 				if('true' === $instance['show_author']) {
-					$out .= $this->truncate($instance['author_length'], get_comment_author(), 'span', array('class' => 'cgb-author', 'title' => __('Comment author:').' '.esc_attr(get_comment_author())));
+					$out .= $this->truncate($instance['author_length'], get_comment_author(), 'span', array('class' => 'cgb-author', 'title' => __('Comment author','comment-guestbook').': '.esc_attr(get_comment_author())));
 				}
 				if('true' === $instance['show_page_title']) {
 					if('false' === $instance['hide_gb_page_title'] || url_to_postid($instance['url_to_page']) != $comment->comment_post_ID) {
-						$out .= '<span class="cgb-widget-title" title="'.__('Page of Comment:').' '.esc_attr(get_the_title($comment->comment_post_ID)).'">';
+						$out .= '<span class="cgb-widget-title" title="'.__('Page of comment','comment-guestbook').': '.esc_attr(get_the_title($comment->comment_post_ID)).'">';
 						if('true' === $instance['show_author']) {
-							$out .= ' '.__('in').' ';
+							$out .= ' '.__('in','comment-guestbook').' ';
 						}
 						$out .= $this->truncate($instance['page_title_length'], get_the_title($comment->comment_post_ID)).'</span>';
 					}
@@ -288,7 +187,7 @@ class CGB_Widget extends WP_Widget {
 	 */
 	public function form($instance) {
 		// Display general information at the top
-		$out = '<p>For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.</p>';
+		$out = '<p>'.__('For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.','comment-guestbook').'</p>';
 		// Display the options
 		foreach($this->items as $itemname => $item) {
 			if(! isset($instance[$itemname])) {

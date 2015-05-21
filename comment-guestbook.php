@@ -93,7 +93,7 @@ class Comment_Guestbook {
 	} // end constructor
 
 	public function load_textdomain() {
-		load_plugin_textdomain('comment-guestbook', false, dirname(plugin_basename(__FILE__)).'/languages');
+		load_plugin_textdomain('comment-guestbook', false, basename(CGB_PATH).'/languages');
 	}
 
 	public function shortcode_comment_guestbook($atts) {

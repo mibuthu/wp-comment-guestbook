@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-comment-guestbook\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-21 20:35+0200\n"
-"PO-Revision-Date: 2015-05-21 18:36+0000\n"
+"POT-Creation-Date: 2015-05-22 09:42+0200\n"
+"PO-Revision-Date: 2015-05-22 07:43+0000\n"
 "Last-Translator: mibuthu\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/wp-comment-guestbook/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -776,6 +776,122 @@ msgstr ""
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:27
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:32
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:55
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
+msgid "About Comment Guestbook"
+msgstr "Informationen zu Comment Guestbook"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:34
+msgid "Help and Instructions"
+msgstr "Hilfe und Anleitungen"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:35
+msgid "Create a guestbook page"
+msgstr "Erstellen einer Gästebuchseite"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:37
+msgid "Comment Guestbook is included in a page by using a \"shortcode\"."
+msgstr "Comment Guestbook wird über einen \"Shortcode\" in eine Seite eingebunden."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+#, php-format
+msgid "Goto %1$s to create a new page for the guestbook."
+msgstr "Gehe zu %1$s um eine neue Seite für das Gästebuch zu erzeugen."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+msgid "Pages"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+msgid "Add New"
+msgstr "Erstellen"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:39
+#, php-format
+msgid ""
+"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field.<br />\n"
+"\t\t\t\tIf required, additional text and html code can be added there."
+msgstr "Wähle einen Seitentitel z.B. \"Gästebuch\" und füge den Shortcode %1$s in das Textfeld für den Seiteninhalt ein.\nFalls erforderlich kann dort auch noch zusätzlicher Text und HTML-Code ergänzt werden."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:41
+msgid ""
+"That´s all you have to do. Save and publish the page to finish the guestbook"
+" creation."
+msgstr "Mehr gibt es nicht mehr zu tun. Speichere und veröffentliche die Seite um die Gästebucherstellung abzuschließen."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:43
+msgid "Modify the guestbook page"
+msgstr "Verändern der Gästebuchseite"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+#, php-format
+msgid ""
+"In the comment guestbook settings page, available under %1$s, you can find a"
+" huge amount of options to modify the guestbook page."
+msgstr "In der Einstellungsseite von Comment Guestbook, zu finden unter %1$s, gibt es jede Menge Einstellungen um die Gästebuchseite zu verändern."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+msgid "Settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Guestbook"
+msgstr "Gästebuch"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:46
+msgid ""
+"There are also some options available to change the comments of all posts "
+"and pages."
+msgstr "Dort gibt es auch einige Einstellungen, um die Kommentare in allen Beiträgen und Seiten zu verändern."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:48
+msgid "Comment guestbook widget"
+msgstr "Comment Guestbook Widget"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:50
+#, php-format
+msgid "There is also a %1$s called \"Comment Guestbook\" available."
+msgstr "Es steht auch ein %1$s namens \"Comment Guestbook\" zur Verfügung."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:50
+msgid "Widget"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:51
+msgid ""
+"With this widget you can can add a list of the latest comments in your sidebar.<br />\n"
+"\t\t\t\tThere are also many options to modify the output."
+msgstr "Mit diesem kann eine Liste mit den neuesten Kommentare in einem Widget-Bereich angezeigt werden.\nDort gibt es auch viele Optionen, mit denen die Ausgabe angepasst werden kann."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:57
+#, php-format
+msgid ""
+"This plugin is developed by mibuthu, more information about the plugin you "
+"can find on the %1$swordpress plugin site%2$s."
+msgstr "Dieses Plugin wird von mibuthu entwickelt, zusätzliche Informationen über das Plugin stehen auf der %1$sWordpress Plugin Seite%2$s zur Verfügung."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:58
+#, php-format
+msgid ""
+"If you like the plugin please give me a good rating on the %1$swordpress "
+"plugin review site%2$s."
+msgstr "Wenn Ihnen das Plugin gefällt, dann geben Sie mir bitte eine gute Bewertung auf der %1$sWordpress Plugin Review Seite%2$s."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:59
+#, php-format
+msgid "I would also be happy to get a small %1$sdonation%2$s."
+msgstr "Ich würde mich auch über eine kleine %1$sSpende%2$s freuen."
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
+msgid "About Guestbook"
+msgstr "Über das Gästebuch"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Comment Guestbook Settings"
+msgstr "Einstellungen für Comment Guestbook"
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
 msgid "<strong>ERROR</strong>: please fill the required fields (name)."

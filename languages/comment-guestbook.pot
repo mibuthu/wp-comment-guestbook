@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-21 20:35+0200\n"
+"POT-Creation-Date: 2015-05-22 09:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -720,6 +720,112 @@ msgstr ""
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-settings.php:29
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:27
 msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:32
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:55
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
+msgid "About Comment Guestbook"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:34
+msgid "Help and Instructions"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:35
+msgid "Create a guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:37
+msgid "Comment Guestbook is included in a page by using a \"shortcode\"."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+#, php-format
+msgid "Goto %1$s to create a new page for the guestbook."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+msgid "Pages"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+msgid "Add New"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:39
+#, php-format
+msgid ""
+"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field.<br />\n"
+"\t\t\t\tIf required, additional text and html code can be added there."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:41
+msgid "That´s all you have to do. Save and publish the page to finish the guestbook creation."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:43
+msgid "Modify the guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+#, php-format
+msgid "In the comment guestbook settings page, available under %1$s, you can find a huge amount of options to modify the guestbook page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+msgid "Settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Guestbook"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:46
+msgid "There are also some options available to change the comments of all posts and pages."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:48
+msgid "Comment guestbook widget"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:50
+#, php-format
+msgid "There is also a %1$s called \"Comment Guestbook\" available."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:50
+msgid "Widget"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:51
+msgid ""
+"With this widget you can can add a list of the latest comments in your sidebar.<br />\n"
+"\t\t\t\tThere are also many options to modify the output."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:57
+#, php-format
+msgid "This plugin is developed by mibuthu, more information about the plugin you can find on the %1$swordpress plugin site%2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:58
+#, php-format
+msgid "If you like the plugin please give me a good rating on the %1$swordpress plugin review site%2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:59
+#, php-format
+msgid "I would also be happy to get a small %1$sdonation%2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
+msgid "About Guestbook"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Comment Guestbook Settings"
 msgstr ""
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129

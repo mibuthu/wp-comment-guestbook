@@ -38,7 +38,7 @@ class CGB_Admin_Settings {
 		// show options
 		$out = '
 			<div class="wrap nosubsub" style="padding-bottom:15px">
-			<div id="icon-edit-comments" class="icon32"><br /></div><h2>Comment Guestbook Settings</h2>
+			<div id="icon-edit-comments" class="icon32"><br /></div><h2>'.__('Comment Guestbook Settings','comment-guestbook').'</h2>
 			</div>';
 		$out .= $this->show_sections($tab);
 		$out .= '

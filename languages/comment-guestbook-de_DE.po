@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-comment-guestbook\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-22 09:42+0200\n"
-"PO-Revision-Date: 2015-05-22 07:43+0000\n"
+"POT-Creation-Date: 2015-05-22 13:36+0200\n"
+"PO-Revision-Date: 2015-05-22 11:39+0000\n"
 "Last-Translator: mibuthu\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/wp-comment-guestbook/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -238,6 +238,10 @@ msgstr ""
 #: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:106
 msgid "Comment navigation"
 msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/sc_comment-guestbook.php:52
+msgid "Guestbook is closed"
+msgstr "Das Gästebuch ist geschlossen"
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options.php:25
 msgid "General settings"
@@ -777,6 +781,11 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-settings.php:41
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Comment Guestbook Settings"
+msgstr "Einstellungen für Comment Guestbook"
+
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:32
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:55
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
@@ -889,10 +898,14 @@ msgstr "Ich würde mich auch über eine kleine %1$sSpende%2$s freuen."
 msgid "About Guestbook"
 msgstr "Über das Gästebuch"
 
-#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
-msgid "Comment Guestbook Settings"
-msgstr "Einstellungen für Comment Guestbook"
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "ERROR"
+msgstr "FEHLER"
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
-msgid "<strong>ERROR</strong>: please fill the required fields (name)."
-msgstr ""
+msgid "please fill the required fields"
+msgstr "Bitte alle erforderlichen Felder ausfüllen"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "name"
+msgstr "Name"

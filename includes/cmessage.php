@@ -2,7 +2,7 @@
 /**
  * If this file is attempted to be accessed directly, we'll exit.
 */
-if(!defined('ABSPATH')) {
+if(!defined('WPINC')) {
 	exit;
 }
 

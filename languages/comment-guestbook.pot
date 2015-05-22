@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-22 09:47+0200\n"
+"POT-Creation-Date: 2015-05-22 13:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,6 +212,10 @@ msgstr ""
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:106
 msgid "Comment navigation"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/sc_comment-guestbook.php:52
+msgid "Guestbook is closed"
 msgstr ""
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options.php:25
@@ -722,6 +726,11 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-settings.php:41
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Comment Guestbook Settings"
+msgstr ""
+
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:32
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:55
 #: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
@@ -824,10 +833,14 @@ msgstr ""
 msgid "About Guestbook"
 msgstr ""
 
-#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
-msgid "Comment Guestbook Settings"
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "ERROR"
 msgstr ""
 
 #: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
-msgid "<strong>ERROR</strong>: please fill the required fields (name)."
+msgid "please fill the required fields"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "name"
 msgstr ""

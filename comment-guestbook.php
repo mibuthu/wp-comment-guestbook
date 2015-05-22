@@ -126,7 +126,7 @@ class Comment_Guestbook {
 			if($this->options->get('cgb_form_remove_mail')) {
 				$option_value = false;
 				if('' == $comment_author) {
-					wp_die(__('<strong>ERROR</strong>: please fill the required fields (name).'));
+					wp_die('<strong>'.__('ERROR','comment-guestbook').'</strong>: '.__('please fill the required fields','comment-guestbook').' ('.__('name','comment-guestbook').').', 200);
 				}
 			}
 		}

@@ -10,17 +10,19 @@ class CGB_Admin_Settings {
 	private static $instance;
 	private $options;
 
-	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
-	}
-
 	public static function &get_instance() {
 		// Create class instance if required
 		if(!isset(self::$instance)) {
-			self::$instance = new CGB_Admin_Settings();
+			self::$instance = new self();
 		}
 		// Return class instance
 		return self::$instance;
+	}
+
+
+	private function __construct() {
+		$this->options = &CGB_Options::get_instance();
+		$this->options->load_options_helptexts();
 	}
 
 	// show the admin settings page as a submenu of "Settings"

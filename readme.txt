@@ -36,7 +36,14 @@ Simply insert the shortcode `[comment-guestbook]` into a page to enable this plu
 
 On the admin page (goto Comments -> About Guestbook) you can find a detailed description. In the admin area you can find a settings page with a lot of options to modify the behavior and output.
 
-If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
+= Development: =
+If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook at github").
+Feel free to add your merge requests there, if you want to help to improve the plugin.
+
+= Translations: =
+Please help translating this plugin into multiple languages.
+You can submit your translations at [transifex.com](https://www.transifex.com/projects/p/wp-comment-guestbook/ "wp-comment-guestbook at transifex").
+There the source strings will always be in sync with the development version.
 
 
 == Installation ==

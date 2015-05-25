@@ -10,17 +10,19 @@ class CGB_Admin_Settings {
 	private static $instance;
 	private $options;
 
-	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
-	}
-
 	public static function &get_instance() {
 		// Create class instance if required
 		if(!isset(self::$instance)) {
-			self::$instance = new CGB_Admin_Settings();
+			self::$instance = new self();
 		}
 		// Return class instance
 		return self::$instance;
+	}
+
+
+	private function __construct() {
+		$this->options = &CGB_Options::get_instance();
+		$this->options->load_options_helptexts();
 	}
 
 	// show the admin settings page as a submenu of "Settings"
@@ -38,7 +40,7 @@ class CGB_Admin_Settings {
 		// show options
 		$out = '
 			<div class="wrap nosubsub" style="padding-bottom:15px">
-			<div id="icon-edit-comments" class="icon32"><br /></div><h2>Comment Guestbook Settings</h2>
+			<div id="icon-edit-comments" class="icon32"><br /></div><h2>'.__('Comment Guestbook Settings','comment-guestbook').'</h2>
 			</div>';
 		$out .= $this->show_sections($tab);
 		$out .= '
@@ -156,7 +158,7 @@ class CGB_Admin_Settings {
 
 	private function show_text($name, $value) {
 		$out = '
-							<input name="'.$name.'" type="text" id="'.$name.'" style="width:230px" value="'.$value.'" />';
+							<input name="'.$name.'" type="text" id="'.$name.'" style="width:25em" value="'.htmlentities($value).'" />';
 		return $out;
 	}
 

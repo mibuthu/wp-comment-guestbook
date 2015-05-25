@@ -29,34 +29,34 @@ class CGB_Admin_About {
 
 		echo('
 			<div class="wrap nosubsub" style="padding-bottom:15px">
-			<div id="icon-edit-comments" class="icon32"><br /></div><h2>About Comment Guestbook</h2>
+			<div id="icon-edit-comments" class="icon32"><br /></div><h2>'.__('About Comment Guestbook','comment-guestbook').'</h2>
 			</div>
-			<h3>Help and Instructions</h3>
-			<h4>Create a guestbook page</h4>
+			<h3>'.__('Help and Instructions','comment-guestbook').'</h3>
+			<h4>'.__('Create a guestbook page','comment-guestbook').'</h4>
 			<div class="help-content">
-				<p>"Comment guestbook" works by using a "shortcode" in a page.</p>
-				<p>To create a guestbook goto <a href="'.admin_url('post-new.php?post_type=page').'">Pages &rarr; Add new</a> and create a new page. <br />
-				Choose your page title e.g. "Guestbook" and add the shortcode <code>[comment-guestbook]</code> in the text field.<br />
-				If required, you can add additional text and html code on that page.<br />
-				That´s all you have to do. Save and publish the page to finish the guestbook creation.</p>
+				<p>'.__('Comment Guestbook is included in a page by using a "shortcode".','comment-guestbook').'</p>
+				<p>'.sprintf(__('Goto %1$s to create a new page for the guestbook.','comment-guestbook'), '<a href="'.admin_url('post-new.php?post_type=page').'">'.__('Pages').' &rarr; '.__('Add New','comment-guestbook').'</a>').'<br />
+				'.sprintf(__('Choose a page title e.g. "Guestbook" and paste the shortcode %1$s in the page content text field.<br />
+				If required, additional text and html code can be added there.','comment-guestbook'), '<code>[comment-guestbook]</code>').'<br />
+				'.__('That´s all you have to do. Save and publish the page to finish the guestbook creation.','comment-guestbook').'</p>
 			</div>
-			<h4>Modify the guestbook page</h4>
+			<h4>'.__('Modify the guestbook page','comment-guestbook').'</h4>
 			<div class="help-content">
-				<p>In the comment guestbook settings page, available under <a href="'.admin_url('options-general.php?page=cgb_admin_options').'">Settings &rarr; Guestbook</a>, you can find a huge amount of options to modify the guestbook page.<br />
-				There are also some options available to change the comments of all posts and pages.</p>
+				<p>'.sprintf(__('In the comment guestbook settings page, available under %1$s, you can find a huge amount of options to modify the guestbook page.','comment-guestbook'), '<a href="'.admin_url('options-general.php?page=cgb_admin_options').'">'.__('Settings').' &rarr; '.__('Guestbook','comment-guestbook').'</a>').'<br />
+				'.__('There are also some options available to change the comments of all posts and pages.','comment-guestbook').'</p>
 			</div>
-			<h4>Comment guestbook widget</h4>
+			<h4>'.__('Comment guestbook widget','comment-guestbook').'</h4>
 			<div class="help-content">
-				<p>There is also a <a href="'.admin_url('widgets.php').'">widget</a> called "Comment Guestbook" available.<br />
-				With this widget you can can add a list of the latest comments in your sidebar.<br />
-				Also in the widget you have many options to modify the output.</p>
+				<p>'.sprintf(__('There is also a %1$s called "Comment Guestbook" available.','comment-guestbook'), '<a href="'.admin_url('widgets.php').'">'.__('Widget').'</a>').'<br />
+				'.__('With this widget you can can add a list of the latest comments in your sidebar.<br />
+				There are also many options to modify the output.','comment-guestbook').'</p>
 			</div>
 			<br />
-			<h3>About</h3>
+			<h3>'.__('About Comment Guestbook','comment-guestbook').'</h3>
 			<div class="help-content">
-				<p>This plugin is developed by mibuthu, more information about the plugin you can find on the <a href="http://wordpress.org/plugins/comment-guestbook">wordpress plugin site</a>.</p>
-				<p>If you like the plugin please give me a good rating on the <a href="http://wordpress.org/support/view/plugin-reviews/comment-guestbook">wordpress plugin review site</a>.<br />
-				<p>I would also be happy to get a small <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank">donation</a>.</p>
+				<p>'.sprintf(__('This plugin is developed by mibuthu, more information about the plugin you can find on the %1$swordpress plugin site%2$s.','comment-guestbook'), '<a href="http://wordpress.org/plugins/comment-guestbook">', '</a>').'</p>
+				<p>'.sprintf(__('If you like the plugin please give me a good rating on the %1$swordpress plugin review site%2$s.','comment-guestbook'), '<a href="http://wordpress.org/support/view/plugin-reviews/comment-guestbook">', '</a>').'<br />
+				<p>'.sprintf(__('I would also be happy to get a small %1$sdonation%2$s.','comment-guestbook'), '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank">', '</a>').'</p>
 			</div>');
 	}
 }

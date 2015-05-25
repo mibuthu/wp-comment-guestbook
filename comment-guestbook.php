@@ -3,9 +3,10 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.6.9
+Version: 0.7.0
 Author: Michael Burtscher
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
+Text Domain: comment-guestbook
 License: GPLv2
 
 A plugin for the blogging MySQL/PHP-based WordPress.
@@ -25,7 +26,7 @@ You can view a copy of the HTML version of the GNU General Public
 License at http://www.gnu.org/copyleft/gpl.html
 */
 
-if(!defined('ABSPATH')) {
+if(!defined('WPINC')) {
 	exit;
 }
 
@@ -48,6 +49,8 @@ class Comment_Guestbook {
 		$this->options = null;
 
 		// ALWAYS:
+		// Register translation
+		add_action('plugins_loaded', array(&$this, 'load_textdomain'));
 		// Register shortcodes
 		add_shortcode('comment-guestbook', array(&$this, 'shortcode_comment_guestbook'));
 		// Register widgets
@@ -90,6 +93,10 @@ class Comment_Guestbook {
 		}
 	} // end constructor
 
+	public function load_textdomain() {
+		load_plugin_textdomain('comment-guestbook', false, basename(CGB_PATH).'/languages');
+	}
+
 	public function shortcode_comment_guestbook($atts) {
 		if(NULL == $this->shortcode) {
 			require_once('includes/sc_comment-guestbook.php');
@@ -120,7 +127,7 @@ class Comment_Guestbook {
 			if($this->options->get('cgb_form_remove_mail')) {
 				$option_value = false;
 				if('' == $comment_author) {
-					wp_die(__('<strong>ERROR</strong>: please fill the required fields (name).'));
+					wp_die('<strong>'.__('ERROR','comment-guestbook').'</strong>: '.__('please fill the required fields','comment-guestbook').' ('.__('name','comment-guestbook').').', 200);
 				}
 			}
 		}

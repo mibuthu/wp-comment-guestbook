@@ -1,5 +1,5 @@
 <?php
-if(!defined('ABSPATH')) {
+if(!defined('WPINC')) {
 	exit;
 }
 
@@ -49,7 +49,7 @@ class SC_Comment_Guestbook {
 				}
 			}
 			else {
-				$out .= '<div id="respond" style="text-align:center">Guestbook is closed</div>';
+				$out .= '<div id="respond" style="text-align:center">'.__('Guestbook is closed','comment-guestbook').'</div>';
 			}
 			return $out;
 		}

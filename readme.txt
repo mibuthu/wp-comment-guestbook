@@ -3,8 +3,8 @@ Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
 Requires at least: 3.3
-Tested up to: 4.2
-Stable tag: 0.6.9
+Tested up to: 4.3
+Stable tag: 0.7.0
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,7 +36,14 @@ Simply insert the shortcode `[comment-guestbook]` into a page to enable this plu
 
 On the admin page (goto Comments -> About Guestbook) you can find a detailed description. In the admin area you can find a settings page with a lot of options to modify the behavior and output.
 
-If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook git-repository").
+= Development: =
+If you want to follow the development status have a look at the [git-repository on github](https://github.com/mibuthu/wp-comment-guestbook "wp-comment-guestbook at github").
+Feel free to add your merge requests there, if you want to help to improve the plugin.
+
+= Translations: =
+Please help translating this plugin into multiple languages.
+You can submit your translations at [transifex.com](https://www.transifex.com/projects/p/wp-comment-guestbook/ "wp-comment-guestbook at transifex").
+There the source strings will always be in sync with the development version.
 
 
 == Installation ==
@@ -81,6 +88,11 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.7.0 (2015-05-25) =
+* added multi language support
+* added german translation (not fully complete yet)
+* added option to change "You must login" message
 
 = 0.6.9 (2015-03-28) =
 * added additional options for other pages/posts to remove mail or website field in comment form

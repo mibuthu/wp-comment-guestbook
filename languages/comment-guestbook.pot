@@ -1,0 +1,872 @@
+# This is the translation template file for Comment Guestbook.
+# Copyright (C) 2015 Michael Burtscher
+# This file is distributed under the same license as the plugin.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-25 16:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:23
+msgid "This widget displays a list of recent comments."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:31
+msgid "Recent guestbook entries"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:46
+msgid "goto guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:116
+msgid "Date of comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:119
+msgid "Comment author"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:123
+msgid "Page of comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:125
+msgid "in"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget.php:190
+msgid "For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:8
+msgid "Title"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:10
+msgid "This option defines the displayed title for the widget."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:15
+msgid "Number of comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:17
+msgid "The number of comments to display"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:22
+msgid "Add a link to each comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:24
+msgid "With this option a link to every displayed comment can be added."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:29
+msgid "Show comment date"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:31
+msgid "This option defines if the comment date will be displayed."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:36
+msgid "Date format"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:38
+msgid "This option defines the date format of the displayed comment. You can use all date formats available in PHP. Search for php date format to get an overview of the available options."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:43
+msgid "Show comment author"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:45
+msgid "This option defines if the comment author will be displayed."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:50
+msgid "Truncate author to"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:51
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:65
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:79
+msgid "characters"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:52
+#, php-format
+msgid "If the comment author is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full author or set it to %2$s to automatically truncate the text via css."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:57
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:101
+msgid "Show the title of the comment page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:59
+msgid "This options specifies if the page title of the comment page will be displayed."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:64
+msgid "Truncate title to"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:66
+#, php-format
+msgid "If the comment page title is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full title or set it to %2$s to automatically truncate the text via css."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:71
+msgid "Show comment text"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:73
+msgid "The options specifies if the comment text will be displayed in the widget."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:78
+msgid "Truncate text to"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:80
+#, php-format
+msgid "If the comment text is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full text or set it to %2$s to automatically truncate the text via css."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:85
+msgid "URL to the linked guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:87
+msgid "This options specifies the url to the guestbook page. This url is must be set if one of the options below is required."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:92
+msgid "Show guestbook page comments only"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:94
+msgid "Only show comments from the guestbook page specified above."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:94
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:101
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:108
+msgid "The url to the guestbook page is required if you want to enable this option."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:99
+msgid "Hide guestbook page title"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:101
+#, php-format
+msgid "With this option you can hide the page title for guestbook comments if you have enabled the option %1$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:106
+msgid "Add a link to the guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:108
+msgid "The option adds a general link to the guestbook page below the comment list."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:113
+msgid "Caption for the link"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/widget_helptexts.php:115
+msgid "Set the caption for the link to the guestbook page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:9
+msgid "Guestbook comment status"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:10
+msgid "Always allow comments on the guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:11
+msgid "If this option is enabled the wordpress and actual page setting will be overwritten and comments will be always allowed on the guestbook page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:14
+msgid "Guestbook comment registration"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:15
+msgid "Allow comments on the guestbook page without registration"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:16
+msgid "If this option is enabled the wordpress setting will be overwritten and comments will be always allowed without registration on the guestbook page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:19
+msgid "Enable threaded guestbook comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:21
+msgid ""
+"This option allows you to overwrite the threaded comments option for guestbook pages.<br />\n"
+"\t                                                            If this option is enabled a reply to a given comment is allowed, when disabled it isn´t.<br />\n"
+"\t                                                            You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the standard value for all comments can be changed."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:26
+msgid "Guestbook comments adjustment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:27
+msgid "Adjust the guestbook comments output"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:28
+msgid ""
+"This option specifies if the \"list_comments\" wordpress function shall be overwritten.<br />\n"
+"\t                                                        Switching on this option is required to make most of the other adjustments working (see options and sections descriptions)."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:32
+msgid "Domain for translation"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:33
+msgid ""
+"Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />\n"
+"\t                                                            Standard value is \"default\". For example if you want to use the function of the twentyeleven theme the value would be \"twentyeleven\".<br />\n"
+"\t                                                            See the <a href=\"http://codex.wordpress.org/Function_Reference/_2\" target=\"_blank\">description in Wordpress codex</a> for more details."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:38
+msgid "Show form below comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:39
+msgid "Add a comment form in the comment area below the comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:40
+msgid "With this option you can add a comment form in the comment section below the comment list."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:43
+msgid "Show form above comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:44
+msgid "Add a comment form in the comment area above the comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:45
+msgid "With this option you can add a comment form in the comment section above the comment list."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:48
+msgid "Show form in page/post"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:49
+msgid "Add a comment form in the page/post area"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:50
+msgid ""
+"With this option you can add a comment form in the page or post area. The form will be displayed at the position of the shortcode.<br />\n"
+"\t                                                            If the option \"Show form above comments\" is enabled, this form will not be displayed to avoid showing 2 forms in succession."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:54
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:231
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:261
+msgid "Message after new comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:55
+msgid "Show a \"Thank you\" message after a new guestbook comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:56
+msgid ""
+"If this option is enabled a message will be shown after a new comment was made.<br />\n"
+"\t                                                            There are many additional options availabe to change the message text and format in the \"Message after new comments\" section."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:60
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:237
+msgid "Remove Email field"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:61
+msgid "Remove the Email field in comment guestbook form"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:62
+msgid "If this option is enabled the email field will be removed in the comment guestbook form."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:65
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:242
+msgid "Remove Website field"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:66
+msgid "Remove the Website url field in comment guestbook form"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:67
+msgid "If this option is enabled the website url field will be removed in the comment guestbook form."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:70
+msgid "Label for comment field"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:71
+msgid ""
+"With this option you can specify a specific label for the comment field.<br />\n"
+"\t                                                            The standard is \"default\" to use the wordpress default label. Enter an empty string to hide the label."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:75
+msgid "Comment form title"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:76
+msgid ""
+"With this option you can specify a specific title for the comment form (when not replying to a comment).<br />\n"
+"\t                                                            The standard is \"default\" to use the wordpress default title. Enter an empty string to hide the title."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:80
+msgid "Reply comment form title"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:81
+msgid ""
+"With this option you can specify a specific title for the comment form (when replying to a comment).<br />\n"
+"\t                                                            The standard is \"default\" to use the wordpress default title. Enter an empty string to hide the title."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:85
+msgid "Notes before form fields"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:86
+msgid ""
+"With this option you can overwrite the text for the notes before the comment form fields.<br />\n"
+"\t                                                            The standard is \"default\" to use the wordpress default notes. Enter an empty string to hide the notes."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:90
+msgid "Notes after form fields"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:91
+msgid ""
+"With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />\n"
+"\t                                                            The standard is \"default\" to use the wordpress default notes. Enter an empty string to hide the notes."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:95
+msgid "Label of submit button"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:96
+msgid ""
+"With this option you can overwrite the label of the comment form submit button.<br />\n"
+"\t                                                            The standard is \"default\" or an empty string to use the wordpress default label."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:100
+msgid "Label for cancel reply link"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:101
+msgid ""
+"With this option you can overwrite the label for the comment form cancel reply link.<br />\n"
+"\t                                                            The standard is \"default\" or an empty string to use the wordpress default label."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:106
+msgid "Comment form styles"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:107
+msgid ""
+"With this option you can specify custom css styles for the guestbook comment form.<br />\n"
+"\t                                                            Enter all required styles like you would do it in a css file, e.g.:<br />\n"
+"\t                                                            <code>.form-submit { text-align:center; }<br />&nbsp;#submit { font-weight:bold; }</code>"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:113
+msgid "Comment form args"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:114
+#, php-format
+msgid ""
+"With this option you can specify args for the comment form.<br />\n"
+"\t                                                            This can be required because some themes change the comment form styling direcly with args.<br />\n"
+"\t                                                            With this option you can insert these specific args in your guestbook form.<br />\n"
+"\t                                                            A list of all available args and there discription can be found <a href=\"https://codex.wordpress.org/Function_Reference/comment_form#.24args\">here</a>.<br />\n"
+"\t                                                            The given text must be valid php array, e.g.<br />\n"
+"\t                                                            <code>array(<br />\n"
+"\t                                                            &nbsp;&nbsp;'comment_notes_after' =&gt; '&lt;p&gt;'.sprintf(__('You may use these &lt;abbr&gt;HTML&lt;/abbr&gt;<br />\n"
+"\t                                                            &nbsp;&nbsp;&nbsp;&nbsp;tags and attributes: %s'), allowed_tags()).'&lt;/p&gt;',<br />\n"
+"\t                                                            &nbsp;&nbsp;'fields' =&gt; array(<br />\n"
+"\t                                                            &nbsp;&nbsp;&nbsp;&nbsp;'author' =&gt; '&lt;input type=\"text\" name=\"author\" /&gt;',<br />\n"
+"\t                                                            &nbsp;&nbsp;&nbsp;&nbsp;'location' =&gt; '&lt;input type=\"text\" name=\"location\" /&gt;')<br />\n"
+"\t                                                            )</code><br />\n"
+"\t                                                            This setting will be overwritten with all the specific comment form options listed above."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:129
+msgid "Comment list order"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:131
+msgid "This option allows you to overwrite the standard order for top level comments for the guestbook pages."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:134
+msgid "Comment list child order"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:136
+msgid "This option allows you to overwrite the standard order for all child comments for the guestbook pages."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:139
+msgid "Comment list default page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:141
+msgid "This option allows you to overwrite the standard default page for the guestbook pages."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:144
+msgid "Show all comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:145
+msgid "Show comments of all posts and pages"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:146
+msgid ""
+"Normally only the comments of the actual guestbook site are shown.<br />\n"
+"\t                                                            But with this option you can enable to show the comments of all posts and pages on the guestbook pages.<br />\n"
+"\t                                                            It is recommended to enable \"Comment Adjustment\" in Section \"Comment html code\" if you enable this option.<br />\n"
+"\t                                                            There you have the possibility to include a reference to the original page/post in the comment html code."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:152
+msgid "Numbered pagination links"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:153
+msgid "Create a numbered pagination navigation"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:154
+msgid "Normally only a next and previous links are shown. But if this option is enabled a numbered list of all the comment pages is displayed."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:157
+msgid "Title for the comment list"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:158
+msgid "With this option you can specify an additional title which will be displayed in front of the comment list."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:161
+msgid "Comment list in page content"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:162
+msgid "Show the comment list in the page content"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:163
+msgid ""
+"If this option is enabled the comment list is displayed directly in the post/page content and will be removed from the comment area.<br />\n"
+"\t                                                            This can help you in some cases to display the comment list, for example if your theme does not have a comment area at all.<br />\n"
+"\t                                                            The comment list will be displayed instead of the shortcode, the comment form in the page section will be hidden and the comment form in the comment sections will be displayed before and/or after the comment list like specified in the comment form options."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:168
+msgid "Comment callback function"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:169
+msgid ""
+"This option sets the name of comment callback function which outputs the html-code to view each comment.<br />\n"
+"\t                                                            You only require this function if \"Guestbook comments adjustment\" is enabled and \"Comment adjustment\" is disabled.<br />\n"
+"\t                                                            Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default.<br />\n"
+"\t                                                            If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />\n"
+"\t                                                            If you want to insert the function of your theme manually, you can find the name normally in file \"functions.php\" of your theme.<br />\n"
+"\t                                                            Often it is called \"themename_comment\", e.g. \"twentyeleven_comment\" for twentyeleven theme."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:178
+msgid "Comment list styles"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:179
+msgid ""
+"With this option you can specify custom css styles for the guestbook comment list.<br />\n"
+"\t                                                            Enter all required styles like you would do it in a css file, e.g.:<br />\n"
+"\t                                                            <code>ol.commentlist { list-style:none; }<br />&nbsp;ul.children { list-style-type:circle; }</code>"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:184
+msgid "Comment adjustment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:185
+msgid "Adjust the html-output of each comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:186
+msgid ""
+"This option specifies if the comment html code should be replaced with the \"Comment html code\" below on the guestbook page.<br />\n"
+"\t                                                            If \"Guestbook comments adjustment\" in \"General settings\" is disabled this option has no effect."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:191
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:259
+msgid "Comment html code"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:192
+msgid ""
+"This option specifies the html code for each comment, if \"Comment adjustment\" is enabled.<br />\n"
+"\t                                                            You can use php-code to get the required comment data. The following variables and objects are availabe:<br />\n"
+"\t                                                            - <code>$l10n_domain</code> ... Use this php variable to get the \"Domain for translation\" value.<br />\n"
+"\t                                                            - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of \"get_comment\" return object listed in <a href=\"http://codex.wordpress.org/Function_Reference/get_comment\" target=\"_blank\">relevant wordpress codex site</a>.<br />\n"
+"\t                                                            - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />\n"
+"\t                                                            - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />\n"
+"\t                                                            - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />\n"
+"\t                                                            Wordpress provides some additional functions to access the comment data (see <a href=\"http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions\" target=\"_blank\">wordpress codex</a> for datails).<br />\n"
+"\t                                                            The code given as an example is a slightly modified version of the twentyeleven theme.<br />\n"
+"\t                                                            If you want to adapt the code to your theme you can normally find the theme template in the file \"functions.php\" in your theme directory.<br />\n"
+"\t                                                            E.g. for twentyeleven the function is called \"twentyeleven_comment\".<br />\n"
+"\t                                                            If you have enabled the option \"Show all comments\" it is recommended to enable \"Comment adjustment\" and add a link to the original page of the comment.<br />\n"
+"\t                                                            Example: <code>if($is_comment_from_other_page && \"0\" == $comment->comment_parent) { echo ' '.__('Link to page:', $l10n_domain).' '.$other_page_link; }</code>"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:207
+msgid "Message text"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:208
+msgid "This option allows you to change the text for the message after a new comment."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:211
+msgid "Message type"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:213
+msgid ""
+"This option allows to change the format of the message after a new comment.<br />\n"
+"\t                                                            With \"inline\" the message is shown directly below the comment in a div added via javascript.<br />\n"
+"\t                                                            With \"overlay\" the message is shown in an overlay div.<br />\n"
+"\t                                                            The message will be slided in with an animation and after a short time the message will be slided out."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:219
+msgid "Message duration"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:220
+msgid ""
+"How long should the message after a new comment should be displayed?<br />\n"
+"\t                                                            Normally the message after a new comment will be removed after a certain time.<br />\n"
+"\t                                                            You can define this duration with in milliseconds.<br />\n"
+"\t                                                            Set the value to 0 if you do not want to hide the message."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:226
+msgid "Message styles"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:227
+msgid ""
+"With this option you can define the css styles for the message after a new comment.<br />\n"
+"\t                                                            The given code will be used for the style attribute of the message surrounding div tag."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:232
+msgid "Show a \"Thank you\" message after a new comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:233
+msgid ""
+"If this option is enabled a message will be shown after a new comment was made.<br />\n"
+"\t                                                            There are many additional options availabe to change the message text and format in the \"Message after new comment\" section."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:238
+msgid "Remove the Email field in comment forms"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:239
+msgid "If this option is enabled the email field will be removed in comment forms."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:243
+msgid "Remove the Website url field in comment forms"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:244
+msgid "If this option is enabled the website url field will be removed in comment forms."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:248
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:253
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:258
+msgid "General settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:249
+msgid "Some general settings for this plugin."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:250
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:263
+msgid "Comment-form settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:251
+msgid "In this section you can find settings to modify the comment form."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:252
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:257
+msgid "Attention"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:253
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:258
+#, php-format
+msgid "If you want to change any option in this section you have to enable the option %1$s in %2$s first."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:254
+#, php-format
+msgid "Only the options %1$s, %2$s and all comment form modification options are working without it."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:255
+msgid "Comment-list settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:256
+msgid "In this section you can find settings to modify the comments list."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:260
+msgid "In this section you can change the html code for the comment output in guestbook pages."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:262
+msgid "In this section you can find settings to modify the message after a new comment."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:263
+#, php-format
+msgid "You can enable the message in %1$s for the guestbook page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:264
+#, php-format
+msgid "This options are also valid for all other posts and pages if you enable the option %1$s in the section %2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:264
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:265
+msgid "Comments in other posts/pages"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:266
+msgid "In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages)."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options_helptexts.php:267
+msgid "If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:30
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:31
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:80
+msgid "Pingback:"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:80
+msgid "Edit"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-functions.php:106
+msgid "Comment navigation"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/sc_comment-guestbook.php:52
+msgid "Guestbook is closed"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/options.php:64
+msgid "Thanks for your comment"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/includes/comments-template.php:36
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-settings.php:31
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:27
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-settings.php:43
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Comment Guestbook Settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:32
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:55
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
+msgid "About Comment Guestbook"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:34
+msgid "Help and Instructions"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:35
+msgid "Create a guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:37
+msgid "Comment Guestbook is included in a page by using a \"shortcode\"."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+#, php-format
+msgid "Goto %1$s to create a new page for the guestbook."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+msgid "Pages"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:38
+msgid "Add New"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:39
+#, php-format
+msgid ""
+"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field.<br />\n"
+"\t\t\t\tIf required, additional text and html code can be added there."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:41
+msgid "That´s all you have to do. Save and publish the page to finish the guestbook creation."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:43
+msgid "Modify the guestbook page"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+#, php-format
+msgid "In the comment guestbook settings page, available under %1$s, you can find a huge amount of options to modify the guestbook page."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+msgid "Settings"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:45
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:37
+msgid "Guestbook"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:46
+msgid "There are also some options available to change the comments of all posts and pages."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:48
+msgid "Comment guestbook widget"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:50
+#, php-format
+msgid "There is also a %1$s called \"Comment Guestbook\" available."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:50
+msgid "Widget"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:51
+msgid ""
+"With this widget you can can add a list of the latest comments in your sidebar.<br />\n"
+"\t\t\t\tThere are also many options to modify the output."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:57
+#, php-format
+msgid "This plugin is developed by mibuthu, more information about the plugin you can find on the %1$swordpress plugin site%2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:58
+#, php-format
+msgid "If you like the plugin please give me a good rating on the %1$swordpress plugin review site%2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/includes/admin-about.php:59
+#, php-format
+msgid "I would also be happy to get a small %1$sdonation%2$s."
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/admin/admin.php:35
+msgid "About Guestbook"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "ERROR"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "please fill the required fields"
+msgstr ""
+
+#: /home/zeus/mike/workspace/wp-comment-guestbook/comment-guestbook.php:129
+msgid "name"
+msgstr ""

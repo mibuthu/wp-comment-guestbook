@@ -158,7 +158,7 @@ class CGB_Admin_Settings {
 
 	private function show_text($name, $value) {
 		$out = '
-							<input name="'.$name.'" type="text" id="'.$name.'" style="width:230px" value="'.$value.'" />';
+							<input name="'.$name.'" type="text" id="'.$name.'" style="width:25em" value="'.htmlentities($value).'" />';
 		return $out;
 	}
 

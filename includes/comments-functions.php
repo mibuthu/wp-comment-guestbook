@@ -273,6 +273,12 @@ class CGB_Comments_Functions {
 		if('default' != $option && '' != $option) {
 			$args['cancel_reply_link'] = $option;
 		}
+
+		// must_login message
+		$option = $this->options->get('cgb_form_must_login_message');
+		if('default' != $option && '' != $option) {
+			$args['must_log_in'] = sprintf($option, wp_login_url(apply_filters('the_permalink', get_permalink())));
+		}
 		return $args;
 	}
 

@@ -45,6 +45,7 @@ class CGB_Options {
 			'cgb_form_notes_after'            => array('section' => 'comment_form',  'std_val' => 'default'),
 			'cgb_form_label_submit'           => array('section' => 'comment_form',  'std_val' => 'default'),
 			'cgb_form_cancel_reply'           => array('section' => 'comment_form',  'std_val' => 'default'),
+			'cgb_form_must_login_message'     => array('section' => 'comment_form',  'std_val' => 'default'),
 			'cgb_form_styles'                 => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_args'                   => array('section' => 'comment_form',  'std_val' => ''),
 

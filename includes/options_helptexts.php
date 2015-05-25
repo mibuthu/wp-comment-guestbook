@@ -101,6 +101,13 @@ $options_helptexts = array(
 	                                           'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
 	                                                            The standard is "default" or an empty string to use the wordpress default label.')),
 
+	'cgb_form_must_login_message'     => array('type'    => 'text',
+	                                           'label'   => __('Must login message','comment-guestbook'),
+	                                           'desc'    => __('With this option you can overwrite the message which will be displayed when the user must login to add a new comment.<br />
+	                                                            The term %s will be replaced by the url to login. You can specify it in your text if you want to include a link to the login page.<br />
+	                                                            Example (standard text): <code>You must be &lt;a href="%s"&gt;logged in&lt;/a&gt; to post a comment.</code><br />
+	                                                            The standard is "default" or an empty string to use the wordpress default message.')),
+
 	'cgb_form_styles'                 => array('type'    => 'textarea',
 	                                           'rows'    => 6,
 	                                           'label'   => __('Comment form styles','comment-guestbook'),

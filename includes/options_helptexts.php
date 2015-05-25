@@ -3,27 +3,6 @@ if(!defined('WPINC')) {
 	exit;
 }
 
-$sections_helptexts = array(
-	'general'        => array('caption' => __('General settings','comment-guestbook'),
-	                          'desc'    => __('Some general settings for this plugin.','comment-guestbook')),
-	'comment_form'   => array('caption' => __('Comment-form settings','comment-guestbook'),
-	                          'desc'    => __('In this section you can find settings to modify the comment form.<br />
-	                                           <strong>Attention:</strong><br />If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.<br />
-	                                           Only the options "Show form in page/post" and "Message after comment" are working without it. Also all form modification options are working in the page/post form without "Guestbook comment adjustment" enabled.','comment-guestbook')),
-	'comment_list'   => array('caption' => __('Comment-list settings','comment-guestbook'),
-	                          'desc'    => __('In this section you can find settings to modify the comments list.<br />
-	                                           <strong>Attention:</strong> If you want to change any option in this section you have to enable the option "Guestbook comment adjustment" in the "General settings" first.','comment-guestbook')),
-	'comment_html'   => array('caption' => __('Comment html code','comment-guestbook'),
-	                          'desc'    => __('In this section you can change the html code for the comment output in guestbook pages.','comment-guestbook')),
-	'cmessage'       => array('caption' => __('Message after new comment','comment-guestbook'),
-	                          'desc'    => __('In this section you can find settings to modify the message after a new comment.<br />
-	                                           You can enable the message in the "Comment-form settings" for the guestbook page.<br />
-	                                           This options are also valid for all other posts and pages if you enable the message in the "Comments in all posts/page" section.','comment-guestbook')),
-	'page_comments'  => array('caption' => __('Comments in other posts/pages','comment-guestbook'),
-	                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).<br />
-	                                           If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs.','comment-guestbook'))
-);
-
 $options_helptexts = array(
 	// General section
 	'cgb_ignore_comments_open'        => array('type'    => 'checkbox',
@@ -72,10 +51,10 @@ $options_helptexts = array(
 	                                                            If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.','comment-guestbook')),
 
 	'cgb_add_cmessage'                => array('type'    => 'checkbox',
-	                                           'label'   => __('Message after new comment','comment-guestbook'),
+	                                           'label'   => __('Message after new comments','comment-guestbook'),
 	                                           'caption' => __('Show a "Thank you" message after a new guestbook comment','comment-guestbook'),
 	                                           'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
-	                                                            There are many additional options availabe to change the message text and format in the "Message after new comment" section.','comment-guestbook')),
+	                                                            There are many additional options availabe to change the message text and format in the "Message after new comments" section.','comment-guestbook')),
 
 	'cgb_form_remove_mail'            => array('type'    => 'checkbox',
 	                                           'label'   => __('Remove Email field','comment-guestbook'),
@@ -249,7 +228,7 @@ $options_helptexts = array(
 	                                                            The given code will be used for the style attribute of the message surrounding div tag.')),
 	// Comments in other pages/posts
 	'cgb_page_add_cmessage'           => array('type'    => 'checkbox',
-	                                           'label'   => __('Message after comment','comment-guestbook'),
+	                                           'label'   => __('Message after new comments','comment-guestbook'),
 	                                           'caption' => __('Show a "Thank you" message after a new comment','comment-guestbook'),
 	                                           'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
 	                                                            There are many additional options availabe to change the message text and format in the "Message after new comment" section.')),
@@ -263,4 +242,27 @@ $options_helptexts = array(
 	                                           'label'   => __('Remove Website field','comment-guestbook'),
 	                                           'caption' => __('Remove the Website url field in comment forms','comment-guestbook'),
 	                                           'desc'    => __('If this option is enabled the website url field will be removed in comment forms.','comment-guestbook')),
+);
+
+$sections_helptexts = array(
+	'general'        => array('caption' => __('General settings','comment-guestbook'),
+	                          'desc'    => __('Some general settings for this plugin.','comment-guestbook')),
+	'comment_form'   => array('caption' => __('Comment-form settings','comment-guestbook'),
+	                          'desc'    => __('In this section you can find settings to modify the comment form.','comment-guestbook').'<br />
+	                                           <strong>'.__('Attention','comment-guestbook').':</strong><br />
+	                                           '.sprintf(__('If you want to change any option in this section you have to enable the option %1$s in %2$s first.','comment-guestbook'), '"'.$options_helptexts['cgb_adjust_output']['label'].'"', '"'.__('General settings','comment-guestbook').'"').'<br />
+	                                           '.sprintf(__('Only the options %1$s, %2$s and all comment form modification options are working without it.','comment-guestbook'), '"'.$options_helptexts['cgb_form_in_page']['label'].'"', '"'.$options_helptexts['cgb_add_cmessage']['label'].'"')),
+	'comment_list'   => array('caption' => __('Comment-list settings','comment-guestbook'),
+	                          'desc'    => __('In this section you can find settings to modify the comments list.','comment-guestbook').'<br />
+	                                           <strong>'.__('Attention','comment-guestbook').':</strong><br />
+	                                           '.sprintf(__('If you want to change any option in this section you have to enable the option %1$s in %2$s first.','comment-guestbook'), '"'.$options_helptexts['cgb_adjust_output']['label'].'"', '"'.__('General settings','comment-guestbook').'"')),
+	'comment_html'   => array('caption' => __('Comment html code','comment-guestbook'),
+	                          'desc'    => __('In this section you can change the html code for the comment output in guestbook pages.','comment-guestbook')),
+	'cmessage'       => array('caption' => __('Message after new comments','comment-guestbook'),
+	                          'desc'    => __('In this section you can find settings to modify the message after a new comment.','comment-guestbook').'<br />
+	                                           '.sprintf(__('You can enable the message in %1$s for the guestbook page.','comment-guestbook'), '"'.__('Comment-form settings','comment-guestbook').'"').'<br />
+	                                           '.sprintf(__('This options are also valid for all other posts and pages if you enable the option %1$s in the section %2$s.','comment-guestbook'), '"'.$options_helptexts['cgb_page_add_cmessage']['label'].'"', '"'.__('Comments in other posts/pages','comment-guestbook').'"')),
+	'page_comments'  => array('caption' => __('Comments in other posts/pages','comment-guestbook'),
+	                          'desc'    => __('In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).','comment-guestbook').'<br />
+	                                           '.__('If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs.','comment-guestbook'))
 );

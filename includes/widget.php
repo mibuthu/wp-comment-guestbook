@@ -299,7 +299,7 @@ class CGB_Widget extends WP_Widget {
 			$position = 0;
 			$tags = array();
 			$out = '';
-			while($printedLength < $max_length && mb_preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
+			while($printedLength < $max_length && $this->mb_preg_match('{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position)) {
 				list($tag, $tagPosition) = $match[0];
 				// Print text leading up to the tag
 				$str = mb_substr($html, $position, $tagPosition - $position);
@@ -353,10 +353,8 @@ class CGB_Widget extends WP_Widget {
 		}
 		return $html;
 	}
-}
 
-if(!function_exists("mb_preg_match")) {
-	function mb_preg_match($ps_pattern, $ps_subject, &$pa_matches, $pn_flags=0, $pn_offset=0, $ps_encoding=NULL) {
+	private function mb_preg_match($ps_pattern, $ps_subject, &$pa_matches=null, $pn_flags=0, $pn_offset=0, $ps_encoding=null) {
 		// WARNING! - All this function does is to correct offsets, nothing else:
 		//(code is independent of PREG_PATTER_ORDER / PREG_SET_ORDER)
 		if(is_null($ps_encoding)) {

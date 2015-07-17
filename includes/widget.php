@@ -295,6 +295,7 @@ class CGB_Widget extends WP_Widget {
 		// Apply manual length
 		mb_internal_encoding("UTF-8");
 		if(is_numeric($max_length) && 0 < $max_length && mb_strlen($html) > $max_length) {
+			$truncated = false;
 			$printedLength = 0;
 			$position = 0;
 			$tags = array();
@@ -306,6 +307,7 @@ class CGB_Widget extends WP_Widget {
 				if($printedLength + mb_strlen($str) > $max_length) {
 					$out .= mb_substr($str, 0, $max_length - $printedLength);
 					$printedLength = $max_length;
+					$truncated = true;
 					break;
 				}
 				$out .= $str;
@@ -318,13 +320,14 @@ class CGB_Widget extends WP_Widget {
 				else {
 					// Handle the tag
 					$tagName = $match[1][0];
-					if('/' == $tag[1]) {
+					if($this->mb_preg_match('{^<[\b]}', $tag)) {
 						// This is a closing tag
 						$openingTag = array_pop($tags);
-						assert($openingTag == $tagName); // check that tags are properly nested
+						// Check for not properly nested tags (for debugging only)
+						//assert($openingTag == $tagName, '----- Tags not properly nested: OpeningTag: '.$openingTag.'; TagName: '.$tagName.' -----');
 						$out .= $tag;
 					}
-					else if('/' == $tag[mb_strlen($tag) - 2]) {
+					else if($this->mb_preg_match('{/\s?>$}', $tag)) {
 						// Self-closing tag
 						$out .= $tag;
 					}
@@ -341,8 +344,8 @@ class CGB_Widget extends WP_Widget {
 			if($printedLength < $max_length && $position < mb_strlen($html)) {
 				$out .= mb_substr($html, $position, $max_length - $printedLength);
 			}
-			// Print ellipsis ("...") if the html is not complete
-			if(mb_strlen($html) != $position) {
+			// Print ellipsis ("...") if the html was truncated
+			if($truncated) {
 				$out .= ' &hellip;';
 			}
 			// Close any open tags.

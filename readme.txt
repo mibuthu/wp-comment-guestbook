@@ -43,7 +43,7 @@ Feel free to add your merge requests there, if you want to help to improve the p
 = Translations: =
 Please help translating this plugin into multiple languages.
 You can submit your translations at [transifex.com](https://www.transifex.com/projects/p/wp-comment-guestbook "wp-comment-guestbook at transifex").
-There the source strings will always be in sync with the development version.
+There the source strings will always be in sync with the actual development version.
 
 
 == Installation ==

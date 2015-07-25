@@ -58,6 +58,7 @@ class CGB_Options {
 			'cgb_clist_in_page_content'       => array('section' => 'comment_list',  'std_val' => ''),
 			'cgb_comment_callback'            => array('section' => 'comment_list',  'std_val' => '--func--comment_callback'),
 			'cgb_clist_styles'                => array('section' => 'comment_list',  'std_val' => ''),
+			'cgb_clist_args'                  => array('section' => 'comment_list',  'std_val' => ''),
 
 			'cgb_comment_adjust'              => array('section' => 'comment_html',  'std_val' => ''),
 			'cgb_comment_html'                => array('section' => 'comment_html',  'std_val' => '--func--comment_html'),

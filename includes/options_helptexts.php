@@ -8,31 +8,31 @@ $options_helptexts = array(
 	'cgb_ignore_comments_open'        => array('type'    => 'checkbox',
 	                                           'label'   => __('Guestbook comment status','comment-guestbook'),
 	                                           'caption' => __('Always allow comments on the guestbook page','comment-guestbook'),
-	                                           'desc'    => __('If this option is enabled the wordpress and actual page setting will be overwritten and comments will be always allowed on the guestbook page.','comment-guestbook')),
+	                                           'desc'    => __('If this option is enabled comments on the guestbook page will always be allowed. Hence the corresponding WordPress and page standard settings will be overruled in the guestbook page.','comment-guestbook')),
 
 	'cgb_ignore_comment_registration' => array('type'    => 'checkbox',
 	                                           'label'   => __('Guestbook comment registration','comment-guestbook'),
 	                                           'caption' => __('Allow comments on the guestbook page without registration','comment-guestbook'),
-	                                           'desc'    => __('If this option is enabled the wordpress setting will be overwritten and comments will be always allowed without registration on the guestbook page.','comment-guestbook')),
+	                                           'desc'    => __('If this option is enabled comment will be allowed without registration. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.','comment-guestbook')),
 
 	'cgb_threaded_gb_comments'        => array('type'    => 'radio',
 	                                           'label'   => __('Enable threaded guestbook comments','comment-guestbook'),
-	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'enabled' => 'Enabled', 'disabled' => 'Disabled'),
-	                                           'desc'    => __('This option allows you to overwrite the threaded comments option for guestbook pages.<br />
-	                                                            If this option is enabled a reply to a given comment is allowed, when disabled it isn´t.<br />
-	                                                            You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the standard value for all comments can be changed.','comment-guestbook')),
+	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'enabled' => __('Enabled','comment-guestbook'), 'disabled' => __('Disabled','comment-guestbook')),
+	                                           'desc'    => __('With this option the WordPress standard setting for threaded comments can be overruled for the guestbook page. If enabled a reply to a available comment is allowed, when disabled it isn´t.<br />
+	                                                            You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the corresponding WordPress standard value for all comments can be changed.','comment-guestbook')),
 
 	'cgb_adjust_output'               => array('type'    => 'checkbox',
-	                                           'label'   => __('Guestbook comments adjustment','comment-guestbook'),
+	                                           'label'   => __('Comments adjustment','comment-guestbook'),
 	                                           'caption' => __('Adjust the guestbook comments output','comment-guestbook'),
-	                                           'desc'    => __('This option specifies if the "list_comments" wordpress function shall be overwritten.<br />
-	                                                        Switching on this option is required to make most of the other adjustments working (see options and sections descriptions).','comment-guestbook')),
+	                                           'desc'    => sprintf(__('This option specifies if the standard WordPress function %1$s shall be overwritten.<br />
+	                                                                    Activating this option is required for many settings in the other sections (see options and sections descriptions).','comment-guestbook'),
+	                                                                '<a href="https://codex.wordpress.org/Function_Reference/wp_list_comments">wp_list_comments</a>')),
 
 	'cgb_l10n_domain'                 => array('type'    => 'text',
 	                                           'label'   => __('Domain for translation','comment-guestbook'),
-	                                           'desc'    => __('Sets the domain for translation for the modified code which is set in Comment Guestbook.<br />
-	                                                            Standard value is "default". For example if you want to use the function of the twentyeleven theme the value would be "twentyeleven".<br />
-	                                                            See the <a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">description in Wordpress codex</a> for more details.','comment-guestbook')),
+	                                           'desc'    => __('This option defines the domain for translation for the adjusted guestbook comments output.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('For example if you want to use the translations of the twentyeleven theme the correct value is %1$s.','comment-guestbook'), '"twentyeleven"').'<br />'.
+	                                                        sprintf(__('Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details.','comment-guestbook'), '<a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">', '</a>')),
 	// Comment-form section
 	'cgb_form_below_comments'         => array('type'    => 'checkbox',
 	                                           'label'   => __('Show form below comments','comment-guestbook'),
@@ -186,6 +186,18 @@ $options_helptexts = array(
 	                                           'desc'    => __('With this option you can specify custom css styles for the guestbook comment list.<br />
 	                                                            Enter all required styles like you would do it in a css file, e.g.:<br />
 	                                                            <code>ol.commentlist { list-style:none; }<br />&nbsp;ul.children { list-style-type:circle; }</code>')),
+
+	'cgb_clist_args'                  => array('type'    => 'textarea',
+	                                           'rows'    => 7,
+	                                           'label'   => __('Comment list args','comment-guestbook'),
+	                                           'desc'    => __('With this option you can manually specify args for the comment list.<br />
+	                                                            A list of all available arguments and there discription can be found <a href="http://codex.wordpress.org/Function_Reference/wp_list_comments#Arguments">here</a>.<br />
+	                                                            The given text must be valid php array, e.g.<br />
+	                                                            <code>array(<br />
+	                                                            &nbsp;&nbsp;\'style\' =&gt; \'div\',<br />
+	                                                            &nbsp;&nbsp;\'avatar_size\' =&gt; 45<br />
+	                                                            )</code><br />
+	                                                            This setting will be overwritten with all the specific comment list options listed above.')),
 	// Comment html code
 	'cgb_comment_adjust'              => array('type'    => 'checkbox',
 	                                           'label'   => __('Comment adjustment','comment-guestbook'),

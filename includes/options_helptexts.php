@@ -186,6 +186,18 @@ $options_helptexts = array(
 	                                           'desc'    => __('With this option you can specify custom css styles for the guestbook comment list.<br />
 	                                                            Enter all required styles like you would do it in a css file, e.g.:<br />
 	                                                            <code>ol.commentlist { list-style:none; }<br />&nbsp;ul.children { list-style-type:circle; }</code>')),
+
+	'cgb_clist_args'                  => array('type'    => 'textarea',
+	                                           'rows'    => 7,
+	                                           'label'   => __('Comment list args','comment-guestbook'),
+	                                           'desc'    => __('With this option you can manually specify args for the comment list.<br />
+	                                                            A list of all available arguments and there discription can be found <a href="http://codex.wordpress.org/Function_Reference/wp_list_comments#Arguments">here</a>.<br />
+	                                                            The given text must be valid php array, e.g.<br />
+	                                                            <code>array(<br />
+	                                                            &nbsp;&nbsp;\'style\' =&gt; \'div\',<br />
+	                                                            &nbsp;&nbsp;\'avatar_size\' =&gt; 45<br />
+	                                                            )</code><br />
+	                                                            This setting will be overwritten with all the specific comment list options listed above.')),
 	// Comment html code
 	'cgb_comment_adjust'              => array('type'    => 'checkbox',
 	                                           'label'   => __('Comment adjustment','comment-guestbook'),

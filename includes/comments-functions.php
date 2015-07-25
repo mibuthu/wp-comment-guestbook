@@ -39,6 +39,14 @@ class CGB_Comments_Functions {
 
 	public function list_comments() {
 		// Prepare wp_list_comments args
+		$args = array();
+		// comment list args
+		if('' != $this->options->get('cgb_clist_args')) {
+			eval('$args_array = '.$this->options->get('cgb_clist_args').';');
+			if(is_array($args_array)) {
+				$args += $args_array;
+			}
+		}
 		//comment callback function
 		if('' === $this->options->get('cgb_comment_adjust') && function_exists($this->options->get('cgb_comment_adjust'))) {
 			$args['callback'] = $this->options->get('cgb_comment_callback');
@@ -61,7 +69,6 @@ class CGB_Comments_Functions {
 		if('desc' === $this->options->get('cgb_clist_order')) {
 			$args['reverse_children'] = isset($args['reverse_children']) ? !$args['reverse_children'] : true;
 		}
-
 		// Print comments
 		wp_list_comments($args);
 	}
@@ -232,7 +239,7 @@ class CGB_Comments_Functions {
 		if('' != $this->options->get('cgb_form_args')) {
 			eval('$args_array = '.$this->options->get('cgb_form_args').';');
 			if(is_array($args_array)) {
-				$args = $args_array;
+				$args += $args_array;
 			}
 		}
 		// remove mail field

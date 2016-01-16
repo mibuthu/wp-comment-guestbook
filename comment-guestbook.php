@@ -74,9 +74,7 @@ class Comment_Guestbook {
 					add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
 				}
 				// Set filter to overwrite registration requirements for comments on guestbook page
-				if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
-					add_filter('option_comment_registration', array(&$this, 'filter_ignore_comment_registration'));
-				}
+				add_filter('option_comment_registration', array(&$this, 'filter_ignore_comment_registration'));
 				// Set filter to overwrite name and email requirement (actual requirement is set via guestbook options)
 				add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
 			}
@@ -116,7 +114,7 @@ class Comment_Guestbook {
 	}
 
 	public function filter_ignore_comment_registration($option_value) {
-		return false;
+		return $this->options->get('cgb_ignore_comment_registration') ? false : $option_value;
 	}
 
 	public function filter_require_name_email($option_value) {

@@ -118,17 +118,16 @@ class Comment_Guestbook {
 	}
 
 	public function filter_require_name_email($option_value) {
-		global $comment_author;
-		$error_message = false;
-		if($option_value && isset($comment_author)) {
-			// when E-Mail field is removed
-			if($this->options->get('cgb_form_remove_mail')) {
-				$option_value = false;
-				if('' == $comment_author) {
-					wp_die('<strong>'.__('ERROR','comment-guestbook').'</strong>: '.__('please fill the required fields','comment-guestbook').' ('.__('name','comment-guestbook').').', 200);
-				}
+		// Check if special handling is required
+		if($option_value && $this->options->get('cgb_form_remove_mail')) {
+			// Check if a valid author name is given
+			if(!isset($_POST['author']) || '' == trim(strip_tags($_POST['author']))) {
+				wp_die('<strong>'.__('ERROR','comment-guestbook').'</strong>: '.__('please fill the required fields','comment-guestbook').' ('.__('name','comment-guestbook').').', 200);
 			}
+			// overwrite value
+			return false;
 		}
+		// use standard value
 		return $option_value;
 	}
 

@@ -50,6 +50,16 @@ $options_helptexts = array(
 	                                           'desc'    => __('With this option you can add a comment form in the page or post area. The form will be displayed at the position of the shortcode.<br />
 	                                                            If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.','comment-guestbook')),
 
+	'cgb_form_expand_type'            => array('type'    => 'radio',
+	                                           'label'   => __('Collapsed comment form','comment-guestbook'),
+	                                           'caption' => array('false' => __('form is not collapsed (default)','comment-guestbook'), 'static' => __('collapsed form with static expansion','comment-guestbook'), 'animated' => __('collapsed form with animated expansion','comment-guestbook')),
+	                                           'desc'    => __('With this option you can collapse (hide) the comment forms by default and add a link to expand the form.<br />
+	                                                            There are 2 options for expansion available: static and animated. With animated the form will expand with a small animation.','comment-guestbook')),
+
+	'cgb_form_expand_link_text'       => array('type'    => 'text',
+	                                           'label'   => __('Link text for form expansion','comment-guestbook'),
+	                                           'desc'    => __('With this option you can set the link text to expand the comment form if "Collapsed comment form" is enabled.','comment-guestbook')),
+
 	'cgb_add_cmessage'                => array('type'    => 'checkbox',
 	                                           'label'   => __('Message after new comments','comment-guestbook'),
 	                                           'caption' => __('Show a "Thank you" message after a new guestbook comment','comment-guestbook'),

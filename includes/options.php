@@ -35,6 +35,8 @@ class CGB_Options {
 			'cgb_form_below_comments'         => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_above_comments'         => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_in_page'                => array('section' => 'comment_form',  'std_val' => '1'),
+			'cgb_form_expand_type'            => array('section' => 'comment_form',  'std_val' => 'false'),
+			'cgb_form_expand_link_text'       => array('section' => 'comment_form',  'std_val' => __('Add a new guestbook entry','comment-guestbook')),
 			'cgb_add_cmessage'                => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_remove_mail'            => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_remove_website'         => array('section' => 'comment_form',  'std_val' => ''),

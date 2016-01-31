@@ -12,7 +12,7 @@ class CGB_Comments_Functions {
 	private $options;
 	private $nav_label_prev;
 	private $nav_label_next;
-	private $form_styles_printed;
+	private $num_forms;
 
 	public static function &get_instance() {
 		// Create class instance if required
@@ -36,7 +36,7 @@ class CGB_Comments_Functions {
 			$this->nav_label_prev = '&larr; '.substr($this->nav_label_next, 0, -6);
 			$this->nav_label_next = substr($tmp_label, 6).' &rarr;';
 		}
-		$this->form_styles_printed = false;
+		$this->num_forms = 0;
 	}
 
 	public function list_comments() {
@@ -124,22 +124,45 @@ class CGB_Comments_Functions {
 
 	public function show_comment_form_html($location) {
 		// print custom form styles
-		if(!$this->form_styles_printed) {
+		if(!$this->num_forms) {
 			$styles = $this->options->get('cgb_form_styles');
+			// add styles for foldable forms
+			if('static' == $this->options->get('cgb_form_expand_type')) {
+				$styles .= '
+						div.form-wrapper { display:none; }
+						a.form-link:target { display:none; }
+						a.form-link:target + div.form-wrapper { display:block; }';
+			}
+			elseif('animated' == $this->options->get('cgb_form_expand_type')) {
+				$styles .= '
+						div.form-wrapper { position:absolute; transform:scaleY(0); transform-origin:top; transition:transform 0.3s; }
+						a.form-link:target { display:none; }
+						a.form-link:target + div.form-wrapper { position:relative; transform:scaleY(1); }';
+			}
+			// print styles
 			if('' != $styles) {
 				echo '
 					<style>
 						'.$styles.'
 					</style>';
 			}
-			$this->form_styles_printed = true;
 		}
+		$this->num_forms++;
 		// show form
 		if(('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) ||
 		   ('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments')) ||
 		   ('in_page' === $location)) { // the check if the in_page form shall be diesplay must be done before this function is called
+			// add required parts for foldable comment form
+			if('false' != $this->options->get('cgb_form_expand_type')) {
+				echo '
+					<a class="form-link" id="show-form-'.$this->num_forms.'" href="#show-form-'.$this->num_forms.'">'.$this->options->get('cgb_form_expand_link_text').'</a>
+					<div class="form-wrapper">';
+			}
 			// print form
 			comment_form($this->get_guestbook_comment_form_args());
+			if('false' != $this->options->get('cgb_form_expand_type')) {
+				echo '</div>';
+			}
 		}
 	}
 

@@ -12,6 +12,7 @@ class CGB_Comments_Functions {
 	private $options;
 	private $nav_label_prev;
 	private $nav_label_next;
+	private $form_styles_printed;
 
 	public static function &get_instance() {
 		// Create class instance if required
@@ -30,11 +31,12 @@ class CGB_Comments_Functions {
 		$this->nav_label_prev = __('&larr; Older Comments', $this->l10n_domain);
 		$this->nav_label_next = __('Newer Comments &rarr;' , $this->l10n_domain);
 		if('desc' === $this->options->get('cgb_clist_order')) {
-			//switch labels and corred arrow
+			//switch labels and correct arrow
 			$tmp_label = $this->nav_label_prev;
 			$this->nav_label_prev = '&larr; '.substr($this->nav_label_next, 0, -6);
 			$this->nav_label_next = substr($tmp_label, 6).' &rarr;';
 		}
+		$this->form_styles_printed = false;
 	}
 
 	public function list_comments() {
@@ -122,18 +124,20 @@ class CGB_Comments_Functions {
 
 	public function show_comment_form_html($location) {
 		// print custom form styles
-		$styles = $this->options->get('cgb_form_styles');
-		if('' != $styles) {
-			echo '
-				<style>
-					'.$styles.'
-				</style>';
+		if(!$this->form_styles_printed) {
+			$styles = $this->options->get('cgb_form_styles');
+			if('' != $styles) {
+				echo '
+					<style>
+						'.$styles.'
+					</style>';
+			}
+			$this->form_styles_printed = true;
 		}
 		// show form
-		if('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) {
-			comment_form($this->get_guestbook_comment_form_args());
-		}
-		if('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments')) {
+		if(('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) ||
+		   ('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments'))) {
+			// print form
 			comment_form($this->get_guestbook_comment_form_args());
 		}
 	}

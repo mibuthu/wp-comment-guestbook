@@ -27,31 +27,27 @@ class SC_Comment_Guestbook {
 	// main function to show the rendered HTML output
 	public function show_html($atts) {
 		$this->init_sc();
+		// Show comment list in page content
 		if('' !== $this->options->get('cgb_clist_in_page_content') && '' !== $this->options->get('cgb_adjust_output')) {
-			// Show comments template in page content
 			ob_start();
 				include(CGB_PATH.'includes/comments-template.php');
 				$out = ob_get_contents();
 			ob_end_clean();
 			return $out;
 		}
-		else {
-			// Show comment form
-			$out = '';
-			if(comments_open()) {
-				// Only show one form above the comment list. The form_in_page will not be displayed if form_above_comments and adjust_output is enabled
-				if('' !== $this->options->get('cgb_form_in_page') && ('' === $this->options->get('cgb_form_above_comments') || '' === $this->options->get('cgb_adjust_output'))) {
-					require_once(CGB_PATH.'includes/comments-functions.php');
-					ob_start();
-						comment_form(CGB_Comments_Functions::get_instance()->get_guestbook_comment_form_args());
-						$out .= ob_get_contents();
-					ob_end_clean();
-				}
-			}
-			else {
-				$out .= '<div id="respond" style="text-align:center">'.__('Guestbook is closed','comment-guestbook').'</div>';
-			}
+		// Show comment form in page content (Only show one form above the comment list. The form_in_page will not be displayed if form_above_comments and adjust_output is enabled.)
+		// (The form will also be hidden if the comment list is displayed in page content.)
+		elseif('' !== $this->options->get('cgb_form_in_page') && ('' === $this->options->get('cgb_form_above_comments') || '' === $this->options->get('cgb_adjust_output'))) {
+			require_once(CGB_PATH.'includes/comments-functions.php');
+			ob_start();
+				CGB_Comments_Functions::get_instance()->show_comment_form_html('in_page');
+				$out = ob_get_contents();
+			ob_end_clean();
 			return $out;
+		}
+		// Show nothing
+		else {
+			return '';
 		}
 	}
 

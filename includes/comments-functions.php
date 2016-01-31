@@ -136,7 +136,8 @@ class CGB_Comments_Functions {
 		}
 		// show form
 		if(('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) ||
-		   ('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments'))) {
+		   ('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments')) ||
+		   ('in_page' === $location)) { // the check if the in_page form shall be diesplay must be done before this function is called
 			// print form
 			comment_form($this->get_guestbook_comment_form_args());
 		}

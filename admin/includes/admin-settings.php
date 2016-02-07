@@ -103,6 +103,9 @@ class CGB_Admin_Settings {
 					case 'radio':
 						$out .= $this->show_radio($oname, $this->options->get($oname), $o['caption']);
 						break;
+					case 'number':
+						$out .= $this->show_number($oname, $this->options->get($oname), $o['range']);
+						break;
 					case 'text':
 						$out .= $this->show_text($oname, $this->options->get($oname));
 						break;
@@ -153,6 +156,15 @@ class CGB_Admin_Settings {
 		}
 		$out .= '
 							</fieldset>';
+		return $out;
+	}
+
+	private function show_number($name, $value, $range=array('min_value' => 0)) {
+		$step = isset($range['step']) ? $range['step'] : '1';
+		$min = isset($range['min_value']) ? ' min="'.intval($range['min_value']).'"' : '';
+		$max = isset($range['max_value']) ? ' max="'.intval($range['max_value']).'"' : '';
+		$out = '
+							<input name="'.$name.'" type="number", id="'.$name.'" step="'.$step.'"'.$min.$max.' value="'.intval($value).'" />';
 		return $out;
 	}
 

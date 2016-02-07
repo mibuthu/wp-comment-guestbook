@@ -54,6 +54,8 @@ class CGB_Options {
 			'cgb_clist_order'                 => array('section' => 'comment_list',  'std_val' => 'default'),
 			'cgb_clist_child_order'           => array('section' => 'comment_list',  'std_val' => 'default'),
 			'cgb_clist_default_page'          => array('section' => 'comment_list',  'std_val' => 'default'),
+			'cgb_clist_pagination'            => array('section' => 'comment_list',  'std_val' => 'default'),
+			'cgb_clist_per_page'              => array('section' => 'comment_list',  'std_val' => '0'),
 			'cgb_clist_show_all'              => array('section' => 'comment_list',  'std_val' => ''),
 			'cgb_clist_num_pagination'        => array('section' => 'comment_list',  'std_val' => ''),
 			'cgb_clist_title'                 => array('section' => 'comment_list',  'std_val' => ''),

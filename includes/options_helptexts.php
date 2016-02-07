@@ -157,6 +157,17 @@ $options_helptexts = array(
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page'),
 	                                           'desc'    => __('This option allows you to overwrite the standard default page for the guestbook pages.','comment-guestbook')),
 
+	'cgb_clist_pagination'            => array('type'    => 'radio',
+	                                           'label'   => __('Break comments into pages','comment-guestbook'),
+	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'false' => __('Disable pagination','comment-guestbook'), 'true' => __('Enable pagination','comment-guestbook')),
+	                                           'desc'    => __('With this option you to overwrite the WordPress default setting for the guestbook page if the comments shall be broken into pages.','comment-guestbook')),
+
+	'cgb_clist_per_page'              => array('type'    => 'number',
+	                                           'label'   => __('Comments per page','comment-guestbook'),
+	                                           'range'   => array('min_value' => '0'),
+	                                           'desc'    => __('This option allows you to overwrite the standard number of comments listed per page for the guestbook pages (if pagination is enabled).<br />
+	                                                            The default value is "0" to use the WordPress default setting (see WP Discussion options)','comment-guestbook')),
+
 	'cgb_clist_show_all'              => array('type'    => 'checkbox',
 	                                           'label'   => __('Show all comments','comment-guestbook'),
 	                                           'caption' => __('Show comments of all posts and pages','comment-guestbook'),

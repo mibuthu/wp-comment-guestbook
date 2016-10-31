@@ -56,7 +56,7 @@ class CGB_Admin_About {
 			<div class="help-content">
 				<p>'.sprintf(__('This plugin is developed by mibuthu, more information about the plugin you can find on the %1$swordpress plugin site%2$s.','comment-guestbook'), '<a href="http://wordpress.org/plugins/comment-guestbook">', '</a>').'</p>
 				<p>'.sprintf(__('If you like the plugin please give me a good rating on the %1$swordpress plugin review site%2$s.','comment-guestbook'), '<a href="http://wordpress.org/support/view/plugin-reviews/comment-guestbook">', '</a>').'<br />
-				<p>'.sprintf(__('I would also be happy to get a small %1$sdonation%2$s.','comment-guestbook'), '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank">', '</a>').'</p>
+				<p>'.sprintf(__('I would also be happy to get a small %1$sdonation%2$s.','comment-guestbook'), '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank" rel="noopener">', '</a>').'</p>
 			</div>');
 	}
 }

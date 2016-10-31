@@ -32,7 +32,7 @@ $options_helptexts = array(
 	                                           'label'   => __('Domain for translation','comment-guestbook'),
 	                                           'desc'    => __('This option defines the domain for translation for the adjusted guestbook comments output.','comment-guestbook').'<br />'.
 	                                                        sprintf(__('For example if you want to use the translations of the twentyeleven theme the correct value is %1$s.','comment-guestbook'), '"twentyeleven"').'<br />'.
-	                                                        sprintf(__('Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details.','comment-guestbook'), '<a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">', '</a>')),
+	                                                        sprintf(__('Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details.','comment-guestbook'), '<a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank" rel="noopener">', '</a>')),
 	// Comment-form section
 	'cgb_form_below_comments'         => array('type'    => 'checkbox',
 	                                           'label'   => __('Show form below comments','comment-guestbook'),
@@ -232,11 +232,11 @@ $options_helptexts = array(
 	                                           'desc'    => __('This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
 	                                                            You can use php-code to get the required comment data. The following variables and objects are availabe:<br />
 	                                                            - <code>$l10n_domain</code> ... Use this php variable to get the "Domain for translation" value.<br />
-	                                                            - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank">relevant wordpress codex site</a>.<br />
+	                                                            - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank" rel="noopener">relevant wordpress codex site</a>.<br />
 	                                                            - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />
 	                                                            - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />
 	                                                            - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />
-	                                                            Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank">wordpress codex</a> for datails).<br />
+	                                                            Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank" rel="noopener">wordpress codex</a> for datails).<br />
 	                                                            The code given as an example is a slightly modified version of the twentyeleven theme.<br />
 	                                                            If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
 	                                                            E.g. for twentyeleven the function is called "twentyeleven_comment".<br />

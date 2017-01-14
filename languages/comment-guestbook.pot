@@ -1,18 +1,13 @@
-# This is the translation template file for Comment Guestbook.
-# Copyright (C) 2017 Michael Burtscher
-# This file is distributed under the same license as the plugin.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translation file for the 'Comment Guestbook' WordPress plugin
+# Copyright (C) 2017 by mibuthu
+# This file is distributed under the same license as the corresponding wordpress plugin.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 20:05+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/comment-guestbook/\n"
+"POT-Creation-Date: 2017-01-14 20:38+0100\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,10 +29,6 @@ msgstr ""
 msgid "Guestbook"
 msgstr ""
 
-#: admin/includes/admin-about.php:27 admin/includes/admin-settings.php:31
-msgid "You do not have sufficient permissions to access this page."
-msgstr ""
-
 #: admin/includes/admin-about.php:34
 msgid "Help and Instructions"
 msgstr ""
@@ -53,10 +44,6 @@ msgstr ""
 #: admin/includes/admin-about.php:38
 #, php-format
 msgid "Goto %1$s to create a new page for the guestbook."
-msgstr ""
-
-#: admin/includes/admin-about.php:38
-msgid "Pages"
 msgstr ""
 
 #: admin/includes/admin-about.php:38
@@ -83,10 +70,6 @@ msgstr ""
 msgid "In the comment guestbook settings page, available under %1$s, you can find a huge amount of options to modify the guestbook page."
 msgstr ""
 
-#: admin/includes/admin-about.php:45
-msgid "Settings"
-msgstr ""
-
 #: admin/includes/admin-about.php:46
 msgid "There are also some options available to change the comments of all posts and pages."
 msgstr ""
@@ -98,10 +81,6 @@ msgstr ""
 #: admin/includes/admin-about.php:50
 #, php-format
 msgid "There is also a %1$s called \"Comment Guestbook\" available."
-msgstr ""
-
-#: admin/includes/admin-about.php:50
-msgid "Widget"
 msgstr ""
 
 #: admin/includes/admin-about.php:51
@@ -351,116 +330,40 @@ msgstr ""
 msgid "Label for comment field"
 msgstr ""
 
-#: includes/options_helptexts.php:81
-msgid ""
-"With this option you can specify a specific label for the comment field.<br />\n"
-"\t                                                            The standard is \"default\" to use the wordpress default label. Enter an empty string to hide the label."
-msgstr ""
-
 #: includes/options_helptexts.php:85
 msgid "Comment form title"
-msgstr ""
-
-#: includes/options_helptexts.php:86
-msgid ""
-"With this option you can specify a specific title for the comment form (when not replying to a comment).<br />\n"
-"\t                                                            The standard is \"default\" to use the wordpress default title. Enter an empty string to hide the title."
 msgstr ""
 
 #: includes/options_helptexts.php:90
 msgid "Reply comment form title"
 msgstr ""
 
-#: includes/options_helptexts.php:91
-msgid ""
-"With this option you can specify a specific title for the comment form (when replying to a comment).<br />\n"
-"\t                                                            The standard is \"default\" to use the wordpress default title. Enter an empty string to hide the title."
-msgstr ""
-
 #: includes/options_helptexts.php:95
 msgid "Notes before form fields"
-msgstr ""
-
-#: includes/options_helptexts.php:96
-msgid ""
-"With this option you can overwrite the text for the notes before the comment form fields.<br />\n"
-"\t                                                            The standard is \"default\" to use the wordpress default notes. Enter an empty string to hide the notes."
 msgstr ""
 
 #: includes/options_helptexts.php:100
 msgid "Notes after form fields"
 msgstr ""
 
-#: includes/options_helptexts.php:101
-msgid ""
-"With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />\n"
-"\t                                                            The standard is \"default\" to use the wordpress default notes. Enter an empty string to hide the notes."
-msgstr ""
-
 #: includes/options_helptexts.php:105
 msgid "Label of submit button"
-msgstr ""
-
-#: includes/options_helptexts.php:106
-msgid ""
-"With this option you can overwrite the label of the comment form submit button.<br />\n"
-"\t                                                            The standard is \"default\" or an empty string to use the wordpress default label."
 msgstr ""
 
 #: includes/options_helptexts.php:110
 msgid "Label for cancel reply link"
 msgstr ""
 
-#: includes/options_helptexts.php:111
-msgid ""
-"With this option you can overwrite the label for the comment form cancel reply link.<br />\n"
-"\t                                                            The standard is \"default\" or an empty string to use the wordpress default label."
-msgstr ""
-
 #: includes/options_helptexts.php:115
 msgid "Must login message"
-msgstr ""
-
-#: includes/options_helptexts.php:116
-#, php-format
-msgid ""
-"With this option you can overwrite the message which will be displayed when the user must login to add a new comment.<br />\n"
-"\t                                                            The term %s will be replaced by the url to login. You can specify it in your text if you want to include a link to the login page.<br />\n"
-"\t                                                            Example (standard text): <code>You must be &lt;a href=\"%s\"&gt;logged in&lt;/a&gt; to post a comment.</code><br />\n"
-"\t                                                            The standard is \"default\" or an empty string to use the wordpress default message."
 msgstr ""
 
 #: includes/options_helptexts.php:123
 msgid "Comment form styles"
 msgstr ""
 
-#: includes/options_helptexts.php:124
-msgid ""
-"With this option you can specify custom css styles for the guestbook comment form.<br />\n"
-"\t                                                            Enter all required styles like you would do it in a css file, e.g.:<br />\n"
-"\t                                                            <code>.form-submit { text-align:center; }<br />&nbsp;#submit { font-weight:bold; }</code>"
-msgstr ""
-
 #: includes/options_helptexts.php:130
 msgid "Comment form args"
-msgstr ""
-
-#: includes/options_helptexts.php:131
-#, php-format
-msgid ""
-"With this option you can specify args for the comment form.<br />\n"
-"\t                                                            This can be required because some themes change the comment form styling direcly with args.<br />\n"
-"\t                                                            With this option you can insert these specific args in your guestbook form.<br />\n"
-"\t                                                            A list of all available args and there discription can be found <a href=\"https://codex.wordpress.org/Function_Reference/comment_form#.24args\">here</a>.<br />\n"
-"\t                                                            The given text must be valid php array, e.g.<br />\n"
-"\t                                                            <code>array(<br />\n"
-"\t                                                            &nbsp;&nbsp;'comment_notes_after' =&gt; '&lt;p&gt;'.sprintf(__('You may use these &lt;abbr&gt;HTML&lt;/abbr&gt;<br />\n"
-"\t                                                            &nbsp;&nbsp;&nbsp;&nbsp;tags and attributes: %s'), allowed_tags()).'&lt;/p&gt;',<br />\n"
-"\t                                                            &nbsp;&nbsp;'fields' =&gt; array(<br />\n"
-"\t                                                            &nbsp;&nbsp;&nbsp;&nbsp;'author' =&gt; '&lt;input type=\"text\" name=\"author\" /&gt;',<br />\n"
-"\t                                                            &nbsp;&nbsp;&nbsp;&nbsp;'location' =&gt; '&lt;input type=\"text\" name=\"location\" /&gt;')<br />\n"
-"\t                                                            )</code><br />\n"
-"\t                                                            This setting will be overwritten with all the specific comment form options listed above."
 msgstr ""
 
 #: includes/options_helptexts.php:146
@@ -521,14 +424,6 @@ msgstr ""
 msgid "Show comments of all posts and pages"
 msgstr ""
 
-#: includes/options_helptexts.php:174
-msgid ""
-"Normally only the comments of the actual guestbook site are shown.<br />\n"
-"\t                                                            But with this option you can enable to show the comments of all posts and pages on the guestbook pages.<br />\n"
-"\t                                                            It is recommended to enable \"Comment Adjustment\" in Section \"Comment html code\" if you enable this option.<br />\n"
-"\t                                                            There you have the possibility to include a reference to the original page/post in the comment html code."
-msgstr ""
-
 #: includes/options_helptexts.php:180
 msgid "Numbered pagination links"
 msgstr ""
@@ -557,52 +452,16 @@ msgstr ""
 msgid "Show the comment list in the page content"
 msgstr ""
 
-#: includes/options_helptexts.php:191
-msgid ""
-"If this option is enabled the comment list is displayed directly in the post/page content and will be removed from the comment area.<br />\n"
-"\t                                                            This can help you in some cases to display the comment list, for example if your theme does not have a comment area at all.<br />\n"
-"\t                                                            The comment list will be displayed instead of the shortcode, the comment form in the page section will be hidden and the comment form in the comment sections will be displayed before and/or after the comment list like specified in the comment form options."
-msgstr ""
-
 #: includes/options_helptexts.php:196
 msgid "Comment callback function"
-msgstr ""
-
-#: includes/options_helptexts.php:197
-msgid ""
-"This option sets the name of comment callback function which outputs the html-code to view each comment.<br />\n"
-"\t                                                            You only require this function if \"Guestbook comments adjustment\" is enabled and \"Comment adjustment\" is disabled.<br />\n"
-"\t                                                            Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default.<br />\n"
-"\t                                                            If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.<br />\n"
-"\t                                                            If you want to insert the function of your theme manually, you can find the name normally in file \"functions.php\" of your theme.<br />\n"
-"\t                                                            Often it is called \"themename_comment\", e.g. \"twentyeleven_comment\" for twentyeleven theme."
 msgstr ""
 
 #: includes/options_helptexts.php:206
 msgid "Comment list styles"
 msgstr ""
 
-#: includes/options_helptexts.php:207
-msgid ""
-"With this option you can specify custom css styles for the guestbook comment list.<br />\n"
-"\t                                                            Enter all required styles like you would do it in a css file, e.g.:<br />\n"
-"\t                                                            <code>ol.commentlist { list-style:none; }<br />&nbsp;ul.children { list-style-type:circle; }</code>"
-msgstr ""
-
 #: includes/options_helptexts.php:213
 msgid "Comment list args"
-msgstr ""
-
-#: includes/options_helptexts.php:214
-msgid ""
-"With this option you can manually specify args for the comment list.<br />\n"
-"\t                                                            A list of all available arguments and there discription can be found <a href=\"http://codex.wordpress.org/Function_Reference/wp_list_comments#Arguments\">here</a>.<br />\n"
-"\t                                                            The given text must be valid php array, e.g.<br />\n"
-"\t                                                            <code>array(<br />\n"
-"\t                                                            &nbsp;&nbsp;'style' =&gt; 'div',<br />\n"
-"\t                                                            &nbsp;&nbsp;'avatar_size' =&gt; 45<br />\n"
-"\t                                                            )</code><br />\n"
-"\t                                                            This setting will be overwritten with all the specific comment list options listed above."
 msgstr ""
 
 #: includes/options_helptexts.php:224
@@ -613,31 +472,8 @@ msgstr ""
 msgid "Adjust the html-output of each comment"
 msgstr ""
 
-#: includes/options_helptexts.php:226
-msgid ""
-"This option specifies if the comment html code should be replaced with the \"Comment html code\" below on the guestbook page.<br />\n"
-"\t                                                            If \"Guestbook comments adjustment\" in \"General settings\" is disabled this option has no effect."
-msgstr ""
-
 #: includes/options_helptexts.php:231 includes/options_helptexts.php:299
 msgid "Comment html code"
-msgstr ""
-
-#: includes/options_helptexts.php:232
-msgid ""
-"This option specifies the html code for each comment, if \"Comment adjustment\" is enabled.<br />\n"
-"\t                                                            You can use php-code to get the required comment data. The following variables and objects are availabe:<br />\n"
-"\t                                                            - <code>$l10n_domain</code> ... Use this php variable to get the \"Domain for translation\" value.<br />\n"
-"\t                                                            - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of \"get_comment\" return object listed in <a href=\"http://codex.wordpress.org/Function_Reference/get_comment\" target=\"_blank\" rel=\"noopener\">relevant wordpress codex site</a>.<br />\n"
-"\t                                                            - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />\n"
-"\t                                                            - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />\n"
-"\t                                                            - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />\n"
-"\t                                                            Wordpress provides some additional functions to access the comment data (see <a href=\"http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions\" target=\"_blank\" rel=\"noopener\">wordpress codex</a> for datails).<br />\n"
-"\t                                                            The code given as an example is a slightly modified version of the twentyeleven theme.<br />\n"
-"\t                                                            If you want to adapt the code to your theme you can normally find the theme template in the file \"functions.php\" in your theme directory.<br />\n"
-"\t                                                            E.g. for twentyeleven the function is called \"twentyeleven_comment\".<br />\n"
-"\t                                                            If you have enabled the option \"Show all comments\" it is recommended to enable \"Comment adjustment\" and add a link to the original page of the comment.<br />\n"
-"\t                                                            Example: <code>if($is_comment_from_other_page && \"0\" == $comment->comment_parent) { echo ' '.__('Link to page:', $l10n_domain).' '.$other_page_link; }</code>"
 msgstr ""
 
 #: includes/options_helptexts.php:247
@@ -652,44 +488,16 @@ msgstr ""
 msgid "Message type"
 msgstr ""
 
-#: includes/options_helptexts.php:253
-msgid ""
-"This option allows to change the format of the message after a new comment.<br />\n"
-"\t                                                            With \"inline\" the message is shown directly below the comment in a div added via javascript.<br />\n"
-"\t                                                            With \"overlay\" the message is shown in an overlay div.<br />\n"
-"\t                                                            The message will be slided in with an animation and after a short time the message will be slided out."
-msgstr ""
-
 #: includes/options_helptexts.php:259
 msgid "Message duration"
-msgstr ""
-
-#: includes/options_helptexts.php:260
-msgid ""
-"How long should the message after a new comment should be displayed?<br />\n"
-"\t                                                            Normally the message after a new comment will be removed after a certain time.<br />\n"
-"\t                                                            You can define this duration with in milliseconds.<br />\n"
-"\t                                                            Set the value to 0 if you do not want to hide the message."
 msgstr ""
 
 #: includes/options_helptexts.php:266
 msgid "Message styles"
 msgstr ""
 
-#: includes/options_helptexts.php:267
-msgid ""
-"With this option you can define the css styles for the message after a new comment.<br />\n"
-"\t                                                            The given code will be used for the style attribute of the message surrounding div tag."
-msgstr ""
-
 #: includes/options_helptexts.php:272
 msgid "Show a \"Thank you\" message after a new comment"
-msgstr ""
-
-#: includes/options_helptexts.php:273
-msgid ""
-"If this option is enabled a message will be shown after a new comment was made.<br />\n"
-"\t                                                            There are many additional options availabe to change the message text and format in the \"Message after new comment\" section."
 msgstr ""
 
 #: includes/options_helptexts.php:278
@@ -847,7 +655,7 @@ msgstr ""
 msgid "If the comment author is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full author or set it to %2$s to automatically truncate the text via css."
 msgstr ""
 
-#: includes/widget_helptexts.php:57 includes/widget_helptexts.php:101
+#: includes/widget_helptexts.php:57
 msgid "Show the title of the comment page"
 msgstr ""
 

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the corresponding wordpress plugin.
 # 
 # Translators:
-# mibuthu, 2015
+# mibuthu, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-comment-guestbook\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/comment-guestbook/\n"
-"POT-Creation-Date: 2017-01-14 20:38+0100\n"
-"PO-Revision-Date: 2017-01-14 19:40+0000\n"
+"POT-Creation-Date: 2017-01-21 14:39+0100\n"
+"PO-Revision-Date: 2017-01-21 13:54+0000\n"
 "Last-Translator: mibuthu\n"
 "Language-Team: German (Germany) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/admin.php:35 admin/includes/admin-about.php:32
-#: admin/includes/admin-about.php:55
-msgid "About Comment Guestbook"
-msgstr "Informationen zu Comment Guestbook"
+#, php-format
+msgid "About %1$s"
+msgstr "Informationen zu %1$s"
 
 #: admin/admin.php:35
 msgid "About Guestbook"
@@ -44,8 +44,9 @@ msgid "Create a guestbook page"
 msgstr "Erstellen einer Gästebuchseite"
 
 #: admin/includes/admin-about.php:37
-msgid "Comment Guestbook is included in a page by using a \"shortcode\"."
-msgstr "Comment Guestbook wird über einen \"Shortcode\" in eine Seite eingebunden."
+#, php-format
+msgid "%1$s is included in a page by using a \"shortcode\"."
+msgstr "%1$s wird über einen \"Shortcode\" in eine Seite eingebunden."
 
 #: admin/includes/admin-about.php:38
 #, php-format
@@ -59,9 +60,13 @@ msgstr "Erstellen"
 #: admin/includes/admin-about.php:39
 #, php-format
 msgid ""
-"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field.<br />\n"
-"\t\t\t\tIf required, additional text and html code can be added there."
-msgstr "Wähle einen Seitentitel z.B. \"Gästebuch\" und füge den Shortcode %1$s in das Textfeld für den Seiteninhalt ein.\nFalls erforderlich kann dort auch noch zusätzlicher Text und HTML-Code ergänzt werden."
+"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the "
+"page content text field."
+msgstr "Wähle den Seitentitel z.B. \"Gästebuch\" und füge den Shortcode %1$s in das Seiteninhalt-Textfeld ein."
+
+#: admin/includes/admin-about.php:40
+msgid "If required, additional text and html code can be added there."
+msgstr "Falls erforderlich kann dort auch noch zusätzlicher Text und HTML-Code ergänzt werden."
 
 #: admin/includes/admin-about.php:41
 msgid ""
@@ -76,9 +81,9 @@ msgstr "Verändern der Gästebuchseite"
 #: admin/includes/admin-about.php:45
 #, php-format
 msgid ""
-"In the comment guestbook settings page, available under %1$s, you can find a"
-" huge amount of options to modify the guestbook page."
-msgstr "In der Einstellungsseite von Comment Guestbook, zu finden unter %1$s, gibt es jede Menge Einstellungen um die Gästebuchseite zu verändern."
+"In the %1$s settings page, available under %2$s, you can find a huge amount "
+"of options to modify the guestbook page."
+msgstr "In der Einstellungsseite von %1$s, zu finden unter %2$s, gibt es jede Menge Einstellungen um die Gästebuchseite zu verändern."
 
 #: admin/includes/admin-about.php:46
 msgid ""
@@ -87,38 +92,53 @@ msgid ""
 msgstr "Dort gibt es auch einige Einstellungen, um die Kommentare in allen Beiträgen und Seiten zu verändern."
 
 #: admin/includes/admin-about.php:48
-msgid "Comment guestbook widget"
-msgstr "Comment Guestbook Widget"
+#, php-format
+msgid "%1$s widget"
+msgstr "%1$s Widget"
 
 #: admin/includes/admin-about.php:50
 #, php-format
-msgid "There is also a %1$s called \"Comment Guestbook\" available."
-msgstr "Es steht auch ein %1$s namens \"Comment Guestbook\" zur Verfügung."
+msgid "There is also a %1$s called %2$s available."
+msgstr "Es steht auch ein %1$s namens %2$s zur Verfügung."
 
 #: admin/includes/admin-about.php:51
 msgid ""
-"With this widget you can can add a list of the latest comments in your sidebar.<br />\n"
-"\t\t\t\tThere are also many options to modify the output."
-msgstr "Mit diesem kann eine Liste mit den neuesten Kommentare in einem Widget-Bereich angezeigt werden.\nDort gibt es auch viele Optionen, mit denen die Ausgabe angepasst werden kann."
+"With this widget you can can add a list of the latest comments in your "
+"sidebar."
+msgstr "Mit diesem Widget kann eine Liste mit den neuesten Kommentare in einem Seitenleisten-Bereich angezeigt werden."
+
+#: admin/includes/admin-about.php:52
+msgid "There are also many options to modify the output."
+msgstr "Dort gibt es auch viele Optionen, mit denen die Ausgabe angepasst werden kann."
+
+#: admin/includes/admin-about.php:55
+msgid "About the plugin author"
+msgstr "Über den Autor des Plugins"
 
 #: admin/includes/admin-about.php:57
 #, php-format
 msgid ""
-"This plugin is developed by mibuthu, more information about the plugin you "
-"can find on the %1$swordpress plugin site%2$s."
-msgstr "Dieses Plugin wird von mibuthu entwickelt, zusätzliche Informationen über das Plugin stehen auf der %1$sWordpress Plugin Seite%2$s zur Verfügung."
+"This plugin is developed by %1$s, you can find more information about the "
+"plugin on the %2$s."
+msgstr "Dieses Plugin wird von %1$s entwickelt, zusätzliche Informationen über das Plugin stehen auf der %2$s zur Verfügung."
+
+#: admin/includes/admin-about.php:57
+msgid "wordpress plugin site"
+msgstr "Wordpress Plugin Seite"
 
 #: admin/includes/admin-about.php:58
 #, php-format
-msgid ""
-"If you like the plugin please give me a good rating on the %1$swordpress "
-"plugin review site%2$s."
-msgstr "Wenn Ihnen das Plugin gefällt, dann geben Sie mir bitte eine gute Bewertung auf der %1$sWordpress Plugin Review Seite%2$s."
+msgid "If you like the plugin please rate it on the %1$s."
+msgstr "Wenn Ihnen das Plugin gefällt, dann geben Sie mir bitte eine gute Bewertung auf der %1$s."
+
+#: admin/includes/admin-about.php:58
+msgid "wordpress plugin review site"
+msgstr "Wordpress Plugin Review Seite"
 
 #: admin/includes/admin-about.php:59
-#, php-format
-msgid "I would also be happy to get a small %1$sdonation%2$s."
-msgstr "Ich würde mich auch über eine kleine %1$sSpende%2$s freuen."
+msgid ""
+"If you want to support the plugin I would be happy to get a small donation"
+msgstr "Um das Plugin zu unterstützen würde ich mich auch über eine kleine Spende freuen"
 
 #: comment-guestbook.php:125
 msgid "ERROR"
@@ -134,28 +154,28 @@ msgstr "Name"
 
 #: includes/comments-functions.php:31
 msgid "&larr; Older Comments"
-msgstr ""
+msgstr "&larr; ältere Kommentare"
 
 #: includes/comments-functions.php:32
 msgid "Newer Comments &rarr;"
-msgstr ""
+msgstr "Neuere Kommentare &rarr;"
 
 #: includes/comments-functions.php:89
 msgid "Pingback:"
-msgstr ""
+msgstr "Pingback:"
 
 #: includes/comments-functions.php:89
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: includes/comments-functions.php:115
 msgid "Comment navigation"
-msgstr ""
+msgstr "Kommentarnavigation"
 
 #: includes/comments-template.php:36
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
+msgstr "Dieser Artikel ist passwortgeschützt. Bitte geben Sie das Passwort ein um die Kommentare anzuzeigen."
 
 #: includes/options_helptexts.php:9
 msgid "Guestbook comment status"

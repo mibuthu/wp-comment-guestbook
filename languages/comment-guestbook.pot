@@ -6,15 +6,15 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/comment-guestbook/\n"
-"POT-Creation-Date: 2017-01-14 20:38+0100\n"
+"POT-Creation-Date: 2017-01-21 14:39+0100\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin/admin.php:35 admin/includes/admin-about.php:32
-#: admin/includes/admin-about.php:55
-msgid "About Comment Guestbook"
+#, php-format
+msgid "About %1$s"
 msgstr ""
 
 #: admin/admin.php:35
@@ -38,7 +38,8 @@ msgid "Create a guestbook page"
 msgstr ""
 
 #: admin/includes/admin-about.php:37
-msgid "Comment Guestbook is included in a page by using a \"shortcode\"."
+#, php-format
+msgid "%1$s is included in a page by using a \"shortcode\"."
 msgstr ""
 
 #: admin/includes/admin-about.php:38
@@ -52,9 +53,11 @@ msgstr ""
 
 #: admin/includes/admin-about.php:39
 #, php-format
-msgid ""
-"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field.<br />\n"
-"\t\t\t\tIf required, additional text and html code can be added there."
+msgid "Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field."
+msgstr ""
+
+#: admin/includes/admin-about.php:40
+msgid "If required, additional text and html code can be added there."
 msgstr ""
 
 #: admin/includes/admin-about.php:41
@@ -67,7 +70,7 @@ msgstr ""
 
 #: admin/includes/admin-about.php:45
 #, php-format
-msgid "In the comment guestbook settings page, available under %1$s, you can find a huge amount of options to modify the guestbook page."
+msgid "In the %1$s settings page, available under %2$s, you can find a huge amount of options to modify the guestbook page."
 msgstr ""
 
 #: admin/includes/admin-about.php:46
@@ -75,33 +78,47 @@ msgid "There are also some options available to change the comments of all posts
 msgstr ""
 
 #: admin/includes/admin-about.php:48
-msgid "Comment guestbook widget"
+#, php-format
+msgid "%1$s widget"
 msgstr ""
 
 #: admin/includes/admin-about.php:50
 #, php-format
-msgid "There is also a %1$s called \"Comment Guestbook\" available."
+msgid "There is also a %1$s called %2$s available."
 msgstr ""
 
 #: admin/includes/admin-about.php:51
-msgid ""
-"With this widget you can can add a list of the latest comments in your sidebar.<br />\n"
-"\t\t\t\tThere are also many options to modify the output."
+msgid "With this widget you can can add a list of the latest comments in your sidebar."
+msgstr ""
+
+#: admin/includes/admin-about.php:52
+msgid "There are also many options to modify the output."
+msgstr ""
+
+#: admin/includes/admin-about.php:55
+msgid "About the plugin author"
 msgstr ""
 
 #: admin/includes/admin-about.php:57
 #, php-format
-msgid "This plugin is developed by mibuthu, more information about the plugin you can find on the %1$swordpress plugin site%2$s."
+msgid "This plugin is developed by %1$s, you can find more information about the plugin on the %2$s."
+msgstr ""
+
+#: admin/includes/admin-about.php:57
+msgid "wordpress plugin site"
 msgstr ""
 
 #: admin/includes/admin-about.php:58
 #, php-format
-msgid "If you like the plugin please give me a good rating on the %1$swordpress plugin review site%2$s."
+msgid "If you like the plugin please rate it on the %1$s."
+msgstr ""
+
+#: admin/includes/admin-about.php:58
+msgid "wordpress plugin review site"
 msgstr ""
 
 #: admin/includes/admin-about.php:59
-#, php-format
-msgid "I would also be happy to get a small %1$sdonation%2$s."
+msgid "If you want to support the plugin I would be happy to get a small donation"
 msgstr ""
 
 #: comment-guestbook.php:125

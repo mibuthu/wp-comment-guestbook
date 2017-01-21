@@ -77,7 +77,6 @@ class CGB_Comments_Functions {
 
 	public function show_comment_html($comment, $args, $depth) {
 		$GLOBALS['comment'] = $comment;
-		$l10n_domain = $this->options->get('cgb_l10n_domain');
 		$is_comment_from_other_page = (get_the_ID() != $comment->comment_post_ID);
 		$other_page_title = $is_comment_from_other_page ? get_the_title($comment->comment_post_ID) : '';
 		$other_page_link = $is_comment_from_other_page ? '<a href="'.get_page_link($comment->comment_post_ID).'">'.$other_page_title.'</a>' : '';
@@ -86,7 +85,7 @@ class CGB_Comments_Functions {
 			case 'trackback' :
 				echo '
 					<li class="post pingback">
-					<p>'.__('Pingback:', $l10n_domain).get_comment_author_link().get_edit_comment_link(__('Edit', $l10n_domain), '<span class="edit-link">', '</span>').'</p>';
+					<p>'.__('Pingback:', $this->l10n_domain).get_comment_author_link().get_edit_comment_link(__('Edit', $this->l10n_domain), '<span class="edit-link">', '</span>').'</p>';
 				break;
 			default :
 				echo '

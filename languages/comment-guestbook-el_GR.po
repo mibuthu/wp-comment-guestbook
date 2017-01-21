@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the corresponding wordpress plugin.
 # 
 # Translators:
-# mibuthu, 2015
+# Σμηλιάνης Σπυρίδων <spirossm@hyperwebhost.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-comment-guestbook\n"
@@ -11,134 +11,134 @@ msgstr ""
 "POT-Creation-Date: 2017-01-14 20:38+0100\n"
 "PO-Revision-Date: 2017-01-14 19:40+0000\n"
 "Last-Translator: mibuthu\n"
-"Language-Team: German (Germany) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/de_DE/)\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
+"Language: el_GR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/admin.php:35 admin/includes/admin-about.php:32
 #: admin/includes/admin-about.php:55
 msgid "About Comment Guestbook"
-msgstr "Informationen zu Comment Guestbook"
+msgstr "Σχετικά με το σχόλιο στο βιβλίο επισκεπτών"
 
 #: admin/admin.php:35
 msgid "About Guestbook"
-msgstr "Über das Gästebuch"
+msgstr "Σχετικά με το Βιβλίο Επισκεπτών"
 
 #: admin/admin.php:37 admin/includes/admin-settings.php:43
 msgid "Comment Guestbook Settings"
-msgstr "Einstellungen für Comment Guestbook"
+msgstr "Ρυθμίσεις Βιβλίο Επισκεπτών"
 
 #: admin/admin.php:37 admin/includes/admin-about.php:45
 msgid "Guestbook"
-msgstr "Gästebuch"
+msgstr "Βιβλίο Επισκεπτών"
 
 #: admin/includes/admin-about.php:34
 msgid "Help and Instructions"
-msgstr "Hilfe und Anleitungen"
+msgstr "Βοήθεια και οδηγίες"
 
 #: admin/includes/admin-about.php:35
 msgid "Create a guestbook page"
-msgstr "Erstellen einer Gästebuchseite"
+msgstr ""
 
 #: admin/includes/admin-about.php:37
 msgid "Comment Guestbook is included in a page by using a \"shortcode\"."
-msgstr "Comment Guestbook wird über einen \"Shortcode\" in eine Seite eingebunden."
+msgstr ""
 
 #: admin/includes/admin-about.php:38
 #, php-format
 msgid "Goto %1$s to create a new page for the guestbook."
-msgstr "Gehe zu %1$s um eine neue Seite für das Gästebuch zu erzeugen."
+msgstr ""
 
 #: admin/includes/admin-about.php:38
 msgid "Add New"
-msgstr "Erstellen"
+msgstr "Προσθήκη νέου"
 
 #: admin/includes/admin-about.php:39
 #, php-format
 msgid ""
 "Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field.<br />\n"
 "\t\t\t\tIf required, additional text and html code can be added there."
-msgstr "Wähle einen Seitentitel z.B. \"Gästebuch\" und füge den Shortcode %1$s in das Textfeld für den Seiteninhalt ein.\nFalls erforderlich kann dort auch noch zusätzlicher Text und HTML-Code ergänzt werden."
+msgstr ""
 
 #: admin/includes/admin-about.php:41
 msgid ""
 "That´s all you have to do. Save and publish the page to finish the guestbook"
 " creation."
-msgstr "Mehr gibt es nicht mehr zu tun. Speichere und veröffentliche die Seite um die Gästebucherstellung abzuschließen."
+msgstr ""
 
 #: admin/includes/admin-about.php:43
 msgid "Modify the guestbook page"
-msgstr "Verändern der Gästebuchseite"
+msgstr ""
 
 #: admin/includes/admin-about.php:45
 #, php-format
 msgid ""
 "In the comment guestbook settings page, available under %1$s, you can find a"
 " huge amount of options to modify the guestbook page."
-msgstr "In der Einstellungsseite von Comment Guestbook, zu finden unter %1$s, gibt es jede Menge Einstellungen um die Gästebuchseite zu verändern."
+msgstr ""
 
 #: admin/includes/admin-about.php:46
 msgid ""
 "There are also some options available to change the comments of all posts "
 "and pages."
-msgstr "Dort gibt es auch einige Einstellungen, um die Kommentare in allen Beiträgen und Seiten zu verändern."
+msgstr ""
 
 #: admin/includes/admin-about.php:48
 msgid "Comment guestbook widget"
-msgstr "Comment Guestbook Widget"
+msgstr ""
 
 #: admin/includes/admin-about.php:50
 #, php-format
 msgid "There is also a %1$s called \"Comment Guestbook\" available."
-msgstr "Es steht auch ein %1$s namens \"Comment Guestbook\" zur Verfügung."
+msgstr ""
 
 #: admin/includes/admin-about.php:51
 msgid ""
 "With this widget you can can add a list of the latest comments in your sidebar.<br />\n"
 "\t\t\t\tThere are also many options to modify the output."
-msgstr "Mit diesem kann eine Liste mit den neuesten Kommentare in einem Widget-Bereich angezeigt werden.\nDort gibt es auch viele Optionen, mit denen die Ausgabe angepasst werden kann."
+msgstr ""
 
 #: admin/includes/admin-about.php:57
 #, php-format
 msgid ""
 "This plugin is developed by mibuthu, more information about the plugin you "
 "can find on the %1$swordpress plugin site%2$s."
-msgstr "Dieses Plugin wird von mibuthu entwickelt, zusätzliche Informationen über das Plugin stehen auf der %1$sWordpress Plugin Seite%2$s zur Verfügung."
+msgstr ""
 
 #: admin/includes/admin-about.php:58
 #, php-format
 msgid ""
 "If you like the plugin please give me a good rating on the %1$swordpress "
 "plugin review site%2$s."
-msgstr "Wenn Ihnen das Plugin gefällt, dann geben Sie mir bitte eine gute Bewertung auf der %1$sWordpress Plugin Review Seite%2$s."
+msgstr ""
 
 #: admin/includes/admin-about.php:59
 #, php-format
 msgid "I would also be happy to get a small %1$sdonation%2$s."
-msgstr "Ich würde mich auch über eine kleine %1$sSpende%2$s freuen."
+msgstr ""
 
 #: comment-guestbook.php:125
 msgid "ERROR"
-msgstr "FEHLER"
+msgstr "ΣΦΑΛΜΑ"
 
 #: comment-guestbook.php:125
 msgid "please fill the required fields"
-msgstr "Bitte alle erforderlichen Felder ausfüllen"
+msgstr "παρακαλούμε συμπληρώστε τα απαιτούμενα πεδία"
 
 #: comment-guestbook.php:125
 msgid "name"
-msgstr "Name"
+msgstr "όνομα"
 
 #: includes/comments-functions.php:31
 msgid "&larr; Older Comments"
-msgstr ""
+msgstr "&Larr; Παλαιότερα Σχόλια"
 
 #: includes/comments-functions.php:32
 msgid "Newer Comments &rarr;"
-msgstr ""
+msgstr "Νεότερα Σχόλια &rarr¨"
 
 #: includes/comments-functions.php:89
 msgid "Pingback:"
@@ -146,7 +146,7 @@ msgstr ""
 
 #: includes/comments-functions.php:89
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: includes/comments-functions.php:115
 msgid "Comment navigation"
@@ -159,94 +159,94 @@ msgstr ""
 
 #: includes/options_helptexts.php:9
 msgid "Guestbook comment status"
-msgstr "Status für Gästebuchkommentare"
+msgstr ""
 
 #: includes/options_helptexts.php:10
 msgid "Always allow comments on the guestbook page"
-msgstr "Kommentare auf der Gästebuchseite immer erlauben"
+msgstr ""
 
 #: includes/options_helptexts.php:11
 msgid ""
 "If this option is enabled comments on the guestbook page will always be "
 "allowed. Hence the corresponding WordPress and page standard settings will "
 "be overruled in the guestbook page."
-msgstr "Wenn diese Einstellung aktiviert wird, dann werden Kommentare auf der Gästebuchseite immer zugelassen. Die entsprechenden WordPress- und Seiten- Standardeinstellungen werden dann somit bei der Gästebuchseite nicht mehr beachtet."
+msgstr ""
 
 #: includes/options_helptexts.php:14
 msgid "Guestbook comment registration"
-msgstr "Registrierung für Gästebuchkommentare"
+msgstr ""
 
 #: includes/options_helptexts.php:15
 msgid "Allow comments on the guestbook page without registration"
-msgstr "Kommentare auf der Gästbuchseite ohne Registrierung erlauben"
+msgstr ""
 
 #: includes/options_helptexts.php:16
 msgid ""
 "If this option is enabled comment will be allowed without registration. "
 "Hence the corresponding WordPress standard setting will be overruled in the "
 "guestbook page."
-msgstr "Wenn diese Einstellung aktiviert wird, dann werden Kommentare auf der Gästebuchseite ohne Registrierung zugelassen. Die entsprechende WordPress-Standardeinstellung wird dann somit bei der Gästebuchseite nicht mehr beachtet."
+msgstr ""
 
 #: includes/options_helptexts.php:19
 msgid "Enable threaded guestbook comments"
-msgstr "Aktiviere verschachtelte Gästebuchkommentare"
+msgstr ""
 
 #: includes/options_helptexts.php:20 includes/options_helptexts.php:162
 msgid "Standard WP-discussion setting"
-msgstr "Standard WP-Diskussionseinstellung"
+msgstr ""
 
 #: includes/options_helptexts.php:20
 msgid "Enabled"
-msgstr "Aktivieren"
+msgstr ""
 
 #: includes/options_helptexts.php:20
 msgid "Disabled"
-msgstr "Deaktivieren"
+msgstr ""
 
 #: includes/options_helptexts.php:21
 msgid ""
 "With this option the WordPress standard setting for threaded comments can be overruled for the guestbook page. If enabled a reply to a available comment is allowed, when disabled it isn´t.<br />\n"
 "\t                                                            You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the corresponding WordPress standard value for all comments can be changed."
-msgstr "Mit dieser Einstellung kann die WordPress Standardeinstellung für verschachtelte Kommentare für die Gästebuchseite überschrieben werden. Wenn sie aktiviert wird, dann kann auf getätigte Kommentare geantwortet werden. Wenn die Einstellung deaktiviert ist, dann nicht.<br />\nDie Anzahl der erlaubten Ebenen kann in den WordPress Diskussionseinstellungen geändert werden. Dort ist auch die entsprechende WordPress Standardeinstellung für alle Kommentare zu finden."
+msgstr ""
 
 #: includes/options_helptexts.php:25
 msgid "Comments adjustment"
-msgstr "Anpassung der Kommentare"
+msgstr ""
 
 #: includes/options_helptexts.php:26
 msgid "Adjust the guestbook comments output"
-msgstr "Verändere die Ausgabe der Gästebuchkommentare"
+msgstr ""
 
 #: includes/options_helptexts.php:27
 #, php-format
 msgid ""
 "This option specifies if the standard WordPress function %1$s shall be overwritten.<br />\n"
 "\t                                                                    Activating this option is required for many settings in the other sections (see options and sections descriptions)."
-msgstr "Diese Einstellung definiert, ob die Standard WordPress Funktion %1$s überschrieben werden soll.<br />\nDas Aktivieren dieser Option ist für viele Einstellungen in den anderen Bereichen erforderlich (siehe Options- und Bereichsbeschreibungen)."
+msgstr ""
 
 #: includes/options_helptexts.php:32
 msgid "Domain for translation"
-msgstr "Übersetzungs-Domäne"
+msgstr ""
 
 #: includes/options_helptexts.php:33
 msgid ""
 "This option defines the domain for translation for the adjusted guestbook "
 "comments output."
-msgstr "Diese Einstellung definiert die Übersetzungs-Domäne für veränderte Ausgabe der Gästebuchkommentare."
+msgstr ""
 
 #: includes/options_helptexts.php:34
 #, php-format
 msgid ""
 "For example if you want to use the translations of the twentyeleven theme "
 "the correct value is %1$s."
-msgstr "Wenn zum Beispiel die Übersetzungen des TwentyEleven Themes verwendet werden sollen, ist der korrekte Wert %1$s."
+msgstr ""
 
 #: includes/options_helptexts.php:35
 #, php-format
 msgid ""
 "Have a look at %1$sthe corresponding description in the WordPress codex%2$s "
 "for more details."
-msgstr "Siehe %1$sdie entsprechende Beschreibung im WordPress Codex%2$s für weitere Details."
+msgstr ""
 
 #: includes/options_helptexts.php:38
 msgid "Show form below comments"
@@ -278,7 +278,7 @@ msgstr ""
 
 #: includes/options_helptexts.php:48
 msgid "Show form in page/post"
-msgstr "Zeige das Formular im Artikel"
+msgstr ""
 
 #: includes/options_helptexts.php:49
 msgid "Add a comment form in the page/post area"
@@ -325,7 +325,7 @@ msgstr ""
 #: includes/options_helptexts.php:64 includes/options_helptexts.php:271
 #: includes/options_helptexts.php:301
 msgid "Message after new comments"
-msgstr "Mitteilung nach neuen Kommentaren"
+msgstr ""
 
 #: includes/options_helptexts.php:65
 msgid "Show a \"Thank you\" message after a new guestbook comment"
@@ -525,7 +525,7 @@ msgstr ""
 
 #: includes/options_helptexts.php:231 includes/options_helptexts.php:299
 msgid "Comment html code"
-msgstr "HTML-Code für Kommentare"
+msgstr ""
 
 #: includes/options_helptexts.php:247
 msgid "Message text"
@@ -575,85 +575,85 @@ msgstr ""
 #: includes/options_helptexts.php:288 includes/options_helptexts.php:293
 #: includes/options_helptexts.php:298
 msgid "General settings"
-msgstr "Allgemeine Einstellungen"
+msgstr ""
 
 #: includes/options_helptexts.php:289
 msgid "Some general settings for this plugin."
-msgstr "Einige allgemeine Einstellungen zu diesem Plugins."
+msgstr ""
 
 #: includes/options_helptexts.php:290 includes/options_helptexts.php:303
 msgid "Comment-form settings"
-msgstr "Einstellungen für Kommentar-Formulare"
+msgstr ""
 
 #: includes/options_helptexts.php:291
 msgid "In this section you can find settings to modify the comment form."
-msgstr "In diesem Abschnitt sind alle Einstellungen zum Verändern des Kommentar-Formulars verfügbar."
+msgstr ""
 
 #: includes/options_helptexts.php:292 includes/options_helptexts.php:297
 msgid "Attention"
-msgstr "Achtung"
+msgstr ""
 
 #: includes/options_helptexts.php:293 includes/options_helptexts.php:298
 #, php-format
 msgid ""
 "If you want to change any option in this section you have to enable the "
 "option %1$s in %2$s first."
-msgstr "Wenn eine Einstellung in diesem Abschnitt geändert werden soll, dann muss zuerst die Option %1$s in %2$s aktiviert werden."
+msgstr ""
 
 #: includes/options_helptexts.php:294
 #, php-format
 msgid ""
 "Only the options %1$s, %2$s and all comment form modification options are "
 "working without it."
-msgstr "Nur die Optionen %1$s, %2$s und alle Einstellungen zum Verändern der Kommentar-Formulare funktionieren ohne diese."
+msgstr ""
 
 #: includes/options_helptexts.php:295
 msgid "Comment-list settings"
-msgstr "Einstellungen für die Kommentar-Listen"
+msgstr ""
 
 #: includes/options_helptexts.php:296
 msgid "In this section you can find settings to modify the comments list."
-msgstr "In diesem Abschnitt sind die Einstellungen zum Verändern der Kommentar-Listen zu finden."
+msgstr ""
 
 #: includes/options_helptexts.php:300
 msgid ""
 "In this section you can change the html code for the comment output in "
 "guestbook pages."
-msgstr "In diesem Abschnitt kann der HTML Code für die Kommentar-Ausgabe in Gästebuchseiten angepasst werden."
+msgstr ""
 
 #: includes/options_helptexts.php:302
 msgid ""
 "In this section you can find settings to modify the message after a new "
 "comment."
-msgstr "In diesem Abschnitt sind alle Einstellungen zum Verändern der Nachricht zu finden, die nach dem Erstellen eines neuen Kommentars angezeigt wird."
+msgstr ""
 
 #: includes/options_helptexts.php:303
 #, php-format
 msgid "You can enable the message in %1$s for the guestbook page."
-msgstr "Diese Nachricht kann in %1$s für die Gästebuchseite aktiviert werden."
+msgstr ""
 
 #: includes/options_helptexts.php:304
 #, php-format
 msgid ""
 "This options are also valid for all other posts and pages if you enable the "
 "option %1$s in the section %2$s."
-msgstr "Diese Einstellungen sind auch für alle anderen Artikel und Seiten gültig, wenn die entsprechende Einstellung %1$s im Abschnitt %2$s aktiviert ist."
+msgstr ""
 
 #: includes/options_helptexts.php:304 includes/options_helptexts.php:305
 msgid "Comments in other posts/pages"
-msgstr "Kommentare in sonstigen Beiträgen/Seiten"
+msgstr ""
 
 #: includes/options_helptexts.php:306
 msgid ""
 "In this sections you can change the behavior of comments lists and forms in "
 "all other posts and pages of your website (exept the guestbook pages)."
-msgstr "In diesem Abschnitt kann das Verhalten von Kommentarlisten und -formularen in allen anderen Artikeln und Seiten der Webseite angepasst werden (alle außer den Gästebuchseiten)."
+msgstr ""
 
 #: includes/options_helptexts.php:307
 msgid ""
 "If you want to change these settings also for guestbook comments please "
 "specify the same setting values in the other option tabs."
-msgstr "Wenn diese Änderungen auch in die Gästebuchseiten durchgeführt werden sollen, dann müssen diese in den anderen Reitern entsprechend angepasst werden."
+msgstr ""
 
 #: includes/options.php:39
 msgid "Add a new guestbook entry"
@@ -665,63 +665,63 @@ msgstr ""
 
 #: includes/widget_helptexts.php:8
 msgid "Title"
-msgstr "Titel"
+msgstr ""
 
 #: includes/widget_helptexts.php:10
 msgid "This option defines the displayed title for the widget."
-msgstr "Diese Option definiert den angezeigten Titel für das Widget."
+msgstr ""
 
 #: includes/widget_helptexts.php:15
 msgid "Number of comments"
-msgstr "Anzahl der Kommentare"
+msgstr ""
 
 #: includes/widget_helptexts.php:17
 msgid "The number of comments to display"
-msgstr "Die Anzahl der anzuzeigenden Kommentare"
+msgstr ""
 
 #: includes/widget_helptexts.php:22
 msgid "Add a link to each comment"
-msgstr "Füge eine Link zu jedem Kommentar ein"
+msgstr ""
 
 #: includes/widget_helptexts.php:24
 msgid "With this option a link to every displayed comment can be added."
-msgstr "Mit dieser Option kann ein Link zu jedem angezeigten Kommentar hinzugefügt werden."
+msgstr ""
 
 #: includes/widget_helptexts.php:29
 msgid "Show comment date"
-msgstr "Zeige das Datum des Kommentars"
+msgstr ""
 
 #: includes/widget_helptexts.php:31
 msgid "This option defines if the comment date will be displayed."
-msgstr "Diese Option definiert, ob das Datum des Kommentars angezeigt wird."
+msgstr ""
 
 #: includes/widget_helptexts.php:36
 msgid "Date format"
-msgstr "Datumsformat"
+msgstr ""
 
 #: includes/widget_helptexts.php:38
 msgid ""
 "This option defines the date format of the displayed comment. You can use "
 "all date formats available in PHP. Search for php date format to get an "
 "overview of the available options."
-msgstr "Diese Option definiert das Datumsformat des angezeigten Kommentars. Es können alle verfügbaren PHP-Datumsformate verwendet werden. Suche nach PHP Datumsformat um eine Übersicht aller verfügbarer Optionen zu erhalten."
+msgstr ""
 
 #: includes/widget_helptexts.php:43
 msgid "Show comment author"
-msgstr "Zeige den Autor des Kommentars"
+msgstr ""
 
 #: includes/widget_helptexts.php:45
 msgid "This option defines if the comment author will be displayed."
-msgstr "Diese Option definiert ob der Autor des Kommentars angezeigt wird."
+msgstr ""
 
 #: includes/widget_helptexts.php:50
 msgid "Truncate author to"
-msgstr "Kürze den Autor auf"
+msgstr ""
 
 #: includes/widget_helptexts.php:51 includes/widget_helptexts.php:65
 #: includes/widget_helptexts.php:79
 msgid "characters"
-msgstr "Zeichen"
+msgstr ""
 
 #: includes/widget_helptexts.php:52
 #, php-format
@@ -729,21 +729,21 @@ msgid ""
 "If the comment author is displayed this option limits the number of "
 "displayed characters. Set this value to %1$s to view the full author or set "
 "it to %2$s to automatically truncate the text via css."
-msgstr "Wenn der Autor des Kommentars angezeigt wird, definiert diese Option die Anzahl der angezeigten Zeichen. Setze diesen Wert auf %1$s um den kompletten Autor anzuzeigen oder auf %2$s um den Text automatisch via CSS auf den verfügbaren Platz zu kürzen."
+msgstr ""
 
 #: includes/widget_helptexts.php:57
 msgid "Show the title of the comment page"
-msgstr "Zeige den Titel der Kommentarseite"
+msgstr ""
 
 #: includes/widget_helptexts.php:59
 msgid ""
 "This options specifies if the page title of the comment page will be "
 "displayed."
-msgstr "Diese Option definiert, ob der Titel der Kommentarseite angezeigt wird."
+msgstr ""
 
 #: includes/widget_helptexts.php:64
 msgid "Truncate title to"
-msgstr "Kürze den Titel auf"
+msgstr ""
 
 #: includes/widget_helptexts.php:66
 #, php-format
@@ -751,20 +751,20 @@ msgid ""
 "If the comment page title is displayed this option limits the number of "
 "displayed characters. Set this value to %1$s to view the full title or set "
 "it to %2$s to automatically truncate the text via css."
-msgstr "Wenn der Seitentitel des Kommentars angezeigt wird, definiert diese Option die Anzahl der angezeigten Zeichen. Setze diesen Wert auf %1$s um den kompletten Seitentitel anzuzeigen oder auf %2$s um den Text automatisch via CSS auf den verfügbaren Platz zu kürzen."
+msgstr ""
 
 #: includes/widget_helptexts.php:71
 msgid "Show comment text"
-msgstr "Zeige den Kommentartext"
+msgstr ""
 
 #: includes/widget_helptexts.php:73
 msgid ""
 "The options specifies if the comment text will be displayed in the widget."
-msgstr "Diese Option definiert, ob der Kommentartext im Widget angezeigt wird."
+msgstr ""
 
 #: includes/widget_helptexts.php:78
 msgid "Truncate text to"
-msgstr "Kürze den Text auf"
+msgstr ""
 
 #: includes/widget_helptexts.php:80
 #, php-format
@@ -772,91 +772,91 @@ msgid ""
 "If the comment text is displayed this option limits the number of displayed "
 "characters. Set this value to %1$s to view the full text or set it to %2$s "
 "to automatically truncate the text via css."
-msgstr "Wenn der Kommentartext angezeigt wird, definiert diese Option die Anzahl der angezeigten Zeichen. Setze diesen Wert auf %1$s um den kompletten Kommentartext anzuzeigen oder auf %2$s um den Text automatisch via CSS auf den verfügbaren Platz zu kürzen."
+msgstr ""
 
 #: includes/widget_helptexts.php:85
 msgid "URL to the linked guestbook page"
-msgstr "URL zur verlinkten Gästebuchseite"
+msgstr ""
 
 #: includes/widget_helptexts.php:87
 msgid ""
 "This options specifies the url to the guestbook page. This url is must be "
 "set if one of the options below is required."
-msgstr "Diese Option definiert die URL zur Gästebuchseite. Diese URL muss angegeben werden, wenn eine der folgende Optionen erforderlich ist."
+msgstr ""
 
 #: includes/widget_helptexts.php:92
 msgid "Show guestbook page comments only"
-msgstr "Zeige nur die Kommentare der Gästebuchseite"
+msgstr ""
 
 #: includes/widget_helptexts.php:94
 msgid "Only show comments from the guestbook page specified above."
-msgstr "Nur Kommentare der oben angegebenen Gästebuchseite anzeigen."
+msgstr ""
 
 #: includes/widget_helptexts.php:94 includes/widget_helptexts.php:101
 #: includes/widget_helptexts.php:108
 msgid ""
 "The url to the guestbook page is required if you want to enable this option."
-msgstr "Die URL zur Gästebuchseite muss angegeben werden, wenn diese Option aktiviert werden soll."
+msgstr ""
 
 #: includes/widget_helptexts.php:99
 msgid "Hide guestbook page title"
-msgstr "Den Gästebuch Seitentitel nicht anzeigen"
+msgstr ""
 
 #: includes/widget_helptexts.php:101
 #, php-format
 msgid ""
 "With this option you can hide the page title for guestbook comments if you "
 "have enabled the option %1$s."
-msgstr "Mit dieser Option kann der Seitentitel für Gästebuch-Kommentare ausgeblendet werden, wenn die Option %1$s aktiviert ist."
+msgstr ""
 
 #: includes/widget_helptexts.php:106
 msgid "Add a link to the guestbook page"
-msgstr "Einen Link zur Gästebuchseite hinzufügen"
+msgstr ""
 
 #: includes/widget_helptexts.php:108
 msgid ""
 "The option adds a general link to the guestbook page below the comment list."
-msgstr "Diese Option ergänzt einen generellen Link zur Gästebuchseite unterhalb der Kommentarliste."
+msgstr ""
 
 #: includes/widget_helptexts.php:113
 msgid "Caption for the link"
-msgstr "Titel des Links"
+msgstr ""
 
 #: includes/widget_helptexts.php:115
 msgid "Set the caption for the link to the guestbook page."
-msgstr "Setzt den Titel des Links zur Gästebuchseite."
+msgstr ""
 
 #: includes/widget.php:23
 msgid "This widget displays a list of recent comments."
-msgstr "Dieses Widget zeigt eine Liste der neuesten Kommentare."
+msgstr ""
 
 #: includes/widget.php:31
 msgid "Recent guestbook entries"
-msgstr "Neueste Gästebuch Einträge"
+msgstr ""
 
 #: includes/widget.php:46
 msgid "goto guestbook page"
-msgstr "öffne das Gästebuch"
+msgstr ""
 
 #: includes/widget.php:116
 msgid "Date of comment"
-msgstr "Datum des Kommentars"
+msgstr ""
 
 #: includes/widget.php:119
 msgid "Comment author"
-msgstr "Autor des Kommentars"
+msgstr ""
 
 #: includes/widget.php:123
 msgid "Page of comment"
-msgstr "Seite des Kommentars"
+msgstr ""
 
 #: includes/widget.php:125
 msgid "in"
-msgstr "in"
+msgstr ""
 
 #: includes/widget.php:190
 msgid ""
 "For all options tooltips are available which provide additional help and "
 "information. They appear if the mouse is hovered over the options text field"
 " or checkbox."
-msgstr "Für alle Optionen sind Tooltip-Texte verfügbar, die zusätzliche Hilfetexte und Informationen zur Verfügung stellen. Diese Texte erscheinen, wenn die Maus über den Textfeldern oder Checkboxen steht."
+msgstr ""

@@ -35,17 +35,17 @@ $options_helptexts = array(
 	                                                        sprintf(__('Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details.','comment-guestbook'), '<a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank" rel="noopener">', '</a>')),
 	// Comment-form section
 	'cgb_form_below_comments'         => array('type'    => 'checkbox',
-	                                           'label'   => __('Show form below comments','comment-guestbook'),
+	                                           'label'   => __('Form below comments','comment-guestbook'),
 	                                           'caption' => __('Add a comment form in the comment area below the comments','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the comment section below the comment list.','comment-guestbook')),
 
 	'cgb_form_above_comments'         => array('type'    => 'checkbox',
-	                                           'label'   => __('Show form above comments','comment-guestbook'),
+	                                           'label'   => __('Form above comments','comment-guestbook'),
 	                                           'caption' => __('Add a comment form in the comment area above the comments','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the comment section above the comment list.','comment-guestbook')),
 
 	'cgb_form_in_page'                => array('type'    => 'checkbox',
-	                                           'label'   => __('Show form in page/post','comment-guestbook'),
+	                                           'label'   => __('Form in page/post','comment-guestbook'),
 	                                           'caption' => __('Add a comment form in the page/post area','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the page or post area. The form will be displayed at the position of the shortcode.<br />
 	                                                            If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.','comment-guestbook')),

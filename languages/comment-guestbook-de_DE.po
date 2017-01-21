@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-comment-guestbook\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/comment-guestbook/\n"
-"POT-Creation-Date: 2017-01-21 14:39+0100\n"
-"PO-Revision-Date: 2017-01-21 13:54+0000\n"
+"POT-Creation-Date: 2017-01-21 20:49+0100\n"
+"PO-Revision-Date: 2017-01-21 19:56+0000\n"
 "Last-Translator: mibuthu\n"
 "Language-Team: German (Germany) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -140,18 +140,6 @@ msgid ""
 "If you want to support the plugin I would be happy to get a small donation"
 msgstr "Um das Plugin zu unterstützen würde ich mich auch über eine kleine Spende freuen"
 
-#: comment-guestbook.php:125
-msgid "ERROR"
-msgstr "FEHLER"
-
-#: comment-guestbook.php:125
-msgid "please fill the required fields"
-msgstr "Bitte alle erforderlichen Felder ausfüllen"
-
-#: comment-guestbook.php:125
-msgid "name"
-msgstr "Name"
-
 #: includes/comments-functions.php:31
 msgid "&larr; Older Comments"
 msgstr "&larr; ältere Kommentare"
@@ -160,15 +148,15 @@ msgstr "&larr; ältere Kommentare"
 msgid "Newer Comments &rarr;"
 msgstr "Neuere Kommentare &rarr;"
 
-#: includes/comments-functions.php:89
+#: includes/comments-functions.php:90
 msgid "Pingback:"
 msgstr "Pingback:"
 
-#: includes/comments-functions.php:89
+#: includes/comments-functions.php:90
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: includes/comments-functions.php:115
+#: includes/comments-functions.php:116
 msgid "Comment navigation"
 msgstr "Kommentarnavigation"
 
@@ -269,8 +257,8 @@ msgid ""
 msgstr "Siehe %1$sdie entsprechende Beschreibung im WordPress Codex%2$s für weitere Details."
 
 #: includes/options_helptexts.php:38
-msgid "Show form below comments"
-msgstr ""
+msgid "Form below comments"
+msgstr "Formular unterhalb der Kommentare"
 
 #: includes/options_helptexts.php:39
 msgid "Add a comment form in the comment area below the comments"
@@ -283,8 +271,8 @@ msgid ""
 msgstr ""
 
 #: includes/options_helptexts.php:43
-msgid "Show form above comments"
-msgstr ""
+msgid "Form above comments"
+msgstr "Formular oberhalb der Kommentare"
 
 #: includes/options_helptexts.php:44
 msgid "Add a comment form in the comment area above the comments"
@@ -297,8 +285,8 @@ msgid ""
 msgstr ""
 
 #: includes/options_helptexts.php:48
-msgid "Show form in page/post"
-msgstr "Zeige das Formular im Artikel"
+msgid "Form in page/post"
+msgstr "Formular in der Seite/Artikel"
 
 #: includes/options_helptexts.php:49
 msgid "Add a comment form in the page/post area"
@@ -312,7 +300,7 @@ msgstr ""
 
 #: includes/options_helptexts.php:54
 msgid "Collapsed comment form"
-msgstr ""
+msgstr "Eingeklapptes Kommentarformular"
 
 #: includes/options_helptexts.php:55
 msgid "form is not collapsed (default)"
@@ -334,7 +322,7 @@ msgstr ""
 
 #: includes/options_helptexts.php:60
 msgid "Link text for form expansion"
-msgstr ""
+msgstr "Link-Text zum Ausklappen des Formulars"
 
 #: includes/options_helptexts.php:61
 msgid ""
@@ -359,7 +347,7 @@ msgstr ""
 
 #: includes/options_helptexts.php:70 includes/options_helptexts.php:277
 msgid "Remove Email field"
-msgstr ""
+msgstr "E-Mail Feld entfernen"
 
 #: includes/options_helptexts.php:71
 msgid "Remove the Email field in comment guestbook form"
@@ -373,7 +361,7 @@ msgstr ""
 
 #: includes/options_helptexts.php:75 includes/options_helptexts.php:282
 msgid "Remove Website field"
-msgstr ""
+msgstr "Webseiten Feld entfernen"
 
 #: includes/options_helptexts.php:76
 msgid "Remove the Website url field in comment guestbook form"
@@ -387,11 +375,11 @@ msgstr ""
 
 #: includes/options_helptexts.php:80
 msgid "Label for comment field"
-msgstr ""
+msgstr "Beschriftung des Kommentar-Feldes"
 
 #: includes/options_helptexts.php:85
 msgid "Comment form title"
-msgstr ""
+msgstr "Formular-Titel"
 
 #: includes/options_helptexts.php:90
 msgid "Reply comment form title"

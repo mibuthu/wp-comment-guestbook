@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/comment-guestbook/\n"
-"POT-Creation-Date: 2017-01-21 14:39+0100\n"
+"POT-Creation-Date: 2017-01-21 20:49+0100\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,18 +121,6 @@ msgstr ""
 msgid "If you want to support the plugin I would be happy to get a small donation"
 msgstr ""
 
-#: comment-guestbook.php:125
-msgid "ERROR"
-msgstr ""
-
-#: comment-guestbook.php:125
-msgid "please fill the required fields"
-msgstr ""
-
-#: comment-guestbook.php:125
-msgid "name"
-msgstr ""
-
 #: includes/comments-functions.php:31
 msgid "&larr; Older Comments"
 msgstr ""
@@ -141,15 +129,15 @@ msgstr ""
 msgid "Newer Comments &rarr;"
 msgstr ""
 
-#: includes/comments-functions.php:89
+#: includes/comments-functions.php:90
 msgid "Pingback:"
 msgstr ""
 
-#: includes/comments-functions.php:89
+#: includes/comments-functions.php:90
 msgid "Edit"
 msgstr ""
 
-#: includes/comments-functions.php:115
+#: includes/comments-functions.php:116
 msgid "Comment navigation"
 msgstr ""
 
@@ -237,7 +225,7 @@ msgid "Have a look at %1$sthe corresponding description in the WordPress codex%2
 msgstr ""
 
 #: includes/options_helptexts.php:38
-msgid "Show form below comments"
+msgid "Form below comments"
 msgstr ""
 
 #: includes/options_helptexts.php:39
@@ -249,7 +237,7 @@ msgid "With this option you can add a comment form in the comment section below 
 msgstr ""
 
 #: includes/options_helptexts.php:43
-msgid "Show form above comments"
+msgid "Form above comments"
 msgstr ""
 
 #: includes/options_helptexts.php:44
@@ -261,7 +249,7 @@ msgid "With this option you can add a comment form in the comment section above 
 msgstr ""
 
 #: includes/options_helptexts.php:48
-msgid "Show form in page/post"
+msgid "Form in page/post"
 msgstr ""
 
 #: includes/options_helptexts.php:49

@@ -32,7 +32,7 @@ class CGB_Admin {
 	 * Add and register all admin pages in the admin menu
 	 */
 	public function register_pages() {
-		$page = add_submenu_page('edit-comments.php', __('About Comment Guestbook','comment-guestbook'), __('About Guestbook','comment-guestbook'), 'edit_posts', 'cgb_admin_about', array(&$this, 'show_about_page'));
+		$page = add_submenu_page('edit-comments.php', sprintf(__('About %1$s','comment-guestbook'), 'Comment Guestbook'), __('About Guestbook','comment-guestbook'), 'edit_posts', 'cgb_admin_about', array(&$this, 'show_about_page'));
 		add_action('admin_print_scripts-'.$page, array(&$this, 'embed_about_scripts'));
 		$page = add_submenu_page('options-general.php', __('Comment Guestbook Settings','comment-guestbook'), __('Guestbook','comment-guestbook'), 'manage_options', 'cgb_admin_options', array(&$this, 'show_settings_page'));
 		add_action('admin_print_scripts-'.$page, array(&$this, 'embed_settings_scripts'));

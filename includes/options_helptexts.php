@@ -32,23 +32,33 @@ $options_helptexts = array(
 	                                           'label'   => __('Domain for translation','comment-guestbook'),
 	                                           'desc'    => __('This option defines the domain for translation for the adjusted guestbook comments output.','comment-guestbook').'<br />'.
 	                                                        sprintf(__('For example if you want to use the translations of the twentyeleven theme the correct value is %1$s.','comment-guestbook'), '"twentyeleven"').'<br />'.
-	                                                        sprintf(__('Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details.','comment-guestbook'), '<a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank">', '</a>')),
+	                                                        sprintf(__('Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details.','comment-guestbook'), '<a href="http://codex.wordpress.org/Function_Reference/_2" target="_blank" rel="noopener">', '</a>')),
 	// Comment-form section
 	'cgb_form_below_comments'         => array('type'    => 'checkbox',
-	                                           'label'   => __('Show form below comments','comment-guestbook'),
+	                                           'label'   => __('Form below comments','comment-guestbook'),
 	                                           'caption' => __('Add a comment form in the comment area below the comments','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the comment section below the comment list.','comment-guestbook')),
 
 	'cgb_form_above_comments'         => array('type'    => 'checkbox',
-	                                           'label'   => __('Show form above comments','comment-guestbook'),
+	                                           'label'   => __('Form above comments','comment-guestbook'),
 	                                           'caption' => __('Add a comment form in the comment area above the comments','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the comment section above the comment list.','comment-guestbook')),
 
 	'cgb_form_in_page'                => array('type'    => 'checkbox',
-	                                           'label'   => __('Show form in page/post','comment-guestbook'),
+	                                           'label'   => __('Form in page/post','comment-guestbook'),
 	                                           'caption' => __('Add a comment form in the page/post area','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the page or post area. The form will be displayed at the position of the shortcode.<br />
 	                                                            If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.','comment-guestbook')),
+
+	'cgb_form_expand_type'            => array('type'    => 'radio',
+	                                           'label'   => __('Collapsed comment form','comment-guestbook'),
+	                                           'caption' => array('false' => __('form is not collapsed (default)','comment-guestbook'), 'static' => __('collapsed form with static expansion','comment-guestbook'), 'animated' => __('collapsed form with animated expansion','comment-guestbook')),
+	                                           'desc'    => __('With this option you can collapse (hide) the comment forms by default and add a link to expand the form.<br />
+	                                                            There are 2 options for expansion available: static and animated. With animated the form will expand with a small animation.','comment-guestbook')),
+
+	'cgb_form_expand_link_text'       => array('type'    => 'text',
+	                                           'label'   => __('Link text for form expansion','comment-guestbook'),
+	                                           'desc'    => __('With this option you can set the link text to expand the comment form if "Collapsed comment form" is enabled.','comment-guestbook')),
 
 	'cgb_add_cmessage'                => array('type'    => 'checkbox',
 	                                           'label'   => __('Message after new comments','comment-guestbook'),
@@ -147,6 +157,17 @@ $options_helptexts = array(
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page'),
 	                                           'desc'    => __('This option allows you to overwrite the standard default page for the guestbook pages.','comment-guestbook')),
 
+	'cgb_clist_pagination'            => array('type'    => 'radio',
+	                                           'label'   => __('Break comments into pages','comment-guestbook'),
+	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'false' => __('Disable pagination','comment-guestbook'), 'true' => __('Enable pagination','comment-guestbook')),
+	                                           'desc'    => __('With this option you to overwrite the WordPress default setting for the guestbook page if the comments shall be broken into pages.','comment-guestbook')),
+
+	'cgb_clist_per_page'              => array('type'    => 'number',
+	                                           'label'   => __('Comments per page','comment-guestbook'),
+	                                           'range'   => array('min_value' => '0'),
+	                                           'desc'    => __('This option allows you to overwrite the standard number of comments listed per page for the guestbook pages (if pagination is enabled).<br />
+	                                                            The default value is "0" to use the WordPress default setting (see WP Discussion options)','comment-guestbook')),
+
 	'cgb_clist_show_all'              => array('type'    => 'checkbox',
 	                                           'label'   => __('Show all comments','comment-guestbook'),
 	                                           'caption' => __('Show comments of all posts and pages','comment-guestbook'),
@@ -211,11 +232,11 @@ $options_helptexts = array(
 	                                           'desc'    => __('This option specifies the html code for each comment, if "Comment adjustment" is enabled.<br />
 	                                                            You can use php-code to get the required comment data. The following variables and objects are availabe:<br />
 	                                                            - <code>$l10n_domain</code> ... Use this php variable to get the "Domain for translation" value.<br />
-	                                                            - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank">relevant wordpress codex site</a>.<br />
+	                                                            - <code>$comment</code> ... This objects includes all available data of the comment. You can use all available fields of "get_comment" return object listed in <a href="http://codex.wordpress.org/Function_Reference/get_comment" target="_blank" rel="noopener">relevant wordpress codex site</a>.<br />
 	                                                            - <code>$is_comment_from_other_page</code> ... This boolean variable gives you information if the comment was created in another page or post.<br />
 	                                                            - <code>$other_page_title</code> ... With this variable you have access to the Page name of a commente created in another page or post.<br />
 	                                                            - <code>$other_page_link</code> ... With this variable you can include a link to the original page of a comment created in another page or post.<br />
-	                                                            Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank">wordpress codex</a> for datails).<br />
+	                                                            Wordpress provides some additional functions to access the comment data (see <a href="http://codex.wordpress.org/Function_Reference#Comment.2C_Ping.2C_and_Trackback_Functions" target="_blank" rel="noopener">wordpress codex</a> for datails).<br />
 	                                                            The code given as an example is a slightly modified version of the twentyeleven theme.<br />
 	                                                            If you want to adapt the code to your theme you can normally find the theme template in the file "functions.php" in your theme directory.<br />
 	                                                            E.g. for twentyeleven the function is called "twentyeleven_comment".<br />

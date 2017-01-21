@@ -1,16 +1,22 @@
 # Translation file for the 'Comment Guestbook' WordPress plugin
 # Copyright (C) 2017 by mibuthu
 # This file is distributed under the same license as the corresponding wordpress plugin.
-#
-#, fuzzy
+# 
+# Translators:
+# Σμηλιάνης Σπυρίδων <spirossm@hyperwebhost.net>, 2015
 msgid ""
 msgstr ""
+"Project-Id-Version: wp-comment-guestbook\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/comment-guestbook/\n"
 "POT-Creation-Date: 2017-01-21 20:49+0100\n"
-"Language: en\n"
+"PO-Revision-Date: 2017-01-21 19:49+0000\n"
+"Last-Translator: mibuthu\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el_GR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/admin.php:35 admin/includes/admin-about.php:32
 #, php-format
@@ -19,19 +25,19 @@ msgstr ""
 
 #: admin/admin.php:35
 msgid "About Guestbook"
-msgstr ""
+msgstr "Σχετικά με το Βιβλίο Επισκεπτών"
 
 #: admin/admin.php:37 admin/includes/admin-settings.php:43
 msgid "Comment Guestbook Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Βιβλίο Επισκεπτών"
 
 #: admin/admin.php:37 admin/includes/admin-about.php:45
 msgid "Guestbook"
-msgstr ""
+msgstr "Βιβλίο Επισκεπτών"
 
 #: admin/includes/admin-about.php:34
 msgid "Help and Instructions"
-msgstr ""
+msgstr "Βοήθεια και οδηγίες"
 
 #: admin/includes/admin-about.php:35
 msgid "Create a guestbook page"
@@ -49,11 +55,13 @@ msgstr ""
 
 #: admin/includes/admin-about.php:38
 msgid "Add New"
-msgstr ""
+msgstr "Προσθήκη νέου"
 
 #: admin/includes/admin-about.php:39
 #, php-format
-msgid "Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the page content text field."
+msgid ""
+"Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the "
+"page content text field."
 msgstr ""
 
 #: admin/includes/admin-about.php:40
@@ -61,7 +69,9 @@ msgid "If required, additional text and html code can be added there."
 msgstr ""
 
 #: admin/includes/admin-about.php:41
-msgid "That´s all you have to do. Save and publish the page to finish the guestbook creation."
+msgid ""
+"That´s all you have to do. Save and publish the page to finish the guestbook"
+" creation."
 msgstr ""
 
 #: admin/includes/admin-about.php:43
@@ -70,11 +80,15 @@ msgstr ""
 
 #: admin/includes/admin-about.php:45
 #, php-format
-msgid "In the %1$s settings page, available under %2$s, you can find a huge amount of options to modify the guestbook page."
+msgid ""
+"In the %1$s settings page, available under %2$s, you can find a huge amount "
+"of options to modify the guestbook page."
 msgstr ""
 
 #: admin/includes/admin-about.php:46
-msgid "There are also some options available to change the comments of all posts and pages."
+msgid ""
+"There are also some options available to change the comments of all posts "
+"and pages."
 msgstr ""
 
 #: admin/includes/admin-about.php:48
@@ -88,7 +102,9 @@ msgid "There is also a %1$s called %2$s available."
 msgstr ""
 
 #: admin/includes/admin-about.php:51
-msgid "With this widget you can can add a list of the latest comments in your sidebar."
+msgid ""
+"With this widget you can can add a list of the latest comments in your "
+"sidebar."
 msgstr ""
 
 #: admin/includes/admin-about.php:52
@@ -101,7 +117,9 @@ msgstr ""
 
 #: admin/includes/admin-about.php:57
 #, php-format
-msgid "This plugin is developed by %1$s, you can find more information about the plugin on the %2$s."
+msgid ""
+"This plugin is developed by %1$s, you can find more information about the "
+"plugin on the %2$s."
 msgstr ""
 
 #: admin/includes/admin-about.php:57
@@ -118,16 +136,17 @@ msgid "wordpress plugin review site"
 msgstr ""
 
 #: admin/includes/admin-about.php:59
-msgid "If you want to support the plugin I would be happy to get a small donation"
+msgid ""
+"If you want to support the plugin I would be happy to get a small donation"
 msgstr ""
 
 #: includes/comments-functions.php:31
 msgid "&larr; Older Comments"
-msgstr ""
+msgstr "&Larr; Παλαιότερα Σχόλια"
 
 #: includes/comments-functions.php:32
 msgid "Newer Comments &rarr;"
-msgstr ""
+msgstr "Νεότερα Σχόλια &rarr¨"
 
 #: includes/comments-functions.php:90
 msgid "Pingback:"
@@ -135,14 +154,15 @@ msgstr ""
 
 #: includes/comments-functions.php:90
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: includes/comments-functions.php:116
 msgid "Comment navigation"
 msgstr ""
 
 #: includes/comments-template.php:36
-msgid "This post is password protected. Enter the password to view any comments."
+msgid ""
+"This post is password protected. Enter the password to view any comments."
 msgstr ""
 
 #: includes/options_helptexts.php:9
@@ -154,7 +174,10 @@ msgid "Always allow comments on the guestbook page"
 msgstr ""
 
 #: includes/options_helptexts.php:11
-msgid "If this option is enabled comments on the guestbook page will always be allowed. Hence the corresponding WordPress and page standard settings will be overruled in the guestbook page."
+msgid ""
+"If this option is enabled comments on the guestbook page will always be "
+"allowed. Hence the corresponding WordPress and page standard settings will "
+"be overruled in the guestbook page."
 msgstr ""
 
 #: includes/options_helptexts.php:14
@@ -166,7 +189,10 @@ msgid "Allow comments on the guestbook page without registration"
 msgstr ""
 
 #: includes/options_helptexts.php:16
-msgid "If this option is enabled comment will be allowed without registration. Hence the corresponding WordPress standard setting will be overruled in the guestbook page."
+msgid ""
+"If this option is enabled comment will be allowed without registration. "
+"Hence the corresponding WordPress standard setting will be overruled in the "
+"guestbook page."
 msgstr ""
 
 #: includes/options_helptexts.php:19
@@ -211,17 +237,23 @@ msgid "Domain for translation"
 msgstr ""
 
 #: includes/options_helptexts.php:33
-msgid "This option defines the domain for translation for the adjusted guestbook comments output."
+msgid ""
+"This option defines the domain for translation for the adjusted guestbook "
+"comments output."
 msgstr ""
 
 #: includes/options_helptexts.php:34
 #, php-format
-msgid "For example if you want to use the translations of the twentyeleven theme the correct value is %1$s."
+msgid ""
+"For example if you want to use the translations of the twentyeleven theme "
+"the correct value is %1$s."
 msgstr ""
 
 #: includes/options_helptexts.php:35
 #, php-format
-msgid "Have a look at %1$sthe corresponding description in the WordPress codex%2$s for more details."
+msgid ""
+"Have a look at %1$sthe corresponding description in the WordPress codex%2$s "
+"for more details."
 msgstr ""
 
 #: includes/options_helptexts.php:38
@@ -233,7 +265,9 @@ msgid "Add a comment form in the comment area below the comments"
 msgstr ""
 
 #: includes/options_helptexts.php:40
-msgid "With this option you can add a comment form in the comment section below the comment list."
+msgid ""
+"With this option you can add a comment form in the comment section below the"
+" comment list."
 msgstr ""
 
 #: includes/options_helptexts.php:43
@@ -245,7 +279,9 @@ msgid "Add a comment form in the comment area above the comments"
 msgstr ""
 
 #: includes/options_helptexts.php:45
-msgid "With this option you can add a comment form in the comment section above the comment list."
+msgid ""
+"With this option you can add a comment form in the comment section above the"
+" comment list."
 msgstr ""
 
 #: includes/options_helptexts.php:48
@@ -289,7 +325,9 @@ msgid "Link text for form expansion"
 msgstr ""
 
 #: includes/options_helptexts.php:61
-msgid "With this option you can set the link text to expand the comment form if \"Collapsed comment form\" is enabled."
+msgid ""
+"With this option you can set the link text to expand the comment form if "
+"\"Collapsed comment form\" is enabled."
 msgstr ""
 
 #: includes/options_helptexts.php:64 includes/options_helptexts.php:271
@@ -316,7 +354,9 @@ msgid "Remove the Email field in comment guestbook form"
 msgstr ""
 
 #: includes/options_helptexts.php:72
-msgid "If this option is enabled the email field will be removed in the comment guestbook form."
+msgid ""
+"If this option is enabled the email field will be removed in the comment "
+"guestbook form."
 msgstr ""
 
 #: includes/options_helptexts.php:75 includes/options_helptexts.php:282
@@ -328,7 +368,9 @@ msgid "Remove the Website url field in comment guestbook form"
 msgstr ""
 
 #: includes/options_helptexts.php:77
-msgid "If this option is enabled the website url field will be removed in the comment guestbook form."
+msgid ""
+"If this option is enabled the website url field will be removed in the "
+"comment guestbook form."
 msgstr ""
 
 #: includes/options_helptexts.php:80
@@ -376,7 +418,9 @@ msgid "Comment list order"
 msgstr ""
 
 #: includes/options_helptexts.php:148
-msgid "This option allows you to overwrite the standard order for top level comments for the guestbook pages."
+msgid ""
+"This option allows you to overwrite the standard order for top level "
+"comments for the guestbook pages."
 msgstr ""
 
 #: includes/options_helptexts.php:151
@@ -384,7 +428,9 @@ msgid "Comment list child order"
 msgstr ""
 
 #: includes/options_helptexts.php:153
-msgid "This option allows you to overwrite the standard order for all child comments for the guestbook pages."
+msgid ""
+"This option allows you to overwrite the standard order for all child "
+"comments for the guestbook pages."
 msgstr ""
 
 #: includes/options_helptexts.php:156
@@ -392,7 +438,9 @@ msgid "Comment list default page"
 msgstr ""
 
 #: includes/options_helptexts.php:158
-msgid "This option allows you to overwrite the standard default page for the guestbook pages."
+msgid ""
+"This option allows you to overwrite the standard default page for the "
+"guestbook pages."
 msgstr ""
 
 #: includes/options_helptexts.php:161
@@ -408,7 +456,9 @@ msgid "Enable pagination"
 msgstr ""
 
 #: includes/options_helptexts.php:163
-msgid "With this option you to overwrite the WordPress default setting for the guestbook page if the comments shall be broken into pages."
+msgid ""
+"With this option you to overwrite the WordPress default setting for the "
+"guestbook page if the comments shall be broken into pages."
 msgstr ""
 
 #: includes/options_helptexts.php:166
@@ -438,7 +488,9 @@ msgid "Create a numbered pagination navigation"
 msgstr ""
 
 #: includes/options_helptexts.php:182
-msgid "Normally only a next and previous links are shown. But if this option is enabled a numbered list of all the comment pages is displayed."
+msgid ""
+"Normally only a next and previous links are shown. But if this option is "
+"enabled a numbered list of all the comment pages is displayed."
 msgstr ""
 
 #: includes/options_helptexts.php:185
@@ -446,7 +498,9 @@ msgid "Title for the comment list"
 msgstr ""
 
 #: includes/options_helptexts.php:186
-msgid "With this option you can specify an additional title which will be displayed in front of the comment list."
+msgid ""
+"With this option you can specify an additional title which will be displayed"
+" in front of the comment list."
 msgstr ""
 
 #: includes/options_helptexts.php:189
@@ -486,7 +540,9 @@ msgid "Message text"
 msgstr ""
 
 #: includes/options_helptexts.php:248
-msgid "This option allows you to change the text for the message after a new comment."
+msgid ""
+"This option allows you to change the text for the message after a new "
+"comment."
 msgstr ""
 
 #: includes/options_helptexts.php:251
@@ -510,7 +566,8 @@ msgid "Remove the Email field in comment forms"
 msgstr ""
 
 #: includes/options_helptexts.php:279
-msgid "If this option is enabled the email field will be removed in comment forms."
+msgid ""
+"If this option is enabled the email field will be removed in comment forms."
 msgstr ""
 
 #: includes/options_helptexts.php:283
@@ -518,7 +575,9 @@ msgid "Remove the Website url field in comment forms"
 msgstr ""
 
 #: includes/options_helptexts.php:284
-msgid "If this option is enabled the website url field will be removed in comment forms."
+msgid ""
+"If this option is enabled the website url field will be removed in comment "
+"forms."
 msgstr ""
 
 #: includes/options_helptexts.php:288 includes/options_helptexts.php:293
@@ -544,12 +603,16 @@ msgstr ""
 
 #: includes/options_helptexts.php:293 includes/options_helptexts.php:298
 #, php-format
-msgid "If you want to change any option in this section you have to enable the option %1$s in %2$s first."
+msgid ""
+"If you want to change any option in this section you have to enable the "
+"option %1$s in %2$s first."
 msgstr ""
 
 #: includes/options_helptexts.php:294
 #, php-format
-msgid "Only the options %1$s, %2$s and all comment form modification options are working without it."
+msgid ""
+"Only the options %1$s, %2$s and all comment form modification options are "
+"working without it."
 msgstr ""
 
 #: includes/options_helptexts.php:295
@@ -561,11 +624,15 @@ msgid "In this section you can find settings to modify the comments list."
 msgstr ""
 
 #: includes/options_helptexts.php:300
-msgid "In this section you can change the html code for the comment output in guestbook pages."
+msgid ""
+"In this section you can change the html code for the comment output in "
+"guestbook pages."
 msgstr ""
 
 #: includes/options_helptexts.php:302
-msgid "In this section you can find settings to modify the message after a new comment."
+msgid ""
+"In this section you can find settings to modify the message after a new "
+"comment."
 msgstr ""
 
 #: includes/options_helptexts.php:303
@@ -575,7 +642,9 @@ msgstr ""
 
 #: includes/options_helptexts.php:304
 #, php-format
-msgid "This options are also valid for all other posts and pages if you enable the option %1$s in the section %2$s."
+msgid ""
+"This options are also valid for all other posts and pages if you enable the "
+"option %1$s in the section %2$s."
 msgstr ""
 
 #: includes/options_helptexts.php:304 includes/options_helptexts.php:305
@@ -583,11 +652,15 @@ msgid "Comments in other posts/pages"
 msgstr ""
 
 #: includes/options_helptexts.php:306
-msgid "In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages)."
+msgid ""
+"In this sections you can change the behavior of comments lists and forms in "
+"all other posts and pages of your website (exept the guestbook pages)."
 msgstr ""
 
 #: includes/options_helptexts.php:307
-msgid "If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs."
+msgid ""
+"If you want to change these settings also for guestbook comments please "
+"specify the same setting values in the other option tabs."
 msgstr ""
 
 #: includes/options.php:39
@@ -635,7 +708,10 @@ msgid "Date format"
 msgstr ""
 
 #: includes/widget_helptexts.php:38
-msgid "This option defines the date format of the displayed comment. You can use all date formats available in PHP. Search for php date format to get an overview of the available options."
+msgid ""
+"This option defines the date format of the displayed comment. You can use "
+"all date formats available in PHP. Search for php date format to get an "
+"overview of the available options."
 msgstr ""
 
 #: includes/widget_helptexts.php:43
@@ -657,7 +733,10 @@ msgstr ""
 
 #: includes/widget_helptexts.php:52
 #, php-format
-msgid "If the comment author is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full author or set it to %2$s to automatically truncate the text via css."
+msgid ""
+"If the comment author is displayed this option limits the number of "
+"displayed characters. Set this value to %1$s to view the full author or set "
+"it to %2$s to automatically truncate the text via css."
 msgstr ""
 
 #: includes/widget_helptexts.php:57
@@ -665,7 +744,9 @@ msgid "Show the title of the comment page"
 msgstr ""
 
 #: includes/widget_helptexts.php:59
-msgid "This options specifies if the page title of the comment page will be displayed."
+msgid ""
+"This options specifies if the page title of the comment page will be "
+"displayed."
 msgstr ""
 
 #: includes/widget_helptexts.php:64
@@ -674,7 +755,10 @@ msgstr ""
 
 #: includes/widget_helptexts.php:66
 #, php-format
-msgid "If the comment page title is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full title or set it to %2$s to automatically truncate the text via css."
+msgid ""
+"If the comment page title is displayed this option limits the number of "
+"displayed characters. Set this value to %1$s to view the full title or set "
+"it to %2$s to automatically truncate the text via css."
 msgstr ""
 
 #: includes/widget_helptexts.php:71
@@ -682,7 +766,8 @@ msgid "Show comment text"
 msgstr ""
 
 #: includes/widget_helptexts.php:73
-msgid "The options specifies if the comment text will be displayed in the widget."
+msgid ""
+"The options specifies if the comment text will be displayed in the widget."
 msgstr ""
 
 #: includes/widget_helptexts.php:78
@@ -691,7 +776,10 @@ msgstr ""
 
 #: includes/widget_helptexts.php:80
 #, php-format
-msgid "If the comment text is displayed this option limits the number of displayed characters. Set this value to %1$s to view the full text or set it to %2$s to automatically truncate the text via css."
+msgid ""
+"If the comment text is displayed this option limits the number of displayed "
+"characters. Set this value to %1$s to view the full text or set it to %2$s "
+"to automatically truncate the text via css."
 msgstr ""
 
 #: includes/widget_helptexts.php:85
@@ -699,7 +787,9 @@ msgid "URL to the linked guestbook page"
 msgstr ""
 
 #: includes/widget_helptexts.php:87
-msgid "This options specifies the url to the guestbook page. This url is must be set if one of the options below is required."
+msgid ""
+"This options specifies the url to the guestbook page. This url is must be "
+"set if one of the options below is required."
 msgstr ""
 
 #: includes/widget_helptexts.php:92
@@ -712,7 +802,8 @@ msgstr ""
 
 #: includes/widget_helptexts.php:94 includes/widget_helptexts.php:101
 #: includes/widget_helptexts.php:108
-msgid "The url to the guestbook page is required if you want to enable this option."
+msgid ""
+"The url to the guestbook page is required if you want to enable this option."
 msgstr ""
 
 #: includes/widget_helptexts.php:99
@@ -721,7 +812,9 @@ msgstr ""
 
 #: includes/widget_helptexts.php:101
 #, php-format
-msgid "With this option you can hide the page title for guestbook comments if you have enabled the option %1$s."
+msgid ""
+"With this option you can hide the page title for guestbook comments if you "
+"have enabled the option %1$s."
 msgstr ""
 
 #: includes/widget_helptexts.php:106
@@ -729,7 +822,8 @@ msgid "Add a link to the guestbook page"
 msgstr ""
 
 #: includes/widget_helptexts.php:108
-msgid "The option adds a general link to the guestbook page below the comment list."
+msgid ""
+"The option adds a general link to the guestbook page below the comment list."
 msgstr ""
 
 #: includes/widget_helptexts.php:113
@@ -769,5 +863,8 @@ msgid "in"
 msgstr ""
 
 #: includes/widget.php:190
-msgid "For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox."
+msgid ""
+"For all options tooltips are available which provide additional help and "
+"information. They appear if the mouse is hovered over the options text field"
+" or checkbox."
 msgstr ""

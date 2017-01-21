@@ -12,6 +12,7 @@ class CGB_Comments_Functions {
 	private $options;
 	private $nav_label_prev;
 	private $nav_label_next;
+	private $num_forms;
 
 	public static function &get_instance() {
 		// Create class instance if required
@@ -30,11 +31,12 @@ class CGB_Comments_Functions {
 		$this->nav_label_prev = __('&larr; Older Comments', $this->l10n_domain);
 		$this->nav_label_next = __('Newer Comments &rarr;' , $this->l10n_domain);
 		if('desc' === $this->options->get('cgb_clist_order')) {
-			//switch labels and corred arrow
+			//switch labels and correct arrow
 			$tmp_label = $this->nav_label_prev;
 			$this->nav_label_prev = '&larr; '.substr($this->nav_label_next, 0, -6);
 			$this->nav_label_next = substr($tmp_label, 6).' &rarr;';
 		}
+		$this->num_forms = 0;
 	}
 
 	public function list_comments() {
@@ -48,7 +50,7 @@ class CGB_Comments_Functions {
 			}
 		}
 		//comment callback function
-		if('' === $this->options->get('cgb_comment_adjust') && function_exists($this->options->get('cgb_comment_adjust'))) {
+		if('' === $this->options->get('cgb_comment_adjust') && is_callable($this->options->get('cgb_comment_callback'))) {
 			$args['callback'] = $this->options->get('cgb_comment_callback');
 		}
 		else {
@@ -74,6 +76,7 @@ class CGB_Comments_Functions {
 	}
 
 	public function show_comment_html($comment, $args, $depth) {
+		// Define variables which can be used in show_comments_html text option
 		$GLOBALS['comment'] = $comment;
 		$l10n_domain = $this->options->get('cgb_l10n_domain');
 		$is_comment_from_other_page = (get_the_ID() != $comment->comment_post_ID);
@@ -122,19 +125,45 @@ class CGB_Comments_Functions {
 
 	public function show_comment_form_html($location) {
 		// print custom form styles
-		$styles = $this->options->get('cgb_form_styles');
-		if('' != $styles) {
-			echo '
-				<style>
-					'.$styles.'
-				</style>';
+		if(!$this->num_forms) {
+			$styles = $this->options->get('cgb_form_styles');
+			// add styles for foldable forms
+			if('static' == $this->options->get('cgb_form_expand_type')) {
+				$styles .= '
+						div.form-wrapper { display:none; }
+						a.form-link:target { display:none; }
+						a.form-link:target + div.form-wrapper { display:block; }';
+			}
+			elseif('animated' == $this->options->get('cgb_form_expand_type')) {
+				$styles .= '
+						div.form-wrapper { position:absolute; transform:scaleY(0); transform-origin:top; transition:transform 0.3s; }
+						a.form-link:target { display:none; }
+						a.form-link:target + div.form-wrapper { position:relative; transform:scaleY(1); }';
+			}
+			// print styles
+			if('' != $styles) {
+				echo '
+					<style>
+						'.$styles.'
+					</style>';
+			}
 		}
+		$this->num_forms++;
 		// show form
-		if('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) {
+		if(('above_comments' === $location && '' !== $this->options->get('cgb_form_above_comments')) ||
+		   ('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments')) ||
+		   ('in_page' === $location)) { // the check if the in_page form shall be diesplay must be done before this function is called
+			// add required parts for foldable comment form
+			if('false' != $this->options->get('cgb_form_expand_type')) {
+				echo '
+					<a class="form-link" id="show-form-'.$this->num_forms.'" href="#show-form-'.$this->num_forms.'">'.$this->options->get('cgb_form_expand_link_text').'</a>
+					<div class="form-wrapper">';
+			}
+			// print form
 			comment_form($this->get_guestbook_comment_form_args());
-		}
-		if('below_comments' === $location && '' !== $this->options->get('cgb_form_below_comments')) {
-			comment_form($this->get_guestbook_comment_form_args());
+			if('false' != $this->options->get('cgb_form_expand_type')) {
+				echo '</div>';
+			}
 		}
 	}
 

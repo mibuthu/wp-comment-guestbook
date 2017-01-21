@@ -3,14 +3,14 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.7.1
-Author: Michael Burtscher
+Version: 0.7.2
+Author: mibuthu
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Text Domain: comment-guestbook
 License: GPLv2
 
 A plugin for the blogging MySQL/PHP-based WordPress.
-Copyright 2012-2015 Michael Burtscher
+Copyright 2012-2017 mibuthu
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNUs General Public License
@@ -67,21 +67,25 @@ class Comment_Guestbook {
 		else {
 			require_once('includes/options.php');
 			$this->options = CGB_Options::get_instance();
-			// Filters required after new guestbook comment
-			if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
-				// Set filter to overwrite comments_open status
-				if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
-					add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
-				}
-				// Set filter to overwrite registration requirements for comments on guestbook page
-				if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
+
+			// Filters required after a new comment
+			if(isset($_POST['comment_post_ID'])) {
+				// Set filter to overwrite email requirement for a new comment if the email field is removed
+				add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
+				// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
+				add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
+
+				// Filters required after new guestbook comment
+				if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
+					// Set filter to overwrite comments_open status
+					if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
+						add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
+					}
+					// Set filter to overwrite registration requirements for comments on guestbook page
 					add_filter('option_comment_registration', array(&$this, 'filter_ignore_comment_registration'));
 				}
-				// Set filter to overwrite name and email requirement (actual requirement is set via guestbook options)
-				add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
 			}
-			// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
-			add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
+
 			// Filters for comments on other pages/posts
 			add_action('comment_form_before_fields', array(&$this, 'page_comment_filters'));
 			// Add message after comment
@@ -116,21 +120,23 @@ class Comment_Guestbook {
 	}
 
 	public function filter_ignore_comment_registration($option_value) {
-		return false;
+		return $this->options->get('cgb_ignore_comment_registration') ? false : $option_value;
 	}
 
 	public function filter_require_name_email($option_value) {
-		global $comment_author;
-		$error_message = false;
-		if($option_value && isset($comment_author)) {
-			// when E-Mail field is removed
-			if($this->options->get('cgb_form_remove_mail')) {
-				$option_value = false;
-				if('' == $comment_author) {
-					wp_die('<strong>'.__('ERROR','comment-guestbook').'</strong>: '.__('please fill the required fields','comment-guestbook').' ('.__('name','comment-guestbook').').', 200);
+		// Check if the wp-option is enabled
+		if($option_value) {
+			// check if the plugin options require an override
+			if( ($this->options->get('cgb_form_remove_mail') && isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) || $this->options->get('cgb_page_remove_mail') ) {
+				$user = wp_get_current_user();
+				// Check if the user is logged in and if a valid author name is given
+				if(!$user->exists() && isset($_POST['author']) && '' != trim(strip_tags($_POST['author']))) {
+					// override value
+					return false;
 				}
 			}
 		}
+		// use standard value
 		return $option_value;
 	}
 

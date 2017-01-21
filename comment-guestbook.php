@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.7.1
+Version: 0.7.2
 Author: mibuthu
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Text Domain: comment-guestbook

@@ -320,14 +320,19 @@ class CGB_Widget extends WP_Widget {
 				else {
 					// Handle the tag
 					$tagName = $match[1][0];
-					if($this->mb_preg_match('{^<[\b]}', $tag)) {
+					if($this->mb_preg_match('{^</}', $tag)) {
 						// This is a closing tag
 						$openingTag = array_pop($tags);
-						// Check for not properly nested tags (for debugging only)
-						//assert($openingTag == $tagName, '----- Tags not properly nested: OpeningTag: '.$openingTag.'; TagName: '.$tagName.' -----');
-						$out .= $tag;
+						if($openingTag != $tagName) {
+							// Not properly nested tag found: trigger a warning and add the not matching opening tag again
+							trigger_error('Not properly nested tag found (last opening tag: '.$openingTag.', closing tag: '.$tagName.')', E_USER_WARNING);
+							$tags[] = $openingTag;
+						}
+						else {
+							$out .= $tag;
+						}
 					}
-					else if($this->mb_preg_match('{/\s?>$}', $tag)) {
+					else if($this->mb_preg_match('{/\s*>$}', $tag)) {
 						// Self-closing tag
 						$out .= $tag;
 					}

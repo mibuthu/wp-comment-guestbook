@@ -195,7 +195,7 @@ class CGB_Comments_Functions {
 		// Set sort_direction option
 		$sort_direction = $this->options->get('cgb_clist_order');
 		// Set show_all_comments option
-		$show_all_comments = ('' !== $this->options->get('cgb_clist_show_all'));
+		$show_all_comments = ('' !== $this->options->get('cgb_adjust_output') && '' !== $this->options->get('cgb_clist_show_all'));
 		// Prepare sql string
 		$time_compare_operator = ('desc' === $sort_direction) ? '>' : '<';
 		$sql = 'SELECT COUNT(comment_ID) FROM '.$wpdb->comments.

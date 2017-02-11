@@ -28,6 +28,7 @@ class CGB_Options {
 		$this->options = array(
 			'cgb_ignore_comments_open'        => array('section' => 'general',       'std_val' => '1'),
 			'cgb_ignore_comment_registration' => array('section' => 'general',       'std_val' => '1'),
+			'cgb_ignore_comment_moderation'   => array('section' => 'general',       'std_val' => ''),
 			'cgb_threaded_gb_comments'        => array('section' => 'general',       'std_val' => 'default'),
 			'cgb_adjust_output'               => array('section' => 'general',       'std_val' => ''),
 			'cgb_l10n_domain'                 => array('section' => 'general',       'std_val' => 'default'),
@@ -38,6 +39,7 @@ class CGB_Options {
 			'cgb_form_expand_type'            => array('section' => 'comment_form',  'std_val' => 'false'),
 			'cgb_form_expand_link_text'       => array('section' => 'comment_form',  'std_val' => __('Add a new guestbook entry','comment-guestbook')),
 			'cgb_add_cmessage'                => array('section' => 'comment_form',  'std_val' => ''),
+			'cgb_form_require_no_name_mail'   => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_remove_mail'            => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_remove_website'         => array('section' => 'comment_form',  'std_val' => ''),
 			'cgb_form_comment_label'          => array('section' => 'comment_form',  'std_val' => 'default'),

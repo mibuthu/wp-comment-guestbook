@@ -15,6 +15,11 @@ $options_helptexts = array(
 	                                           'caption' => __('Allow comments on the guestbook page without registration','comment-guestbook'),
 	                                           'desc'    => __('If this option is enabled comment will be allowed without registration. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.','comment-guestbook')),
 
+	'cgb_ignore_comment_moderation'   => array('type'    => 'checkbox',
+	                                           'label'   => __('Guestbook comment moderation','comment-guestbook'),
+	                                           'caption' => __('Disable moderation of new comments on the guestbook page','comment-guestbook'),
+	                                           'desc'    => __('If this option is enabled the no approval of new comments is required. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.','comment-guestbook')),
+
 	'cgb_threaded_gb_comments'        => array('type'    => 'radio',
 	                                           'label'   => __('Enable threaded guestbook comments','comment-guestbook'),
 	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'enabled' => __('Enabled','comment-guestbook'), 'disabled' => __('Disabled','comment-guestbook')),
@@ -36,35 +41,40 @@ $options_helptexts = array(
 	// Comment-form section
 	'cgb_form_below_comments'         => array('type'    => 'checkbox',
 	                                           'label'   => __('Form below comments','comment-guestbook'),
-	                                           'caption' => __('Add a comment form in the comment area below the comments','comment-guestbook'),
+	                                           'caption' => __('Show a comment form in the comment area below the comments','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the comment section below the comment list.','comment-guestbook')),
 
 	'cgb_form_above_comments'         => array('type'    => 'checkbox',
 	                                           'label'   => __('Form above comments','comment-guestbook'),
-	                                           'caption' => __('Add a comment form in the comment area above the comments','comment-guestbook'),
+	                                           'caption' => __('Show a comment form in the comment area above the comments','comment-guestbook'),
 	                                           'desc'    => __('With this option you can add a comment form in the comment section above the comment list.','comment-guestbook')),
 
 	'cgb_form_in_page'                => array('type'    => 'checkbox',
 	                                           'label'   => __('Form in page/post','comment-guestbook'),
-	                                           'caption' => __('Add a comment form in the page/post area','comment-guestbook'),
-	                                           'desc'    => __('With this option you can add a comment form in the page or post area. The form will be displayed at the position of the shortcode.<br />
-	                                                            If the option "Show form above comments" is enabled, this form will not be displayed to avoid showing 2 forms in succession.','comment-guestbook')),
+	                                           'caption' => __('Show a comment form in the page/post area','comment-guestbook'),
+	                                           'desc'    => __('With this option you can add a comment form in the page or post area. The form will be displayed at the position of the shortcode.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('If the option %1$s is enabled, this form will not be displayed to avoid showing 2 forms in succession.','comment-guestbook'), '"'.__('Form above comments','comment-guestbook').'"')),
 
 	'cgb_form_expand_type'            => array('type'    => 'radio',
 	                                           'label'   => __('Collapsed comment form','comment-guestbook'),
 	                                           'caption' => array('false' => __('form is not collapsed (default)','comment-guestbook'), 'static' => __('collapsed form with static expansion','comment-guestbook'), 'animated' => __('collapsed form with animated expansion','comment-guestbook')),
-	                                           'desc'    => __('With this option you can collapse (hide) the comment forms by default and add a link to expand the form.<br />
-	                                                            There are 2 options for expansion available: static and animated. With animated the form will expand with a small animation.','comment-guestbook')),
+	                                           'desc'    => __('With this option you can collapse (hide) the comment forms by default and add a link which expands the form.','comment-guestbook').'<br />'.
+	                                                        __('There are 2 options for expansion available: static and animated. Animated shows a small animation during the form expansion.','comment-guestbook')),
 
 	'cgb_form_expand_link_text'       => array('type'    => 'text',
 	                                           'label'   => __('Link text for form expansion','comment-guestbook'),
-	                                           'desc'    => __('With this option you can set the link text to expand the comment form if "Collapsed comment form" is enabled.','comment-guestbook')),
+	                                           'desc'    => sprintf(__('With this option you can set the link text to expand the comment form if %1$s is enabled.','comment-guestbook'), '"'.__('Collapsed comment form','comment-guestbook').'"')),
 
 	'cgb_add_cmessage'                => array('type'    => 'checkbox',
 	                                           'label'   => __('Message after new comments','comment-guestbook'),
 	                                           'caption' => __('Show a "Thank you" message after a new guestbook comment','comment-guestbook'),
-	                                           'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
-	                                                            There are many additional options availabe to change the message text and format in the "Message after new comments" section.','comment-guestbook')),
+	                                           'desc'    => __('If this option is enabled a message will be shown after a new comment was made.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('There are many additional options availabe to change the message text and format in the %1$s section.','comment-guestbook'), '"'.__('Message after new comments','comment-guestbook').'"')),
+
+	'cgb_form_require_no_name_mail'   => array('type'    => 'checkbox',
+	                                           'label'   => __('Comment author name/email','comment-guestbook'),
+	                                           'caption' => __('Override Name and Email field requirement','comment-guestbook'),
+	                                           'desc'    => __('If this option is enabled the name and email field is not a required field in the comment guestbook form (independent of the WordPress standard discussion setting).','comment-guestbook')),
 
 	'cgb_form_remove_mail'            => array('type'    => 'checkbox',
 	                                           'label'   => __('Remove Email field','comment-guestbook'),
@@ -78,94 +88,94 @@ $options_helptexts = array(
 
 	'cgb_form_comment_label'          => array('type'    => 'text',
 	                                           'label'   => __('Label for comment field','comment-guestbook'),
-	                                           'desc'    => __('With this option you can specify a specific label for the comment field.<br />
-	                                                            The standard is "default" to use the wordpress default label. Enter an empty string to hide the label.')),
+	                                           'desc'    => __('With this option you can specify a custom label for the comment field.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s for the wordpress default label. Enter an empty string to hide the label.','comment-guestbook'),'"default"')),
 
 	'cgb_form_title_reply'            => array('type'    => 'text',
 	                                           'label'   => __('Comment form title','comment-guestbook'),
-	                                           'desc'    => __('With this option you can specify a specific title for the comment form (when not replying to a comment).<br />
-	                                                            The standard is "default" to use the wordpress default title. Enter an empty string to hide the title.')),
+	                                           'desc'    => __('With this option you can specify a custom title for the comment form (when not replying to a comment).','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s for the wordpress default title. Enter an empty string to hide the title.','comment-guestbook'),'"default"')),
 
 	'cgb_form_title_reply_to'         => array('type'    => 'text',
 	                                           'label'   => __('Reply comment form title','comment-guestbook'),
-	                                           'desc'    => __('With this option you can specify a specific title for the comment form (when replying to a comment).<br />
-	                                                            The standard is "default" to use the wordpress default title. Enter an empty string to hide the title.')),
+	                                           'desc'    => __('With this option you can specify a custom title for the comment form (when replying to a comment).','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s for the wordpress default title. Enter an empty string to hide the title.','comment-guestbook'),'"default"')),
 
 	'cgb_form_notes_before'           => array('type'    => 'text',
 	                                           'label'   => __('Notes before form fields','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the text for the notes before the comment form fields.<br />
-	                                                            The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+	                                           'desc'    => __('With this option you can override the text for the notes before the comment form fields.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s for the wordpress default notes. Enter an empty string to hide the notes.','comment-guestbook'),'"default"')),
 
 	'cgb_form_notes_after'            => array('type'    => 'text',
 	                                           'label'   => __('Notes after form fields','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />
-	                                                            The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
+	                                           'desc'    => __('With this option you can override the text for the notes after the comment form fields (and before the submit button).','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s for the wordpress default notes. Enter an empty string to hide the notes.','comment-guestbook'),'"default"')),
 
 	'cgb_form_label_submit'           => array('type'    => 'text',
 	                                           'label'   => __('Label of submit button','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the label of the comment form submit button.<br />
-	                                                            The standard is "default" or an empty string to use the wordpress default label.')),
+	                                           'desc'    => __('With this option you can override the label of the comment form submit button.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s or to an empty string for the wordpress default label.','comment-guestbook'),'"default"')),
 
 	'cgb_form_cancel_reply'           => array('type'    => 'text',
 	                                           'label'   => __('Label for cancel reply link','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
-	                                                            The standard is "default" or an empty string to use the wordpress default label.')),
+	                                           'desc'    => __('With this option you can override the label for the comment form cancel reply link.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('Set the value to %1$s or to an empty string for the wordpress default label.','comment-guestbook'),'"default"')),
 
 	'cgb_form_must_login_message'     => array('type'    => 'text',
-	                                           'label'   => __('Must login message','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the message which will be displayed when the user must login to add a new comment.<br />
-	                                                            The term %s will be replaced by the url to login. You can specify it in your text if you want to include a link to the login page.<br />
-	                                                            Example (standard text): <code>You must be &lt;a href="%s"&gt;logged in&lt;/a&gt; to post a comment.</code><br />
-	                                                            The standard is "default" or an empty string to use the wordpress default message.')),
+	                                           'label'   => __('"Must login" message','comment-guestbook'),
+	                                           'desc'    => __('With this option you can override the message which will be displayed when the user must login to add a new comment.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('The term %1$s will be replaced by the url to login. You can specify it in your text if you want to include a link to the login page.','comment-guestbook'),'"%s"').'<br />'.
+	                                                        __('Example (standard text)','comment-guestbook').': <code>You must be &lt;a href="%s"&gt;logged in&lt;/a&gt; to post a comment.</code><br />'.
+	                                                        sprintf(__('Set the value to %1$s or to an empty string for the wordpress default message.','comment-guestbook'),'"default"')),
 
 	'cgb_form_styles'                 => array('type'    => 'textarea',
 	                                           'rows'    => 6,
 	                                           'label'   => __('Comment form styles','comment-guestbook'),
-	                                           'desc'    => __('With this option you can specify custom css styles for the guestbook comment form.<br />
-	                                                            Enter all required styles like you would do it in a css file, e.g.:<br />
-	                                                            <code>.form-submit { text-align:center; }<br />&nbsp;#submit { font-weight:bold; }</code>')),
+	                                           'desc'    => __('With this option you can specify custom css styles for the guestbook comment form.','comment-guestbook').'<br />'.
+	                                                        __('Example','comment-guestbook').':<br />
+	                                                            <code>.form-submit { text-align:center; }<br />&nbsp;#submit { font-weight:bold; }</code>'),
 
 	'cgb_form_args'                   => array('type'    => 'textarea',
 	                                           'rows'    => 10,
 	                                           'label'   => __('Comment form args','comment-guestbook'),
-	                                           'desc'    => __('With this option you can specify args for the comment form.<br />
-	                                                            This can be required because some themes change the comment form styling direcly with args.<br />
-	                                                            With this option you can insert these specific args in your guestbook form.<br />
-	                                                            A list of all available args and there discription can be found <a href="https://codex.wordpress.org/Function_Reference/comment_form#.24args">here</a>.<br />
-	                                                            The given text must be valid php array, e.g.<br />
+	                                           'desc'    => __('With this option you can specify args for the comment form.','comment-guestbook').'<br />'.
+	                                                        __('This can be required because some themes change the comment form styling direcly with args.','comment-guestbook').'<br />'.
+	                                                        __('With this option you can insert these specific args for the guestbook form.','comment-guestbook').'<br />'.
+	                                                        sprintf(__('A list of all available args and there discription can be found %1$s.','comment-guestbook'), '<a href="https://codex.wordpress.org/Function_Reference/comment_form#.24args">'.__('here','comment-guestbook').'</a>').'<br />'.
+	                                                        __('The given text must be valid php array, e.g.:','comment-guestbook').'<br />
 	                                                            <code>array(<br />
 	                                                            &nbsp;&nbsp;\'comment_notes_after\' =&gt; \'&lt;p&gt;\'.sprintf(__(\'You may use these &lt;abbr&gt;HTML&lt;/abbr&gt;<br />
 	                                                            &nbsp;&nbsp;&nbsp;&nbsp;tags and attributes: %s\'), allowed_tags()).\'&lt;/p&gt;\',<br />
 	                                                            &nbsp;&nbsp;\'fields\' =&gt; array(<br />
 	                                                            &nbsp;&nbsp;&nbsp;&nbsp;\'author\' =&gt; \'&lt;input type="text" name="author" /&gt;\',<br />
 	                                                            &nbsp;&nbsp;&nbsp;&nbsp;\'location\' =&gt; \'&lt;input type="text" name="location" /&gt;\')<br />
-	                                                            )</code><br />
-	                                                            This setting will be overwritten with all the specific comment form options listed above.')),
+	                                                            )</code><br />'.
+	                                                         __('The given args will be overwritten with all the specific comment form options listed above.','comment-guestbook')),
 	// Comment-list section
 	'cgb_clist_order'                 => array('type'    => 'radio',
 	                                           'label'   => __('Comment list order','comment-guestbook'),
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first'),
-	                                           'desc'    => __('This option allows you to overwrite the standard order for top level comments for the guestbook pages.','comment-guestbook')),
+	                                           'desc'    => __('This option allows you to override the standard order for top level comments for the guestbook pages.','comment-guestbook')),
 
 	'cgb_clist_child_order'           => array('type'    => 'radio',
 	                                           'label'   => __('Comment list child order','comment-guestbook'),
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'asc' => 'Oldest child comments first', 'desc' => 'Newest child comments first'),
-	                                           'desc'    => __('This option allows you to overwrite the standard order for all child comments for the guestbook pages.','comment-guestbook')),
+	                                           'desc'    => __('This option allows you to override the standard order for all child comments for the guestbook pages.','comment-guestbook')),
 
 	'cgb_clist_default_page'          => array('type'    => 'radio',
 	                                           'label'   => __('Comment list default page','comment-guestbook'),
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page'),
-	                                           'desc'    => __('This option allows you to overwrite the standard default page for the guestbook pages.','comment-guestbook')),
+	                                           'desc'    => __('This option allows you to override the standard default page for the guestbook pages.','comment-guestbook')),
 
 	'cgb_clist_pagination'            => array('type'    => 'radio',
 	                                           'label'   => __('Break comments into pages','comment-guestbook'),
 	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'false' => __('Disable pagination','comment-guestbook'), 'true' => __('Enable pagination','comment-guestbook')),
-	                                           'desc'    => __('With this option you to overwrite the WordPress default setting for the guestbook page if the comments shall be broken into pages.','comment-guestbook')),
+	                                           'desc'    => __('With this option you to override the WordPress default setting for the guestbook page if the comments shall be broken into pages.','comment-guestbook')),
 
 	'cgb_clist_per_page'              => array('type'    => 'number',
 	                                           'label'   => __('Comments per page','comment-guestbook'),
 	                                           'range'   => array('min_value' => '0'),
-	                                           'desc'    => __('This option allows you to overwrite the standard number of comments listed per page for the guestbook pages (if pagination is enabled).<br />
+	                                           'desc'    => __('This option allows you to override the standard number of comments listed per page for the guestbook pages (if pagination is enabled).<br />
 	                                                            The default value is "0" to use the WordPress default setting (see WP Discussion options)','comment-guestbook')),
 
 	'cgb_clist_show_all'              => array('type'    => 'checkbox',

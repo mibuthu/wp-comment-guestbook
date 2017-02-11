@@ -58,17 +58,21 @@ class SC_Comment_Guestbook {
 			add_action('wp_footer', array(&$this, 'enqueue_sc_scripts'));
 		}
 
-		// Filter to overwrite comments_open status
+		// Filter to override comments_open status
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			add_filter('comments_open', array(&$cgb, 'filter_ignore_comments_open'), 50);
 		}
-		// Filter to overwrite registration requirements for comments on guestbook page
+		// Filter to override registration requirements for comments on guestbook page
 		if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
 			add_filter('option_comment_registration', array(&$cgb, 'filter_ignore_comment_registration'));
 		}
-		// Filter to overwrite threaded comments on guestbook page
+		// Filter to override threaded comments on guestbook page
 		if('enabled' == $this->options->get('cgb_threaded_gb_comments') || 'disabled' ==  $this->options->get('cgb_threaded_gb_comments')) {
 			add_filter('option_thread_comments', array(&$this, 'filter_threaded_comments'));
+		}
+		// Filter to override name and email requirement on guestbook page
+		if('' !== $this->options->get('cgb_form_require_no_name_mail')) {
+			add_filter('option_require_name_email', array(&$this, 'filter_require_no_name_mail'));
 		}
 		// Filter to show the adjusted comment style
 		if('' !== $this->options->get('cgb_adjust_output')) {
@@ -101,6 +105,10 @@ class SC_Comment_Guestbook {
 		return 0;
 	}
 
+	public function filter_require_no_name_mail($option_value) {
+		return false;
+	}
+
 	public function filter_comments_template($file) {
 		// Set customized comments-template fie if a commentlist output modification is required
 		return CGB_PATH.'includes/comments-template.php';
@@ -121,7 +129,7 @@ class SC_Comment_Guestbook {
 	}
 
 	public function filter_comments_default_page($page) {
-		// Overwrite comments default page
+		// Override comments default page
 		if('first' === $this->options->get('cgb_clist_default_page')) {
 			$page = 'oldest';
 		}
@@ -152,7 +160,7 @@ class SC_Comment_Guestbook {
 		// Add field to verify the comment was made in guestbook page
 		// use the post-id as value (this allows a compare between 'comment_post_ID' and 'is_cgb_comment' values
 		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="'.get_the_ID().'" />';
-		// Add fields comment form to identify a guestbook comment when overwrite of comment status is required
+		// Add fields comment form to identify a guestbook comment when override of comment status is required
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
 		}

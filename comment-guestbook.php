@@ -3,7 +3,7 @@
 Plugin Name: Comment Guestbook
 Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Description: Add a guestbook page which uses the wordpress integrated comments.
-Version: 0.7.2
+Version: 0.7.3
 Author: mibuthu
 Author URI: http://wordpress.org/extend/plugins/comment-guestbook/
 Text Domain: comment-guestbook
@@ -70,19 +70,21 @@ class Comment_Guestbook {
 
 			// Filters required after a new comment
 			if(isset($_POST['comment_post_ID'])) {
-				// Set filter to overwrite email requirement for a new comment if the email field is removed
+				// Set filter to override email requirement for a new comment if the email field is removed
 				add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
 				// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
 				add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
 
 				// Filters required after new guestbook comment
 				if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
-					// Set filter to overwrite comments_open status
+					// Set filter to override comments_open status
 					if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
 						add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
 					}
-					// Set filter to overwrite registration requirements for comments on guestbook page
+					// Set filter to override registration requirements for comments on guestbook page
 					add_filter('option_comment_registration', array(&$this, 'filter_ignore_comment_registration'));
+					// Set filter to override moderation requirements for comments on guestbook page
+					add_filter('option_comment_moderation', array(&$this, 'filter_ignore_comment_moderation'));
 				}
 			}
 
@@ -123,11 +125,20 @@ class Comment_Guestbook {
 		return $this->options->get('cgb_ignore_comment_registration') ? false : $option_value;
 	}
 
+	public function filter_ignore_comment_moderation($option_value) {
+		return $this->options->get('cgb_ignore_comment_moderation') ? false : $option_value;
+	}
+
 	public function filter_require_name_email($option_value) {
 		// Check if the wp-option is enabled
 		if($option_value) {
+			$is_cgb_comment = (isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']);
+			// check if the require name, email requirement is disabled for cgb-comments
+			if($is_cgb_comment && $this->options->get('cgb_form_require_no_name_mail')) {
+				return false;
+			}
 			// check if the plugin options require an override
-			if( ($this->options->get('cgb_form_remove_mail') && isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) || $this->options->get('cgb_page_remove_mail') ) {
+			if( ($is_cgb_comment && $this->options->get('cgb_form_remove_mail')) || $this->options->get('cgb_page_remove_mail') ) {
 				$user = wp_get_current_user();
 				// Check if the user is logged in and if a valid author name is given
 				if(!$user->exists() && isset($_POST['author']) && '' != trim(strip_tags($_POST['author']))) {

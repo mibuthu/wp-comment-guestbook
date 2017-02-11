@@ -70,19 +70,20 @@ class Comment_Guestbook {
 
 			// Filters required after a new comment
 			if(isset($_POST['comment_post_ID'])) {
-				// Set filter to overwrite email requirement for a new comment if the email field is removed
+				// Set filter to override email requirement for a new comment if the email field is removed
 				add_filter('option_require_name_email', array(&$this, 'filter_require_name_email'));
 				// Fix link after adding a comment (required if clist_order = desc) and added query for message after comment
 				add_filter('comment_post_redirect', array(&$this, 'filter_comment_post_redirect'));
 
 				// Filters required after new guestbook comment
 				if(isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) {
-					// Set filter to overwrite comments_open status
+					// Set filter to override comments_open status
 					if(isset($_POST['cgb_comments_status']) && 'open' === $_POST['cgb_comments_status']) {
 						add_filter('comments_open', array(&$this, 'filter_ignore_comments_open'), 50);
 					}
-					// Set filter to overwrite registration requirements for comments on guestbook page
+					// Set filter to override registration requirements for comments on guestbook page
 					add_filter('option_comment_registration', array(&$this, 'filter_ignore_comment_registration'));
+					// Set filter to override moderation requirements for comments on guestbook page
 					add_filter('option_comment_moderation', array(&$this, 'filter_ignore_comment_moderation'));
 				}
 			}

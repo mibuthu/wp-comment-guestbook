@@ -62,9 +62,9 @@ You can find a lot of options on the admin page in the submenu "Comments" -> "Gu
 Please check if comments are enabled for your guestbook page. There are several places to change these setting:
 
 * General wordpress discussion setting (Settings -> Discussion -> "Allow people to post comments on new articles"): This setting changes the behavior for all pages and post, but can be overwritten by the settings below.
-* Post/page discussion setting (Discussion box -> "Allow comments." in post/page edit screen): This setting overwrites the general wordpress setting for each page or post. If you cannot see the Discussion box you have to enable it in the Screen Option.
-* Theme settings: A lot of themes have their own options for displaying the comment list. They often will overwrite the wordpress settings.
-* Guestbook settings (Comments -> Guestbook -> General Settings -> "Guestbook comment status": This option will overwrite the wordpress settings for the guestbook page. But the theme settings can still causes problems.
+* Post/page discussion setting (Discussion box -> "Allow comments." in post/page edit screen): This setting overrides the general wordpress setting for each page or post. If you cannot see the Discussion box you have to enable it in the Screen Option.
+* Theme settings: A lot of themes have their own options for displaying the comment list. They often will override the wordpress settings.
+* Guestbook settings (Comments -> Guestbook -> General Settings -> "Guestbook comment status": This option will override the wordpress settings for the guestbook page. But the theme settings can still causes problems.
 
 If you still have problems after checking all these possibilities there is one more option available in the Guestbook settings (Comments -> Guestbook -> Comment-list settings -> "Show the comment list in the page content".
 If you enable this option the comment list will be displayed in the page content instead of the seperate comment section. After that the comment list should be displayed also with themes which specifies no comment section for pages.
@@ -91,7 +91,7 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 
 = 0.7.2 (2017-01-21) =
 * added options to set collapsed comment forms and to set a link text for the button to expand the form
-* added options to overwrite pagination and per page settings for the guestbook site
+* added options to override pagination and per page settings for the guestbook site
 * fixed option "Guestbook comment registration"
 * fixed option "Remove email field"
 * only print form styles once
@@ -121,7 +121,7 @@ Yes, you can create an instance of the "SC_Comment_Guestbook" class which locate
 * fixed problem with special characters in textarea fields of settings page
 
 = 0.6.6 (2014-09-01) =
-* added option to overwrite registration requirement for comments on guestbook pages (this option is enabled by default)
+* added option to override registration requirement for comments on guestbook pages (this option is enabled by default)
 * added option to enable/disable threaded comments on guestbook pages independent from wordpress settings
 * fixed problem that e-mail was still mandatory if e-mail field is hidden
 

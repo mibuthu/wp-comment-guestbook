@@ -98,27 +98,27 @@ $options_helptexts = array(
 
 	'cgb_form_notes_before'           => array('type'    => 'text',
 	                                           'label'   => __('Notes before form fields','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the text for the notes before the comment form fields.<br />
+	                                           'desc'    => __('With this option you can override the text for the notes before the comment form fields.<br />
 	                                                            The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
 
 	'cgb_form_notes_after'            => array('type'    => 'text',
 	                                           'label'   => __('Notes after form fields','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the text for the notes after the comment form fields (and before the submit button).<br />
+	                                           'desc'    => __('With this option you can override the text for the notes after the comment form fields (and before the submit button).<br />
 	                                                            The standard is "default" to use the wordpress default notes. Enter an empty string to hide the notes.')),
 
 	'cgb_form_label_submit'           => array('type'    => 'text',
 	                                           'label'   => __('Label of submit button','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the label of the comment form submit button.<br />
+	                                           'desc'    => __('With this option you can override the label of the comment form submit button.<br />
 	                                                            The standard is "default" or an empty string to use the wordpress default label.')),
 
 	'cgb_form_cancel_reply'           => array('type'    => 'text',
 	                                           'label'   => __('Label for cancel reply link','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the label for the comment form cancel reply link.<br />
+	                                           'desc'    => __('With this option you can override the label for the comment form cancel reply link.<br />
 	                                                            The standard is "default" or an empty string to use the wordpress default label.')),
 
 	'cgb_form_must_login_message'     => array('type'    => 'text',
 	                                           'label'   => __('Must login message','comment-guestbook'),
-	                                           'desc'    => __('With this option you can overwrite the message which will be displayed when the user must login to add a new comment.<br />
+	                                           'desc'    => __('With this option you can override the message which will be displayed when the user must login to add a new comment.<br />
 	                                                            The term %s will be replaced by the url to login. You can specify it in your text if you want to include a link to the login page.<br />
 	                                                            Example (standard text): <code>You must be &lt;a href="%s"&gt;logged in&lt;/a&gt; to post a comment.</code><br />
 	                                                            The standard is "default" or an empty string to use the wordpress default message.')),
@@ -150,27 +150,27 @@ $options_helptexts = array(
 	'cgb_clist_order'                 => array('type'    => 'radio',
 	                                           'label'   => __('Comment list order','comment-guestbook'),
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'asc' => 'Oldest comments first', 'desc' => 'Newest comments first'),
-	                                           'desc'    => __('This option allows you to overwrite the standard order for top level comments for the guestbook pages.','comment-guestbook')),
+	                                           'desc'    => __('This option allows you to override the standard order for top level comments for the guestbook pages.','comment-guestbook')),
 
 	'cgb_clist_child_order'           => array('type'    => 'radio',
 	                                           'label'   => __('Comment list child order','comment-guestbook'),
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'asc' => 'Oldest child comments first', 'desc' => 'Newest child comments first'),
-	                                           'desc'    => __('This option allows you to overwrite the standard order for all child comments for the guestbook pages.','comment-guestbook')),
+	                                           'desc'    => __('This option allows you to override the standard order for all child comments for the guestbook pages.','comment-guestbook')),
 
 	'cgb_clist_default_page'          => array('type'    => 'radio',
 	                                           'label'   => __('Comment list default page','comment-guestbook'),
 	                                           'caption' => array('default' => 'Standard WP-discussion setting', 'first' => 'First page', 'last' => 'Last page'),
-	                                           'desc'    => __('This option allows you to overwrite the standard default page for the guestbook pages.','comment-guestbook')),
+	                                           'desc'    => __('This option allows you to override the standard default page for the guestbook pages.','comment-guestbook')),
 
 	'cgb_clist_pagination'            => array('type'    => 'radio',
 	                                           'label'   => __('Break comments into pages','comment-guestbook'),
 	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'false' => __('Disable pagination','comment-guestbook'), 'true' => __('Enable pagination','comment-guestbook')),
-	                                           'desc'    => __('With this option you to overwrite the WordPress default setting for the guestbook page if the comments shall be broken into pages.','comment-guestbook')),
+	                                           'desc'    => __('With this option you to override the WordPress default setting for the guestbook page if the comments shall be broken into pages.','comment-guestbook')),
 
 	'cgb_clist_per_page'              => array('type'    => 'number',
 	                                           'label'   => __('Comments per page','comment-guestbook'),
 	                                           'range'   => array('min_value' => '0'),
-	                                           'desc'    => __('This option allows you to overwrite the standard number of comments listed per page for the guestbook pages (if pagination is enabled).<br />
+	                                           'desc'    => __('This option allows you to override the standard number of comments listed per page for the guestbook pages (if pagination is enabled).<br />
 	                                                            The default value is "0" to use the WordPress default setting (see WP Discussion options)','comment-guestbook')),
 
 	'cgb_clist_show_all'              => array('type'    => 'checkbox',

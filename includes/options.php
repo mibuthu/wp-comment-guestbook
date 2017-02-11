@@ -28,6 +28,7 @@ class CGB_Options {
 		$this->options = array(
 			'cgb_ignore_comments_open'        => array('section' => 'general',       'std_val' => '1'),
 			'cgb_ignore_comment_registration' => array('section' => 'general',       'std_val' => '1'),
+			'cgb_ignore_comment_moderation'   => array('section' => 'general',       'std_val' => ''),
 			'cgb_threaded_gb_comments'        => array('section' => 'general',       'std_val' => 'default'),
 			'cgb_adjust_output'               => array('section' => 'general',       'std_val' => ''),
 			'cgb_l10n_domain'                 => array('section' => 'general',       'std_val' => 'default'),

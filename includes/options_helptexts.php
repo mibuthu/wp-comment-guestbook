@@ -15,6 +15,11 @@ $options_helptexts = array(
 	                                           'caption' => __('Allow comments on the guestbook page without registration','comment-guestbook'),
 	                                           'desc'    => __('If this option is enabled comment will be allowed without registration. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.','comment-guestbook')),
 
+	'cgb_ignore_comment_moderation'   => array('type'    => 'checkbox',
+	                                           'label'   => __('Guestbook comment moderation','comment-guestbook'),
+	                                           'caption' => __('Disable moderation of new comments on the guestbook page','comment-guestbook'),
+	                                           'desc'    => __('If this option is enabled the no moderation of new comments is required. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.','comment-guestbook')),
+
 	'cgb_threaded_gb_comments'        => array('type'    => 'radio',
 	                                           'label'   => __('Enable threaded guestbook comments','comment-guestbook'),
 	                                           'caption' => array('default' => __('Standard WP-discussion setting','comment-guestbook'), 'enabled' => __('Enabled','comment-guestbook'), 'disabled' => __('Disabled','comment-guestbook')),

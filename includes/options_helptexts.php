@@ -71,6 +71,11 @@ $options_helptexts = array(
 	                                           'desc'    => __('If this option is enabled a message will be shown after a new comment was made.<br />
 	                                                            There are many additional options availabe to change the message text and format in the "Message after new comments" section.','comment-guestbook')),
 
+	'cgb_form_require_no_name_mail'   => array('type'    => 'checkbox',
+	                                           'label'   => __('Comment author name/email','comment-guestbook'),
+	                                           'caption' => __('Override Name and Email field requirement','comment-guestbook'),
+	                                           'desc'    => __('If this option is enabled the name and email field is not a required field in the comment guestbook form (independent of the WordPress standard discussion setting).','comment-guestbook')),
+
 	'cgb_form_remove_mail'            => array('type'    => 'checkbox',
 	                                           'label'   => __('Remove Email field','comment-guestbook'),
 	                                           'caption' => __('Remove the Email field in comment guestbook form','comment-guestbook'),

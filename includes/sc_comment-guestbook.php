@@ -70,6 +70,10 @@ class SC_Comment_Guestbook {
 		if('enabled' == $this->options->get('cgb_threaded_gb_comments') || 'disabled' ==  $this->options->get('cgb_threaded_gb_comments')) {
 			add_filter('option_thread_comments', array(&$this, 'filter_threaded_comments'));
 		}
+		// Filter to override name and email requirement on guestbook page
+		if('' !== $this->options->get('cgb_form_require_no_name_mail')) {
+			add_filter('option_require_name_email', array(&$this, 'filter_require_no_name_mail'));
+		}
 		// Filter to show the adjusted comment style
 		if('' !== $this->options->get('cgb_adjust_output')) {
 			add_filter('comments_template', array(&$this, 'filter_comments_template'));
@@ -99,6 +103,10 @@ class SC_Comment_Guestbook {
 			return 1;
 		}
 		return 0;
+	}
+
+	public function filter_require_no_name_mail($option_value) {
+		return false;
 	}
 
 	public function filter_comments_template($file) {

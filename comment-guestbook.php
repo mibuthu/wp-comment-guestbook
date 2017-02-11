@@ -132,8 +132,13 @@ class Comment_Guestbook {
 	public function filter_require_name_email($option_value) {
 		// Check if the wp-option is enabled
 		if($option_value) {
+			$is_cgb_comment = (isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']);
+			// check if the require name, email requirement is disabled for cgb-comments
+			if($is_cgb_comment && $this->options->get('cgb_form_require_no_name_mail')) {
+				return false;
+			}
 			// check if the plugin options require an override
-			if( ($this->options->get('cgb_form_remove_mail') && isset($_POST['is_cgb_comment']) && $_POST['is_cgb_comment'] == $_POST['comment_post_ID']) || $this->options->get('cgb_page_remove_mail') ) {
+			if( ($is_cgb_comment && $this->options->get('cgb_form_remove_mail')) || $this->options->get('cgb_page_remove_mail') ) {
 				$user = wp_get_current_user();
 				// Check if the user is logged in and if a valid author name is given
 				if(!$user->exists() && isset($_POST['author']) && '' != trim(strip_tags($_POST['author']))) {

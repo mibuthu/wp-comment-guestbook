@@ -101,6 +101,7 @@ class CGB_Widget extends WP_Widget {
 			$out .= $before_title . $instance['title'] . $after_title;
 		}
 		$out .= '
+				<!--googleoff: all-->
 				<ul class="cgb-widget">';
 		if($comments) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.)
@@ -138,6 +139,7 @@ class CGB_Widget extends WP_Widget {
 		}
 		$out .= '
 				</ul>
+				<!--googleon: all>
 				';
 		if('true' === $instance['link_to_page']) {
 			$out .= '

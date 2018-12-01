@@ -100,7 +100,7 @@ class CGB_Admin {
 	 */
 	public function show_about_page() {
 		require_once CGB_PATH . 'admin/includes/admin-about.php';
-		CGB_Admin_About::get_instance()->show_about();
+		CGB_Admin_About::get_instance()->show_page();
 	}
 
 

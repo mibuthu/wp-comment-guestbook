@@ -52,19 +52,18 @@ class SC_Comment_Guestbook {
 	}
 
 	private function init_sc() {
-		global $cgb;
+		global $cgb_comment_guestbook;
 		// Add comment reply script in footer(required if comment status is overwritten)
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
 			add_action('wp_footer', array(&$this, 'enqueue_sc_scripts'));
 		}
-
 		// Filter to override comments_open status
 		if('' !== $this->options->get('cgb_ignore_comments_open')) {
-			add_filter('comments_open', array(&$cgb, 'filter_ignore_comments_open'), 50);
+			add_filter('comments_open', '__return_true', 50);
 		}
 		// Filter to override registration requirements for comments on guestbook page
 		if(get_option('comment_registration') && $this->options->get('cgb_ignore_comment_registration')) {
-			add_filter('option_comment_registration', array(&$cgb, 'filter_ignore_comment_registration'));
+			add_filter('option_comment_registration', array(&$cgb_comment_guestbook, 'filter_ignore_comment_registration'));
 		}
 		// Filter to override threaded comments on guestbook page
 		if('enabled' == $this->options->get('cgb_threaded_gb_comments') || 'disabled' ==  $this->options->get('cgb_threaded_gb_comments')) {

@@ -1,5 +1,8 @@
-/.buildpath
 /.project
-/.settings/*
-/*.phprj
+/.buildpath
+/.settings
+/.directory
+/.vscode
+/.phan
+*.phprj
 

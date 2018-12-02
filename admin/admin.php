@@ -111,7 +111,7 @@ class CGB_Admin {
 	 */
 	public function show_settings_page() {
 		require_once CGB_PATH . 'admin/includes/admin-settings.php';
-		CGB_Admin_Settings::get_instance()->show_settings();
+		CGB_Admin_Settings::get_instance()->show_page();
 	}
 
 

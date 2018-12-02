@@ -1,184 +1,265 @@
 <?php
-if(!defined('ABSPATH')) {
+/**
+ * CommentGuestbooks Settings Class
+ *
+ * @package comment-guestbook
+ */
+
+declare(strict_types=1);
+if ( ! defined( 'WP_ADMIN' ) ) {
 	exit;
 }
 
-require_once(CGB_PATH.'includes/options.php');
+require_once CGB_PATH . 'includes/options.php';
 
-// This class handles all data for the admin settings page
+/**
+ * CommentGuestbooks Settings Class
+ *
+ * This class handles the display of the admin settings page
+ */
 class CGB_Admin_Settings {
+
+	/**
+	 * Class singleton instance reference
+	 *
+	 * @var self
+	 */
 	private static $instance;
+
+	/**
+	 * Options class instance reference
+	 *
+	 * @var LV_Options
+	 */
 	private $options;
 
+
+	/**
+	 * Singleton provider and setup
+	 *
+	 * @return self
+	 */
 	public static function &get_instance() {
-		// Create class instance if required
-		if(!isset(self::$instance)) {
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
-		// Return class instance
 		return self::$instance;
 	}
 
 
+	/**
+	 * Class constructor which initializes required variables
+	 */
 	private function __construct() {
 		$this->options = &CGB_Options::get_instance();
 		$this->options->load_options_helptexts();
 	}
 
-	// show the admin settings page as a submenu of "Settings"
-	public function show_settings() {
-		if(!current_user_can('manage_options')) {
-			wp_die(__('You do not have sufficient permissions to access this page.'));
+
+	/**
+	 * Show the admin settings page
+	 *
+	 * @return void
+	 */
+	public function show_page() {
+		// Check required privilegs.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			// Use "default" text domain for translations available in WordPress Core.
+			// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
-		// define the tab to display
-		if(isset($_GET['tab']) && isset($this->options->sections[$_GET['tab']])) {
+		// Define the tab to display.
+		if ( isset( $_GET['tab'] ) && isset( $this->options->sections[ $_GET['tab'] ] ) ) {
 			$tab = $_GET['tab'];
-		}
-		else {
+		} else {
 			$tab = 'general';
 		}
-		// show options
-		$out = '
+		// Show options.
+		echo '
 			<div class="wrap nosubsub" style="padding-bottom:15px">
-			<div id="icon-edit-comments" class="icon32"><br /></div><h2>'.__('Comment Guestbook Settings','comment-guestbook').'</h2>
+			<div id="icon-edit-comments" class="icon32"><br /></div><h2>' . esc_html__( 'Comment Guestbook Settings', 'comment-guestbook' ) . '</h2>
 			</div>';
-		$out .= $this->show_sections($tab);
-		$out .= '
+		$this->show_sections( $tab );
+		echo '
 			<div id="posttype-page" class="posttypediv">
 			<form method="post" action="options.php">
 			';
-		ob_start();
-		settings_fields('cgb_'.$tab);
-		$out .= ob_get_contents();
-		ob_end_clean();
-		$out .= '
+		settings_fields( 'cgb_' . $tab );
+		echo '
 				<div class="cgb-settings">
 				<table class="form-table">';
-		$out .= $this->show_options($tab);
-		$out .= '
+		$this->show_options( $tab );
+		echo '
 				</table>
 				</div>';
-		ob_start();
 		submit_button();
-		$out .= ob_get_contents();
-		ob_end_clean();
-		$out .='
+		echo '
 			</form>
 			</div>';
-		echo $out;
 	}
 
-	private function show_sections($current = 'general') {
-		$out = '<h3 class="nav-tab-wrapper">';
-		foreach($this->options->sections as $tabname => $tab) {
-			$class = ($tabname == $current) ? ' nav-tab-active' : '';
-			$out .= '<a class="nav-tab'.$class.'" href="?page=cgb_admin_options&amp;tab='.$tabname.'">'.$tab['caption'].'</a>';
+
+	/**
+	 * Show the section tabs
+	 *
+	 * @param string $current The currently selected tab.
+	 * @return void
+	 */
+	private function show_sections( $current = 'general' ) {
+		echo '<h3 class="nav-tab-wrapper">';
+		foreach ( $this->options->sections as $tabname => $tab ) {
+			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
+			echo wp_kses_post( '<a class="nav-tab' . $class . '" href="?page=cgb_admin_options&amp;tab=' . $tabname . '">' . $tab['caption'] . '</a>' );
 		}
-		$out .= '</h3>
-				<div class="section-desc">'.$this->options->sections[$current]['desc'].'</div>';
-		return $out;
+		echo '</h3>
+				<div class="section-desc">' . esc_html( $this->options->sections[ $current ]['desc'] ) . '</div>';
 	}
 
-	private function show_options($section) {
-		// define which sections should show the description in a new line instead on to right side of the option
+
+	/**
+	 * Show the options of the given section
+	 *
+	 * @param string $section The currently selected section.
+	 * @return void
+	 */
+	private function show_options( $section ) {
+		// Define which sections should show the description in a new line instead on to right side of the option.
 		$desc_new_line = false;
-		if('comment_html' === $section) {
+		if ( 'comment_html' === $section ) {
 			$desc_new_line = true;
 		}
-		$out = '';
-		foreach($this->options->options as $oname => $o) {
-			if($o['section'] == $section) {
-				$out .= '
+		foreach ( $this->options->options as $oname => $o ) {
+			if ( $o['section'] === $section ) {
+				echo '
 						<tr style="vertical-align:top;">
 							<th>';
-				if($o['label'] != '') {
-					$out .= '<label for="'.$oname.'">'.$o['label'].':</label>';
+				if ( ! empty( $o['label'] ) ) {
+					echo '<label for="' . esc_attr( $oname ) . '">' . esc_html( $o['label'] ) . ':</label>';
 				}
-				$out .= '</th>
+				echo '</th>
 						<td>';
-				switch($o['type']) {
+				switch ( $o['type'] ) {
 					case 'checkbox':
-						$out .= $this->show_checkbox($oname, $this->options->get($oname), $o['caption']);
+						$this->show_checkbox( $oname, $this->options->get( $oname ), $o['caption'] );
 						break;
 					case 'radio':
-						$out .= $this->show_radio($oname, $this->options->get($oname), $o['caption']);
+						$this->show_radio( $oname, $this->options->get( $oname ), $o['caption'] );
 						break;
 					case 'number':
-						$out .= $this->show_number($oname, $this->options->get($oname), $o['range']);
+						$this->show_number( $oname, $this->options->get( $oname ), $o['range'] );
 						break;
 					case 'text':
-						$out .= $this->show_text($oname, $this->options->get($oname));
+						$this->show_text( $oname, $this->options->get( $oname ) );
 						break;
 					case 'textarea':
-						$out .= $this->show_textarea($oname, $this->options->get($oname), (isset($o['rows']) ? $o['rows'] : null));
+						$this->show_textarea( $oname, $this->options->get( $oname ), ( isset( $o['rows'] ) ? $o['rows'] : null ) );
 						break;
 				}
-				$out .= '
+				echo '
 						</td>';
-				if($desc_new_line) {
-					$out .= '
+				if ( $desc_new_line ) {
+					echo '
 					</tr>
 					<tr>
 						<td></td>';
 				}
-				$out .= '
-						<td class="description">'.$o['desc'].'</td>
+				echo '
+						<td class="description">' . wp_kses_post( $o['desc'] ) . '</td>
 					</tr>';
 			}
 		}
-		return $out;
 	}
 
-	private function show_checkbox($name, $value, $caption) {
-		$out = '
-							<label for="'.$name.'">
-								<input name="'.$name.'" type="checkbox" id="'.$name.'" value="1"';
-		if($value == 1) {
-			$out .= ' checked="checked"';
+
+	/**
+	 * Show an option as a checkbox
+	 *
+	 * @param string $name The name of the option.
+	 * @param string $value The value of the option.
+	 * @param string $caption The caption of the option.
+	 * @return void
+	 */
+	private function show_checkbox( $name, $value, $caption ) {
+		echo '
+							<label for="' . esc_attr( $name ) . '">
+								<input name="' . esc_attr( $name ) . '" type="checkbox" id="' . esc_attr( $name ) . '" value="1"';
+		if ( 1 === $value ) {
+			echo ' checked="checked"';
 		}
-		$out .= ' />
-								'.$caption.'
+		echo ' />
+								' . esc_html( $caption ) . '
 							</label>';
-		return $out;
 	}
 
-	private function show_radio($name, $value, $caption) {
-		$out = '
+
+	/**
+	 * Show an option as radio buttons
+	 *
+	 * @param string $name The name of the option.
+	 * @param array  $value The value of the option.
+	 * @param string $caption The caption of the option.
+	 * @return void
+	 */
+	private function show_radio( $name, $value, $caption ) {
+		echo '
 							<fieldset>';
-		foreach($caption as $okey => $ocaption) {
-			$checked = ($value === $okey) ? 'checked="checked" ' : '';
-			$out .= '
-								<label title="'.$ocaption.'">
-									<input type="radio" '.$checked.'value="'.$okey.'" name="'.$name.'">
-									<span>'.$ocaption.'</span>
+		foreach ( $caption as $okey => $ocaption ) {
+			$checked = ( $value === $okey ) ? 'checked="checked" ' : '';
+			echo '
+								<label title="' . esc_attr( $ocaption ) . '">
+									<input type="radio" ' . wp_kses_post( $checked ) . 'value="' . esc_attr( $okey ) . '" name="' . esc_attr( $name ) . '">
+									<span>' . esc_html( $ocaption ) . '</span>
 								</label>
 								<br />';
 		}
-		$out .= '
+		echo '
 							</fieldset>';
-		return $out;
 	}
 
-	private function show_number($name, $value, $range=array('min_value' => 0)) {
-		$step = isset($range['step']) ? $range['step'] : '1';
-		$min = isset($range['min_value']) ? ' min="'.intval($range['min_value']).'"' : '';
-		$max = isset($range['max_value']) ? ' max="'.intval($range['max_value']).'"' : '';
-		$out = '
-							<input name="'.$name.'" type="number", id="'.$name.'" step="'.$step.'"'.$min.$max.' value="'.intval($value).'" />';
-		return $out;
+
+	/**
+	 * Show an option as a number field
+	 *
+	 * @param string $name The name of the option.
+	 * @param string $value The value of the option.
+	 * @param array  $range The caption of the option.
+	 * @return void
+	 */
+	private function show_number( $name, $value, $range = array( 'min_value' => 0 ) ) {
+		$step = isset( $range['step'] ) ? $range['step'] : '1';
+		$min  = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';
+		$max  = isset( $range['max_value'] ) ? ' max="' . intval( $range['max_value'] ) . '"' : '';
+		echo '
+							<input name="' . esc_attr( $name ) . '" type="number", id="' . esc_attr( $name ) . '" step="' . wp_kses_post( $step . '"' . $min . $max ) . ' value="' . esc_attr( intval( $value ) ) . '" />';
 	}
 
-	private function show_text($name, $value) {
-		$out = '
-							<input name="'.$name.'" type="text" id="'.$name.'" style="width:25em" value="'.htmlentities($value).'" />';
-		return $out;
+
+	/**
+	 * Show an option as a text field
+	 *
+	 * @param string $name The name of the option.
+	 * @param string $value THe value of the option.
+	 * @return void
+	 */
+	private function show_text( $name, $value ) {
+		echo '
+							<input name="' . esc_attr( $name ) . '" type="text" id="' . esc_attr( $name ) . '" style="width:25em" value="' . wp_kses_post( htmlentities( $value ) ) . '" />';
 	}
 
-	private function show_textarea($name, $value, $rows=null) {
-		$rows_text = (null == $rows) ? '' : ' rows="'.$rows.'"';
-		$out = '
-							<textarea name="'.$name.'" id="'.$name.'"'.$rows_text.' class="large-text code">'.htmlentities($value).'</textarea>';
-		return $out;
+
+	/**
+	 * Show an option as a text area
+	 *
+	 * @param string      $name The name of the option.
+	 * @param string      $value The value of the option.
+	 * @param null|string $rows The size (number of rows) of the text area.
+	 * @return void
+	 */
+	private function show_textarea( $name, $value, $rows = null ) {
+		$rows_text = ( null === $rows ) ? '' : ' rows="' . $rows . '"';
+		echo '
+							<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '"' . wp_kses_post( $rows_text ) . ' class="large-text code">' . wp_kses_post( htmlentities( $value ) ) . '</textarea>';
 	}
+
 }
-?>
+

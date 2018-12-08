@@ -249,9 +249,9 @@ class CGB_CommentGuestbook {
 }
 
 /**
- * LinkView Class instance
+ * CommentGuestbook Class instance
  *
- * @var LV_LinkView
+ * @var CGB_CommentGuestbook
  */
 $cgb_comment_guestbook = new CGB_CommentGuestbook();
 

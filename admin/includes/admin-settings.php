@@ -112,7 +112,7 @@ class CGB_Admin_Settings {
 			echo wp_kses_post( '<a class="nav-tab' . $class . '" href="?page=cgb_admin_options&amp;tab=' . $tabname . '">' . $tab['caption'] . '</a>' );
 		}
 		echo '</h3>
-				<div class="section-desc">' . esc_html( $this->options->sections[ $current ]['desc'] ) . '</div>';
+				<div class="section-desc">' . wp_kses_post( $this->options->sections[ $current ]['desc'] ) . '</div>';
 	}
 
 

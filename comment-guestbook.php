@@ -117,16 +117,16 @@ class CGB_CommentGuestbook {
 	 * Initialize comment-guestbook shortcode
 	 *
 	 * @param array<string,string> $atts Shortcode attributes.
-	 * @param string               $content Shortcode content (not used).
+	 * @param string               $content Shortcode content.
 	 * @return string HTML to display
 	 */
 	public function shortcode_comment_guestbook( $atts, $content = '' ) {
 		static $shortcodes;
-		if ( ! $shortcodes instanceof SC_Comment_Guestbook ) {
-			require_once CGB_PATH . 'includes/sc_comment-guestbook.php';
-			$shortcodes = SC_Comment_Guestbook::get_instance();
+		if ( ! $shortcodes instanceof CGB_Shortcode ) {
+			require_once CGB_PATH . 'includes/shortcode.php';
+			$shortcodes = CGB_Shortcode::get_instance();
 		}
-		return $shortcodes->show_html( $atts );
+		return $shortcodes->show_html( $atts, $content );
 	}
 
 

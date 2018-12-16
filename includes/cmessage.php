@@ -6,8 +6,8 @@
  */
 
 declare(strict_types=1);
-if (! defined('WPINC') ) {
-    exit;
+if ( ! defined( 'WPINC' ) ) {
+	exit;
 }
 
 require_once CGB_PATH . 'includes/options.php';
@@ -17,117 +17,109 @@ require_once CGB_PATH . 'includes/options.php';
 /**
  * Class for handling of cmessages (Messages after a new comment)
  */
-class CGB_CMessage
-{
+class CGB_CMessage {
 
-    /**
-     * Class singleton instance reference
-     *
-     * @var self
-     */
-    protected static $instance;
+	/**
+	 * Class singleton instance reference
+	 *
+	 * @var self
+	 */
+	protected static $instance;
 
-    /**
-     * Options class instance reference
-     *
-     * @var CGB_Options
-     */
-    private $options;
-
-
-    /**
-     * Singleton provider and setup
-     *
-     * @return self
-     */
-    public static function &get_instance()
-    {
-        if (! isset(self::$instance) ) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
+	/**
+	 * Options class instance reference
+	 *
+	 * @var CGB_Options
+	 */
+	private $options;
 
 
-    /**
-     * Class constructor which initializes required variables
-     *
-     * @return void
-     */
-    protected function __construct()
-    {
-        $this->options = &CGB_Options::get_instance();
-    }
+	/**
+	 * Singleton provider and setup
+	 *
+	 * @return self
+	 */
+	public static function &get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
 
 
-    /**
-     * Initializes the required scripts for the cmessage
-     *
-     * @return void
-     */
-    public function init()
-    {
-        add_action('init', array( &$this, 'register_scripts' ));
-        add_action('wp_footer', array( &$this, 'print_scripts' ));
-    }
+	/**
+	 * Class constructor which initializes required variables
+	 *
+	 * @return void
+	 */
+	protected function __construct() {
+		$this->options = &CGB_Options::get_instance();
+	}
 
 
-    /**
-     * Registers the cmessage script
-     *
-     * @return void
-     */
-    public function register_scripts()
-    {
-        wp_register_script('cgb_cmessage', CGB_URL . 'includes/js/cmessage.js', array( 'jquery' ), '1.0', true);
-    }
+	/**
+	 * Initializes the required scripts for the cmessage
+	 *
+	 * @return void
+	 */
+	public function init() {
+		add_action( 'init', array( &$this, 'register_scripts' ) );
+		add_action( 'wp_footer', array( &$this, 'print_scripts' ) );
+	}
 
 
-    /**
-     * Prints the cmessage script including the required script variables
-     *
-     * @return void
-     */
-    public function print_scripts()
-    {
-        $this->print_script_variables();
-        wp_print_scripts('cgb_cmessage');
-    }
+	/**
+	 * Registers the cmessage script
+	 *
+	 * @return void
+	 */
+	public function register_scripts() {
+		wp_register_script( 'cgb_cmessage', CGB_URL . 'includes/js/cmessage.js', array( 'jquery' ), '1.0', true );
+	}
 
 
-    /**
-     * Adds a cmessage indicator to the URL
-     *
-     * @param  string $url The actual url.
-     * @return The url including the additional cmessage indicator
-     */
-    public function add_cmessage_indicator( $url )
-    {
-        if (( '' !== $this->options->get('cgb_page_add_cmessage') && ! isset($_POST['is_cgb_comment']) )
-            || ( '' !== $this->options->get('cgb_add_cmessage') && isset($_POST['is_cgb_comment']) ) 
-        ) {
-            $url_array       = explode('#', $url);
-            $query_delimiter = ( false !== strpos($url_array[0], '?') ) ? '&' : '?';
-            $url             = $url_array[0] . $query_delimiter . 'cmessage=1#' . $url_array[1];
-        }
-        return $url;
-    }
+	/**
+	 * Prints the cmessage script including the required script variables
+	 *
+	 * @return void
+	 */
+	public function print_scripts() {
+		$this->print_script_variables();
+		wp_print_scripts( 'cgb_cmessage' );
+	}
 
 
-    /**
-     * Prints the required cmessage script parameters to the html code
-     *
-     * @return void
-     */
-    private function print_script_variables()
-    {
-        echo '
+	/**
+	 * Adds a cmessage indicator to the URL
+	 *
+	 * @param  string $url The actual url.
+	 * @return The url including the additional cmessage indicator
+	 */
+	public function add_cmessage_indicator( $url ) {
+		if ( ( '' !== $this->options->get( 'cgb_page_add_cmessage' ) && ! isset( $_POST['is_cgb_comment'] ) )
+			|| ( '' !== $this->options->get( 'cgb_add_cmessage' ) && isset( $_POST['is_cgb_comment'] ) )
+		) {
+			$url_array       = explode( '#', $url );
+			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
+			$url             = $url_array[0] . $query_delimiter . 'cmessage=1#' . $url_array[1];
+		}
+		return $url;
+	}
+
+
+	/**
+	 * Prints the required cmessage script parameters to the html code
+	 *
+	 * @return void
+	 */
+	private function print_script_variables() {
+		echo '
 			<script type="text/javascript">
-				var cmessage_text = "' . wp_kses_post($this->options->get('cgb_cmessage_text')) . '";
-				var cmessage_type = "' . wp_kses_post($this->options->get('cgb_cmessage_type')) . '";
-				var cmessage_duration = ' . intval($this->options->get('cgb_cmessage_duration')) . ';
-				var cmessage_styles = "' . wp_kses_post(str_replace(array( '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ), ' ', $this->options->get('cgb_cmessage_styles'))) . '";
+				var cmessage_text = "' . wp_kses_post( $this->options->get( 'cgb_cmessage_text' ) ) . '";
+				var cmessage_type = "' . wp_kses_post( $this->options->get( 'cgb_cmessage_type' ) ) . '";
+				var cmessage_duration = ' . intval( $this->options->get( 'cgb_cmessage_duration' ) ) . ';
+				var cmessage_styles = "' . wp_kses_post( str_replace( array( '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ), ' ', $this->options->get( 'cgb_cmessage_styles' ) ) ) . '";
 			</script>';
-    }
+	}
 
 }

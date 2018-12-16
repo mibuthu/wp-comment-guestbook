@@ -49,6 +49,8 @@ class CGB_Shortcode {
 
 	/**
 	 * Class constructor which initializes required variables
+	 *
+	 * @return void
 	 */
 	private function __construct() {
 		$this->options = &CGB_Options::get_instance();

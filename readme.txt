@@ -6,7 +6,7 @@ Requires at least: 3.3
 Tested up to: 4.8
 Requires PHP: 5.2
 Stable tag: 0.7.3
-Plugin URI: http://wordpress.org/extend/plugins/comment-guestbook/
+Plugin URI: https://wordpress.org/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

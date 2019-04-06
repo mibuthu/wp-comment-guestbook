@@ -423,12 +423,12 @@ class CGB_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function load_helptexts() {
-		global $widget_items_helptexts;
-		require_once CGB_PATH . 'includes/widget_helptexts.php';
-		foreach ( $widget_items_helptexts as $name => $values ) {
+		global $cgb_widget_items_helptexts;
+		require_once CGB_PATH . 'includes/widget-helptexts.php';
+		foreach ( $cgb_widget_items_helptexts as $name => $values ) {
 			$this->items[ $name ] += $values;
 		}
-		unset( $widget_items_helptexts );
+		unset( $cgb_widget_items_helptexts );
 	}
 
 

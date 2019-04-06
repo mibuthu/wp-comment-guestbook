@@ -5,9 +5,9 @@
  * @package comment-guestbook
  */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 if ( ! defined( 'WP_ADMIN' ) ) {
-	exit;
+	exit();
 }
 
 /**

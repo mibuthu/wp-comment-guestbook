@@ -1,6 +1,6 @@
 <?php
 if(!defined('WPINC')) {
-	exit;
+	exit();
 }
 
 $widget_items_helptexts = array(

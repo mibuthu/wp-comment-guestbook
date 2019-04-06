@@ -5,9 +5,9 @@
  * @package comment-guestbook
  */
 
-declare(strict_types=1);
+declare( strict_types=1 );
 if ( ! defined( 'WPINC' ) ) {
-	die;
+	exit();
 }
 
 require_once CGB_PATH . 'includes/options.php';

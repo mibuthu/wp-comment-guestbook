@@ -118,6 +118,7 @@ class CGB_Options {
 			'cgb_cmessage_type'               => array( 'std_val' => 'inline' ),
 			'cgb_cmessage_duration'           => array( 'std_val' => '3000' ),
 			'cgb_cmessage_styles'             => array( 'std_val' => 'background-color:rgb(255, 255, 224);&#10;border-color:rgb(230, 219, 85);&#10;color:rgb(51, 51, 51);&#10;padding:6px 20px;&#10;text-align:center;&#10;border-radius:5px;&#10;border-width:1px;&#10;border-style:solid' ),
+			// Comments in other pages/posts.
 			'cgb_page_add_cmessage'           => array( 'std_val' => '' ),
 			'cgb_page_remove_mail'            => array( 'std_val' => '' ),
 			'cgb_page_remove_website'         => array( 'std_val' => '' ),

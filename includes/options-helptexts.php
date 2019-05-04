@@ -547,7 +547,7 @@ $cgb_options_helptexts = array(
 
 	// Comments in other pages/posts.
 	'cgb_page_add_cmessage'           => array(
-		'section' => 'cmessage',
+		'section' => 'page_comments',
 		'type'    => 'checkbox',
 		'label'   => __( 'Message after new comments', 'comment-guestbook' ),
 		'caption' => __( 'Show a "Thank you" message after a new comment', 'comment-guestbook' ),
@@ -560,7 +560,7 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_page_remove_mail'            => array(
-		'section' => 'cmessage',
+		'section' => 'page_comments',
 		'type'    => 'checkbox',
 		'label'   => __( 'Remove Email field', 'comment-guestbook' ),
 		'caption' => __( 'Remove the Email field in comment forms', 'comment-guestbook' ),
@@ -568,7 +568,7 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_page_remove_website'         => array(
-		'section' => 'cmessage',
+		'section' => 'page_comments',
 		'type'    => 'checkbox',
 		'label'   => __( 'Remove Website field', 'comment-guestbook' ),
 		'caption' => __( 'Remove the Website url field in comment forms', 'comment-guestbook' ),

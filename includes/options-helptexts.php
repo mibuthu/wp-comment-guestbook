@@ -253,7 +253,7 @@ $cgb_options_helptexts = array(
 	'cgb_form_styles'                 => array(
 		'section' => 'comment_form',
 		'type'    => 'textarea',
-		'rows'    => 6,
+		'rows'    => 7,
 		'label'   => __( 'Comment form styles', 'comment-guestbook' ),
 		'desc'    =>
 			__( 'With this option you can specify custom css styles for the guestbook comment form.', 'comment-guestbook' ) . '<br />' .
@@ -402,7 +402,7 @@ $cgb_options_helptexts = array(
 	'cgb_clist_styles'                => array(
 		'section' => 'comment_list',
 		'type'    => 'textarea',
-		'rows'    => 6,
+		'rows'    => 7,
 		'label'   => __( 'Comment list styles', 'comment-guestbook' ),
 		'desc'    =>
 			__( 'With this option you can specify custom css styles for the guestbook comment list.', 'comment-guestbook' ) . '<br />' .
@@ -450,7 +450,7 @@ $cgb_options_helptexts = array(
 	'cgb_comment_html'                => array(
 		'section' => 'comment_html',
 		'type'    => 'textarea',
-		'rows'    => '15',
+		'rows'    => '18',
 		'label'   => __( 'Comment html code', 'comment-guestbook' ),
 		'desc'    =>
 			__( 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.', 'comment-guestbook' ) . '<br />' .
@@ -539,6 +539,7 @@ $cgb_options_helptexts = array(
 	'cgb_cmessage_styles'             => array(
 		'section' => 'cmessage',
 		'type'    => 'textarea',
+		'rows'    => '7',
 		'label'   => __( 'Message styles', 'comment-guestbook' ),
 		'desc'    =>
 			__( 'With this option you can define the css styles for the message after a new comment.', 'comment-guestbook' ) . '<br />' .

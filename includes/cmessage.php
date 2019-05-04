@@ -96,8 +96,10 @@ class CGB_CMessage {
 	 * @return The url including the additional cmessage indicator
 	 */
 	public function add_cmessage_indicator( $url ) {
-		if ( ( '' !== $this->options->get( 'cgb_page_add_cmessage' ) && ! isset( $_POST['is_cgb_comment'] ) )
-			|| ( '' !== $this->options->get( 'cgb_add_cmessage' ) && isset( $_POST['is_cgb_comment'] ) )
+		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? intval( $_POST['is_cgb_comment'] ) : false;
+		if ( ( '' !== $this->options->get( 'cgb_page_add_cmessage' ) && ! $is_cgb_comment )
+			|| ( '' !== $this->options->get( 'cgb_add_cmessage' ) && $is_cgb_comment )
 		) {
 			$url_array       = explode( '#', $url );
 			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';

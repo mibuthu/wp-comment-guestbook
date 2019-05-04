@@ -64,14 +64,13 @@ class CGB_Admin_Settings {
 	public function show_page() {
 		// Check required privilegs.
 		if ( ! current_user_can( 'manage_options' ) ) {
-			// Use "default" text domain for translations available in WordPress Core.
-			// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault
+			// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault -- Use "default" text domain from WordPress Core.
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
 		// Define the tab to display.
-		if ( isset( $_GET['tab'] ) && isset( $this->options->sections[ $_GET['tab'] ] ) ) {
-			$tab = $_GET['tab'];
-		} else {
+		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
+		if ( ! isset( $this->options->sections[ $tab ] ) ) {
 			$tab = 'general';
 		}
 		// Show options.
@@ -109,7 +108,17 @@ class CGB_Admin_Settings {
 		echo '<h3 class="nav-tab-wrapper">';
 		foreach ( $this->options->sections as $tabname => $tab ) {
 			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
-			echo wp_kses_post( '<a class="nav-tab' . $class . '" href="?page=cgb_admin_options&amp;tab=' . $tabname . '">' . $tab['caption'] . '</a>' );
+			echo wp_kses_post(
+				'<a class="nav-tab' . $class . '" href="' .
+				add_query_arg(
+					array(
+						'page' => 'cgb_admin_options',
+						'tab'  => $tabname,
+					),
+					admin_url( 'options-general.php' )
+				) .
+				'">' . $tab['caption'] . '</a>'
+			);
 		}
 		echo '</h3>
 				<div class="section-desc">' . wp_kses_post( $this->options->sections[ $current ]['desc'] ) . '</div>';

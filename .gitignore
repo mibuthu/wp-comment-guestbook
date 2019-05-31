@@ -1,9 +1,9 @@
+/vendor
 /.project
 /.buildpath
 /.settings
 /.directory
 /.vscode
 /.idea
-/.phan
 *.phprj
 

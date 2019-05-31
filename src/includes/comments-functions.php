@@ -150,7 +150,7 @@ class CGB_Comments_Functions {
 	 */
 	public function show_comment_html( $comment, $args, $depth ) {
 		// Define all variables which can be used in show_comments_html text option.
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$GLOBALS['comment']         = $comment;
 		$l10n_domain                = $this->options->get( 'cgb_l10n_domain' );
 		$is_comment_from_other_page = ( get_the_ID() !== $comment->comment_post_ID );

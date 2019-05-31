@@ -68,7 +68,7 @@ class CGB_Admin_Settings {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
 		// Define the tab to display.
-		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
 		if ( ! isset( $this->options->sections[ $tab ] ) ) {
 			$tab = 'general';

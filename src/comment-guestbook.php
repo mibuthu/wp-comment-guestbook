@@ -76,17 +76,17 @@ class CGB_CommentGuestbook {
 			$this->options = CGB_Options::get_instance();
 
 			// Filters required after a new comment.
-			// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : false;
 			if ( $comment_post_id ) {
 				add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
 				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 
-				// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing
 				$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? intval( $_POST['is_cgb_comment'] ) : false;
 				// Filters required after new guestbook comment.
 				if ( $is_cgb_comment && $is_cgb_comment === $comment_post_id ) {
-					// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+					// phpcs:ignore WordPress.Security.NonceVerification.Missing
 					$cbg_comments_status = isset( $_POST['cgb_comments_status'] ) ? sanitize_key( $_POST['cgb_comments_status'] ) : false;
 					if ( $cbg_comments_status && 'open' === $cbg_comments_status ) {
 						// Overwrite comments_open status.
@@ -101,7 +101,7 @@ class CGB_CommentGuestbook {
 		// Filters for comments on other pages/posts.
 		add_action( 'comment_form_before_fields', array( &$this, 'page_comment_filters' ) );
 		// Add message after comment.
-		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$cmessage = isset( $_GET['cmessage'] ) ? intval( $_GET['cmessage'] ) : 0;
 		if ( 1 === $cmessage ) {
 			require_once CGB_PATH . 'includes/cmessage.php';
@@ -180,7 +180,7 @@ class CGB_CommentGuestbook {
 	public function filter_require_name_email( $option_value ) {
 		// Check if the given wp-option is enabled.
 		if ( ! empty( $option_value ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$is_cgb_comment = ( isset( $_POST['is_cgb_comment'] ) && isset( $_POST['comment_post_ID'] ) && $_POST['is_cgb_comment'] === $_POST['comment_post_ID'] );
 			// Check if the "require name, email" option is disabled for comment-guestbook comments.
 			if ( $is_cgb_comment && $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
@@ -190,7 +190,7 @@ class CGB_CommentGuestbook {
 			if ( ( $is_cgb_comment && $this->options->get( 'cgb_form_remove_mail' ) ) || $this->options->get( 'cgb_page_remove_mail' ) ) {
 				$user = wp_get_current_user();
 				// Check if the user is logged in and if a valid author name is given.
-				// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing
 				if ( ! $user->exists() && isset( $_POST['author'] ) && '' !== trim( wp_strip_all_tags( wp_unslash( $_POST['author'] ) ) ) ) {
 					// Override value.
 					return false;
@@ -215,9 +215,9 @@ class CGB_CommentGuestbook {
 		 * This is only required for cgb_comments and only if it is not a comment from another page
 		 * (checked by comparing 'is_cgb_comment' and 'comment_post_ID' POST values).
 		 */
-		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : false;
-		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? intval( $_POST['is_cgb_comment'] ) : false;
 		if ( $is_cgb_comment === $comment_post_id ) {
 			global $comment_id;
@@ -253,7 +253,7 @@ class CGB_CommentGuestbook {
 			}
 		}
 		// Add message after comment.
-		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$cmessage = isset( $_GET['cmessage'] ) ? intval( $_GET['cmessage'] ) : 0;
 		if ( 1 === $cmessage ) {
 			require_once CGB_PATH . 'includes/cmessage.php';

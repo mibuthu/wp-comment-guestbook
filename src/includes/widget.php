@@ -110,7 +110,7 @@ class CGB_Widget extends WP_Widget {
 		if ( 'true' === $instance['gb_comments_only'] ) {
 			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
 		}
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
 		$out     .= $args['before_widget'];
 		if ( $instance['title'] ) {
@@ -122,7 +122,7 @@ class CGB_Widget extends WP_Widget {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.).
 			$post_ids = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
 			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
-			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 			foreach ( (array) $comments as $comment ) {
 				$out .= '
 					<li class="cgb-widget-item">';

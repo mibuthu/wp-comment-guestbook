@@ -13,7 +13,7 @@ return [
 	// then Phan assumes the PHP version which is closest to the minor version
 	// of the php executable used to execute phan.
 	// MODIFIED!
-	'target_php_version'                                => '7.2',
+	'target_php_version'                                => '7.3',
 
 	// Default: true. If this is set to true,
 	// and target_php_version is newer than the version used to run Phan,
@@ -40,8 +40,8 @@ return [
 	// your application should be included in this list.
 	// MODIFIED!
 	'directory_list'                                    => [
-		'.',
-		'/home/mike/.config/composer/vendor/giacocorsiglia/wordpress-stubs/',
+		'src',
+		'vendor/giacocorsiglia/wordpress-stubs/',
 	],
 
 	// List of case-insensitive file extensions supported by Phan
@@ -77,7 +77,7 @@ return [
 	// to `excluce_analysis_directory_list`.
 	// MODIFIED!
 	'exclude_analysis_directory_list'                   => [
-		'/home/mike/.config/composer/vendor/giacocorsiglia/wordpress-stubs/',
+		'vendor/giacocorsiglia/wordpress-stubs/',
 	],
 
 	// A file list that defines files that will be included

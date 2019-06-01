@@ -7,6 +7,14 @@
  * @package phan-config
  */
 
+/**
+ * Switch between quick check (for IDEs) and enhanced check (for command line, before release)
+ *
+ * @var bool
+ */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+$quick = true;
+
 return [
 	// Supported values: '7.0', '7.1', '7.2', '7.3', null.
 	// If this is set to null,
@@ -124,7 +132,8 @@ return [
 	// the call and rescan test()'s code block that we can
 	// detect that it is actually returning the passed in
 	// `string` instead of an `int` as declared.
-	'quick_mode'                                        => false,
+	// MODIFIED!
+	'quick_mode'                                        => ( $quick ? true : false ),
 
 	// If enabled, check all methods that override a
 	// parent method to make sure its signature is
@@ -254,19 +263,20 @@ return [
 	// `$class->$method()`) in ways that we're unable
 	// to make sense of.
 	// MODIFIED!
-	'dead_code_detection'                               => true,
+	'dead_code_detection'                               => ( $quick ? false : true ),
 
 	// Set to true in order to attempt to detect unused variables.
 	// dead_code_detection will also enable unused variable detection.
 	// This has a few known false positives, e.g. for loops or branches.
 	// MODIFIED!
-	'unused_variable_detection'                         => true,
+	'unused_variable_detection'                         => ( $quick ? false : true ),
 
 	// Set to true in order to force tracking references to elements
 	// (functions/methods/consts/protected).
 	// dead_code_detection is another option which also causes references
 	// to be tracked.
-	'force_tracking_references'                         => false,
+	// MODIFIED!
+	'force_tracking_references'                         => ( $quick ? false : true ),
 
 	// If true, the dead code detection rig will
 	// prefer false negatives (not report dead code) to
@@ -548,7 +558,7 @@ return [
 		'DollarDollarPlugin',
 		'DuplicateArrayKeyPlugin',
 		'PregRegexCheckerPlugin',
-		'PrintfCheckerPlugin',
+		// 'PrintfCheckerPlugin',  -- disabled for now due to not implemented gettext support
 		'NonBoolInLogicalArithPlugin',
 		'NonBoolBranchPlugin',
 		'UnknownElementTypePlugin',

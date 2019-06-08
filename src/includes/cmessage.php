@@ -40,6 +40,8 @@ class CGB_CMessage {
 	 * @return self
 	 */
 	public static function &get_instance() {
+		// There seems to be an issue with the self variable in phan.
+		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -93,11 +95,11 @@ class CGB_CMessage {
 	 * Adds a cmessage indicator to the URL
 	 *
 	 * @param  string $url The actual url.
-	 * @return The url including the additional cmessage indicator
+	 * @return string
 	 */
 	public function add_cmessage_indicator( $url ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? intval( $_POST['is_cgb_comment'] ) : false;
+		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? (bool) intval( $_POST['is_cgb_comment'] ) : false;
 		if ( ( '' !== $this->options->get( 'cgb_page_add_cmessage' ) && ! $is_cgb_comment )
 			|| ( '' !== $this->options->get( 'cgb_add_cmessage' ) && $is_cgb_comment )
 		) {

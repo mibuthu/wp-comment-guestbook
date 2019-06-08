@@ -191,7 +191,7 @@ class CGB_Shortcode {
 		if ( '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
 			require_once CGB_PATH . 'includes/comments-functions.php';
 			$cgb_func = CGB_Comments_Functions::get_instance();
-			$comments = $cgb_func->get_comments( null );
+			$comments = $cgb_func->get_comments();
 		}
 		// Reverse array if clist order desc is required.
 		if ( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {

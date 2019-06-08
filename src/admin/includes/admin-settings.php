@@ -29,7 +29,7 @@ class CGB_Admin_Settings {
 	/**
 	 * Options class instance reference
 	 *
-	 * @var LV_Options
+	 * @var CGB_Options
 	 */
 	private $options;
 
@@ -40,6 +40,8 @@ class CGB_Admin_Settings {
 	 * @return self
 	 */
 	public static function &get_instance() {
+		// There seems to be an issue with the self variable in phan.
+		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -121,7 +123,7 @@ class CGB_Admin_Settings {
 			);
 		}
 		echo '</h3>
-				<div class="section-desc">' . wp_kses_post( $this->options->sections[ $current ]['desc'] ) . '</div>';
+				<div class="section-desc">' . wp_kses_post( strval( $this->options->sections[ $current ]['desc'] ) ) . '</div>';
 	}
 
 
@@ -152,9 +154,11 @@ class CGB_Admin_Settings {
 						$this->show_checkbox( $oname, $this->options->get( $oname ), $o['caption'] );
 						break;
 					case 'radio':
+						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- caption has to be an array.
 						$this->show_radio( $oname, $this->options->get( $oname ), $o['caption'] );
 						break;
 					case 'number':
+						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- range has to be an array.
 						$this->show_number( $oname, $this->options->get( $oname ), $o['range'] );
 						break;
 					case 'text':
@@ -204,15 +208,15 @@ class CGB_Admin_Settings {
 	/**
 	 * Show an option as radio buttons
 	 *
-	 * @param string $name The name of the option.
-	 * @param array  $value The value of the option.
-	 * @param string $caption The caption of the option.
+	 * @param string               $name The name of the option.
+	 * @param string               $value The value of the option.
+	 * @param array<string,string> $captions The captions of the option.
 	 * @return void
 	 */
-	private function show_radio( $name, $value, $caption ) {
+	private function show_radio( $name, $value, $captions ) {
 		echo '
 							<fieldset>';
-		foreach ( $caption as $okey => $ocaption ) {
+		foreach ( $captions as $okey => $ocaption ) {
 			$checked = ( $value === $okey ) ? 'checked="checked" ' : '';
 			echo '
 								<label title="' . esc_attr( $ocaption ) . '">
@@ -229,9 +233,9 @@ class CGB_Admin_Settings {
 	/**
 	 * Show an option as a number field
 	 *
-	 * @param string $name The name of the option.
-	 * @param string $value The value of the option.
-	 * @param array  $range The caption of the option.
+	 * @param string            $name The name of the option.
+	 * @param int               $value The value of the option.
+	 * @param array<string,int> $range The range of the number input containing the optional fields $range['min_value'] and $range['max_value'].
 	 * @return void
 	 */
 	private function show_number( $name, $value, $range = array( 'min_value' => 0 ) ) {
@@ -239,7 +243,7 @@ class CGB_Admin_Settings {
 		$min  = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';
 		$max  = isset( $range['max_value'] ) ? ' max="' . intval( $range['max_value'] ) . '"' : '';
 		echo '
-							<input name="' . esc_attr( $name ) . '" type="number", id="' . esc_attr( $name ) . '" step="' . wp_kses_post( $step . '"' . $min . $max ) . ' value="' . esc_attr( intval( $value ) ) . '" />';
+							<input name="' . esc_attr( $name ) . '" type="number", id="' . esc_attr( $name ) . '" step="' . wp_kses_post( $step . '"' . $min . $max ) . ' value="' . esc_attr( strval( intval( $value ) ) ) . '" />';
 	}
 
 

@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Additional helptexts for the options
  *
- * @type array
+ * @var array<string,array<string,string>>
  */
 $cgb_options_helptexts = array(
 	// General.
@@ -578,11 +578,11 @@ $cgb_options_helptexts = array(
 );
 
 /**
- * Additional helptexts for the sections
+ * Option Sections
  *
- * @type array
+ * @var array<string,array<string,string>>
  */
-$cgb_sections_helptexts = array(
+$cgb_sections = array(
 	'general'       => array(
 		'caption' => __( 'General settings', 'comment-guestbook' ),
 		'desc'    => __( 'Some general settings for this plugin.', 'comment-guestbook' ),

@@ -27,14 +27,14 @@ class CGB_Options {
 	/**
 	 * Option sections
 	 *
-	 * @var array
+	 * @var array<string,array<string,(string|array)>>
 	 */
 	public $sections;
 
 	/**
-	 * Options array
+	 * Options
 	 *
-	 * @var array
+	 * @var array<string,array<string,string>>
 	 */
 	public $options;
 
@@ -45,6 +45,8 @@ class CGB_Options {
 	 * @return object
 	 */
 	public static function &get_instance() {
+		// There seems to be an issue with the self variable in phan.
+		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -144,14 +146,16 @@ class CGB_Options {
 	 * @return void
 	 */
 	public function load_options_helptexts() {
+		$cgb_options_helptexts = array();
+		$cgb_sections          = array();
 		require_once CGB_PATH . 'includes/options-helptexts.php';
 		foreach ( $cgb_options_helptexts as $name => $values ) {
 			$this->options[ $name ] += $values;
 		}
 		unset( $cgb_options_helptexts );
 
-		$this->sections = $cgb_sections_helptexts;
-		unset( $cgb_sections_helptexts );
+		$this->sections = $cgb_sections;
+		unset( $cgb_sections );
 	}
 
 
@@ -160,6 +164,7 @@ class CGB_Options {
 	 *
 	 * @param string $name Option name.
 	 * @return string Option value.
+	 * @throws Exception Option not available.
 	 */
 	public function get( $name ) {
 		if ( isset( $this->options[ $name ] ) ) {
@@ -169,7 +174,7 @@ class CGB_Options {
 			}
 			return get_option( $name, $this->options[ $name ]['std_val'] );
 		} else {
-			return null;
+			throw new Exception( 'Requested option not available!' );
 		}
 	}
 
@@ -180,6 +185,8 @@ class CGB_Options {
 	 * Version 0.5.1 to 0.6.0:
 	 *   cgb_clist_adjust -> cgb_adjust_output
 	 *   cgb_cmessage -> splitted up in cgb_add_cmessage and cgb_page_add_cmessage
+	 *
+	 * @return void
 	 */
 	public function version_upgrade() {
 		$value = get_option( 'cgb_clist_adjust', null );

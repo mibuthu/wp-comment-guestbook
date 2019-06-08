@@ -48,7 +48,7 @@ class CGB_CommentGuestbook {
 	/**
 	 * Reference to options instance
 	 *
-	 * @var CGB_Options
+	 * @var null|CGB_Options
 	 */
 	private $options;
 
@@ -78,17 +78,17 @@ class CGB_CommentGuestbook {
 			// Filters required after a new comment.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : false;
-			if ( $comment_post_id ) {
+			if ( ! empty( $comment_post_id ) ) {
 				add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
 				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 
 				// phpcs:ignore WordPress.Security.NonceVerification.Missing
-				$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? intval( $_POST['is_cgb_comment'] ) : false;
+				$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? (bool) intval( $_POST['is_cgb_comment'] ) : false;
 				// Filters required after new guestbook comment.
 				if ( $is_cgb_comment && $is_cgb_comment === $comment_post_id ) {
 					// phpcs:ignore WordPress.Security.NonceVerification.Missing
 					$cbg_comments_status = isset( $_POST['cgb_comments_status'] ) ? sanitize_key( $_POST['cgb_comments_status'] ) : false;
-					if ( $cbg_comments_status && 'open' === $cbg_comments_status ) {
+					if ( ! empty( $cbg_comments_status ) && 'open' === $cbg_comments_status ) {
 						// Overwrite comments_open status.
 						add_filter( 'comments_open', '__return_true', 50 );
 					}
@@ -179,26 +179,27 @@ class CGB_CommentGuestbook {
 	 */
 	public function filter_require_name_email( $option_value ) {
 		// Check if the given wp-option is enabled.
-		if ( ! empty( $option_value ) ) {
+		// Use the given default value.
+		if ( empty( $option_value ) ) {
+			return $option_value;
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$is_cgb_comment = ( isset( $_POST['is_cgb_comment'] ) && isset( $_POST['comment_post_ID'] ) && $_POST['is_cgb_comment'] === $_POST['comment_post_ID'] );
+		// Check if the "require name, email" option is disabled for comment-guestbook comments.
+		if ( $is_cgb_comment && (bool) $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
+			return '';
+		}
+		// Check if the plugin options require an override.
+		if ( ( $is_cgb_comment && (bool) $this->options->get( 'cgb_form_remove_mail' ) ) || (bool) $this->options->get( 'cgb_page_remove_mail' ) ) {
+			$user = wp_get_current_user();
+			// Check if the user is logged in and if a valid author name is given.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$is_cgb_comment = ( isset( $_POST['is_cgb_comment'] ) && isset( $_POST['comment_post_ID'] ) && $_POST['is_cgb_comment'] === $_POST['comment_post_ID'] );
-			// Check if the "require name, email" option is disabled for comment-guestbook comments.
-			if ( $is_cgb_comment && $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
-				return false;
-			}
-			// Check if the plugin options require an override.
-			if ( ( $is_cgb_comment && $this->options->get( 'cgb_form_remove_mail' ) ) || $this->options->get( 'cgb_page_remove_mail' ) ) {
-				$user = wp_get_current_user();
-				// Check if the user is logged in and if a valid author name is given.
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing
-				if ( ! $user->exists() && isset( $_POST['author'] ) && '' !== trim( wp_strip_all_tags( wp_unslash( $_POST['author'] ) ) ) ) {
-					// Override value.
-					return false;
-				}
+			$author = isset( $_POST['author'] ) ? esc_attr( wp_unslash( $_POST['author'] ) ) : '';
+			if ( ! $user->exists() && ! empty( $author ) ) {
+				// Override value.
+				return '';
 			}
 		}
-		// Use the given default value.
-		return $option_value;
 	}
 
 
@@ -242,14 +243,14 @@ class CGB_CommentGuestbook {
 	 */
 	public function page_comment_filters() {
 		global $post;
-		if ( ! ( is_object( $post ) && strstr( $post->post_content, '[comment-guestbook' ) ) ) {
+		if ( ! ( is_object( $post ) && (bool) strstr( $post->post_content, '[comment-guestbook' ) ) ) {
 			// Remove mail field.
 			if ( '' !== $this->options->get( 'cgb_page_remove_mail' ) ) {
 				add_filter( 'comment_form_field_email', '__return_empty_string', 20 );
 			}
 			// Remove website url field.
 			if ( '' !== $this->options->get( 'cgb_page_remove_website' ) ) {
-				add_filter( 'comment_form_field_url', '__return_emtpy_string', 20 );
+				add_filter( 'comment_form_field_url', '__return_empty_string', 20 );
 			}
 		}
 		// Add message after comment.

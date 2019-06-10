@@ -111,7 +111,8 @@ class CGB_Admin_Settings {
 		foreach ( $this->options->sections as $tabname => $tab ) {
 			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
 			echo wp_kses_post(
-				'<a class="nav-tab' . $class . '" href="' .
+				'
+				<a class="nav-tab' . $class . '" href="' .
 				add_query_arg(
 					array(
 						'page' => 'cgb_admin_options',
@@ -123,7 +124,7 @@ class CGB_Admin_Settings {
 			);
 		}
 		echo '</h3>
-				<div class="section-desc">' . wp_kses_post( strval( $this->options->sections[ $current ]['desc'] ) ) . '</div>';
+				<div class="section-desc">' . wp_kses_post( strval( $this->options->sections[ $current ]['description'] ) ) . '</div>';
 	}
 
 
@@ -140,32 +141,33 @@ class CGB_Admin_Settings {
 			$desc_new_line = true;
 		}
 		foreach ( $this->options->options as $oname => $o ) {
-			if ( $o['section'] === $section ) {
+			if ( $o->section === $section ) {
 				echo '
 						<tr style="vertical-align:top;">
 							<th>';
-				if ( ! empty( $o['label'] ) ) {
-					echo '<label for="' . esc_attr( $oname ) . '">' . esc_html( $o['label'] ) . ':</label>';
+				if ( ! empty( $o->label ) ) {
+					echo '<label for="' . esc_attr( $oname ) . '">' . esc_html( $o->label ) . ':</label>';
 				}
 				echo '</th>
 						<td>';
-				switch ( $o['type'] ) {
+				switch ( $o->type ) {
 					case 'checkbox':
-						$this->show_checkbox( $oname, $this->options->get( $oname ), $o['caption'] );
+						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- caption has to be an string.
+						$this->show_checkbox( $oname, $this->options->get( $oname ), $o->caption );
 						break;
 					case 'radio':
 						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- caption has to be an array.
-						$this->show_radio( $oname, $this->options->get( $oname ), $o['caption'] );
+						$this->show_radio( $oname, $this->options->get( $oname ), $o->caption );
 						break;
 					case 'number':
 						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- range has to be an array.
-						$this->show_number( $oname, $this->options->get( $oname ), $o['range'] );
+						$this->show_number( $oname, $this->options->get( $oname ), $o->range );
 						break;
 					case 'text':
 						$this->show_text( $oname, $this->options->get( $oname ) );
 						break;
 					case 'textarea':
-						$this->show_textarea( $oname, $this->options->get( $oname ), ( isset( $o['rows'] ) ? $o['rows'] : null ) );
+						$this->show_textarea( $oname, $this->options->get( $oname ), ( isset( $o->rows ) ? $o->rows : null ) );
 						break;
 				}
 				echo '
@@ -177,7 +179,7 @@ class CGB_Admin_Settings {
 						<td></td>';
 				}
 				echo '
-						<td class="description">' . wp_kses_post( $o['desc'] ) . '</td>
+						<td class="description">' . wp_kses_post( $o->description ) . '</td>
 					</tr>';
 			}
 		}
@@ -196,7 +198,7 @@ class CGB_Admin_Settings {
 		echo '
 							<label for="' . esc_attr( $name ) . '">
 								<input name="' . esc_attr( $name ) . '" type="checkbox" id="' . esc_attr( $name ) . '" value="1"';
-		if ( 1 === $value ) {
+		if ( 1 === intval( $value ) ) {
 			echo ' checked="checked"';
 		}
 		echo ' />
@@ -220,7 +222,7 @@ class CGB_Admin_Settings {
 			$checked = ( $value === $okey ) ? 'checked="checked" ' : '';
 			echo '
 								<label title="' . esc_attr( $ocaption ) . '">
-									<input type="radio" ' . wp_kses_post( $checked ) . 'value="' . esc_attr( $okey ) . '" name="' . esc_attr( $name ) . '">
+									<input type="radio" ' . esc_html( $checked ) . 'value="' . esc_attr( $okey ) . '" name="' . esc_attr( $name ) . '">
 									<span>' . esc_html( $ocaption ) . '</span>
 								</label>
 								<br />';
@@ -243,7 +245,7 @@ class CGB_Admin_Settings {
 		$min  = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';
 		$max  = isset( $range['max_value'] ) ? ' max="' . intval( $range['max_value'] ) . '"' : '';
 		echo '
-							<input name="' . esc_attr( $name ) . '" type="number", id="' . esc_attr( $name ) . '" step="' . wp_kses_post( $step . '"' . $min . $max ) . ' value="' . esc_attr( strval( intval( $value ) ) ) . '" />';
+							<input name="' . esc_attr( $name ) . '" type="number", id="' . esc_attr( $name ) . '" step="' . esc_html( $step . '"' . $min . $max ) . ' value="' . esc_attr( strval( intval( $value ) ) ) . '" />';
 	}
 
 
@@ -263,9 +265,9 @@ class CGB_Admin_Settings {
 	/**
 	 * Show an option as a text area
 	 *
-	 * @param string      $name The name of the option.
-	 * @param string      $value The value of the option.
-	 * @param null|string $rows The size (number of rows) of the text area.
+	 * @param string   $name The name of the option.
+	 * @param string   $value The value of the option.
+	 * @param null|int $rows The size (number of rows) of the text area.
 	 * @return void
 	 */
 	private function show_textarea( $name, $value, $rows = null ) {

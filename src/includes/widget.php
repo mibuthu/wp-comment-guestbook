@@ -149,7 +149,7 @@ class CGB_Widget extends WP_Widget {
 					);
 				}
 				if ( 'true' === $instance['show_page_title'] ) {
-					if ( 'false' === $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) !== $comment->comment_post_ID ) {
+					if ( 'true' !== $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) !== intval( $comment->comment_post_ID ) ) {
 						$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( $comment->comment_post_ID ) ) . '">';
 						if ( 'true' === $instance['show_author'] ) {
 							$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';

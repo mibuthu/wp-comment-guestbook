@@ -152,15 +152,12 @@ class CGB_Admin_Settings {
 						<td>';
 				switch ( $o->type ) {
 					case 'checkbox':
-						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- caption has to be an string.
 						$this->show_checkbox( $oname, $this->options->get( $oname ), $o->caption );
 						break;
 					case 'radio':
-						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- caption has to be an array.
-						$this->show_radio( $oname, $this->options->get( $oname ), $o->caption );
+						$this->show_radio( $oname, $this->options->get( $oname ), $o->captions );
 						break;
 					case 'number':
-						// @phan-suppress-next-line PhanTypeMismatchArgument, PhanPartialTypeMismatchArgument -- range has to be an array.
 						$this->show_number( $oname, $this->options->get( $oname ), $o->range );
 						break;
 					case 'text':
@@ -236,7 +233,7 @@ class CGB_Admin_Settings {
 	 * Show an option as a number field
 	 *
 	 * @param string            $name The name of the option.
-	 * @param int               $value The value of the option.
+	 * @param string            $value The value of the option.
 	 * @param array<string,int> $range The range of the number input containing the optional fields $range['min_value'] and $range['max_value'].
 	 * @return void
 	 */

@@ -70,9 +70,16 @@ class CGB_Attribute {
 	/**
 	 * Attribute caption
 	 *
-	 * @var string|array
+	 * @var string
 	 */
 	public $caption = '';
+
+	/**
+	 * Attribute captions
+	 *
+	 * @var string[]
+	 */
+	public $captions = array();
 
 	/**
 	 * Attribute description

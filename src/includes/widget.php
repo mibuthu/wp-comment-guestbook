@@ -295,7 +295,7 @@ class CGB_Widget extends WP_Widget {
 						}
 						// Switch actual comment to top-level comment.
 						$toplevel_comment = $comment;
-						while ( 0 !== $toplevel_comment->comment_parent ) {
+						while ( 0 !== intval( $toplevel_comment->comment_parent ) ) {
 							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
 						}
 						$oldercoms         = array_search( $toplevel_comment->comment_ID, $toplevel_comments, true );

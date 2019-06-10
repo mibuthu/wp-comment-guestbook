@@ -45,6 +45,7 @@ class CGB_Widget extends WP_Widget {
 		);
 		add_action( 'comment_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'transition_comment_status', array( $this, 'flush_widget_cache' ) );
+		add_filter( 'safe_style_css', array( $this, 'safe_style_css_filter' ) );
 		$this->options = &CGB_Options::get_instance();
 
 		// Define all available items.
@@ -135,7 +136,7 @@ class CGB_Widget extends WP_Widget {
 				}
 				if ( 'true' === $instance['show_author'] ) {
 					$out .= $this->truncate(
-						intval( $instance['author_length'] ),
+						$instance['author_length'],
 						get_comment_author( $comment ),
 						'span',
 						array(
@@ -153,7 +154,7 @@ class CGB_Widget extends WP_Widget {
 						if ( 'true' === $instance['show_author'] ) {
 							$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';
 						}
-						$out .= $this->truncate( intval( $instance['page_title_length'] ), get_the_title( $comment->comment_post_ID ) ) . '</span>';
+						$out .= $this->truncate( $instance['page_title_length'], get_the_title( $comment->comment_post_ID ) ) . '</span>';
 					}
 				}
 				if ( 'true' === $instance['link_to_comment'] ) {
@@ -161,7 +162,7 @@ class CGB_Widget extends WP_Widget {
 				}
 				if ( 'true' === $instance['show_comment_text'] ) {
 					$out .= $this->truncate(
-						intval( $instance['comment_text_length'] ),
+						$instance['comment_text_length'],
 						get_comment_text( $comment ),
 						'div',
 						array(
@@ -203,7 +204,7 @@ class CGB_Widget extends WP_Widget {
 		$instance = array();
 		foreach ( $this->items as $itemname => $item ) {
 			if ( 'checkbox' === $item['type'] ) {
-				$instance[ $itemname ] = ( isset( $new_instance[ $itemname ] ) && 1 === $new_instance[ $itemname ] ) ? 'true' : 'false';
+				$instance[ $itemname ] = ( isset( $new_instance[ $itemname ] ) && 1 === intval( $new_instance[ $itemname ] ) ) ? 'true' : 'false';
 			} else { // 'text'
 				$instance[ $itemname ] = wp_strip_all_tags( $new_instance[ $itemname ] );
 			}
@@ -309,7 +310,7 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Truncate HTML, close opened tags
 	 *
-	 * @param int                  $max_length         The length (number of characters) to which the text will be shortened.
+	 * @param int|string           $max_length         The length (number of characters) to which the text will be shortened.
 	 *                                                 With "0" the full text will be returned. With "auto" also the complete text will be used,
 	 *                                                 but a wrapper div will be added which shortens the text to 1 full line via css.
 	 * @param string               $html               The html code which should be shortened.
@@ -341,7 +342,7 @@ class CGB_Widget extends WP_Widget {
 
 		// Apply full length, when no truncate is required.
 		mb_internal_encoding( 'UTF-8' );
-		if ( ! is_numeric( $max_length ) || 0 >= $max_length || mb_strlen( $html ) <= $max_length ) {
+		if ( ! is_int( $max_length ) || 0 >= $max_length || mb_strlen( $html ) <= $max_length ) {
 			return $html;
 		}
 
@@ -420,6 +421,19 @@ class CGB_Widget extends WP_Widget {
 	 */
 	public function flush_widget_cache() {
 		wp_cache_delete( 'widget_comment_guestbook', 'widget' );
+	}
+
+
+	/**
+	 * Add required css attributes to allowed kses css atttributes
+	 *
+	 * @param string[] $styles The default allowed styles.
+	 * @return string[]
+	 */
+	public function safe_style_css_filter( $styles ) {
+		$styles[] = 'white-space';
+		$styles[] = 'text-overflow';
+		return $styles;
 	}
 
 

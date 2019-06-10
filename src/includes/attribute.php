@@ -82,6 +82,13 @@ class CGB_Attribute {
 	public $captions = array();
 
 	/**
+	 * Attribute caption after widget
+	 *
+	 * @var null|string
+	 */
+	public $caption_after = '';
+
+	/**
 	 * Attribute description
 	 *
 	 * @var string
@@ -94,6 +101,20 @@ class CGB_Attribute {
 	 * @var string
 	 */
 	public $tooltip = '';
+
+	/**
+	 * Form styles
+	 *
+	 * @var null|string
+	 */
+	public $form_style = null;
+
+	/**
+	 * Form width
+	 *
+	 * @var null|string
+	 */
+	public $form_width = null;
 
 
 	/**

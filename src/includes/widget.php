@@ -11,6 +11,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 require_once CGB_PATH . 'includes/options.php';
+require_once CGB_PATH . 'includes/attribute.php';
 
 /**
  * Comment Guestbook Widget
@@ -27,7 +28,7 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Widget Items
 	 *
-	 * @var array<string,array<string,string>>
+	 * @var array<string,CGB_Attribute>
 	 */
 	private $items;
 
@@ -50,22 +51,22 @@ class CGB_Widget extends WP_Widget {
 
 		// Define all available items.
 		$this->items = array(
-			'title'                => array( 'std_value' => __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => array( 'std_value' => '5' ),
-			'link_to_comment'      => array( 'std_value' => 'false' ),
-			'show_date'            => array( 'std_value' => 'false' ),
-			'date_format'          => array( 'std_value' => get_option( 'date_format' ) ),
-			'show_author'          => array( 'std_value' => 'true' ),
-			'author_length'        => array( 'std_value' => '18' ),
-			'show_page_title'      => array( 'std_value' => 'false' ),
-			'page_title_length'    => array( 'std_value' => '18' ),
-			'show_comment_text'    => array( 'std_value' => 'true' ),
-			'comment_text_length'  => array( 'std_value' => '25' ),
-			'url_to_page'          => array( 'std_value' => '' ),
-			'gb_comments_only'     => array( 'std_value' => 'false' ),
-			'hide_gb_page_title'   => array( 'std_value' => 'false' ),
-			'link_to_page'         => array( 'std_value' => 'false' ),
-			'link_to_page_caption' => array( 'std_value' => __( 'goto guestbook page', 'comment-guestbook' ) ),
+			'title'                => new CGB_Attribute( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
+			'num_comments'         => new CGB_Attribute( '5' ),
+			'link_to_comment'      => new CGB_Attribute( 'false' ),
+			'show_date'            => new CGB_Attribute( 'false' ),
+			'date_format'          => new CGB_Attribute( get_option( 'date_format' ) ),
+			'show_author'          => new CGB_Attribute( 'true' ),
+			'author_length'        => new CGB_Attribute( '18' ),
+			'show_page_title'      => new CGB_Attribute( 'false' ),
+			'page_title_length'    => new CGB_Attribute( '18' ),
+			'show_comment_text'    => new CGB_Attribute( 'true' ),
+			'comment_text_length'  => new CGB_Attribute( '25' ),
+			'url_to_page'          => new CGB_Attribute( '' ),
+			'gb_comments_only'     => new CGB_Attribute( 'false' ),
+			'hide_gb_page_title'   => new CGB_Attribute( 'false' ),
+			'link_to_page'         => new CGB_Attribute( 'false' ),
+			'link_to_page_caption' => new CGB_Attribute( __( 'goto guestbook page', 'comment-guestbook' ) ),
 		);
 	}
 
@@ -96,7 +97,7 @@ class CGB_Widget extends WP_Widget {
 		// Prepare html.
 		foreach ( $this->items as $itemname => $item ) {
 			if ( ! isset( $instance[ $itemname ] ) ) {
-				$instance[ $itemname ] = $item['std_value'];
+				$instance[ $itemname ] = $item->value;
 			}
 		}
 		$out               = '';
@@ -203,7 +204,7 @@ class CGB_Widget extends WP_Widget {
 		$this->load_helptexts();
 		$instance = array();
 		foreach ( $this->items as $itemname => $item ) {
-			if ( 'checkbox' === $item['type'] ) {
+			if ( 'checkbox' === $item->type ) {
 				$instance[ $itemname ] = ( isset( $new_instance[ $itemname ] ) && 1 === intval( $new_instance[ $itemname ] ) ) ? 'true' : 'false';
 			} else { // 'text'
 				$instance[ $itemname ] = wp_strip_all_tags( $new_instance[ $itemname ] );
@@ -233,22 +234,22 @@ class CGB_Widget extends WP_Widget {
 		// Display the options.
 		foreach ( $this->items as $itemname => $item ) {
 			if ( ! isset( $instance[ $itemname ] ) ) {
-				$instance[ $itemname ] = $item['std_value'];
+				$instance[ $itemname ] = $item->value;
 			}
-			$style_text = ( null === $item['form_style'] ) ? '' : ' style="' . $item['form_style'] . '"';
-			if ( 'checkbox' === $item['type'] ) {
+			$style_text = ( null === $item->form_style ) ? '' : ' style="' . $item->form_style . '"';
+			if ( 'checkbox' === $item->type ) {
 				$checked_text = ( 'true' === $instance[ $itemname ] || 1 === $instance[ $itemname ] ) ? 'checked = "checked" ' : '';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item['tooltip'] ) . '">
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
 						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) . '" name="' . esc_attr( $this->get_field_name( $itemname ) ) .
-							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $item['caption'] ) . '</label>
+							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $item->caption ) . '</label>
 					</p>';
 			} else { // 'text'
-				$width_text         = ( null === $item['form_width'] ) ? '' : 'style="width:' . $item['form_width'] . 'px" ';
-				$caption_after_text = ( null === $item['caption_after'] ) ? '' : '<label> ' . $item['caption_after'] . '</label>';
+				$width_text         = ( null === $item->form_width ) ? '' : 'style="width:' . $item->form_width . 'px" ';
+				$caption_after_text = ( null === $item->caption_after ) ? '' : '<label> ' . $item->caption_after . '</label>';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item['tooltip'] ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $itemname ) ) . '">' . wp_kses_post( $item['caption'] ) . ' </label>
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
+						<label for="' . esc_attr( $this->get_field_id( $itemname ) ) . '">' . wp_kses_post( $item->caption ) . ' </label>
 						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) .
 							'" name="' . esc_attr( $this->get_field_name( $itemname ) ) . '" type="text" value="' . esc_attr( $instance[ $itemname ] ) . '" />' .
 							wp_kses_post( $caption_after_text ) . '
@@ -446,7 +447,7 @@ class CGB_Widget extends WP_Widget {
 		global $cgb_widget_items_helptexts;
 		require_once CGB_PATH . 'includes/widget-helptexts.php';
 		foreach ( $cgb_widget_items_helptexts as $name => $values ) {
-			$this->items[ $name ] += $values;
+			$this->items[ $name ]->update( $values );
 		}
 		unset( $cgb_widget_items_helptexts );
 	}

@@ -194,7 +194,7 @@ class CGB_CommentGuestbook {
 			$user = wp_get_current_user();
 			// Check if the user is logged in and if a valid author name is given.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$author = isset( $_POST['author'] ) ? esc_attr( wp_unslash( $_POST['author'] ) ) : '';
+			$author = isset( $_POST['author'] ) ? sanitize_title( stripslashes_deep( $_POST['author'] ) ) : '';
 			if ( ! $user->exists() && ! empty( $author ) ) {
 				// Override value.
 				return '';

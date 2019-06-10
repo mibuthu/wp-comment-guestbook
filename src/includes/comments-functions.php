@@ -90,6 +90,8 @@ class CGB_Comments_Functions {
 	 * @return self
 	 */
 	public static function &get_instance() {
+		// There seems to be an issue with the self variable in phan.
+		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -142,9 +144,9 @@ class CGB_Comments_Functions {
 	/**
 	 * Show comment
 	 *
-	 * @param WP_Comment $comment The comment to display.
-	 * @param array      $args The comment args.
-	 * @param int        $depth The depth of the comment.
+	 * @param WP_Comment           $comment The comment to display.
+	 * @param array<string,string> $args The comment args (not used).
+	 * @param int                  $depth The depth of the comment (not used).
 	 *
 	 * @return void
 	 */
@@ -166,13 +168,15 @@ class CGB_Comments_Functions {
 					esc_html__( 'Pingback:', $l10n_domain ) .
 					get_comment_author_link() .
 					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
-					'<span class="edit-link"><a href="' . esc_html( get_edit_comment_link ) . '">' . esc_html__( 'Edit', $l10n_domain ) . '</a></span>' .
+					'<span class="edit-link"><a href="' . esc_html( strval( get_edit_comment_link() ) ) . '">' . esc_html__( 'Edit', $l10n_domain ) . '</a></span>' .
 					'</p>';
 				break;
 			default:
 				echo '
-					<li ' . comment_class( '', null, null, false ) . ' id="li-comment-' . esc_attr( get_comment_ID() ) . '">
-						<article id="comment-' . esc_attr( get_comment_ID() ) . '" class="comment">';
+					<li ' .
+						// @phan-suppress-next-line PhanTypeMismatchArgument -- null is o.k. for comment_class arguments, it's the default value.
+						comment_class( '', null, null, false ) . ' id="li-comment-' . esc_attr( strval( get_comment_ID() ) ) . '">
+						<article id="comment-' . esc_attr( strval( get_comment_ID() ) ) . '" class="comment">';
 				// phpcs:ignore Squiz.PHP.Eval.Discouraged
 				eval( '?>' . $this->options->get( 'cgb_comment_html' ) );
 				echo '
@@ -190,7 +194,7 @@ class CGB_Comments_Functions {
 	 * @return void
 	 */
 	public function show_nav_html( $location ) {
-		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) {
+		if ( get_comment_pages_count() > 1 && (bool) get_option( 'page_comments' ) ) {
 			$nav_id = 'comment-nav-' . ( 'above_comments' === $location ? 'above' : 'below' );
 			echo '<nav id="' . esc_attr( $nav_id ) . '">';
 
@@ -232,7 +236,7 @@ class CGB_Comments_Functions {
 		} else {
 			next_comments_link( $this->nav_label_next );
 		}
-		$out = ob_get_contents();
+		$out = strval( ob_get_contents() );
 		ob_end_clean();
 
 		return $out;
@@ -248,7 +252,7 @@ class CGB_Comments_Functions {
 	 */
 	public function show_comment_form_html( $location ) {
 		// Print custom form styles.
-		if ( ! $this->num_forms ) {
+		if ( ! (bool) $this->num_forms ) {
 			$styles = $this->options->get( 'cgb_form_styles' );
 			// Add styles for foldable forms.
 			if ( 'static' === $this->options->get( 'cgb_form_expand_type' ) ) {
@@ -279,7 +283,7 @@ class CGB_Comments_Functions {
 			// Add required parts for foldable comment form.
 			if ( 'false' !== $this->options->get( 'cgb_form_expand_type' ) ) {
 				echo '
-					<a class="form-link" id="show-form-' . esc_attr( $this->num_forms ) . '" href="#show-form-' . esc_attr( $this->num_forms ) . '">' .
+					<a class="form-link" id="show-form-' . esc_attr( strval( $this->num_forms ) ) . '" href="#show-form-' . esc_attr( strval( $this->num_forms ) ) . '">' .
 						esc_html( $this->options->get( 'cgb_form_expand_link_text' ) ) . '</a>
 					<div class="form-wrapper">';
 			}
@@ -295,7 +299,7 @@ class CGB_Comments_Functions {
 	/**
 	 * Get all args for the guestbook comment form
 	 *
-	 * @return array
+	 * @return array<string,string>
 	 */
 	public function get_guestbook_comment_form_args() {
 		$args = array();
@@ -364,27 +368,27 @@ class CGB_Comments_Functions {
 	 * @param int         $comment_id The comment from which the page shall be returned.
 	 * @param null|string $comment_author The comment author.
 	 *
-	 * @return void
+	 * @return int
 	 */
 	public function get_page_of_comment( $comment_id, $comment_author = null ) {
 		global $wpdb;
 		$comment = get_comment( $comment_id );
 		if ( ! $comment instanceof WP_Comment ) {
-			return;
+			return 1;
 		}
 		// Set initial comment author (required for threaded comments).
 		if ( null === $comment_author ) {
 			$comment_author = $comment->comment_author;
 		}
 		// Set max. depth option.
-		if ( get_option( 'thread_comments' ) ) {
+		if ( (bool) get_option( 'thread_comments' ) ) {
 			$max_depth = get_option( 'thread_comments_depth' );
 		} else {
 			$max_depth = - 1;
 		}
 		// Find this comment's top level parent if threading is enabled.
 		if ( $max_depth > 1 && 0 !== $comment->comment_parent ) {
-			return $this->get_page_of_comment( $comment->comment_parent, $comment_author );
+			return $this->get_page_of_comment( intval( $comment->comment_parent ), $comment_author );
 		}
 		// Set per_page option.
 		$per_page = get_option( 'comments_per_page' );
@@ -429,7 +433,7 @@ class CGB_Comments_Functions {
 		}
 
 		// Divide result by comments per page to get this comment's page number.
-		return ceil( ( $result + 1 ) / $per_page );
+		return intval( ceil( ( intval( $result ) + 1 ) / $per_page ) );
 	}
 
 
@@ -448,7 +452,7 @@ class CGB_Comments_Functions {
 		$comment_author_email = $commenter['comment_author_email'];
 		if ( null === $post_id ) {
 			// Comment from all pages/posts.
-			if ( get_current_user_id() ) {
+			if ( (bool) get_current_user_id() ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$comments = $wpdb->get_results(
 					$wpdb->prepare(
@@ -479,7 +483,7 @@ class CGB_Comments_Functions {
 			}
 		} else {
 			// Only comments of given page/post.
-			if ( get_current_user_id() ) {
+			if ( (bool) get_current_user_id() ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$comments = $wpdb->get_results(
 					$wpdb->prepare(
@@ -512,8 +516,7 @@ class CGB_Comments_Functions {
 				);
 			}
 		}
-
-		return $comments;
+		return is_array( $comments ) ? $comments : array();
 	}
 
 

@@ -40,6 +40,8 @@ class CGB_Shortcode {
 	 * @return self
 	 */
 	public static function &get_instance() {
+		// There seems to be an issue with the self variable in phan.
+		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -72,7 +74,7 @@ class CGB_Shortcode {
 			 */
 			ob_start();
 				include CGB_PATH . 'includes/comments-template.php';
-				$out = ob_get_contents();
+				$out = strval( ob_get_contents() );
 			ob_end_clean();
 			return $out;
 		} elseif ( '' !== $this->options->get( 'cgb_form_in_page' ) && ( '' === $this->options->get( 'cgb_form_above_comments' ) || '' === $this->options->get( 'cgb_adjust_output' ) ) ) {
@@ -83,7 +85,7 @@ class CGB_Shortcode {
 			require_once CGB_PATH . 'includes/comments-functions.php';
 			ob_start();
 				CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
-				$out = ob_get_contents();
+				$out = strval( ob_get_contents() );
 			ob_end_clean();
 			return $out;
 		} else {
@@ -113,7 +115,7 @@ class CGB_Shortcode {
 			add_filter( 'comments_open', '__return_true', 50 );
 		}
 		// Filter to override registration requirements for comments on guestbook page.
-		if ( get_option( 'comment_registration' ) && $this->options->get( 'cgb_ignore_comment_registration' ) ) {
+		if ( (bool) get_option( 'comment_registration' ) && (bool) $this->options->get( 'cgb_ignore_comment_registration' ) ) {
 			add_filter( 'option_comment_registration', array( &$cgb_comment_guestbook, 'filter_ignore_comment_registration' ) );
 		}
 		// Filter to override threaded comments on guestbook page.
@@ -151,29 +153,29 @@ class CGB_Shortcode {
 	 * @return void
 	 */
 	public function enqueue_sc_scripts() {
-		wp_enqueue_script( 'comment-reply', false, array(), '1.0', true );
+		wp_enqueue_script( 'comment-reply', '', array(), '1.0', true );
 	}
 
 
 	/**
 	 * Filter to adjust threaded_comments option
 	 *
-	 * @param bool $option_value The actual value of the option "thread_comments".
-	 * @return bool
+	 * @param string $option_value The actual value of the option "thread_comments" (not used).
+	 * @return string
 	 */
 	public function filter_threaded_comments( $option_value ) {
 		if ( 'enabled' === $this->options->get( 'cgb_threaded_gb_comments' ) ) {
-			return 1;
+			return '1';
 		}
-		return 0;
+		return '';
 	}
 
 
 	/**
 	 * Filter to adjust the comments template
 	 *
-	 * @param bool $file The actual file of the template (not used).
-	 * @return bool
+	 * @param string $file The actual file of the template (not used).
+	 * @return string
 	 */
 	public function filter_comments_template( $file ) {
 		return CGB_PATH . 'includes/comments-template.php';
@@ -183,8 +185,8 @@ class CGB_Shortcode {
 	/**
 	 * Filter to adjust the comments array
 	 *
-	 * @param bool $comments The actual comments array.
-	 * @return bool
+	 * @param WP_Comment[] $comments The actual comments array (not used).
+	 * @return WP_Comment[]
 	 */
 	public function filter_comments_array( $comments ) {
 		// Set correct comments list if the comments of all posts/pages should be displayed.
@@ -204,44 +206,42 @@ class CGB_Shortcode {
 	/**
 	 * Filter to adjust default_comments_page option
 	 *
-	 * @param bool $option_value The actual value of the option "default_comments_page".
-	 * @return bool
+	 * @param string $option_value The actual value of the option "default_comments_page" (not used).
+	 * @return string
 	 */
 	public function filter_comments_default_page( $option_value ) {
 		if ( 'first' === $this->options->get( 'cgb_clist_default_page' ) ) {
-			$option_value = 'oldest';
+			return 'oldest';
 		} elseif ( 'last' === $this->options->get( 'cgb_clist_default_page' ) ) {
-			$option_value = 'newest';
+			return 'newest';
 		}
-		return $option_value;
 	}
 
 
 	/**
 	 * Filter to adjust page_comments option
 	 *
-	 * @param bool $option_value The actual value of the option "page_comments".
-	 * @return bool
+	 * @param string $option_value The actual value of the option "page_comments" (not used).
+	 * @return string
 	 */
 	public function filter_comments_pagination( $option_value ) {
 		if ( 'false' === $this->options->get( 'cgb_clist_pagination' ) ) {
-			$option_value = '';
+			return '';
 		} elseif ( 'true' === $this->options->get( 'cgb_clist_pagination' ) ) {
-			$option_value = '1';
+			return '1';
 		}
-		return $option_value;
 	}
 
 
 	/**
 	 * Filter to adjust comments_per_page option
 	 *
-	 * @param bool $option_value The actual value of the option "comments_per_page".
-	 * @return bool
+	 * @param string $option_value The actual value of the option "comments_per_page".
+	 * @return string
 	 */
 	public function filter_comments_per_page( $option_value ) {
 		if ( 0 !== intval( $this->options->get( 'cgb_clist_per_page' ) ) ) {
-			$option_value = intval( $this->options->get( 'cgb_clist_per_page' ) );
+			return $this->options->get( 'cgb_clist_per_page' );
 		}
 		return $option_value;
 	}
@@ -250,8 +250,8 @@ class CGB_Shortcode {
 	/**
 	 * Filter to adjust comments_id_fields
 	 *
-	 * @param bool $html The actual html of the comments_id_fields.
-	 * @return bool
+	 * @param string $html The actual html of the comments_id_fields.
+	 * @return string
 	 */
 	public function filter_comment_id_fields( $html ) {
 		/**

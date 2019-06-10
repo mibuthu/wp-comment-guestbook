@@ -27,7 +27,7 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Widget Items
 	 *
-	 * @var array
+	 * @var array<string,array<string,string>>
 	 */
 	private $items;
 
@@ -74,13 +74,11 @@ class CGB_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::widget()
 	 *
-	 * @param array $args     Widget arguments.
-	 * @param array $instance Saved values from database.
+	 * @param array<string,string> $args     Widget arguments.
+	 * @param array<string,string> $instance Saved values from database.
 	 * @return string
 	 */
 	public function widget( $args, $instance ) {
-		global $comments, $comment;
-
 		// Use html from cache if available.
 		$cache = wp_cache_get( 'widget_comment_guestbook', 'widget' );
 		if ( ! is_array( $cache ) ) {
@@ -91,7 +89,7 @@ class CGB_Widget extends WP_Widget {
 		}
 		if ( isset( $cache[ $args['widget_id'] ] ) ) {
 			echo wp_kses_post( $cache[ $args['widget_id'] ] );
-			return;
+			return '';
 		}
 
 		// Prepare html.
@@ -110,39 +108,42 @@ class CGB_Widget extends WP_Widget {
 		if ( 'true' === $instance['gb_comments_only'] ) {
 			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
 		}
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
-		$out     .= $args['before_widget'];
-		if ( $instance['title'] ) {
+		$out .= $args['before_widget'];
+		if ( ! empty( $instance['title'] ) ) {
 			$out .= $args['before_title'] . $instance['title'] . $args['after_title'];
 		}
 		$out .= '
 				<ul class="cgb-widget">';
-		if ( $comments ) {
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
+		if ( is_array( $comments ) && ! empty( $comments ) ) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.).
-			$post_ids = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
-			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
-			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			foreach ( (array) $comments as $comment ) {
+			$post_ids          = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
+			$update_term_cache = strpos( get_option( 'permalink_structure' ), '%category%' ) !== false;
+			_prime_post_caches( $post_ids, $update_term_cache, false );
+			foreach ( $comments as $comment ) {
+				if ( ! $comment instanceof WP_Comment ) {
+					continue;
+				}
 				$out .= '
 					<li class="cgb-widget-item">';
 				if ( 'true' === $instance['link_to_comment'] ) {
 					$out .= '<a href="' . $this->get_comment_link( $comment ) . '">';
 				}
 				if ( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_comment_date() ) . '">' . get_comment_date( $instance['date_format'] ) . ' </span>';
+					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( $instance['date_format'], $comment ) . ' </span>';
 				}
 				if ( 'true' === $instance['show_author'] ) {
 					$out .= $this->truncate(
-						$instance['author_length'],
-						get_comment_author(),
+						intval( $instance['author_length'] ),
+						get_comment_author( $comment ),
 						'span',
 						array(
 							'class' => 'cgb-author',
 							'title' => __(
 								'Comment author',
 								'comment-guestbook'
-							) . ': ' . esc_attr( get_comment_author() ),
+							) . ': ' . esc_attr( get_comment_author( $comment ) ),
 						)
 					);
 				}
@@ -152,7 +153,7 @@ class CGB_Widget extends WP_Widget {
 						if ( 'true' === $instance['show_author'] ) {
 							$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';
 						}
-						$out .= $this->truncate( $instance['page_title_length'], get_the_title( $comment->comment_post_ID ) ) . '</span>';
+						$out .= $this->truncate( intval( $instance['page_title_length'] ), get_the_title( $comment->comment_post_ID ) ) . '</span>';
 					}
 				}
 				if ( 'true' === $instance['link_to_comment'] ) {
@@ -160,12 +161,12 @@ class CGB_Widget extends WP_Widget {
 				}
 				if ( 'true' === $instance['show_comment_text'] ) {
 					$out .= $this->truncate(
-						$instance['comment_text_length'],
-						get_comment_text(),
+						intval( $instance['comment_text_length'] ),
+						get_comment_text( $comment ),
 						'div',
 						array(
 							'class' => 'cgb-widget-text',
-							'title' => esc_attr( get_comment_text() ),
+							'title' => esc_attr( get_comment_text( $comment ) ),
 						)
 					);
 				}
@@ -193,9 +194,9 @@ class CGB_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::update()
 	 *
-	 * @param array $new_instance Values just sent to be saved.
-	 * @param array $old_instance Previously saved values from database.
-	 * @return array Updated safe values to be saved.
+	 * @param array<string,string> $new_instance Values just sent to be saved.
+	 * @param array<string,string> $old_instance Previously saved values from database.
+	 * @return array<string,string> Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$this->load_helptexts();
@@ -221,8 +222,8 @@ class CGB_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::form()
 	 *
-	 * @param array $instance Previously saved values from database.
-	 * @return void
+	 * @param array<string,string> $instance Previously saved values from database.
+	 * @return string
 	 */
 	public function form( $instance ) {
 		$this->load_helptexts();
@@ -239,20 +240,21 @@ class CGB_Widget extends WP_Widget {
 				echo '
 					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item['tooltip'] ) . '">
 						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) . '" name="' . esc_attr( $this->get_field_name( $itemname ) ) .
-							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses( $item['caption'] ) . '</label>
+							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $item['caption'] ) . '</label>
 					</p>';
 			} else { // 'text'
 				$width_text         = ( null === $item['form_width'] ) ? '' : 'style="width:' . $item['form_width'] . 'px" ';
 				$caption_after_text = ( null === $item['caption_after'] ) ? '' : '<label> ' . $item['caption_after'] . '</label>';
 				echo '
-					<p' . wp_kses( $style_text ) . ' title="' . esc_attr( $item['tooltip'] ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $itemname ) ) . '">' . wp_kses( $item['caption'] ) . ' </label>
-						<input ' . wp_kses( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) .
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item['tooltip'] ) . '">
+						<label for="' . esc_attr( $this->get_field_id( $itemname ) ) . '">' . wp_kses_post( $item['caption'] ) . ' </label>
+						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) .
 							'" name="' . esc_attr( $this->get_field_name( $itemname ) ) . '" type="text" value="' . esc_attr( $instance[ $itemname ] ) . '" />' .
-							wp_kses( $caption_after_text ) . '
+							wp_kses_post( $caption_after_text ) . '
 					</p>';
 			}
 		}
+		return '';
 	}
 
 
@@ -271,7 +273,7 @@ class CGB_Widget extends WP_Widget {
 					|| 'asc' === $this->options->get( 'cgb_clist_order' )
 					|| '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
 					$pattern = get_shortcode_regex();
-					if ( preg_match_all( '/' . $pattern . '/s', get_post( $comment->comment_post_ID )->post_content, $matches )
+					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( $comment->comment_post_ID )->post_content, $matches )
 							&& array_key_exists( 2, $matches )
 							&& in_array( 'comment-guestbook', $matches[2], true ) ) {
 						// Shortcode is being used in that page or post.
@@ -307,15 +309,15 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Truncate HTML, close opened tags
 	 *
-	 * @param int    $max_length         The length (number of characters) to which the text will be shortened.
-	 *                                   With "0" the full text will be returned. With "auto" also the complete text will be used,
-	 *                                   but a wrapper div will be added which shortens the text to 1 full line via css.
-	 * @param string $html               The html code which should be shortened.
-	 * @param string $wrapper_type       Defines which kind of wrapper shall be added around the html code if a manual length shall be used.
-	 *                                   The possible values are "none", "div" and "span". With "none" no wrapper will be added, "div" and
-	 *                                   "span" are the 2 available wrapper types.
-	 *                                   If max_length is set to auto a div is mandatory and will be added always, independent of the given value.
-	 * @param array  $wrapper_attributes Additional attributes for the wrapper element. The array key defines the attribute name.
+	 * @param int                  $max_length         The length (number of characters) to which the text will be shortened.
+	 *                                                 With "0" the full text will be returned. With "auto" also the complete text will be used,
+	 *                                                 but a wrapper div will be added which shortens the text to 1 full line via css.
+	 * @param string               $html               The html code which should be shortened.
+	 * @param string               $wrapper_type       Defines which kind of wrapper shall be added around the html code if a manual length shall be used.
+	 *                                                 The possible values are "none", "div" and "span". With "none" no wrapper will be added, "div" and
+	 *                                                 "span" are the 2 available wrapper types.
+	 *                                                 If max_length is set to auto a div is mandatory and will be added always, independent of the given value.
+	 * @param array<string,string> $wrapper_attributes Additional attributes for the wrapper element. The array key defines the attribute name.
 	 * @return string
 	 */
 	private function truncate( $max_length, $html, $wrapper_type = 'none', $wrapper_attributes = array() ) {
@@ -348,29 +350,33 @@ class CGB_Widget extends WP_Widget {
 		$printed_length = 0;
 		$position       = 0;
 		$tags           = array();
+		$match          = array();
 		$ret            = '';
 		while ( $printed_length < $max_length && $this->mb_preg_match( '{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position ) ) {
-			list($tag, $tag_position) = $match[0];
+			$tag          = strval( $match[0][0] );
+			$tag_position = intval( $match[0][1] );
 			// Print text leading up to the tag.
 			$str = mb_substr( $html, $position, $tag_position - $position );
-			if ( $printed_length + mb_strlen( $str ) > $max_length ) {
-				$ret           .= mb_substr( $str, 0, $max_length - $printed_length );
-				$printed_length = $max_length;
-				$truncated      = true;
-				break;
+			if ( ! empty( $str ) ) {
+				if ( 0 < ( $printed_length + mb_strlen( $str ) > $max_length ) ) {
+					$ret           .= mb_substr( $str, 0, $max_length - $printed_length );
+					$printed_length = $max_length;
+					$truncated      = true;
+					break;
+				}
+				$ret            .= $str;
+				$printed_length += mb_strlen( $str );
 			}
-			$ret            .= $str;
-			$printed_length += mb_strlen( $str );
 			if ( '&' === $tag[0] ) {
 				// Handle the entity.
 				$ret .= $tag;
 				$printed_length++;
 			} else {
 				// Handle the tag.
-				$tag_name = $match[1][0];
+				$tag_name = strval( $match[1][0] );
 				if ( $this->mb_preg_match( '{^</}', $tag ) ) {
 					// This is a closing tag.
-					$opening_tag = array_pop( $tags );
+					$opening_tag = strval( array_pop( $tags ) );
 					if ( $opening_tag !== $tag_name ) {
 						// Not properly nested tag found: trigger a warning and add the not matching opening tag again.
 						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
@@ -393,7 +399,7 @@ class CGB_Widget extends WP_Widget {
 		}
 			// Print any remaining text.
 		if ( $printed_length < $max_length && $position < mb_strlen( $html ) ) {
-			$ret .= mb_substr( $html, $position, $max_length - $printed_length );
+			$ret .= mb_substr( $html, intval( $position ), intval( $max_length - $printed_length ) );
 		}
 			// Print ellipsis ("...") if the html was truncated.
 		if ( $truncated ) {
@@ -445,18 +451,14 @@ class CGB_Widget extends WP_Widget {
 	 * @param int      $offset   Normally, the search starts from the beginning of the subject string. The optional
 	 *                           parameter offset can be used to specify the alternate place from which to start the
 	 *                           search (in characters).
-	 * @param string   $encoding The character encoding of the $subject string.
-	 * @return string
+	 * @return bool
 	 */
-	private function mb_preg_match( $pattern, $subject, &$matches = null, $flags = 0, $offset = 0, $encoding = null ) {
-		if ( is_null( $encoding ) ) {
-			$encoding = mb_internal_encoding();
-		}
-		$offset = strlen( mb_substr( $subject, 0, $offset, $encoding ) );
-		$ret    = preg_match( $pattern, $subject, $matches, $flags, $offset );
-		if ( $ret && ( $flags & PREG_OFFSET_CAPTURE ) ) {
+	private function mb_preg_match( $pattern, $subject, &$matches = null, $flags = 0, $offset = 0 ) {
+		$offset = strlen( strval( mb_substr( $subject, 0, $offset ) ) );
+		$ret    = (bool) preg_match( $pattern, $subject, $matches, $flags, $offset );
+		if ( $ret && (bool) ( $flags & PREG_OFFSET_CAPTURE ) ) {
 			foreach ( $matches as &$match ) {
-				$match[1] = mb_strlen( substr( $subject, 0, $match[1] ), $encoding );
+				$match[1] = mb_strlen( substr( $subject, 0, $match[1] ) );
 			}
 		}
 		return $ret;

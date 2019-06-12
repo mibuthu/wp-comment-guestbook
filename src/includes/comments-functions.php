@@ -314,11 +314,11 @@ class CGB_Comments_Functions {
 		}
 		// Remove mail field.
 		if ( '' !== $this->options->get( 'cgb_form_remove_mail' ) ) {
-			add_filter( 'comment_form_field_email', __return_empty_string(), 20 );
+			add_filter( 'comment_form_field_email', '__return_empty_string', 20 );
 		}
 		// Remove website url field.
 		if ( '' !== $this->options->get( 'cgb_form_remove_website' ) ) {
-			add_filter( 'comment_form_field_url', __return_empty_string(), 20 );
+			add_filter( 'comment_form_field_url', '__return_empty_string', 20 );
 		}
 		// Change comment field label.
 		if ( 'default' !== $this->options->get( 'cgb_form_comment_label' ) ) {

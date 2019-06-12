@@ -343,17 +343,19 @@ class CGB_Widget extends WP_Widget {
 
 		// Apply full length, when no truncate is required.
 		mb_internal_encoding( 'UTF-8' );
-		if ( ! is_int( $max_length ) || 0 >= $max_length || mb_strlen( $html ) <= $max_length ) {
+
+		if ( ! is_numeric( $max_length ) || 0 >= intval( $max_length ) || mb_strlen( $html ) <= intval( $max_length ) ) {
 			return $html;
 		}
-
 		// Apply truncated length.
+		$max_length     = intval( $max_length );
 		$truncated      = false;
 		$printed_length = 0;
 		$position       = 0;
 		$tags           = array();
 		$match          = array();
 		$ret            = '';
+
 		while ( $printed_length < $max_length && $this->mb_preg_match( '{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position ) ) {
 			$tag          = strval( $match[0][0] );
 			$tag_position = intval( $match[0][1] );

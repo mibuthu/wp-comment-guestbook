@@ -382,16 +382,16 @@ class CGB_Comments_Functions {
 		}
 		// Set max. depth option.
 		if ( (bool) get_option( 'thread_comments' ) ) {
-			$max_depth = get_option( 'thread_comments_depth' );
+			$max_depth = intval( get_option( 'thread_comments_depth' ) );
 		} else {
 			$max_depth = - 1;
 		}
 		// Find this comment's top level parent if threading is enabled.
-		if ( $max_depth > 1 && 0 !== $comment->comment_parent ) {
+		if ( $max_depth > 1 && 0 !== intval( $comment->comment_parent ) ) {
 			return $this->get_page_of_comment( intval( $comment->comment_parent ), $comment_author );
 		}
 		// Set per_page option.
-		$per_page = get_option( 'comments_per_page' );
+		$per_page = intval( get_option( 'comments_per_page' ) );
 		if ( $per_page < 1 ) {
 			return 1;
 		}

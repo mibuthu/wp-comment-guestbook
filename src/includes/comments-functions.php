@@ -211,10 +211,12 @@ class CGB_Comments_Functions {
 				echo '</div>';
 			} else {
 				// Only previous and next links.
-				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
+				// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->get_comment_nav_label is already escaped.
+				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain -- using a variable is required here.
 				echo '<h1 class="assistive-text">' . esc_html__( 'Comment navigation', $this->l10n_domain ) . '</h1>
-					<div class="nav-previous">' . esc_html( $this->get_comment_nav_label( true ) ) . '</div>
-					<div class="nav-next">' . esc_html( $this->get_comment_nav_label() ) . '</div>';
+					<div class="nav-previous">' . $this->get_comment_nav_label( true ) . '</div>
+					<div class="nav-next">' . $this->get_comment_nav_label() . '</div>';
+				// phpcs:enable
 			}
 
 			echo '</nav>';

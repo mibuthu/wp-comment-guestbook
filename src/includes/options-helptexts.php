@@ -419,7 +419,7 @@ $cgb_options_helptexts = array(
 			__( 'With this option you can manually specify args for the comment list.', 'comment-guestbook' ) . '<br />' .
 			sprintf(
 				__( 'A list of all available arguments and there description can be found in the %1$s.', 'comment-guestbook' ),
-				'<a hrefs="https://developer.wordpress.org/reference/functions/wp_list_comments/#parameters">WordPress Code Reference</a>'
+				'<a href="https://developer.wordpress.org/reference/functions/wp_list_comments/#parameters">' . __( 'WordPress Code Reference', 'comment-guestbook' ) . '</a>'
 			) . '<br />' .
 			__( 'The given text must be valid php array, e.g.', 'comment-guestbook' ) . ':<br />' .
 			'<code>array(<br />' .

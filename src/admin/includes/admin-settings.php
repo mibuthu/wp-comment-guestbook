@@ -238,11 +238,14 @@ class CGB_Admin_Settings {
 	 * @return void
 	 */
 	private function show_number( $name, $value, $range = array( 'min_value' => 0 ) ) {
-		$step = isset( $range['step'] ) ? $range['step'] : '1';
-		$min  = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';
-		$max  = isset( $range['max_value'] ) ? ' max="' . intval( $range['max_value'] ) . '"' : '';
+		$value = intval( $value );
+		$step  = esc_attr( isset( $range['step'] ) ? strval( $range['step'] ) : '1' );
+		$min   = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';
+		$max   = isset( $range['max_value'] ) ? ' max="' . intval( $range['max_value'] ) . '"' : '';
 		echo '
-							<input name="' . esc_attr( $name ) . '" type="number", id="' . esc_attr( $name ) . '" step="' . esc_html( $step . '"' . $min . $max ) . ' value="' . esc_attr( strval( intval( $value ) ) ) . '" />';
+							';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- variables already escaped in the assignments above
+		echo '<input name="' . esc_attr( $name ) . '" type="number" id="' . esc_attr( $name ) . '" step="' . $step . '"' . $min . $max . ' value="' . $value . '" />';
 	}
 
 

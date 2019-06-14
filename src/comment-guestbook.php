@@ -93,8 +93,8 @@ class CGB_CommentGuestbook {
 						add_filter( 'comments_open', '__return_true', 50 );
 					}
 				}
-					add_filter( 'option_comment_registration', array( &$this, 'filter_ignore_comment_registration' ) );
-					add_filter( 'option_comment_moderation', array( &$this, 'filter_ignore_comment_moderation' ) );
+				add_filter( 'option_comment_registration', array( &$this, 'filter_ignore_comment_registration' ) );
+				add_filter( 'option_comment_moderation', array( &$this, 'filter_ignore_comment_moderation' ) );
 			}
 		}
 
@@ -200,6 +200,7 @@ class CGB_CommentGuestbook {
 				return '';
 			}
 		}
+		return $option_value;
 	}
 
 

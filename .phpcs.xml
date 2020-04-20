@@ -1,18 +1,14 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress-CommentGuestbook" namespace="WordPress-CommentGuestbook">
-    <description>WordPress Coding Standards with some adaptions for the comment-guestbook plugin</description>
-    <file>src</file>
-    <config name="installed_paths" value="vendor/wp-coding-standards/wpcs,vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-wp,vendor/phpcompatibility/phpcompatibility-paragonie" />
-    <config name="minimum_supported_wp_version" value="4.5" />
-    <config name="testVersion" value="5.2-" />
-    <arg name="extensions" value="php" />
-    <arg name="tab-width" value="4" />
-    <arg name="severity" value="1" />
-    <arg name="parallel" value="3" />
-    <exclude-pattern>vendor/*</exclude-pattern>
+<ruleset name="WordPress-Mike" namespace="WordPress-Mike">
+    <description>WordPress Coding Standards with some adaptions</description>
+
+    <arg name="extensions" value="php,inc" />
+    <arg name="report" value="full"/>
+    <arg name="colors"/>
 
     <rule ref="WordPress">
     </rule>
+
     <rule ref="WordPress.Files.FileName">
         <properties>
             <property name="strict_class_file_names" type="bool" value="false" />
@@ -22,7 +18,7 @@
         <properties>
             <property name="text_domain" type="array" value="comment-guestbook,default" />
         </properties>
-    </rule> -->
+    </rule>
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array" value="cgb" />
@@ -67,7 +63,6 @@
         </properties>
     </rule>
 
-    <!--     <rule ref="PHPCompatibilityWP">
-    </rule> -->
+    <config name="minimum_supported_wp_version" value="4.5"/>
 
 </ruleset>

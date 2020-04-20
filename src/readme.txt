@@ -72,7 +72,7 @@ If you enable this option the comment list will be displayed in the page content
 Have a look at the option description on the settings page for detailed information.
 
 = Can I call the shortcode directly via php e.g. for my own template, theme or plugin? =
-Yes, you can create an instance of the "SC_Comment_Guestbook" class which located in "includes/sc_comment-guestbook.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
+Yes, you can create an instance of the "CGB_Shortcode" class which located in "includes/shortcode.php" in the plugin folder and call the function show_html($atts).With $atts you can specify all the shortcode attributes you require. Another possibility would be to call the wordpress function "do_shortcode()".
 
 
 == Screenshots ==

@@ -30,7 +30,7 @@ $cgb_options_helptexts = array(
 		'type'        => 'checkbox',
 		'label'       => __( 'Guestbook comment registration', 'comment-guestbook' ),
 		'caption'     => __( 'Allow comments on the guestbook page without registration', 'comment-guestbook' ),
-		'description' => __( 'If this option is enabled comment will be allowed without registration. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
+		'description' => __( 'If this option is enabled comments will be allowed without registration. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
 	),
 
 	'cgb_ignore_comment_moderation'   => array(
@@ -38,7 +38,7 @@ $cgb_options_helptexts = array(
 		'type'        => 'checkbox',
 		'label'       => __( 'Guestbook comment moderation', 'comment-guestbook' ),
 		'caption'     => __( 'Disable moderation of new comments on the guestbook page', 'comment-guestbook' ),
-		'description' => __( 'If this option is enabled the no approval of new comments is required. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
+		'description' => __( 'If this option is enabled comments will displayed without manual moderation. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
 	),
 
 	'cgb_threaded_gb_comments'        => array(

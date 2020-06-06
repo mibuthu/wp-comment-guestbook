@@ -194,28 +194,10 @@ class CGB_Options {
 	/**
 	 * Upgrades renamed or modified options to the actual version
 	 *
-	 * Version 0.5.1 to 0.6.0:
-	 *   cgb_clist_adjust -> cgb_adjust_output
-	 *   cgb_cmessage -> splitted up in cgb_add_cmessage and cgb_page_add_cmessage
 	 *
 	 * @return void
 	 */
 	public function version_upgrade() {
-		$value = get_option( 'cgb_clist_adjust', null );
-		if ( null !== $value ) {
-			add_option( 'cgb_adjust_output', $value );
-			delete_option( 'cgb_clist_adjust' );
-		}
-		$value = get_option( 'cgb_cmessage', null );
-		if ( null !== $value ) {
-			if ( 'default' !== $value ) {
-				add_option( 'cgb_add_cmessage', '1' );
-			}
-			if ( 'always' === $value ) {
-				add_option( 'cgb_page_add_cmessage', '1' );
-			}
-			delete_option( 'cgb_cmessage' );
-		}
 	}
 
 

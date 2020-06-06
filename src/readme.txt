@@ -2,10 +2,10 @@
 Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
-Requires at least: 3.3
-Tested up to: 4.8
+Requires at least: 4.5
+Tested up to: 5.4
 Requires PHP: 5.2
-Stable tag: 0.7.3
+Stable tag: 0.7.4
 Plugin URI: https://wordpress.org/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

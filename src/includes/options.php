@@ -78,7 +78,6 @@ class CGB_Options {
 			'cgb_ignore_comments_open'        => new CGB_Attribute( '1', null, 'general' ),
 			'cgb_ignore_comment_registration' => new CGB_Attribute( '1', null, 'general' ),
 			'cgb_ignore_comment_moderation'   => new CGB_Attribute( '', null, 'general' ),
-			'cgb_threaded_gb_comments'        => new CGB_Attribute( 'default', null, 'general' ),
 			'cgb_adjust_output'               => new CGB_Attribute( '', null, 'general' ),
 			'cgb_l10n_domain'                 => new CGB_Attribute( 'default', null, 'general' ),
 			// Comment form.
@@ -102,6 +101,7 @@ class CGB_Options {
 			'cgb_form_styles'                 => new CGB_Attribute( '', null, 'comment_form' ),
 			'cgb_form_args'                   => new CGB_Attribute( '', null, 'comment_form' ),
 			// Comment list.
+			'cgb_clist_threaded'              => new CGB_Attribute( 'default', null, 'comment_list' ),
 			'cgb_clist_order'                 => new CGB_Attribute( 'default', null, 'comment_list' ),
 			'cgb_clist_child_order'           => new CGB_Attribute( 'default', null, 'comment_list' ),
 			'cgb_clist_default_page'          => new CGB_Attribute( 'default', null, 'comment_list' ),
@@ -194,10 +194,17 @@ class CGB_Options {
 	/**
 	 * Upgrades renamed or modified options to the actual version
 	 *
+	 * Version 0.7.3 to 0.7.4:
+	 *   cgb_threaded_gb_comments -> cgb_clist_threaded
 	 *
 	 * @return void
 	 */
 	public function version_upgrade() {
+		// $value = get_option( 'cgb_threaded_gb_comments', null );
+		// if ( null !== $value ) {
+		// add_option( 'cgb_clist_threaded', $value );
+		// delete_option( 'cgb_threaded_gb_comments' );
+		// }
 	}
 
 

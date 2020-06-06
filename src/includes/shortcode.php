@@ -119,7 +119,7 @@ class CGB_Shortcode {
 			add_filter( 'option_comment_registration', array( &$cgb_comment_guestbook, 'filter_ignore_comment_registration' ) );
 		}
 		// Filter to override threaded comments on guestbook page.
-		if ( 'enabled' === $this->options->get( 'cgb_threaded_gb_comments' ) || 'disabled' === $this->options->get( 'cgb_threaded_gb_comments' ) ) {
+		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) || 'disabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
 			add_filter( 'option_thread_comments', array( &$this, 'filter_threaded_comments' ) );
 		}
 		// Filter to override name and email requirement on guestbook page.
@@ -164,7 +164,7 @@ class CGB_Shortcode {
 	 * @return string
 	 */
 	public function filter_threaded_comments( $option_value ) {
-		if ( 'enabled' === $this->options->get( 'cgb_threaded_gb_comments' ) ) {
+		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
 			return '1';
 		}
 		return '';

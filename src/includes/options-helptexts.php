@@ -41,20 +41,6 @@ $cgb_options_helptexts = array(
 		'description' => __( 'If this option is enabled comments will displayed without manual moderation. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
 	),
 
-	'cgb_threaded_gb_comments'        => array(
-		'section'     => 'general',
-		'type'        => 'radio',
-		'label'       => __( 'Threaded guestbook comments', 'comment-guestbook' ),
-		'captions'    => array(
-			'default'  => __( 'Standard WP-discussion setting', 'comment-guestbook' ),
-			'enabled'  => __( 'Enabled', 'comment-guestbook' ),
-			'disabled' => __( 'Disabled', 'comment-guestbook' ),
-		),
-		'description' =>
-			__( 'With this option the WordPress standard setting for threaded comments can be overruled for the guestbook page. If enabled a reply to a available comment is allowed, when disabled it isn´t.', 'comment-guestbook' ) . '<br />' .
-			__( 'You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the corresponding WordPress standard value for all comments can be changed.', 'comment-guestbook' ),
-	),
-
 	'cgb_adjust_output'               => array(
 		'section'     => 'general',
 		'type'        => 'checkbox',
@@ -286,6 +272,20 @@ $cgb_options_helptexts = array(
 	),
 
 	// Comment-list section.
+	'cgb_clist_threaded'              => array(
+		'section'     => 'general',
+		'type'        => 'radio',
+		'label'       => __( 'Threaded guestbook comments', 'comment-guestbook' ),
+		'captions'    => array(
+			'default'  => __( 'Standard WP-discussion setting', 'comment-guestbook' ),
+			'enabled'  => __( 'Enabled', 'comment-guestbook' ),
+			'disabled' => __( 'Disabled', 'comment-guestbook' ),
+		),
+		'description' =>
+			__( 'With this option the WordPress standard setting for threaded comments can be overruled for the guestbook page. If enabled a reply to a available comment is allowed, when disabled it isn´t.', 'comment-guestbook' ) . '<br />' .
+			__( 'You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the corresponding WordPress standard value for all comments can be changed.', 'comment-guestbook' ),
+	),
+
 	'cgb_clist_order'                 => array(
 		'section'     => 'comment_list',
 		'type'        => 'radio',

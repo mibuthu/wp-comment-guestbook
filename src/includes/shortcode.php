@@ -108,10 +108,6 @@ class CGB_Shortcode {
 	 */
 	private function init_sc() {
 		global $cgb_comment_guestbook;
-		// Add comment reply script in footer(required if comment status is overwritten).
-		if ( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
-			add_action( 'wp_footer', array( &$this, 'enqueue_sc_scripts' ) );
-		}
 		// Filter to override registration requirements for comments on guestbook page.
 		if ( (bool) get_option( 'comment_registration' ) && (bool) $this->options->get( 'cgb_ignore_comment_registration' ) ) {
 			add_filter( 'option_comment_registration', array( &$cgb_comment_guestbook, 'filter_ignore_comment_registration' ) );
@@ -143,15 +139,6 @@ class CGB_Shortcode {
 		// Filter to add comment id fields to identify required filters.
 		add_filter( 'comment_id_fields', array( &$this, 'filter_comment_id_fields' ) );
 	}
-
-
-	/**
-	 * Embed the shortcode scripts
-	 *
-	 * @return void
-	 */
-	public function enqueue_sc_scripts() {
-		wp_enqueue_script( 'comment-reply', '', array(), '1.0', true );
 	}
 
 

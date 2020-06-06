@@ -74,26 +74,18 @@ class CGB_CommentGuestbook {
 			CGB_Admin::get_instance()->init_admin_page();
 		} else { // Front page.
 
-			// Filters required after a new comment.
+			// Enable filters after a new comment (required to overwrite settings during comment creation).
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : false;
 			if ( ! empty( $comment_post_id ) ) {
-				add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
-				add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
-
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing
-				$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? (bool) intval( $_POST['is_cgb_comment'] ) : false;
+				$post = get_post( $comment_post_id );
 				// Filters required after new guestbook comment.
-				if ( $is_cgb_comment && $is_cgb_comment === $comment_post_id ) {
-					// phpcs:ignore WordPress.Security.NonceVerification.Missing
-					$cbg_comments_status = isset( $_POST['cgb_comments_status'] ) ? sanitize_key( $_POST['cgb_comments_status'] ) : false;
-					if ( ! empty( $cbg_comments_status ) && 'open' === $cbg_comments_status ) {
-						// Overwrite comments_open status.
-						add_filter( 'comments_open', '__return_true', 50 );
-					}
+				if ( $post instanceof WP_Post && (bool) strpos( $post->post_content, '[comment-guestbook]' ) ) {
+					require_once CGB_PATH . 'includes/filters.php';
+					new CGB_Filters( 'after_new_comment' );
+					add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
+					add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 				}
-				add_filter( 'option_comment_registration', array( &$this, 'filter_ignore_comment_registration' ) );
-				add_filter( 'option_comment_moderation', array( &$this, 'filter_ignore_comment_moderation' ) );
 			}
 		}
 
@@ -145,28 +137,6 @@ class CGB_CommentGuestbook {
 	public function widget_init() {
 		require_once CGB_PATH . 'includes/widget.php';
 		register_widget( 'CGB_Widget' );
-	}
-
-
-	/**
-	 * Filter to override registration requirements for comments on guestbook page
-	 *
-	 * @param bool $option_value The actual value of the option "comment_registration".
-	 * @return bool
-	 */
-	public function filter_ignore_comment_registration( $option_value ) {
-		return $this->options->get( 'cgb_ignore_comment_registration' ) ? false : $option_value;
-	}
-
-
-	/**
-	 * Filter to override moderation requirements for comments on guestbook page
-	 *
-	 * @param bool $option_value The actual value of the option "comment_moderation".
-	 * @return bool
-	 */
-	public function filter_ignore_comment_moderation( $option_value ) {
-		return $this->options->get( 'cgb_ignore_comment_moderation' ) ? false : $option_value;
 	}
 
 

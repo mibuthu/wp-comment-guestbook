@@ -56,6 +56,8 @@ class CGB_Shortcode {
 	 */
 	private function __construct() {
 		$this->options = &CGB_Options::get_instance();
+		require_once CGB_PATH . '/includes/filters.php';
+		new CGB_Filters();
 	}
 
 
@@ -109,10 +111,6 @@ class CGB_Shortcode {
 		// Add comment reply script in footer(required if comment status is overwritten).
 		if ( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
 			add_action( 'wp_footer', array( &$this, 'enqueue_sc_scripts' ) );
-		}
-		// Filter to override comments_open status.
-		if ( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
-			add_filter( 'comments_open', '__return_true', 50 );
 		}
 		// Filter to override registration requirements for comments on guestbook page.
 		if ( (bool) get_option( 'comment_registration' ) && (bool) $this->options->get( 'cgb_ignore_comment_registration' ) ) {

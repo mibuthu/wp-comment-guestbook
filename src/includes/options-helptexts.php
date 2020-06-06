@@ -18,7 +18,6 @@ if ( ! defined( 'WPINC' ) ) {
 $cgb_options_helptexts = array(
 	// General.
 	'cgb_ignore_comments_open'        => array(
-		'section'     => 'general',
 		'type'        => 'checkbox',
 		'label'       => __( 'Guestbook comment status', 'comment-guestbook' ),
 		'caption'     => __( 'Always allow comments on the guestbook page', 'comment-guestbook' ),
@@ -26,7 +25,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_ignore_comment_registration' => array(
-		'section'     => 'general',
 		'type'        => 'checkbox',
 		'label'       => __( 'Guestbook comment registration', 'comment-guestbook' ),
 		'caption'     => __( 'Allow comments on the guestbook page without registration', 'comment-guestbook' ),
@@ -34,7 +32,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_ignore_comment_moderation'   => array(
-		'section'     => 'general',
 		'type'        => 'checkbox',
 		'label'       => __( 'Guestbook comment moderation', 'comment-guestbook' ),
 		'caption'     => __( 'Disable moderation of new comments on the guestbook page', 'comment-guestbook' ),
@@ -42,7 +39,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_adjust_output'               => array(
-		'section'     => 'general',
 		'type'        => 'checkbox',
 		'label'       => __( 'Comments adjustment', 'comment-guestbook' ),
 		'caption'     => __( 'Adjust the guestbook comments output', 'comment-guestbook' ),
@@ -57,7 +53,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_l10n_domain'                 => array(
-		'section'     => 'general',
 		'type'        => 'text',
 		'label'       => __( 'Domain for translation', 'comment-guestbook' ),
 		'description' =>
@@ -74,7 +69,6 @@ $cgb_options_helptexts = array(
 
 	// Comment-form.
 	'cgb_form_below_comments'         => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Form below comments', 'comment-guestbook' ),
 		'caption'     => __( 'Show a comment form in the comment area below the comments', 'comment-guestbook' ),
@@ -82,7 +76,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_above_comments'         => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Form above comments', 'comment-guestbook' ),
 		'caption'     => __( 'Show a comment form in the comment area above the comments', 'comment-guestbook' ),
@@ -90,7 +83,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_in_page'                => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Form in page/post', 'comment-guestbook' ),
 		'caption'     => __( 'Show a comment form in the page/post area', 'comment-guestbook' ),
@@ -103,7 +95,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_expand_type'            => array(
-		'section'     => 'comment_form',
 		'type'        => 'radio',
 		'label'       => __( 'Collapsed comment form', 'comment-guestbook' ),
 		'captions'    => array(
@@ -117,7 +108,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_expand_link_text'       => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Link text for form expansion', 'comment-guestbook' ),
 		'description' => sprintf(
@@ -127,7 +117,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_add_cmessage'                => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Message after new comments', 'comment-guestbook' ),
 		'caption'     => __( 'Show a "Thank you" message after a new guestbook comment', 'comment-guestbook' ),
@@ -139,7 +128,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_require_no_name_mail'   => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Comment author name/email', 'comment-guestbook' ),
 		'caption'     => __( 'Override Name and Email field requirement', 'comment-guestbook' ),
@@ -147,7 +135,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_remove_mail'            => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Remove Email field', 'comment-guestbook' ),
 		'caption'     => __( 'Remove the Email field in comment guestbook form', 'comment-guestbook' ),
@@ -155,7 +142,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_remove_website'         => array(
-		'section'     => 'comment_form',
 		'type'        => 'checkbox',
 		'label'       => __( 'Remove Website field', 'comment-guestbook' ),
 		'caption'     => __( 'Remove the Website url field in comment guestbook form', 'comment-guestbook' ),
@@ -163,7 +149,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_comment_label'          => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Label for comment field', 'comment-guestbook' ),
 		'description' =>
@@ -172,7 +157,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_title_reply'            => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Comment form title', 'comment-guestbook' ),
 		'description' =>
@@ -181,7 +165,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_title_reply_to'         => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Reply comment form title', 'comment-guestbook' ),
 		'description' =>
@@ -190,7 +173,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_notes_before'           => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Notes before form fields', 'comment-guestbook' ),
 		'description' =>
@@ -199,7 +181,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_notes_after'            => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Notes after form fields', 'comment-guestbook' ),
 		'description' =>
@@ -208,7 +189,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_label_submit'           => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Label of submit button', 'comment-guestbook' ),
 		'description' =>
@@ -217,7 +197,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_cancel_reply'           => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( 'Label for cancel reply link', 'comment-guestbook' ),
 		'description' =>
@@ -226,7 +205,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_must_login_message'     => array(
-		'section'     => 'comment_form',
 		'type'        => 'text',
 		'label'       => __( '"Must login" message', 'comment-guestbook' ),
 		'description' =>
@@ -237,7 +215,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_styles'                 => array(
-		'section'     => 'comment_form',
 		'type'        => 'textarea',
 		'rows'        => 7,
 		'label'       => __( 'Comment form styles', 'comment-guestbook' ),
@@ -248,7 +225,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_form_args'                   => array(
-		'section'     => 'comment_form',
 		'type'        => 'textarea',
 		'rows'        => 10,
 		'label'       => __( 'Comment form args', 'comment-guestbook' ),
@@ -273,7 +249,6 @@ $cgb_options_helptexts = array(
 
 	// Comment-list section.
 	'cgb_clist_threaded'              => array(
-		'section'     => 'general',
 		'type'        => 'radio',
 		'label'       => __( 'Threaded guestbook comments', 'comment-guestbook' ),
 		'captions'    => array(
@@ -287,7 +262,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_order'                 => array(
-		'section'     => 'comment_list',
 		'type'        => 'radio',
 		'label'       => __( 'Comment list order', 'comment-guestbook' ),
 		'captions'    => array(
@@ -299,7 +273,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_child_order'           => array(
-		'section'     => 'comment_list',
 		'type'        => 'radio',
 		'label'       => __( 'Comment list child order', 'comment-guestbook' ),
 		'captions'    => array(
@@ -311,7 +284,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_default_page'          => array(
-		'section'     => 'comment_list',
 		'type'        => 'radio',
 		'label'       => __( 'Comment list default page', 'comment-guestbook' ),
 		'captions'    => array(
@@ -323,7 +295,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_pagination'            => array(
-		'section'     => 'comment_list',
 		'type'        => 'radio',
 		'label'       => __( 'Break comments into pages', 'comment-guestbook' ),
 		'captions'    => array(
@@ -335,7 +306,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_per_page'              => array(
-		'section'     => 'comment_list',
 		'type'        => 'number',
 		'label'       => __( 'Comments per page', 'comment-guestbook' ),
 		'range'       => array( 'min_value' => '0' ),
@@ -349,7 +319,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_show_all'              => array(
-		'section'     => 'comment_list',
 		'type'        => 'checkbox',
 		'label'       => __( 'Show all comments', 'comment-guestbook' ),
 		'caption'     => __( 'Show comments of all posts and pages', 'comment-guestbook' ),
@@ -361,7 +330,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_num_pagination'        => array(
-		'section'     => 'comment_list',
 		'type'        => 'checkbox',
 		'label'       => __( 'Numbered pagination links', 'comment-guestbook' ),
 		'caption'     => __( 'Create a numbered pagination navigation', 'comment-guestbook' ),
@@ -369,14 +337,12 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_title'                 => array(
-		'section'     => 'comment_list',
 		'type'        => 'text',
 		'label'       => __( 'Title for the comment list', 'comment-guestbook' ),
 		'description' => __( 'With this option you can specify an additional title which will be displayed in front of the comment list.', 'comment-guestbook' ),
 	),
 
 	'cgb_clist_in_page_content'       => array(
-		'section'     => 'comment_list',
 		'type'        => 'checkbox',
 		'label'       => __( 'Comment list in page content', 'comment-guestbook' ),
 		'caption'     => __( 'Show the comment list in the page content', 'comment-guestbook' ),
@@ -387,7 +353,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_comment_callback'            => array(
-		'section'     => 'comment_list',
 		'type'        => 'text',
 		'label'       => __( 'Comment callback function', 'comment-guestbook' ),
 		'description' =>
@@ -400,7 +365,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_styles'                => array(
-		'section'     => 'comment_list',
 		'type'        => 'textarea',
 		'rows'        => 7,
 		'label'       => __( 'Comment list styles', 'comment-guestbook' ),
@@ -411,7 +375,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_clist_args'                  => array(
-		'section'     => 'comment_list',
 		'type'        => 'textarea',
 		'rows'        => 7,
 		'label'       => __( 'Comment list args', 'comment-guestbook' ),
@@ -431,7 +394,6 @@ $cgb_options_helptexts = array(
 
 	// Comment html code.
 	'cgb_comment_adjust'              => array(
-		'section'     => 'comment_html',
 		'type'        => 'checkbox',
 		'label'       => __( 'Comment adjustment', 'comment-guestbook' ),
 		'caption'     => __( 'Adjust the html-output of each comment', 'comment-guestbook' ),
@@ -448,7 +410,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_comment_html'                => array(
-		'section'     => 'comment_html',
 		'type'        => 'textarea',
 		'rows'        => '18',
 		'label'       => __( 'Comment html code', 'comment-guestbook' ),
@@ -495,14 +456,12 @@ $cgb_options_helptexts = array(
 
 	// Message after new comment.
 	'cgb_cmessage_text'               => array(
-		'section'     => 'cmessage',
 		'type'        => 'text',
 		'label'       => __( 'Message text', 'comment-guestbook' ),
 		'description' => __( 'This option allows you to change the text for the message after a new comment.', 'comment-guestbook' ),
 	),
 
 	'cgb_cmessage_type'               => array(
-		'section'     => 'cmessage',
 		'type'        => 'radio',
 		'label'       => __( 'Message type', 'comment-guestbook' ),
 		'captions'    => array(
@@ -523,7 +482,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_cmessage_duration'           => array(
-		'section'     => 'cmessage',
 		'type'        => 'text',
 		'label'       => __( 'Message duration', 'comment-guestbook' ),
 		'description' =>
@@ -537,7 +495,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_cmessage_styles'             => array(
-		'section'     => 'cmessage',
 		'type'        => 'textarea',
 		'rows'        => '7',
 		'label'       => __( 'Message styles', 'comment-guestbook' ),
@@ -548,7 +505,6 @@ $cgb_options_helptexts = array(
 
 	// Comments in other pages/posts.
 	'cgb_page_add_cmessage'           => array(
-		'section'     => 'page_comments',
 		'type'        => 'checkbox',
 		'label'       => __( 'Message after new comments', 'comment-guestbook' ),
 		'caption'     => __( 'Show a "Thank you" message after a new comment', 'comment-guestbook' ),
@@ -561,7 +517,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_page_remove_mail'            => array(
-		'section'     => 'page_comments',
 		'type'        => 'checkbox',
 		'label'       => __( 'Remove Email field', 'comment-guestbook' ),
 		'caption'     => __( 'Remove the Email field in comment forms', 'comment-guestbook' ),
@@ -569,7 +524,6 @@ $cgb_options_helptexts = array(
 	),
 
 	'cgb_page_remove_website'         => array(
-		'section'     => 'page_comments',
 		'type'        => 'checkbox',
 		'label'       => __( 'Remove Website field', 'comment-guestbook' ),
 		'caption'     => __( 'Remove the Website url field in comment forms', 'comment-guestbook' ),

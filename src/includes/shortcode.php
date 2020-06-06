@@ -107,11 +107,6 @@ class CGB_Shortcode {
 	 * @return void
 	 */
 	private function init_sc() {
-		global $cgb_comment_guestbook;
-		// Filter to override registration requirements for comments on guestbook page.
-		if ( (bool) get_option( 'comment_registration' ) && (bool) $this->options->get( 'cgb_ignore_comment_registration' ) ) {
-			add_filter( 'option_comment_registration', array( &$cgb_comment_guestbook, 'filter_ignore_comment_registration' ) );
-		}
 		// Filter to override threaded comments on guestbook page.
 		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) || 'disabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
 			add_filter( 'option_thread_comments', array( &$this, 'filter_threaded_comments' ) );

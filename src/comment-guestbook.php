@@ -37,6 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'CGB_URL', plugin_dir_url( __FILE__ ) );
 define( 'CGB_PATH', plugin_dir_path( __FILE__ ) );
 
+require_once CGB_PATH . 'includes/options.php';
 
 /**
  * Main plugin class
@@ -48,7 +49,7 @@ class CGB_CommentGuestbook {
 	/**
 	 * Reference to options instance
 	 *
-	 * @var null|CGB_Options
+	 * @var CGB_Options
 	 */
 	private $options;
 
@@ -60,7 +61,7 @@ class CGB_CommentGuestbook {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->options = null;
+		$this->options = CGB_Options::get_instance();
 
 		// Always!
 		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) );
@@ -72,8 +73,6 @@ class CGB_CommentGuestbook {
 			require_once CGB_PATH . 'admin/admin.php';
 			CGB_Admin::get_instance()->init_admin_page();
 		} else { // Front page.
-			require_once 'includes/options.php';
-			$this->options = CGB_Options::get_instance();
 
 			// Filters required after a new comment.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing

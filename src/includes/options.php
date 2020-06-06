@@ -200,11 +200,11 @@ class CGB_Options {
 	 * @return void
 	 */
 	public function version_upgrade() {
-		// $value = get_option( 'cgb_threaded_gb_comments', null );
-		// if ( null !== $value ) {
-		// add_option( 'cgb_clist_threaded', $value );
-		// delete_option( 'cgb_threaded_gb_comments' );
-		// }
+		$value = get_option( 'cgb_threaded_gb_comments', null );
+		if ( null !== $value ) {
+			add_option( 'cgb_clist_threaded', $value );
+			delete_option( 'cgb_threaded_gb_comments' );
+		}
 	}
 
 

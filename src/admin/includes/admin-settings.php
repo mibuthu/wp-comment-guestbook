@@ -83,7 +83,7 @@ class CGB_Admin_Settings {
 		$this->show_sections( $tab );
 		echo '
 			<div id="posttype-page" class="posttypediv">
-			<form method="post" action="options.php">
+			<form name=cgb-' . esc_html( $tab ) . '-settings method="post" action="options.php">
 			';
 		settings_fields( 'cgb_' . $tab );
 		echo '

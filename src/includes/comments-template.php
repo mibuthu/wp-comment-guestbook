@@ -67,7 +67,7 @@ if ( ( '' === $cgb_options->get( 'cgb_clist_in_page_content' ) && ! $cgb_in_page
 		}
 		// Show comment list.
 		$cgb_func->show_nav_html( 'above_comments' );
-		echo '<ol class="commentlist">';
+		echo '<ol class="commentlist cgb-commentlist">';
 		$cgb_func->list_comments();
 		echo '</ol>';
 		$cgb_func->show_nav_html( 'below_comments' );

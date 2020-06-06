@@ -60,7 +60,7 @@ class GeneralOptionsCest {
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
 		$I->setPageCommentStatus( $samplePageId, true );
-		$I->cli( array( 'option', 'update', 'comment_registration', '1' ) );
+		$I->updateGuestbookOption( 'comment_registration', '1' );
 		$I->logout();
 		// Check when enabled (default)
 		// Comment on guestbook page shall be possible
@@ -84,7 +84,7 @@ class GeneralOptionsCest {
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
 		$I->setPageCommentStatus( $samplePageId, true );
-		$I->cli( array( 'option', 'update', 'comment_moderation', '1' ) );
+		$I->updateGuestbookOption( 'comment_moderation', '1' );
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'test guestbook comment moderation (' . uniqid() . ')';
@@ -94,19 +94,17 @@ class GeneralOptionsCest {
 		$I->seeCommentInAdminArea( $comment, 'moderated' );
 		// Change to enabled
 		$I->setGuestbookOption( 'general', 'checkbox', '#cgb_ignore_comment_moderation', '1' );
-		// Delete created comment to avoid comment_flood error
-		$I->cli( array( 'db', 'query', 'DELETE FROM wp_comments WHERE comment_approved=0' ) );
 		// Check when enabled
 		// Comment on other page shall require moderation
+		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
 		$I->logout();
 		$comment = 'test comment moderation on sample page (' . uniqid() . ')';
 		$I->addGuestbookComment( $samplePageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->seeElement( '.comment-awaiting-moderation' );
 		$I->seeCommentInAdminArea( $comment, 'moderated' );
-		// Delete created comment to avoid comment_flood error
-		$I->cli( array( 'db', 'query', 'DELETE FROM wp_comments WHERE comment_approved=0' ) );
 		// Comment on guestbook page shall be allowed without moderation
+		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
 		$I->logout();
 		$comment = 'a second test of guestbook comment moderation (' . uniqid() . ')';
 		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
@@ -116,11 +114,37 @@ class GeneralOptionsCest {
 	}
 
 
-	// public function CommentsAdjustment( AcceptanceTester $I ) {
-	// 	$I->wantTo( 'test "Comments adjustment" (cgb_adjust_output)' );
-	// 	$I->see( 'This test is not implemented yet!' );
-	// 	// TODO: implementation missing
-	// }
+	public function CommentsAdjustment( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comments adjustment" (cgb_adjust_output)' );
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
+		$I->allowGuestbookComments( $gbPageId );
+		$I->setPageCommentStatus( $samplePageId, true );
+		// Check when disabled (default)
+		$I->logout();
+		$comment = 'guestbook comment 1 (' . uniqid() . ')';
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->seeCommentInPage( $comment );
+		$I->dontSeeElement( '.cgb-commentlist' );
+		// Change to enabled
+		$I->setGuestbookOption( 'general', 'checkbox', '#cgb_adjust_output', '1' );
+		// Check when enabled
+		// Comments on guestbook page shall show adjusted output
+		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
+		$I->logout();
+		$comment = 'guestbook comment 2 (' . uniqid() . ')';
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->seeCommentInPage( $comment );
+		$I->seeElement( '.cgb-commentlist' );
+		// Comments on other pages shall have the default output
+		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
+		$I->logout();
+		$comment = 'sample page comment (' . uniqid() . ')';
+		$I->addGuestbookComment( $samplePageId, $comment, 'testuser', 'user@test.at' );
+		$I->seeCommentInPage( $comment );
+		$I->dontSeeElement( '.cgb-commentlist' );
+	}
+
 
 	// public function DomainForTranslation( AcceptanceTester $I ) {
 	// 	$I->wantTo( 'test "Domain for translation" (cgb_l10n_domain)' );

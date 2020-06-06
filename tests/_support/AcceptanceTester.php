@@ -123,6 +123,18 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
+	public function deleteGuestbookComment( string $comment_content ) {
+		$I = $this;
+		$I->cli( array( 'db', 'query', 'DELETE FROM wp_comments WHERE comment_content="' . addslashes( $comment_content ) . '"' ) );
+	}
+
+
+	public function updateGuestbookOption( string $option_name, string $option_value ) {
+		$I = $this;
+		$I->cli( array( 'option', 'update', $option_name, $option_value ) );
+	}
+
+
 	public function seeCommentForm( int $pageId ) {
 		$I = $this;
 		$I->amOnGuestbookPage( $pageId );

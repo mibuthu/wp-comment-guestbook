@@ -6,7 +6,15 @@
         "phpcompatibility/php-compatibility": "^9.3",
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "php-stubs/wordpress-stubs": "^5.4",
-        "php-stubs/wordpress-globals": "^0.1.0"
+        "php-stubs/wordpress-globals": "^0.1.0",
+        "lucatume/wp-browser": "^2.5",
+        "codeception/module-asserts": "^1.0",
+        "codeception/module-phpbrowser": "^1.0",
+        "codeception/module-webdriver": "^1.0",
+        "codeception/module-db": "^1.0",
+        "codeception/module-filesystem": "^1.0",
+        "codeception/module-cli": "^1.0",
+        "codeception/util-universalframework": "^1.0"
     },
     "require": {}
 }

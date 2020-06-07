@@ -9,7 +9,7 @@
  */
 
 // Class
-class GeneralOptionsCest {
+class GeneralSettingsCest {
 
 
 	public function _before( AcceptanceTester $I ) {

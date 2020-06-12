@@ -90,7 +90,7 @@ class CGB_Options {
 			'cgb_form_remove_mail'            => new CGB_Attribute( '', null, 'comment_form' ),
 			'cgb_form_remove_website'         => new CGB_Attribute( '', null, 'comment_form' ),
 			'cgb_form_comment_label'          => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_title_reply'            => new CGB_Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_title'                  => new CGB_Attribute( 'default', null, 'comment_form' ),
 			'cgb_form_title_reply_to'         => new CGB_Attribute( 'default', null, 'comment_form' ),
 			'cgb_form_notes_before'           => new CGB_Attribute( 'default', null, 'comment_form' ),
 			'cgb_form_notes_after'            => new CGB_Attribute( 'default', null, 'comment_form' ),
@@ -198,6 +198,7 @@ class CGB_Options {
 	 *   cgb_threaded_gb_comments -> cgb_clist_threaded
 	 *   cgb_add_cmessage -> cgb_cmessage_enabled
 	 *   cgb_page_add_cmessage -> cgb_page_cmessage_enabled
+	 *   cgb_form_title_reply -> cgb_form_title
 	 *
 	 * @return void
 	 */
@@ -216,6 +217,11 @@ class CGB_Options {
 		if ( null !== $value ) {
 			add_option( 'cgb_page_cmessage_enabled', $value );
 			delete_option( 'cgb_page_add_cmessage' );
+		}
+		$value = get_option( 'cgb_form_title_reply', null );
+		if ( null !== $value ) {
+			add_option( 'cgb_form_title', $value );
+			delete_option( 'cgb_form_title_reply' );
 		}
 	}
 

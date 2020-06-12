@@ -31,7 +31,7 @@ class CommentFormSettingsCest {
 				'cgb_form_remove_mail'          => '',
 				'cgb_form_remove_website'       => '',
 				'cgb_form_comment_label'        => 'default',
-				'cgb_form_title_reply'          => 'default',
+				'cgb_form_title'                => 'default',
 				'cgb_form_title_reply_to'       => 'default',
 				'cgb_form_notes_before'         => 'default',
 				'cgb_form_notes_after'          => 'default',
@@ -243,6 +243,25 @@ class CommentFormSettingsCest {
 		// Check other page
 		$I->amOnGuestbookPage( $samplePageId );
 		$I->dontSee( $label, 'label[for=comment]' );
+	}
+
+
+	public function FormTitle( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comment form title" (cgb_form_title)' );
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->setPageCommentStatus( $samplePageId, true );
+		// Check when enabled
+		$label = 'Custom title ' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_title', $label );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( $label, '#reply-title' );
+		// Check other page
+		$I->amOnGuestbookPage( $samplePageId );
+		$I->dontSee( $label, '#reply-title' );
 	}
 
 }

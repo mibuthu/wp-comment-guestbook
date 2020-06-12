@@ -326,9 +326,9 @@ class CGB_Comments_Functions {
 		if ( 'default' !== $this->options->get( 'cgb_form_comment_label' ) ) {
 			add_filter( 'comment_form_field_comment', array( &$this, 'comment_field_label_filter' ), 20 );
 		}
-		// title_reply.
-		if ( 'default' !== $this->options->get( 'cgb_form_title_reply' ) ) {
-			$args['title_reply'] = $this->options->get( 'cgb_form_title_reply' );
+		// title.
+		if ( 'default' !== $this->options->get( 'cgb_form_title' ) ) {
+			$args['title_reply'] = $this->options->get( 'cgb_form_title' );
 		}
 		// title_reply_to.
 		if ( 'default' !== $this->options->get( 'cgb_form_title_reply_to' ) ) {

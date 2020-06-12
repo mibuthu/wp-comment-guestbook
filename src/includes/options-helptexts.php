@@ -145,7 +145,7 @@ $cgb_options_helptexts = array(
 			sprintf( __( 'Set the value to %1$s for the wordpress default label. Enter an empty string to hide the label.', 'comment-guestbook' ), '"default"' ),
 	),
 
-	'cgb_form_title_reply'            => array(
+	'cgb_form_title'                  => array(
 		'type'        => 'text',
 		'label'       => __( 'Comment form title', 'comment-guestbook' ),
 		'description' =>

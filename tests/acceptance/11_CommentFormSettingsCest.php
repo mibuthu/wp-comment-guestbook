@@ -266,7 +266,7 @@ class CommentFormSettingsCest {
 
 
 	public function FormTitleReply( AcceptanceTester $I ) {
-		$I->wantTo( 'test "Comment form title" (cgb_form_title_reply_to)' );
+		$I->wantTo( 'test "Comment form title reply" (cgb_form_title_reply_to)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );

@@ -116,17 +116,6 @@ $cgb_options_helptexts = array(
 		),
 	),
 
-	'cgb_add_cmessage'                => array(
-		'type'        => 'checkbox',
-		'label'       => __( 'Message after new comments', 'comment-guestbook' ),
-		'caption'     => __( 'Show a "Thank you" message after a new guestbook comment', 'comment-guestbook' ),
-		'description' => __( 'If this option is enabled a message will be shown after a new comment was made.', 'comment-guestbook' ) . '<br />' .
-			sprintf(
-				__( 'There are many additional options availabe to change the message text and format in the %1$s section.', 'comment-guestbook' ),
-				'"' . __( 'Message after new comments', 'comment-guestbook' ) . '"'
-			),
-	),
-
 	'cgb_form_require_no_name_mail'   => array(
 		'type'        => 'checkbox',
 		'label'       => __( 'Comment author name/email', 'comment-guestbook' ),
@@ -455,6 +444,13 @@ $cgb_options_helptexts = array(
 	),
 
 	// Message after new comment.
+	'cgb_cmessage_enabled'            => array(
+		'type'        => 'checkbox',
+		'label'       => __( 'Enable message', 'comment-guestbook' ),
+		'caption'     => __( 'Add a message after a new guestbook comment', 'comment-guestbook' ),
+		'description' => __( 'If this option is enabled a message will be shown after a new comment was made on a guestbook page.', 'comment-guestbook' ) . '<br />',
+	),
+
 	'cgb_cmessage_text'               => array(
 		'type'        => 'text',
 		'label'       => __( 'Message text', 'comment-guestbook' ),
@@ -504,14 +500,14 @@ $cgb_options_helptexts = array(
 	),
 
 	// Comments in other pages/posts.
-	'cgb_page_add_cmessage'           => array(
+	'cgb_page_cmessage_enabled'       => array(
 		'type'        => 'checkbox',
 		'label'       => __( 'Message after new comments', 'comment-guestbook' ),
 		'caption'     => __( 'Show a "Thank you" message after a new comment', 'comment-guestbook' ),
 		'description' =>
 			__( 'If this option is enabled a message will be shown after a new comment was made.', 'comment-guestbook' ) . '<br />' .
 			sprintf(
-				__( 'There are many additional options availabe to change the message text and format in the %1$s section.', 'comment-guestbook' ),
+				__( 'There are many options to change the message text and format in the %1$s section.', 'comment-guestbook' ),
 				'"' . __( 'Message after new comment', 'comment-guestbook' ) . '"'
 			),
 	),
@@ -554,7 +550,7 @@ $cgb_sections = array(
 			sprintf(
 				__( 'Only the options %1$s, %2$s and all comment form modification options are working without it.', 'comment-guestbook' ),
 				'"' . $cgb_options_helptexts['cgb_form_in_page']['label'] . '"',
-				'"' . $cgb_options_helptexts['cgb_add_cmessage']['label'] . '"'
+				'"' . $cgb_options_helptexts['cgb_cmessage_enabled']['label'] . '"'
 			),
 	),
 	'comment_list'  => array(
@@ -574,17 +570,10 @@ $cgb_sections = array(
 	),
 	'cmessage'      => array(
 		'caption'     => __( 'Message after new comments', 'comment-guestbook' ),
-		'description' => __( 'In this section you can find settings to modify the message after a new comment.', 'comment-guestbook' ) . '<br />' .
+		'description' => __( 'In this section you can enable and modify the message after a new comment.', 'comment-guestbook' ) . '<br />' .
 			sprintf(
-				__(
-					'You can enable the message in %1$s for the guestbook page.',
-					'comment-guestbook'
-				),
-				'"' . __( 'Comment-form settings', 'comment-guestbook' ) . '"'
-			) . '<br />' .
-			sprintf(
-				__( 'This options are also valid for all other posts and pages if you enable the option %1$s in the section %2$s.', 'comment-guestbook' ),
-				'"' . $cgb_options_helptexts['cgb_page_add_cmessage']['label'] . '"',
+				__( 'All modification options are also valid for other posts and pages if the option %1$s in the section %2$s is enabled.', 'comment-guestbook' ),
+				'"' . $cgb_options_helptexts['cgb_page_cmessage_enabled']['label'] . '"',
 				'"' . __( 'Comments in other posts/pages', 'comment-guestbook' ) . '"'
 			),
 	),

@@ -27,7 +27,6 @@ class CommentFormSettingsCest {
 				'cgb_form_in_page'              => '1',
 				'cgb_form_expand_type'          => 'false',
 				'cgb_form_expand_link_text'     => 'Add a new guestbook entry',  // without translation due to english by default.
-				'cgb_add_cmessage'              => '',
 				'cgb_form_require_no_name_mail' => '',
 				'cgb_form_remove_mail'          => '',
 				'cgb_form_remove_website'       => '',

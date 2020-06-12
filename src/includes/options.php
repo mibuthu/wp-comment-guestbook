@@ -86,7 +86,6 @@ class CGB_Options {
 			'cgb_form_in_page'                => new CGB_Attribute( '1', null, 'comment_form' ),
 			'cgb_form_expand_type'            => new CGB_Attribute( 'false', null, 'comment_form' ),
 			'cgb_form_expand_link_text'       => new CGB_Attribute( __( 'Add a new guestbook entry', 'comment-guestbook' ), null, 'comment_form' ),
-			'cgb_add_cmessage'                => new CGB_Attribute( '', null, 'comment_form' ),
 			'cgb_form_require_no_name_mail'   => new CGB_Attribute( '', null, 'comment_form' ),
 			'cgb_form_remove_mail'            => new CGB_Attribute( '', null, 'comment_form' ),
 			'cgb_form_remove_website'         => new CGB_Attribute( '', null, 'comment_form' ),
@@ -118,6 +117,7 @@ class CGB_Options {
 			'cgb_comment_adjust'              => new CGB_Attribute( '', null, 'comment_html' ),
 			'cgb_comment_html'                => new CGB_Attribute( '--func--comment_html', null, 'comment_html' ),
 			// Message after new comment.
+			'cgb_cmessage_enabled'            => new CGB_Attribute( '', null, 'cmessage' ),
 			'cgb_cmessage_text'               => new CGB_Attribute( __( 'Thanks for your comment', 'comment-guestbook' ), null, 'cmessage' ),
 			'cgb_cmessage_type'               => new CGB_Attribute( 'inline', null, 'cmessage' ),
 			'cgb_cmessage_duration'           => new CGB_Attribute( '3000', null, 'cmessage' ),
@@ -134,7 +134,7 @@ class CGB_Options {
 				'cmessage'
 			),
 			// Comments in other pages/posts.
-			'cgb_page_add_cmessage'           => new CGB_Attribute( '', null, 'page_comments' ),
+			'cgb_page_cmessage_enabled'       => new CGB_Attribute( '', null, 'page_comments' ),
 			'cgb_page_remove_mail'            => new CGB_Attribute( '', null, 'page_comments' ),
 			'cgb_page_remove_website'         => new CGB_Attribute( '', null, 'page_comments' ),
 		);
@@ -196,6 +196,8 @@ class CGB_Options {
 	 *
 	 * Version 0.7.3 to 0.7.4:
 	 *   cgb_threaded_gb_comments -> cgb_clist_threaded
+	 *   cgb_add_cmessage -> cgb_cmessage_enabled
+	 *   cgb_page_add_cmessage -> cgb_page_cmessage_enabled
 	 *
 	 * @return void
 	 */
@@ -204,6 +206,16 @@ class CGB_Options {
 		if ( null !== $value ) {
 			add_option( 'cgb_clist_threaded', $value );
 			delete_option( 'cgb_threaded_gb_comments' );
+		}
+		$value = get_option( 'cgb_add_cmessage', null );
+		if ( null !== $value ) {
+			add_option( 'cgb_cmessage_enabled', $value );
+			delete_option( 'cgb_add_cmessage' );
+		}
+		$value = get_option( 'cgb_page_add_cmessage', null );
+		if ( null !== $value ) {
+			add_option( 'cgb_page_cmessage_enabled', $value );
+			delete_option( 'cgb_page_add_cmessage' );
 		}
 	}
 

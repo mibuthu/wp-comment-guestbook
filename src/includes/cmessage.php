@@ -100,8 +100,8 @@ class CGB_CMessage {
 	public function add_cmessage_indicator( $url ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? (bool) intval( $_POST['is_cgb_comment'] ) : false;
-		if ( ( '' !== $this->options->get( 'cgb_page_add_cmessage' ) && ! $is_cgb_comment )
-			|| ( '' !== $this->options->get( 'cgb_add_cmessage' ) && $is_cgb_comment )
+		if ( ( '' !== $this->options->get( 'cgb_page_cmessage_enabled' ) && ! $is_cgb_comment )
+			|| ( '' !== $this->options->get( 'cgb_cmessage_enabled' ) && $is_cgb_comment )
 		) {
 			$url_array       = explode( '#', $url );
 			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';

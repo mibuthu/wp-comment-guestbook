@@ -58,7 +58,7 @@ class CommentFormSettingsCest {
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.commentlist + #respond' );
 		// Change to enabled
-		$I->setGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_below_comments', '1' );
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_below_comments', '1' );
 		// Check when enabled
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -79,7 +79,7 @@ class CommentFormSettingsCest {
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '#respond + .commentlist' );
 		// Change to enabled
-		$I->setGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_above_comments', '1' );
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_above_comments', '1' );
 		// Check when enabled
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -103,7 +103,7 @@ class CommentFormSettingsCest {
 		$I->updateGuestbookOption( 'cgb_form_above_comments', '1' );
 		$I->dontSeeCommentFormInPageArea( $gbPageId );
 		// Change to enabled
-		$I->setGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_in_page', '' );
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_in_page', '' );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '' );
 		$I->updateGuestbookOption( 'cgb_form_above_comments', '' );
 		// Check when enabled
@@ -126,15 +126,15 @@ class CommentFormSettingsCest {
 		$I->dontSee( 'Add a new guestbook entry', 'a' );
 		$I->dontSeeElement( '.entry-content > style' );
 		// Change to 'static'
-		$I->setGuestbookOption( 'comment_form', 'radio', 'cgb_form_expand_type', 'static' );
+		$I->changeGuestbookOption( 'comment_form', 'radio', 'cgb_form_expand_type', 'static' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeElement( '#show-form-1' );
 		$I->seeLink( 'Add a new guestbook entry' );
 		$I->see( 'div.form-wrapper { display:none; }', '.entry-content > style' );
 		// Change to 'animated' and change link text
-		$I->setGuestbookOption( 'comment_form', 'radio', 'cgb_form_expand_type', 'animated' );
-		$I->setGuestbookOption( 'comment_form', 'text', 'cgb_form_expand_link_text', 'Link to show the comment form' );
+		$I->changeGuestbookOption( 'comment_form', 'radio', 'cgb_form_expand_type', 'animated' );
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_expand_link_text', 'Link to show the comment form' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeElement( '#show-form-1' );

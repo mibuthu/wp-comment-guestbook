@@ -141,4 +141,30 @@ class CommentFormSettingsCest {
 		$I->see( 'transition:transform', '.entry-content > style' );
 	}
 
+
+	public function FormRequireNoNameMail( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Form comment author name/email requirement" (cgb_form_require_no_name_mail)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( 'input#author[required=required]' );
+		$I->seeElement( 'input#email[required=required]' );
+		$comment = 'guestbook comment (' . uniqid() . ')';
+		$I->createGuestbookComment( $gbPageId, $comment );
+		$I->dontSeeCommentInPage( $comment );
+		// Change to enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_require_no_name_mail', '1' );
+		// Check when enabled
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->dontSeeElement( 'input#author[required=required]' );
+		$I->dontSeeElement( 'input#email[required=required]' );
+		$comment = 'guestbook comment (' . uniqid() . ')';
+		$I->createGuestbookComment( $gbPageId, $comment );
+		$I->seeCommentInPage( $comment );
+	}
+
 }

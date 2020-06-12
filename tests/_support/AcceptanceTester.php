@@ -136,7 +136,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function addGuestbookComment( int $pageId, string $comment = 'hello guestbook page', string $author = '', string $email = '', string $url = '' ) {
+	public function createGuestbookComment( int $pageId, string $comment = 'hello guestbook page', string $author = '', string $email = '', string $url = '', bool $setCookie = false ) {
 		$I = $this;
 		$I->amOnGuestbookPage( $pageId );
 		$I->seeCommentForm( $pageId );
@@ -144,6 +144,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		'' !== $author ? $I->fillField( '#author', $author ) : null;
 		'' !== $email ? $I->fillField( '#email', $email ) : null;
 		'' !== $url ? $I->fillField( '#url', $url ) : null;
+		$setCookie ? $I->checkOption( '#wp-comment-cookies-consent' ) : null;
 		$I->click( 'form#commentform input[type=submit]' );
 	}
 

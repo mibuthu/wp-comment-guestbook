@@ -54,7 +54,7 @@ class CommentFormSettingsCest {
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.commentlist + #respond' );
 		// Change to enabled
@@ -75,7 +75,7 @@ class CommentFormSettingsCest {
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '#respond + .commentlist' );
 		// Change to enabled
@@ -95,7 +95,7 @@ class CommentFormSettingsCest {
 		// Check when enabled (default)
 		$I->logout();
 		$comment = 'guestbook comment (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->seeCommentFormInPageArea( $gbPageId );
 		// Check when also form above comments is enabled -> no form inside page shall be displayed

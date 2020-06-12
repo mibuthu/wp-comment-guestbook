@@ -43,7 +43,7 @@ class GeneralSettingsCest {
 		// Check when enabled (default)
 		// Comment on guestbook page shall be allowed
 		$comment = 'test guestbook comment status (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		// Comments on other pages shall be forbidden
 		$I->dontSeeCommentFormInPageArea( $samplePageId );
@@ -65,7 +65,7 @@ class GeneralSettingsCest {
 		// Check when enabled (default)
 		// Comment on guestbook page shall be possible
 		$comment = 'test guestbook comment registration (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		// Comment on other pages shall not be allowed
 		$I->dontSeeCommentFormInPageArea( $samplePageId );
@@ -88,7 +88,7 @@ class GeneralSettingsCest {
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'test guestbook comment moderation (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at', '', true );
 		$I->seeCommentInPage( $comment );
 		$I->seeElement( '.comment-awaiting-moderation' );
 		$I->seeCommentInAdminArea( $comment, 'moderated' );
@@ -99,7 +99,7 @@ class GeneralSettingsCest {
 		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
 		$I->logout();
 		$comment = 'test comment moderation on sample page (' . uniqid() . ')';
-		$I->addGuestbookComment( $samplePageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $samplePageId, $comment, 'testuser', 'user@test.at', '', true );
 		$I->seeCommentInPage( $comment );
 		$I->seeElement( '.comment-awaiting-moderation' );
 		$I->seeCommentInAdminArea( $comment, 'moderated' );
@@ -107,7 +107,7 @@ class GeneralSettingsCest {
 		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
 		$I->logout();
 		$comment = 'a second test of guestbook comment moderation (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at', '', true );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.comment-awaiting-moderation' );
 		$I->seeCommentInAdminArea( $comment, 'approved' );
@@ -123,7 +123,7 @@ class GeneralSettingsCest {
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment 1 (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.cgb-commentlist' );
 		// Change to enabled
@@ -133,14 +133,14 @@ class GeneralSettingsCest {
 		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
 		$I->logout();
 		$comment = 'guestbook comment 2 (' . uniqid() . ')';
-		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->seeElement( '.cgb-commentlist' );
 		// Comments on other pages shall have the default output
 		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
 		$I->logout();
 		$comment = 'sample page comment (' . uniqid() . ')';
-		$I->addGuestbookComment( $samplePageId, $comment, 'testuser', 'user@test.at' );
+		$I->createGuestbookComment( $samplePageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.cgb-commentlist' );
 	}

@@ -56,9 +56,8 @@ class CommentFormSettingsCest {
 		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.commentlist + #respond' );
-		// Change to enabled
-		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_below_comments', '1' );
 		// Check when enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_below_comments', '1' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeCommentInPage( $comment );
@@ -77,9 +76,8 @@ class CommentFormSettingsCest {
 		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '#respond + .commentlist' );
-		// Change to enabled
-		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_above_comments', '1' );
 		// Check when enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_above_comments', '1' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeCommentInPage( $comment );
@@ -157,9 +155,8 @@ class CommentFormSettingsCest {
 		$comment = 'guestbook comment (' . uniqid() . ')';
 		$I->createGuestbookComment( $gbPageId, $comment );
 		$I->dontSeeCommentInPage( $comment );
-		// Change to enabled
-		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_require_no_name_mail', '1' );
 		// Check when enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_require_no_name_mail', '1' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->dontSeeElement( 'input#author[required=required]' );
@@ -191,12 +188,11 @@ class CommentFormSettingsCest {
 		$comment = 'guestbook comment (' . uniqid() . ')';
 		$I->createGuestbookComment( $gbPageId, $comment, 'testuser' );
 		$I->dontSeeCommentInPage( $comment );
-		// Change to enabled
-		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_remove_mail', '1' );
 		// Check when enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_remove_mail', '1' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
-		$I->dontSeeElement( 'input#email[required=required]' );
+		$I->dontSeeElement( 'input#email' );
 		$comment = 'guestbook comment (' . uniqid() . ')';
 		$I->createGuestbookComment( $gbPageId, $comment, 'testuser' );
 		$I->seeCommentInPage( $comment );
@@ -206,6 +202,28 @@ class CommentFormSettingsCest {
 		$comment = 'sample page comment (' . uniqid() . ')';
 		$I->createGuestbookComment( $samplePageId, $comment, 'testuser' );
 		$I->dontSeeCommentInPage( $comment );
+	}
+
+
+	public function FormRemoveWebsite( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Remove website field" (cgb_form_remove_website)' );
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->setPageCommentStatus( $samplePageId, true );
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( 'input#url' );
+		// Check when enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_remove_website', '1' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->dontSeeElement( 'input#url' );
+		// Check other page
+		$I->amOnGuestbookPage( $samplePageId );
+		$I->seeElement( 'input#url' );
 	}
 
 }

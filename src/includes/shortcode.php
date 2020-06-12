@@ -134,7 +134,6 @@ class CGB_Shortcode {
 		// Filter to add comment id fields to identify required filters.
 		add_filter( 'comment_id_fields', array( &$this, 'filter_comment_id_fields' ) );
 	}
-	}
 
 
 	/**

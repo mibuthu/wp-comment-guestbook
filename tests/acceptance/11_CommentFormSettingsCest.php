@@ -144,9 +144,11 @@ class CommentFormSettingsCest {
 
 	public function FormRequireNoNameMail( AcceptanceTester $I ) {
 		$I->wantTo( 'test "Form comment author name/email requirement" (cgb_form_require_no_name_mail)' );
-		$gbPageId = $I->createGuestbookPage();
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->setPageCommentStatus( $samplePageId, true );
 		// Check when disabled (default)
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -165,6 +167,45 @@ class CommentFormSettingsCest {
 		$comment = 'guestbook comment (' . uniqid() . ')';
 		$I->createGuestbookComment( $gbPageId, $comment );
 		$I->seeCommentInPage( $comment );
+		// Check other page
+		$I->amOnGuestbookPage( $samplePageId );
+		$I->seeElement( 'input#author[required=required]' );
+		$I->seeElement( 'input#email[required=required]' );
+		$comment = 'sample page comment (' . uniqid() . ')';
+		$I->createGuestbookComment( $samplePageId, $comment );
+		$I->dontSeeCommentInPage( $comment );
+	}
+
+
+	public function FormRemoveEmail( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Remove email field" (cgb_form_remove_mail)' );
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->setPageCommentStatus( $samplePageId, true );
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( 'input#email[required=required]' );
+		$comment = 'guestbook comment (' . uniqid() . ')';
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser' );
+		$I->dontSeeCommentInPage( $comment );
+		// Change to enabled
+		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_remove_mail', '1' );
+		// Check when enabled
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->dontSeeElement( 'input#email[required=required]' );
+		$comment = 'guestbook comment (' . uniqid() . ')';
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser' );
+		$I->seeCommentInPage( $comment );
+		// Check other page
+		$I->amOnGuestbookPage( $samplePageId );
+		$I->seeElement( 'input#email[required=required]' );
+		$comment = 'sample page comment (' . uniqid() . ')';
+		$I->createGuestbookComment( $samplePageId, $comment, 'testuser' );
+		$I->dontSeeCommentInPage( $comment );
 	}
 
 }

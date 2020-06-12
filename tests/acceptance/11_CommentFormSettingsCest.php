@@ -226,4 +226,23 @@ class CommentFormSettingsCest {
 		$I->seeElement( 'input#url' );
 	}
 
+
+	public function FormCommentLabel( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Label for comment field" (cgb_form_comment_label)' );
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->setPageCommentStatus( $samplePageId, true );
+		// Check when enabled
+		$label = 'Custom Label ' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_comment_label', $label );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( $label, 'label[for=comment]' );
+		// Check other page
+		$I->amOnGuestbookPage( $samplePageId );
+		$I->dontSee( $label, 'label[for=comment]' );
+	}
+
 }

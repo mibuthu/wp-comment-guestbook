@@ -83,7 +83,6 @@ class CGB_CommentGuestbook {
 				if ( $post instanceof WP_Post && (bool) strpos( $post->post_content, '[comment-guestbook]' ) ) {
 					require_once CGB_PATH . 'includes/filters.php';
 					new CGB_Filters( 'after_new_comment' );
-					add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
 					add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 				}
 			}
@@ -137,39 +136,6 @@ class CGB_CommentGuestbook {
 	public function widget_init() {
 		require_once CGB_PATH . 'includes/widget.php';
 		register_widget( 'CGB_Widget' );
-	}
-
-
-	/**
-	 * Filter to override email requirement for a new comment if the email field is removed.
-	 *
-	 * @param string $option_value The actual value of the option "require_name_email".
-	 * @return string
-	 */
-	public function filter_require_name_email( $option_value ) {
-		// Check if the given wp-option is enabled.
-		// Use the given default value.
-		if ( empty( $option_value ) ) {
-			return $option_value;
-		}
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$is_cgb_comment = ( isset( $_POST['is_cgb_comment'] ) && isset( $_POST['comment_post_ID'] ) && $_POST['is_cgb_comment'] === $_POST['comment_post_ID'] );
-		// Check if the "require name, email" option is disabled for comment-guestbook comments.
-		if ( $is_cgb_comment && (bool) $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
-			return '';
-		}
-		// Check if the plugin options require an override.
-		if ( ( $is_cgb_comment && (bool) $this->options->get( 'cgb_form_remove_mail' ) ) || (bool) $this->options->get( 'cgb_page_remove_mail' ) ) {
-			$user = wp_get_current_user();
-			// Check if the user is logged in and if a valid author name is given.
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$author = isset( $_POST['author'] ) ? sanitize_title( stripslashes_deep( $_POST['author'] ) ) : '';
-			if ( ! $user->exists() && ! empty( $author ) ) {
-				// Override value.
-				return '';
-			}
-		}
-		return $option_value;
 	}
 
 

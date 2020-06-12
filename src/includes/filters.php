@@ -56,6 +56,7 @@ class CGB_Filters {
 		add_filter( 'comments_open', array( &$this, 'filter_comments_open' ), 50, 2 );
 		add_filter( 'option_comment_registration', array( &$this, 'filter_ignore_comment_registration' ) );
 		add_filter( 'option_comment_moderation', array( &$this, 'filter_ignore_comment_moderation' ) );
+		add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
 	}
 
 
@@ -97,6 +98,37 @@ class CGB_Filters {
 	public function filter_ignore_comment_moderation( $option_value ) {
 		if ( $this->options->get( 'cgb_ignore_comment_moderation' ) ) {
 			return false;
+		}
+		return $option_value;
+	}
+
+
+	/**
+	 * Filter to override email requirement for a new comment if the email field is removed.
+	 *
+	 * @param string $option_value The actual value of the option "require_name_email".
+	 * @return string
+	 */
+	public function filter_require_name_email( $option_value ) {
+		// Check if the given wp-option is enabled.
+		// Use the given default value.
+		if ( empty( $option_value ) ) {
+			return $option_value;
+		}
+		// Check if the "require name, email" option is disabled for comment-guestbook comments.
+		if ( (bool) $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
+			return '';
+		}
+		// Check if the plugin options require an override.
+		if ( (bool) $this->options->get( 'cgb_form_remove_mail' ) || (bool) $this->options->get( 'cgb_page_remove_mail' ) ) {
+			$user = wp_get_current_user();
+			// Check if the user is logged in and if a valid author name is given.
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$author = isset( $_POST['author'] ) ? sanitize_title( stripslashes_deep( $_POST['author'] ) ) : '';
+			if ( ! $user->exists() && ! empty( $author ) ) {
+				// Override value.
+				return '';
+			}
 		}
 		return $option_value;
 	}

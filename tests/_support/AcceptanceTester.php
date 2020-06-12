@@ -84,17 +84,42 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function setGuestbookOption( string $section, string $input_type, string $option, string $newValue ) {
+	public function changeGuestbookOption( string $section, string $input_type, string $option, string $newValue ) {
 		$I = $this;
 		$I->amOnGuestbookOptions( $section );
+		$verify = null;
 		switch ( $input_type ) {
 			case 'checkbox':
-				'' === $newValue ? $I->uncheckOption( $option ) : $I->checkOption( $option );
-				$I->click( 'form[name=cgb-' . $section . '-settings] input[type=submit]' );
-				$I->see( 'Settings saved.', '#setting-error-settings_updated' );
-				'' === $newValue ? $I->dontSeeCheckboxIsChecked( $option ) : $I->seeCheckboxIsChecked( $option );
+				$selector = '#' === substr( $option, 0, 1 ) ? $option : '#' . $option;
+				if ( empty( $newValue ) ) {
+					$I->uncheckOption( $selector );
+					$verify = function () use ( &$I, $selector, $newValue ) {
+						$I->dontSeeCheckboxIsChecked( $selector );
+					};
+				} else {
+					$I->checkOption( $selector );
+					$verify = function() use ( &$I, $selector, $newValue ) {
+						$I->seeCheckboxIsChecked( $selector );
+					};
+				}
 				break;
+			case 'radio':
+				$selector = 'input[name=' . $option . ']';
+				$I->selectOption( $selector, $newValue );
+				$verify = function() use ( &$I, $selector, $newValue ) {
+					$I->seeOptionIsSelected( $selector, $newValue );
+				};
+				break;
+			case 'text':
+				$selector = '#' === substr( $option, 0, 1 ) ? $option : '#' . $option;
+				$I->fillField( $selector, $newValue );
+				$verify = function() use ( &$I, $selector, $newValue ) {
+					$I->seeInField( $selector, $newValue );
+				};
 		}
+		$I->click( 'form[name=cgb-' . $section . '-settings] input[type=submit]' );
+		$I->see( 'Settings saved.', '#setting-error-settings_updated' );
+		$verify();
 	}
 
 

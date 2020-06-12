@@ -58,7 +58,7 @@ class CommentFormSettingsCest {
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.commentlist + #respond' );
 		// Change to enabled
-		$I->setGuestbookOption( 'comment_form', 'checkbox', '#cgb_form_below_comments', '1' );
+		$I->setGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_below_comments', '1' );
 		// Check when enabled
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -79,7 +79,7 @@ class CommentFormSettingsCest {
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '#respond + .commentlist' );
 		// Change to enabled
-		$I->setGuestbookOption( 'comment_form', 'checkbox', '#cgb_form_above_comments', '1' );
+		$I->setGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_above_comments', '1' );
 		// Check when enabled
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -103,7 +103,7 @@ class CommentFormSettingsCest {
 		$I->updateGuestbookOption( 'cgb_form_above_comments', '1' );
 		$I->dontSeeCommentFormInPageArea( $gbPageId );
 		// Change to enabled
-		$I->setGuestbookOption( 'comment_form', 'checkbox', '#cgb_form_in_page', '' );
+		$I->setGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_in_page', '' );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '' );
 		$I->updateGuestbookOption( 'cgb_form_above_comments', '' );
 		// Check when enabled
@@ -111,6 +111,35 @@ class CommentFormSettingsCest {
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeCommentFormInPageArea( $gbPageId );
+	}
+
+
+	public function FormExpand( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Form the form expand type and link text" (cgb_form_expand_type, cgb_form_expand_link_text)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		// Check not collapsed form (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->dontSeeElement( '#show-form-1' );
+		$I->dontSee( 'Add a new guestbook entry', 'a' );
+		$I->dontSeeElement( '.entry-content > style' );
+		// Change to 'static'
+		$I->setGuestbookOption( 'comment_form', 'radio', 'cgb_form_expand_type', 'static' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#show-form-1' );
+		$I->seeLink( 'Add a new guestbook entry' );
+		$I->see( 'div.form-wrapper { display:none; }', '.entry-content > style' );
+		// Change to 'animated' and change link text
+		$I->setGuestbookOption( 'comment_form', 'radio', 'cgb_form_expand_type', 'animated' );
+		$I->setGuestbookOption( 'comment_form', 'text', 'cgb_form_expand_link_text', 'Link to show the comment form' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#show-form-1' );
+		$I->seeLink( 'Link to show the comment form' );
+		$I->see( 'transition:transform', '.entry-content > style' );
 	}
 
 }

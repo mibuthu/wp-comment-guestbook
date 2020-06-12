@@ -48,7 +48,7 @@ class GeneralSettingsCest {
 		// Comments on other pages shall be forbidden
 		$I->dontSeeCommentFormInPageArea( $samplePageId );
 		// Change to disabled
-		$I->setGuestbookOption( 'general', 'checkbox', '#cgb_ignore_comments_open', '' );
+		$I->changeGuestbookOption( 'general', 'checkbox', 'cgb_ignore_comments_open', '' );
 		// Check when disabled
 		$I->dontSeeCommentFormInPageArea( $gbPageId );
 	}
@@ -70,7 +70,7 @@ class GeneralSettingsCest {
 		// Comment on other pages shall not be allowed
 		$I->dontSeeCommentFormInPageArea( $samplePageId );
 		// Change to disabled
-		$I->setGuestbookOption( 'general', 'checkbox', '#cgb_ignore_comment_registration', '' );
+		$I->changeGuestbookOption( 'general', 'checkbox', 'cgb_ignore_comment_registration', '' );
 		$I->logout();
 		// Check when disabled
 		$I->dontSeeCommentFormInPageArea( $gbPageId );
@@ -93,7 +93,7 @@ class GeneralSettingsCest {
 		$I->seeElement( '.comment-awaiting-moderation' );
 		$I->seeCommentInAdminArea( $comment, 'moderated' );
 		// Change to enabled
-		$I->setGuestbookOption( 'general', 'checkbox', '#cgb_ignore_comment_moderation', '1' );
+		$I->changeGuestbookOption( 'general', 'checkbox', 'cgb_ignore_comment_moderation', '1' );
 		// Check when enabled
 		// Comment on other page shall require moderation
 		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error
@@ -127,7 +127,7 @@ class GeneralSettingsCest {
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.cgb-commentlist' );
 		// Change to enabled
-		$I->setGuestbookOption( 'general', 'checkbox', '#cgb_adjust_output', '1' );
+		$I->changeGuestbookOption( 'general', 'checkbox', 'cgb_adjust_output', '1' );
 		// Check when enabled
 		// Comments on guestbook page shall show adjusted output
 		$I->deleteGuestbookComment( $comment );  // to avoid comment_flood error

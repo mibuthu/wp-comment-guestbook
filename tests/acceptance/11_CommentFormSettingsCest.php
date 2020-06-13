@@ -283,4 +283,69 @@ class CommentFormSettingsCest {
 		$I->see( $label, '#reply-title' );
 	}
 
+
+	public function FormNotes( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Notes before and after the form fields" (cgb_form_notes_before, cgb_form_notes_after)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		// Check when enabled
+		$before = 'Notes before form fields ' . uniqid();
+		$after  = 'Notes after form fields ' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_notes_before', '<div>' . $before . '</div>' );
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_notes_after', '<div>' . $after . '</div>' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( $before, '#commentform > div' );
+		$I->see( $after, '#commentform > div' );
+	}
+
+
+	public function FormLabelSubmit( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Label of submit button" (cgb_form_label_submit)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		// Check when enabled
+		$label = 'Submit button label ' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_label_submit', $label );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( 'form#commentform input#submit[value="' . $label . '"]' );
+	}
+
+
+	public function FormLabelCancelReply( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Label for cancel reply link" (cgb_form_cancel_reply)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$comment = 'guestbook comment ' . uniqid();
+		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->seeCommentInPage( $comment );
+		// Check when enabled
+		$label = 'Cancel reply label ' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_cancel_reply', $label );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->click( '.reply > .comment-reply-link' );
+		$I->see( $label, '#cancel-comment-reply-link' );
+	}
+
+
+	public function FormMustLoginMessage( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Must login message" (cgb_form_must_login_message)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateGuestbookOption( 'cgb_ignore_comment_registration', '' );
+		$I->updateGuestbookOption( 'comment_registration', '1' );
+		// Check when enabled
+		$message = 'Must login message ' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_must_login_message', '<div>' . $message . '</div>' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( $message, '#respond div' );
+	}
+
 }

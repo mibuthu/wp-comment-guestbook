@@ -348,4 +348,33 @@ class CommentFormSettingsCest {
 		$I->see( $message, '#respond div' );
 	}
 
+
+	public function FormStyles( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comment form styles" (cgb_form_styles)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		// Check when enabled
+		$styles = '#commentform { color:aquamarine; font-family:' . uniqid() . '; }';
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_styles', $styles );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( $styles, '.entry-content > style' );
+	}
+
+
+	public function FormArgs( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comment form args" (cgb_form_args)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		// Check when enabled
+		$formId = 'form-id-' . uniqid();
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_args', 'array("id_form" => "' . $formId . '")' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->dontSeeElement( '#commentform' );
+		$I->seeElement( '#' . $formId );
+	}
+
 }

@@ -150,6 +150,28 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
+	public function createGuestbookComment( int $pageId, string $comment, string $author = '', string $email = '', string $url = '', array $cliOptions = array() ) {
+		$I         = $this;
+		$ret       = $I->cliToString(
+			array_merge(
+				array(
+					'comment',
+					'create',
+					'--comment_post_ID=' . $pageId,
+					'--comment_content=' . $comment,
+					'--comment_author=' . $author,
+					'--comment_author_email=' . $email,
+					'--comment_author_url=' . $url,
+					'--porcelain',
+				),
+				$cliOptions
+			)
+		);
+		$commentId = intval( $ret );
+		return $commentId;
+	}
+
+
 	public function deleteGuestbookComment( string $comment_content ) {
 		$I = $this;
 		$I->cli( array( 'db', 'query', 'DELETE FROM wp_comments WHERE comment_content="' . addslashes( $comment_content ) . '"' ) );

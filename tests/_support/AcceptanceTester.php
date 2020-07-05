@@ -44,11 +44,12 @@ class AcceptanceTester extends \Codeception\Actor {
 					'--post_content=<p>before the shortcode</p>[comment-guestbook]<p>after the shortcode</p>',
 					'--post_status=publish',
 					'--comment_status=' . ( $commentStatus ? 'open' : 'closed' ),
+					'--porcelain',
 				),
 				$cliOptions
 			)
 		);
-		$pageId = intval( preg_replace( '/\D/', '', $ret ) );
+		$pageId = intval( $ret );
 		return $pageId;
 	}
 

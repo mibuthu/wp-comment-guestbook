@@ -137,7 +137,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function createGuestbookComment( int $pageId, string $comment = 'hello guestbook page', string $author = '', string $email = '', string $url = '', bool $setCookie = false ) {
+	public function addGuestbookComment( int $pageId, string $comment = 'hello guestbook page', string $author = '', string $email = '', string $url = '', bool $setCookie = false ) {
 		$I = $this;
 		$I->amOnGuestbookPage( $pageId );
 		$I->seeCommentForm( $pageId );

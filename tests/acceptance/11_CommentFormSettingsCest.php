@@ -53,7 +53,7 @@ class CommentFormSettingsCest {
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '.commentlist + #respond' );
 		// Check when enabled
@@ -73,7 +73,7 @@ class CommentFormSettingsCest {
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->dontSeeElement( '#respond + .commentlist' );
 		// Check when enabled
@@ -92,7 +92,7 @@ class CommentFormSettingsCest {
 		// Check when enabled (default)
 		$I->logout();
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		$I->seeCommentFormInPageArea( $gbPageId );
 		// Check when also form above comments is enabled -> no form inside page shall be displayed
@@ -153,7 +153,7 @@ class CommentFormSettingsCest {
 		$I->seeElement( 'input#author[required=required]' );
 		$I->seeElement( 'input#email[required=required]' );
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment );
+		$I->addGuestbookComment( $gbPageId, $comment );
 		$I->dontSeeCommentInPage( $comment );
 		// Check when enabled
 		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_require_no_name_mail', '1' );
@@ -162,14 +162,14 @@ class CommentFormSettingsCest {
 		$I->dontSeeElement( 'input#author[required=required]' );
 		$I->dontSeeElement( 'input#email[required=required]' );
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment );
+		$I->addGuestbookComment( $gbPageId, $comment );
 		$I->seeCommentInPage( $comment );
 		// Check other page
 		$I->amOnGuestbookPage( $samplePageId );
 		$I->seeElement( 'input#author[required=required]' );
 		$I->seeElement( 'input#email[required=required]' );
 		$comment = 'sample page comment (' . uniqid() . ')';
-		$I->createGuestbookComment( $samplePageId, $comment );
+		$I->addGuestbookComment( $samplePageId, $comment );
 		$I->dontSeeCommentInPage( $comment );
 	}
 
@@ -186,7 +186,7 @@ class CommentFormSettingsCest {
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeElement( 'input#email[required=required]' );
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser' );
 		$I->dontSeeCommentInPage( $comment );
 		// Check when enabled
 		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_remove_mail', '1' );
@@ -194,13 +194,13 @@ class CommentFormSettingsCest {
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->dontSeeElement( 'input#email' );
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser' );
 		$I->seeCommentInPage( $comment );
 		// Check other page
 		$I->amOnGuestbookPage( $samplePageId );
 		$I->seeElement( 'input#email[required=required]' );
 		$comment = 'sample page comment (' . uniqid() . ')';
-		$I->createGuestbookComment( $samplePageId, $comment, 'testuser' );
+		$I->addGuestbookComment( $samplePageId, $comment, 'testuser' );
 		$I->dontSeeCommentInPage( $comment );
 	}
 
@@ -271,7 +271,7 @@ class CommentFormSettingsCest {
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		// Check when enabled
 		$label = 'Custom title ' . uniqid();
@@ -321,7 +321,7 @@ class CommentFormSettingsCest {
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
 		$comment = 'guestbook comment ' . uniqid();
-		$I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
 		// Check when enabled
 		$label = 'Cancel reply label ' . uniqid();

@@ -127,10 +127,8 @@ class CGB_Comments_Functions {
 			$args['reverse_top_level'] = false;
 		}
 		// Fix order of child comments.
-		if ( 'desc' === $this->options->get( 'cgb_clist_child_order' ) ) {
+		if ( '1' === $this->options->get( 'cgb_clist_child_order_desc' ) ) {
 			$args['reverse_children'] = true;
-		} elseif ( 'asc' === $this->options->get( 'cgb_clist_child_order' ) ) {
-			$args['reverse_children'] = false;
 		}
 		// Change child order if top level order is desc due to array_reverse.
 		if ( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {

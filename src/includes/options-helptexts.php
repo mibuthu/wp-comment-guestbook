@@ -261,15 +261,11 @@ $cgb_options_helptexts = array(
 		'description' => __( 'This option allows you to override the standard order for top level comments for the guestbook pages.', 'comment-guestbook' ),
 	),
 
-	'cgb_clist_child_order'           => array(
-		'type'        => 'radio',
+	'cgb_clist_child_order_desc'      => array(
+		'type'        => 'checkbox',
 		'label'       => __( 'Comment list child order', 'comment-guestbook' ),
-		'captions'    => array(
-			'default' => 'Standard WP-discussion setting',
-			'asc'     => 'Oldest child comments first',
-			'desc'    => 'Newest child comments first',
-		),
-		'description' => __( 'This option allows you to override the standard order for all child comments for the guestbook pages.', 'comment-guestbook' ),
+		'caption'     => 'Newest child comments first',
+		'description' => __( 'This option allows you to override the standard order (oldest first) for all child comments on guestbook pages.', 'comment-guestbook' ),
 	),
 
 	'cgb_clist_default_page'          => array(

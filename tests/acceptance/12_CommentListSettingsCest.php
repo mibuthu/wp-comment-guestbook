@@ -22,19 +22,19 @@ class CommentListSettingsCest {
 		$I->seeInFormFields(
 			'form[name=cgb-comment_list-settings]',
 			array(
-				'cgb_clist_threaded'        => 'default',
-				'cgb_clist_order'           => 'default',
-				'cgb_clist_child_order'     => 'default',
-				'cgb_clist_default_page'    => 'default',
-				'cgb_clist_pagination'      => 'default',
-				'cgb_clist_per_page'        => '0',
-				'cgb_clist_show_all'        => '',
-				'cgb_clist_num_pagination'  => '',
-				'cgb_clist_title'           => '',
-				'cgb_clist_in_page_content' => '',
-				'cgb_comment_callback'      => '',  // empty value seem to work here
-				'cgb_clist_styles'          => '',
-				'cgb_clist_args'            => '',
+				'cgb_clist_threaded'         => 'default',
+				'cgb_clist_order'            => 'default',
+				'cgb_clist_child_order_desc' => '',
+				'cgb_clist_default_page'     => 'default',
+				'cgb_clist_pagination'       => 'default',
+				'cgb_clist_per_page'         => '0',
+				'cgb_clist_show_all'         => '',
+				'cgb_clist_num_pagination'   => '',
+				'cgb_clist_title'            => '',
+				'cgb_clist_in_page_content'  => '',
+				'cgb_comment_callback'       => '',  // empty value seem to work here
+				'cgb_clist_styles'           => '',
+				'cgb_clist_args'             => '',
 			)
 		);
 	}

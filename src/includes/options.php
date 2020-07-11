@@ -102,7 +102,7 @@ class CGB_Options {
 			// Comment list.
 			'cgb_clist_threaded'              => new CGB_Attribute( 'default', null, 'comment_list' ),
 			'cgb_clist_order'                 => new CGB_Attribute( 'default', null, 'comment_list' ),
-			'cgb_clist_child_order'           => new CGB_Attribute( 'default', null, 'comment_list' ),
+			'cgb_clist_child_order_desc'      => new CGB_Attribute( '', null, 'comment_list' ),
 			'cgb_clist_default_page'          => new CGB_Attribute( 'default', null, 'comment_list' ),
 			'cgb_clist_pagination'            => new CGB_Attribute( 'default', null, 'comment_list' ),
 			'cgb_clist_per_page'              => new CGB_Attribute( '0', null, 'comment_list' ),
@@ -199,6 +199,7 @@ class CGB_Options {
 	 *   cgb_add_cmessage -> cgb_cmessage_enabled
 	 *   cgb_page_add_cmessage -> cgb_page_cmessage_enabled
 	 *   cgb_form_title_reply -> cgb_form_title
+	 *   cgb_clist_child_order (radio) -> cgb_clist_child_order_desc (checkbox)
 	 *
 	 * @return void
 	 */
@@ -222,6 +223,13 @@ class CGB_Options {
 		if ( null !== $value ) {
 			add_option( 'cgb_form_title', $value );
 			delete_option( 'cgb_form_title_reply' );
+		}
+		$value = get_option( 'cgb_clist_child_order, null' );
+		if ( null !== $value ) {
+			if ( 'desc' === $value ) {
+				add_option( 'cgb_clist_child_order_desc', 1 );
+			}
+			delete_option( 'cgb_clist_child_order' );
 		}
 	}
 

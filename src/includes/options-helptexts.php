@@ -246,7 +246,7 @@ $cgb_options_helptexts = array(
 			'disabled' => __( 'Disabled', 'comment-guestbook' ),
 		),
 		'description' =>
-			__( 'With this option the WordPress standard setting for threaded comments can be overruled for the guestbook page. If enabled a reply to a available comment is allowed, when disabled it isn´t.', 'comment-guestbook' ) . '<br />' .
+			__( 'With this option the WordPress standard setting for threaded comments can be overruled on guestbook pages. If enabled a reply to a available comment is allowed, when disabled it isn´t.', 'comment-guestbook' ) . '<br />' .
 			__( 'You can define the allowed depth of threaded comments in the WordPress discussion settings. There also the corresponding WordPress standard value for all comments can be changed.', 'comment-guestbook' ),
 	),
 
@@ -258,7 +258,7 @@ $cgb_options_helptexts = array(
 			'asc'     => 'Oldest comments first',
 			'desc'    => 'Newest comments first',
 		),
-		'description' => __( 'This option allows you to override the standard order for top level comments for the guestbook pages.', 'comment-guestbook' ),
+		'description' => __( 'This option allows you to override the standard order for top level comments on guestbook pages.', 'comment-guestbook' ),
 	),
 
 	'cgb_clist_child_order_desc'      => array(
@@ -276,7 +276,7 @@ $cgb_options_helptexts = array(
 			'first'   => 'First page',
 			'last'    => 'Last page',
 		),
-		'description' => __( 'This option allows you to override the standard default page for the guestbook pages.', 'comment-guestbook' ),
+		'description' => __( 'This option allows you to override the standard default page on guestbook pages.', 'comment-guestbook' ),
 	),
 
 	'cgb_clist_pagination'            => array(
@@ -287,7 +287,7 @@ $cgb_options_helptexts = array(
 			'false'   => __( 'Disable pagination', 'comment-guestbook' ),
 			'true'    => __( 'Enable pagination', 'comment-guestbook' ),
 		),
-		'description' => __( 'With this option you to override the WordPress default setting for the guestbook page if the comments shall be broken into pages.', 'comment-guestbook' ),
+		'description' => __( 'With this option you to override the WordPress default setting on guestbook pages if the comments shall be broken into pages.', 'comment-guestbook' ),
 	),
 
 	'cgb_clist_per_page'              => array(
@@ -295,7 +295,7 @@ $cgb_options_helptexts = array(
 		'label'       => __( 'Comments per page', 'comment-guestbook' ),
 		'range'       => array( 'min_value' => '0' ),
 		'description' =>
-			__( 'This option allows you to override the standard number of comments listed per page for the guestbook pages (if pagination is enabled).', 'comment-guestbook' ) . '<br />' .
+			__( 'This option allows you to override the standard number of comments listed per page on guestbook pages, if pagination is enabled.', 'comment-guestbook' ) . '<br />' .
 			sprintf(
 				__( 'The default value is %1$s to use the WordPress default setting (see %2$s).', 'comment-guestbook' ),
 				'"0"',
@@ -309,7 +309,7 @@ $cgb_options_helptexts = array(
 		'caption'     => __( 'Show comments of all posts and pages', 'comment-guestbook' ),
 		'description' =>
 			__( 'Normally only the comments of the actual guestbook site are shown.', 'comment-guestbook' ) . '<br />' .
-			__( 'But with this option you can enable to show the comments of all posts and pages on the guestbook pages.', 'comment-guestbook' ) . '<br />' .
+			__( 'But with this option you can enable to show the comments of all posts and pages on guestbook pages.', 'comment-guestbook' ) . '<br />' .
 			__( 'It is recommended to enable "Comment Adjustment" in Section "Comment html code" if you enable this option.', 'comment-guestbook' ) . '<br />' .
 			__( 'There you have the possibility to include a reference to the original page/post in the comment html code.', 'comment-guestbook' ),
 	),

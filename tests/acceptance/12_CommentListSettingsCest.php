@@ -74,4 +74,81 @@ class CommentListSettingsCest {
 		$I->dontSee( $childComment, '.comment .children .comment' );
 	}
 
+
+	public function CListOrder( AcceptanceTester $I ) {
+		$I->wantTO( 'test "Comment list order" (cgb_clist_order' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$firstComment    = 'First comment ' . uniqid();
+		$secondComment   = 'Second comment ' . uniqid();
+		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ) );
+		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at' );
+		// Check default option with WordPress setting oldest first
+		$I->cli( array( 'option', 'update', 'comment_order', 'asc' ) );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $firstCommentId . '~#li-comment-' . $secondCommentId );
+		// Check default option with WordPress setting newest first
+		$I->cli( array( 'option', 'update', 'comment_order', 'desc' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $secondCommentId . '~#li-comment-' . $firstCommentId );
+		// Check with oldest first
+		$I->changeGuestbookOption( 'comment_list', 'radio', 'cgb_clist_order', 'asc' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $firstCommentId . '~#li-comment-' . $secondCommentId );
+		// Check with newest first
+		$I->changeGuestbookOption( 'comment_list', 'radio', 'cgb_clist_order', 'desc' );
+		$I->cli( array( 'option', 'update', 'comment_order', 'asc' ) );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $secondCommentId . '~#li-comment-' . $firstCommentId );
+	}
+
+
+	public function CListChildOrderDesc( AcceptanceTester $I ) {
+		$I->wantTO( 'test "Comment list child order" (cgb_clist_child_order_desc' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$parentComment   = 'Parent comment ' . uniqid();
+		$firstComment    = 'First comment ' . uniqid();
+		$secondComment   = 'Second comment ' . uniqid();
+		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at' );
+		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId, '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ) );
+		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId ) );
+		// Check with option disabled (oldest first)
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_child_order_desc', '' );
+		$I->logout();
+		// Check with comment list order default
+		$I->cli( array( 'option', 'update', 'cgb_clist_order', 'default' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $firstCommentId . '~#li-comment-' . $secondCommentId );
+		// Check with comment list order asc
+		$I->cli( array( 'option', 'update', 'cgb_clist_order', 'asc' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $firstCommentId . '~#li-comment-' . $secondCommentId );
+		// Check with comment list order desc
+		$I->cli( array( 'option', 'update', 'cgb_clist_order', 'desc' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $firstCommentId . '~#li-comment-' . $secondCommentId );
+
+		// Check with option enabled (newest first)
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_child_order_desc', '1' );
+		$I->logout();
+		// Check with comment list order default
+		$I->cli( array( 'option', 'update', 'cgb_clist_order', 'default' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $secondCommentId . '~#li-comment-' . $firstCommentId );
+		// Check with comment list order asc
+		$I->cli( array( 'option', 'update', 'cgb_clist_order', 'asc' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $secondCommentId . '~#li-comment-' . $firstCommentId );
+		// Check with comment list order desc
+		$I->cli( array( 'option', 'update', 'cgb_clist_order', 'desc' ) );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $secondCommentId . '~#li-comment-' . $firstCommentId );
+	}
+
 }

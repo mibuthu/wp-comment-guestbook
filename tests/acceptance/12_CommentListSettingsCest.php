@@ -76,7 +76,7 @@ class CommentListSettingsCest {
 
 
 	public function CListOrder( AcceptanceTester $I ) {
-		$I->wantTO( 'test "Comment list order" (cgb_clist_order' );
+		$I->wantTo( 'test "Comment list order" (cgb_clist_order)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
@@ -108,7 +108,7 @@ class CommentListSettingsCest {
 
 
 	public function CListChildOrderDesc( AcceptanceTester $I ) {
-		$I->wantTO( 'test "Comment list child order" (cgb_clist_child_order_desc' );
+		$I->wantTo( 'test "Comment list child order" (cgb_clist_child_order_desc)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );

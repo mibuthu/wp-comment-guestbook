@@ -150,7 +150,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function createGuestbookComment( int $pageId, string $comment, string $author = '', string $email = '', string $url = '', array $cliOptions = array() ) {
+	public function createGuestbookComment( int $pageId, string $comment, string $author = '', string $email = '', string $url = '', array $cliOptions = array() ): int {
 		$I         = $this;
 		$ret       = $I->cliToString(
 			array_merge(

@@ -60,7 +60,7 @@ class GeneralSettingsCest {
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
 		$I->setPageCommentStatus( $samplePageId, true );
-		$I->updateGuestbookOption( 'comment_registration', '1' );
+		$I->updateWPOption( 'comment_registration', '1' );
 		$I->logout();
 		// Check when enabled (default)
 		// Comment on guestbook page shall be possible
@@ -84,7 +84,7 @@ class GeneralSettingsCest {
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
 		$I->setPageCommentStatus( $samplePageId, true );
-		$I->updateGuestbookOption( 'comment_moderation', '1' );
+		$I->updateWPOption( 'comment_moderation', '1' );
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'test guestbook comment moderation (' . uniqid() . ')';

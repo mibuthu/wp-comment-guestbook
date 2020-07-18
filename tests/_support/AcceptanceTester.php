@@ -79,9 +79,9 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I = $this;
 		// set all options to allow comments on the guestbook page
 		$I->setPageCommentStatus( $pageId, true );
-		$I->cli( array( 'option', 'update', 'comment_registration', '' ) );
-		$I->cli( array( 'option', 'update', 'comment_moderation', '' ) );
-		$I->cli( array( 'option', 'update', 'comment_whitelist', '' ) );
+		$I->updateWPOption( 'comment_registration', '' );
+		$I->updateWPOption( 'comment_moderation', '' );
+		$I->updateWPOption( 'comment_whitelist', '' );
 	}
 
 
@@ -178,7 +178,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function updateGuestbookOption( string $option_name, string $option_value ) {
+	public function updateWPOption( string $option_name, string $option_value ) {
 		$I = $this;
 		$I->cli( array( 'option', 'update', $option_name, $option_value ) );
 	}

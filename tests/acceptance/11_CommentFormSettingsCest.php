@@ -49,7 +49,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Form below comments" (cgb_form_below_comments)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment ' . uniqid();
@@ -69,7 +69,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Form above comments" (cgb_form_above_comments)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when disabled (default)
 		$I->logout();
 		$comment = 'guestbook comment ' . uniqid();
@@ -96,13 +96,13 @@ class CommentFormSettingsCest {
 		$I->seeCommentInPage( $comment );
 		$I->seeCommentFormInPageArea( $gbPageId );
 		// Check when also form above comments is enabled -> no form inside page shall be displayed
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
-		$I->updateGuestbookOption( 'cgb_form_above_comments', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_form_above_comments', '1' );
 		$I->dontSeeCommentFormInPageArea( $gbPageId );
 		// Change to enabled
 		$I->changeGuestbookOption( 'comment_form', 'checkbox', 'cgb_form_in_page', '' );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '' );
-		$I->updateGuestbookOption( 'cgb_form_above_comments', '' );
+		$I->updateWPOption( 'cgb_adjust_output', '' );
+		$I->updateWPOption( 'cgb_form_above_comments', '' );
 		// Check when enabled
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -115,7 +115,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Form the form expand type and link text" (cgb_form_expand_type, cgb_form_expand_link_text)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check not collapsed form (default)
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -145,7 +145,7 @@ class CommentFormSettingsCest {
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$I->setPageCommentStatus( $samplePageId, true );
 		// Check when disabled (default)
 		$I->logout();
@@ -179,7 +179,7 @@ class CommentFormSettingsCest {
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$I->setPageCommentStatus( $samplePageId, true );
 		// Check when disabled (default)
 		$I->logout();
@@ -210,7 +210,7 @@ class CommentFormSettingsCest {
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$I->setPageCommentStatus( $samplePageId, true );
 		// Check when disabled (default)
 		$I->logout();
@@ -232,7 +232,7 @@ class CommentFormSettingsCest {
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$I->setPageCommentStatus( $samplePageId, true );
 		// Check when enabled
 		$label = 'Custom Label ' . uniqid();
@@ -251,7 +251,7 @@ class CommentFormSettingsCest {
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$I->setPageCommentStatus( $samplePageId, true );
 		// Check when enabled
 		$label = 'Custom title ' . uniqid();
@@ -269,7 +269,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Comment form title reply" (cgb_form_title_reply_to)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$comment = 'guestbook comment ' . uniqid();
 		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
@@ -288,7 +288,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Notes before and after the form fields" (cgb_form_notes_before, cgb_form_notes_after)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when enabled
 		$before = 'Notes before form fields ' . uniqid();
 		$after  = 'Notes after form fields ' . uniqid();
@@ -305,7 +305,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Label of submit button" (cgb_form_label_submit)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when enabled
 		$label = 'Submit button label ' . uniqid();
 		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_label_submit', $label );
@@ -319,7 +319,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Label for cancel reply link" (cgb_form_cancel_reply)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$comment = 'guestbook comment ' . uniqid();
 		$I->addGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		$I->seeCommentInPage( $comment );
@@ -337,9 +337,9 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Must login message" (cgb_form_must_login_message)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
-		$I->updateGuestbookOption( 'cgb_ignore_comment_registration', '' );
-		$I->updateGuestbookOption( 'comment_registration', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_ignore_comment_registration', '' );
+		$I->updateWPOption( 'comment_registration', '1' );
 		// Check when enabled
 		$message = 'Must login message ' . uniqid();
 		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_must_login_message', '<div>' . $message . '</div>' );
@@ -353,7 +353,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Comment form styles" (cgb_form_styles)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when enabled
 		$styles = '#commentform { color:aquamarine; font-family:' . uniqid() . '; }';
 		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_styles', $styles );
@@ -367,7 +367,7 @@ class CommentFormSettingsCest {
 		$I->wantTo( 'test "Comment form args" (cgb_form_args)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
-		$I->updateGuestbookOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when enabled
 		$formId = 'form-id-' . uniqid();
 		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_args', 'array("id_form" => "' . $formId . '")' );

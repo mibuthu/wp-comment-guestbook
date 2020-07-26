@@ -114,9 +114,11 @@ class CGB_Widget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 			$out .= $args['before_title'] . $instance['title'] . $args['after_title'];
 		}
+		// Create comment list and keep widget content out of google indexing.
 		$out .= '
-				<ul class="cgb-widget">';
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+					<!--googleoff: all-->
+					<ul class="cgb-widget">';
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
 		if ( is_array( $comments ) && ! empty( $comments ) ) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.).
@@ -177,6 +179,7 @@ class CGB_Widget extends WP_Widget {
 		}
 		$out .= '
 				</ul>
+				<!--googleon: all>
 				';
 		if ( 'true' === $instance['link_to_page'] ) {
 			$out .= '

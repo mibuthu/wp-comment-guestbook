@@ -127,9 +127,6 @@ class CGB_Shortcode {
 			if ( 'default' !== $this->options->get( 'cgb_clist_pagination' ) ) {
 				add_filter( 'option_page_comments', array( &$this, 'filter_comments_pagination' ) );
 			}
-			if ( 'default' !== $this->options->get( 'cgb_clist_per_page' ) ) {
-				add_filter( 'option_comments_per_page', array( &$this, 'filter_comments_per_page' ) );
-			}
 		}
 		// Filter to add comment id fields to identify required filters.
 		add_filter( 'comment_id_fields', array( &$this, 'filter_comment_id_fields' ) );
@@ -209,20 +206,6 @@ class CGB_Shortcode {
 		} elseif ( 'true' === $this->options->get( 'cgb_clist_pagination' ) ) {
 			return '1';
 		}
-	}
-
-
-	/**
-	 * Filter to adjust comments_per_page option
-	 *
-	 * @param string $option_value The actual value of the option "comments_per_page".
-	 * @return string
-	 */
-	public function filter_comments_per_page( $option_value ) {
-		if ( 0 !== intval( $this->options->get( 'cgb_clist_per_page' ) ) ) {
-			return $this->options->get( 'cgb_clist_per_page' );
-		}
-		return $option_value;
 	}
 
 

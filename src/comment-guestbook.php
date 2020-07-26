@@ -53,6 +53,13 @@ class CGB_CommentGuestbook {
 	 */
 	private $options;
 
+	/**
+	 * Holds the info if the actual post is a guestbook (has the guestbook shortcode)
+	 *
+	 * @var bool
+	 */
+	private $is_guestbook_post = false;
+
 
 	/**
 	 * Class Constructor
@@ -73,21 +80,21 @@ class CGB_CommentGuestbook {
 			require_once CGB_PATH . 'admin/admin.php';
 			CGB_Admin::get_instance()->init_admin_page();
 		} else { // Front page.
-
+			add_filter( 'option_comments_per_page', array( &$this, 'filter_comments_per_page' ) );
+			add_action( 'pre_get_posts', array( &$this, 'detect_shortcode' ) );
 			// Enable filters after a new comment (required to overwrite settings during comment creation).
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : false;
 			if ( ! empty( $comment_post_id ) ) {
-				$post = get_post( $comment_post_id );
+				$this->detect_shortcode( $comment_post_id );
 				// Filters required after new guestbook comment.
-				if ( $post instanceof WP_Post && (bool) strpos( $post->post_content, '[comment-guestbook]' ) ) {
+				if ( $this->is_guestbook_post ) {
 					require_once CGB_PATH . 'includes/filters.php';
 					new CGB_Filters( 'after_new_comment' );
 					add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
 				}
 			}
 		}
-
 		// Filters for comments on other pages/posts.
 		add_action( 'comment_form_before_fields', array( &$this, 'page_comment_filters' ) );
 		// Add message after comment.
@@ -97,6 +104,24 @@ class CGB_CommentGuestbook {
 			require_once CGB_PATH . 'includes/cmessage.php';
 			$cmessage = CGB_CMessage::get_instance();
 			$cmessage->init();
+		}
+	}
+
+
+	/**
+	 * Checks if the actual post is a guestbook post (has the comment-guestbook shortcode).
+	 * Add the required filter which has to be provided before the shortcode is loaded.
+	 *
+	 * @param int $post_id The post id of the post to check (optional).
+	 * @return void
+	 */
+	public function detect_shortcode( $post_id = null ) {
+		$post = get_post( $post_id );
+		if ( $post instanceof WP_Post ) {
+			$this->is_guestbook_post = has_shortcode( $post->post_content, 'comment-guestbook' );
+			if ( $this->is_guestbook_post ) {
+				add_filter( 'option_comments_per_page', array( &$this, 'filter_comments_per_page' ) );
+			}
 		}
 	}
 
@@ -140,6 +165,20 @@ class CGB_CommentGuestbook {
 
 
 	/**
+	 * Filter to adjust comments_per_page option
+	 *
+	 * @param string $option_value The actual value of the option "comments_per_page".
+	 * @return string
+	 */
+	public function filter_comments_per_page( $option_value ) {
+		if ( 0 < intval( $this->options->get( 'cgb_clist_per_page' ) ) ) {
+			return $this->options->get( 'cgb_clist_per_page' );
+		}
+		return $option_value;
+	}
+
+
+	/**
 	 * Filter to fix the link after adding a comment (required if clist_order = desc)
 	 * and add the query value for the message after comment
 	 *
@@ -179,7 +218,7 @@ class CGB_CommentGuestbook {
 	 */
 	public function page_comment_filters() {
 		global $post;
-		if ( ! ( is_object( $post ) && (bool) strstr( $post->post_content, '[comment-guestbook' ) ) ) {
+		if ( ! ( is_object( $post ) && has_shortcode( $post->post_content, 'comment-guestbook' ) ) ) {
 			// Remove mail field.
 			if ( '' !== $this->options->get( 'cgb_page_remove_mail' ) ) {
 				add_filter( 'comment_form_field_email', '__return_empty_string', 20 );

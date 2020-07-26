@@ -151,4 +151,64 @@ class CommentListSettingsCest {
 		$I->seeElement( '#li-comment-' . $secondCommentId . '~#li-comment-' . $firstCommentId );
 	}
 
+
+	public function CListPage( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comment list page options" (cgb_clist_default_page, cgb_clist_pagination, cgb_clist_per_page, cgb_clist_show_all, cgb_clist_num_pagination)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$numComments = 21;
+		$comments    = $I->createGuestbookComments( $gbPageId, $numComments, 'testuser', 'user@test.at' );
+		// Check standard plugin and standard WP settings
+		$I->updateWPOption( 'default_comments_page', 'newest' );
+		$I->updateWPOption( 'page_comments', '' );
+		$I->updateWPOption( 'comments_per_page', 10 ); // not the default WP setting, but better for testing
+		$I->updateWPOption( 'comment_order', 'asc' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		// Check that all comments are visible and ordered from old to new
+		$I->seeElement( '#li-comment-' . $comments[1]['id'] . '~#li-comment-' . $comments[21]['id'] );
+		// Check WP paged setting
+		$I->updateWPOption( 'page_comments', '1' );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[21]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $comments[1]['id'] . ',#li-comment-' . $comments[20]['id'] );
+		// Check WP default page setting newest
+		$I->updateWPOption( 'default_comments_page', 'oldest' );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[1]['id'] . '~#li-comment-' . $comments[10]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $comments[21]['id'] . ',#li-comment-' . $comments[11]['id'] );
+		// Check WP comment order
+		$I->updateWPOption( 'comment_order', 'desc' );
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[10]['id'] . '~#li-comment-' . $comments[1]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $comments[21]['id'] . ',#li-comment-' . $comments[11]['id'] );
+
+		// Check cgb_clist_default_page
+		$I->changeGuestbookOption( 'comment_list', 'radio', 'cgb_clist_default_page', 'last' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[21]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $comments[1]['id'] . ',#li-comment-' . $comments[20]['id'] );
+		$I->changeGuestbookOption( 'comment_list', 'radio', 'cgb_clist_default_page', 'first' );
+		$I->updateWPOption( 'default_comments_page', 'newest' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[10]['id'] . '~#li-comment-' . $comments[1]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $comments[21]['id'] . ',#li-comment-' . $comments[11]['id'] );
+
+		// Check cgb_clist_pagination and cgb_clist_per_page
+		$I->changeGuestbookOption( 'comment_list', 'radio', 'cgb_clist_pagination', 'false' );
+		$I->changeGuestbookOption( 'comment_list', 'text', 'cgb_clist_per_page', '15' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[21]['id'] . '~#li-comment-' . $comments[1]['id'] );
+		$I->changeGuestbookOption( 'comment_list', 'radio', 'cgb_clist_pagination', 'true' );
+		$I->updateWPOption( 'page_comments', '' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $comments[15]['id'] . '~#li-comment-' . $comments[1]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $comments[16]['id'] . ',#li-comment-' . $comments[21]['id'] );
+	}
+
 }

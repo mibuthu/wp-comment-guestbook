@@ -172,6 +172,18 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
+	public function createGuestbookComments( int $pageId, int $numComments, string $author = '', string $email = '', string $url = '' ): array {
+		$I        = $this;
+		$comments = array_fill( 1, $numComments, null );
+		foreach ( $comments as $n => &$comment ) {
+			$comment['content'] = 'Comment ' . $n . ' ' . uniqid();
+			$comment['id']      = $I->createGuestbookComment( $pageId, $comment['content'], $author, $email, $url, array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * ( $numComments - $n ) ) ) );
+		}
+		unset( $comment );
+		return $comments;
+	}
+
+
 	public function deleteGuestbookComment( string $comment_content ) {
 		$I = $this;
 		$I->cli( array( 'db', 'query', 'DELETE FROM wp_comments WHERE comment_content="' . addslashes( $comment_content ) . '"' ) );

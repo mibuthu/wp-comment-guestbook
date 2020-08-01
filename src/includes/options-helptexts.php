@@ -303,6 +303,15 @@ $cgb_options_helptexts = array(
 			),
 	),
 
+	'cgb_clist_num_pagination'        => array(
+		'type'        => 'checkbox',
+		'label'       => __( 'Numbered pagination', 'comment-guestbook' ),
+		'caption'     => __( 'Show a numbered pagination navigation', 'comment-guestbook' ),
+		'description' =>
+			__( 'Normally only a next and a previous link is available.', 'comment-guestbook' ) . '<br />' .
+			__( 'When this option is enabled additionally a numbered list with all comment pages is displayed.', 'comment-guestbook' ),
+	),
+
 	'cgb_clist_show_all'              => array(
 		'type'        => 'checkbox',
 		'label'       => __( 'Show all comments', 'comment-guestbook' ),
@@ -312,13 +321,6 @@ $cgb_options_helptexts = array(
 			__( 'But with this option you can enable to show the comments of all posts and pages on guestbook pages.', 'comment-guestbook' ) . '<br />' .
 			__( 'It is recommended to enable "Comment Adjustment" in Section "Comment html code" if you enable this option.', 'comment-guestbook' ) . '<br />' .
 			__( 'There you have the possibility to include a reference to the original page/post in the comment html code.', 'comment-guestbook' ),
-	),
-
-	'cgb_clist_num_pagination'        => array(
-		'type'        => 'checkbox',
-		'label'       => __( 'Numbered pagination links', 'comment-guestbook' ),
-		'caption'     => __( 'Create a numbered pagination navigation', 'comment-guestbook' ),
-		'description' => __( 'Normally only a next and previous links are shown. But if this option is enabled a numbered list of all the comment pages is displayed.', 'comment-guestbook' ),
 	),
 
 	'cgb_clist_title'                 => array(

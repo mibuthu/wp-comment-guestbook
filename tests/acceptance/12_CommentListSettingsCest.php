@@ -209,6 +209,20 @@ class CommentListSettingsCest {
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->seeElement( '#li-comment-' . $comments[15]['id'] . '~#li-comment-' . $comments[1]['id'] );
 		$I->dontSeeElement( '#li-comment-' . $comments[16]['id'] . ',#li-comment-' . $comments[21]['id'] );
+
+		// Check cgb_clist_num_pagination
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_num_pagination', '' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( 'Newer comments', '.nav-next > a' );
+		$I->dontSee( '1', '.page-numbers' );
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_num_pagination', '1' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->see( 'Newer comments', '.pagination > .next.page-numbers' );
+		$I->see( '1', '.pagination > .page-numbers.current' );
+		$I->see( '2', '.pagination > .page-numbers' );
+		$I->dontSee( '3', '.page-numbers' );
 	}
 
 }

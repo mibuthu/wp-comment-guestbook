@@ -190,6 +190,13 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
+	public function deleteAllComments() {
+		$I   = $this;
+		$ids = $I->cliToString( array( 'comment', 'list', '--format=ids' ) );
+		$I->cli( array( 'comment', 'delete', $ids ) );
+	}
+
+
 	public function updateWPOption( string $option_name, string $option_value ) {
 		$I = $this;
 		$I->cli( array( 'option', 'update', $option_name, $option_value ) );

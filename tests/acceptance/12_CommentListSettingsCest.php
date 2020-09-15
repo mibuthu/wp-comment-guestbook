@@ -153,7 +153,7 @@ class CommentListSettingsCest {
 
 
 	public function CListPage( AcceptanceTester $I ) {
-		$I->wantTo( 'test "Comment list page options" (cgb_clist_default_page, cgb_clist_pagination, cgb_clist_per_page, cgb_clist_show_all, cgb_clist_num_pagination)' );
+		$I->wantTo( 'test "Comment list page options" (cgb_clist_default_page, _pagination, _per_page, _show_all, _num_pagination)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
@@ -211,11 +211,13 @@ class CommentListSettingsCest {
 		$I->dontSeeElement( '#li-comment-' . $comments[16]['id'] . ',#li-comment-' . $comments[21]['id'] );
 
 		// Check cgb_clist_num_pagination
+		// disabled (default)
 		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_num_pagination', '' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->see( 'Newer comments', '.nav-next > a' );
 		$I->dontSee( '1', '.page-numbers' );
+		// enabled
 		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_num_pagination', '1' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
@@ -223,6 +225,47 @@ class CommentListSettingsCest {
 		$I->see( '1', '.pagination > .page-numbers.current' );
 		$I->see( '2', '.pagination > .page-numbers' );
 		$I->dontSee( '3', '.page-numbers' );
+	}
+
+
+	public function CListShowAllComments( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Show all comments option" (cgb_clist_show_all)' );
+		$gbPageId     = $I->createGuestbookPage();
+		$samplePageId = 2;
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'page_comments', '1' );
+		$I->setPageCommentStatus( $samplePageId, true );
+		$I->deleteAllComments();
+		$numGbComments = 5;
+		$gbComments    = $I->createGuestbookComments( $gbPageId, $numGbComments, 'testuser', 'user@test.at' );
+		$pageComment   = 'Sample page comment ' . uniqid();
+		$pageCommentId = $I->createGuestbookComment(
+			$samplePageId,
+			$pageComment,
+			'testuser',
+			'user@test.at',
+			'',
+			array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * floor( $numGbComments / 2 ) ) )  // set date in between the guestbook comments
+		);
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $gbComments[1]['id'] . ',#li-comment-' . $gbComments[5]['id'] );
+		$I->dontSeeElement( '#li-comment-' . $pageCommentId );
+		// Check when enabled
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_show_all', '1' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $gbComments[1]['id'] . ',#li-comment-' . $gbComments[5]['id'] );
+		$I->seeElement( '#li-comment-' . $pageCommentId );
+		// Check with pagination enabled
+		$I->updateWPOption( 'comments_per_page', 5 );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $gbComments[4]['id'] );
+		$I->seeElement( '#li-comment-' . $pageCommentId );
+		$I->dontSeeElement( '#li-comment-' . $gbComments[5]['id'] );
 	}
 
 }

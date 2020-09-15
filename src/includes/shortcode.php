@@ -119,7 +119,7 @@ class CGB_Shortcode {
 		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
 			add_filter( 'comments_template', array( &$this, 'filter_comments_template' ) );
 			if ( 'desc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
-				add_filter( 'comments_array', array( &$this, 'filter_comments_array' ) );
+				add_filter( 'comments_template_query_args', array( &$this, 'filter_comments_template_query_args' ) );
 			}
 			if ( 'default' !== $this->options->get( 'cgb_clist_default_page' ) ) {
 				add_filter( 'option_default_comments_page', array( &$this, 'filter_comments_default_page' ) );
@@ -159,23 +159,21 @@ class CGB_Shortcode {
 
 
 	/**
-	 * Filter to adjust the comments array
+	 * Filter to adjust the comments query args
 	 *
-	 * @param WP_Comment[] $comments The actual comments array (not used).
-	 * @return WP_Comment[]
+	 * @param array $query_args The actual comments array (not used).
+	 * @return array
 	 */
-	public function filter_comments_array( $comments ) {
-		// Set correct comments list if the comments of all posts/pages should be displayed.
+	public function filter_comments_template_query_args( $query_args ) {
+		// Unset post_id to include the comments of all pages/posts if clist show all option is set.
 		if ( '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
-			require_once CGB_PATH . 'includes/comments-functions.php';
-			$cgb_func = CGB_Comments_Functions::get_instance();
-			$comments = $cgb_func->get_comments();
+			unset( $query_args['post_id'] );
 		}
 		// Reverse array if clist order desc is required.
 		if ( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
-			$comments = array_reverse( $comments );
+			$query_args['order'] = 'DESC';
 		}
-		return $comments;
+		return $query_args;
 	}
 
 

@@ -2,8 +2,8 @@
 host = https://www.transifex.com
 
 [wp-comment-guestbook.comment-guestbook_pot]
-file_filter = languages/comment-guestbook-<lang>.po
-source_file = languages/comment-guestbook.pot
+file_filter = src/languages/comment-guestbook-<lang>.po
+source_file = src/languages/comment-guestbook.pot
 source_lang = en
 type = PO
 

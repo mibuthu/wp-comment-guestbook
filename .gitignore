@@ -1,5 +1,10 @@
-/.buildpath
+/vendor
 /.project
-/.settings/*
-/*.phprj
-
+/.buildpath
+/.settings
+/.directory
+/.vscode
+/.idea
+.env.testing
+*.phprj
+*workspace

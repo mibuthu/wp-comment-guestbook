@@ -334,9 +334,9 @@ $cgb_options_helptexts = array(
 		'label'       => __( 'Comment list in page content', 'comment-guestbook' ),
 		'caption'     => __( 'Show the comment list in the page content', 'comment-guestbook' ),
 		'description' =>
-			__( 'If this option is enabled the comment list is displayed directly in the post/page content and will be removed from the comment area.', 'comment-guestbook' ) . '<br />' .
-			__( 'This can help you in some cases to display the comment list, for example if your theme does not have a comment area at all.', 'comment-guestbook' ) . '<br />' .
-			__( 'The comment list will be displayed instead of the shortcode, the comment form in the page section will be hidden and the comment form in the comment sections will be displayed before and/or after the comment list like specified in the comment form options.', 'comment-guestbook' ),
+			__( 'When this option is enabled the comment list is displayed directly in the post/page content and will be removed from the comment area.', 'comment-guestbook' ) . '<br />' .
+			__( 'This can help to display the comment list in some situaltions, e.g. if your theme does not have a comment area at all.', 'comment-guestbook' ) . '<br />' .
+			__( 'The comment list will be displayed instead of the shortcode, the comment form in the comment sections will be displayed before and/or after the comment list, as specified in the comment form options.', 'comment-guestbook' ),
 	),
 
 	'cgb_comment_callback'            => array(

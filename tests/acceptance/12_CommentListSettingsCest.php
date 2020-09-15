@@ -229,7 +229,7 @@ class CommentListSettingsCest {
 
 
 	public function CListShowAllComments( AcceptanceTester $I ) {
-		$I->wantTo( 'test "Show all comments option" (cgb_clist_show_all)' );
+		$I->wantTo( 'test "Show all comments" (cgb_clist_show_all)' );
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
@@ -266,6 +266,28 @@ class CommentListSettingsCest {
 		$I->seeElement( '#li-comment-' . $gbComments[4]['id'] );
 		$I->seeElement( '#li-comment-' . $pageCommentId );
 		$I->dontSeeElement( '#li-comment-' . $gbComments[5]['id'] );
+	}
+
+
+	public function CListTitle( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Title for the comment list" (cgb_clist_title)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$comment   = 'Test comment ' . uniqid();
+		$commentId = $I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $commentId );
+		$I->dontSeeElement( '#comments-title' );
+		// Check when enabled
+		$title = 'Comment List title ' . uniqid();
+		$I->changeGuestbookOption( 'comment_list', 'text', 'cgb_clist_title', $title );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#li-comment-' . $commentId );
+		$I->see( $title, '#comments-title' );
 	}
 
 }

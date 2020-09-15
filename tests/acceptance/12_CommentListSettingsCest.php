@@ -290,4 +290,24 @@ class CommentListSettingsCest {
 		$I->see( $title, '#comments-title' );
 	}
 
+
+	public function CListInPageContent( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comment list in page content" (cgb_clist_in_page_content)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$comment   = 'Test comment ' . uniqid();
+		$commentId = $I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#comments #li-comment-' . $commentId );
+		$I->dontSeeElement( '.entry-content #comments' );
+		// Check when enabled
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_in_page_content', '1' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '.entry-content #comments #li-comment-' . $commentId );
+	}
+
 }

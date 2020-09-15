@@ -35,7 +35,7 @@ $cgb_options_helptexts = array(
 		'type'        => 'checkbox',
 		'label'       => __( 'Guestbook comment moderation', 'comment-guestbook' ),
 		'caption'     => __( 'Disable moderation of new comments on the guestbook page', 'comment-guestbook' ),
-		'description' => __( 'If this option is enabled comments will displayed without manual moderation. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
+		'description' => __( 'If this option is enabled comments will be displayed without manual moderation. Hence the corresponding WordPress standard setting will be overruled in the guestbook page.', 'comment-guestbook' ),
 	),
 
 	'cgb_adjust_output'               => array(

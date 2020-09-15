@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the corresponding wordpress plugin.
 # 
 # Translators:
-# Σμηλιάνης Σπυρίδων <spirossm@hyperwebhost.net>, 2015
+# Hans Rottier, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-comment-guestbook\n"
@@ -11,116 +11,116 @@ msgstr ""
 "POT-Creation-Date: 2020-09-15 14:32+0200\n"
 "PO-Revision-Date: 2020-09-15 12:32+0000\n"
 "Last-Translator: mibuthu\n"
-"Language-Team: Greek (Greece) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/el_GR/)\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/mibuthu/wp-comment-guestbook/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el_GR\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/admin.php:79 admin/includes/admin-about.php:66
 #, php-format
 msgid "About %1$s"
-msgstr ""
+msgstr "Over %1$s"
 
 #: admin/admin.php:80
 msgid "About Guestbook"
-msgstr "Σχετικά με το Βιβλίο Επισκεπτών"
+msgstr "Over Gastenboek"
 
 #: admin/admin.php:88 admin/includes/admin-settings.php:81
 msgid "Comment Guestbook Settings"
-msgstr "Ρυθμίσεις Βιβλίο Επισκεπτών"
+msgstr "Comment Gastenboek Instellingen"
 
 #: admin/admin.php:89 admin/includes/admin-about.php:114
 msgid "Guestbook"
-msgstr "Βιβλίο Επισκεπτών"
+msgstr "Gastenboek"
 
 #: admin/includes/admin-about.php:84
 msgid "Help and Instructions"
-msgstr "Βοήθεια και οδηγίες"
+msgstr "Help en Instructies"
 
 #: admin/includes/admin-about.php:85
 msgid "Create a guestbook page"
-msgstr ""
+msgstr "Maak een gastenboekpagina"
 
 #: admin/includes/admin-about.php:87
 #, php-format
 msgid "%1$s is included in a page by using a \"shortcode\"."
-msgstr ""
+msgstr "%1$s wordt toegevoegd in een pagina door een \"shortcode\" te gebruiken."
 
 #: admin/includes/admin-about.php:90
 #, php-format
 msgid "Goto %1$s to create a new page for the guestbook."
-msgstr ""
+msgstr "Ga naar %1$s om een nieuwe pagina voor het gastenboek te maken."
 
 #: admin/includes/admin-about.php:95
 msgid "Add New"
-msgstr "Προσθήκη νέου"
+msgstr "Nieuwe toevoegen"
 
 #: admin/includes/admin-about.php:99
 #, php-format
 msgid ""
 "Choose a page title e.g. \"Guestbook\" and paste the shortcode %1$s in the "
 "page content text field."
-msgstr ""
+msgstr "Kies een paginatitel b.v. \"Gastenboek\" en plak de shortcode %1$s in het tekstveld \"pagina inhoud\"."
 
 #: admin/includes/admin-about.php:102
 msgid "If required, additional text and html code can be added there."
-msgstr ""
+msgstr "Indien noodzakelijk kan hier aanvullende tekst en HTML-code worden toegevoegd"
 
 #: admin/includes/admin-about.php:103
 msgid ""
 "That´s all you have to do. Save and publish the page to finish the guestbook"
 " creation."
-msgstr ""
+msgstr "Dat is alles. Sla op en publiceer de pagina om het gastenboek te creëren."
 
 #: admin/includes/admin-about.php:105
 msgid "Modify the guestbook page"
-msgstr ""
+msgstr "Wijzig de gastenboekpagina"
 
 #: admin/includes/admin-about.php:109
 #, php-format
 msgid ""
 "In the %1$s settings page, available under %2$s, you can find a huge amount "
 "of options to modify the guestbook page."
-msgstr ""
+msgstr "Op de %1$s instellingspagina, beschikbaar onder %2$s, kun je een grote hoeveelheid opties vinden waarmee de gastenboekpagina is aan te passen."
 
 #: admin/includes/admin-about.php:116
 msgid ""
 "There are also some options available to change the comments of all posts "
 "and pages."
-msgstr ""
+msgstr "Er zijn ook enkele opties aanwezig, waarmee commentaren van alle posts en pagina's kunnen worden veranderd."
 
 #: admin/includes/admin-about.php:118
 #, php-format
 msgid "%1$s widget"
-msgstr ""
+msgstr "%1$s widget"
 
 #: admin/includes/admin-about.php:122
 #, php-format
 msgid "There is also a %1$s called %2$s available."
-msgstr ""
+msgstr "Er is ook een %1$s, %2$s genaamd, beschikbaar."
 
 #: admin/includes/admin-about.php:129
 msgid ""
 "With this widget you can can add a list of the latest comments in your "
 "sidebar."
-msgstr ""
+msgstr "Met dit widget kun je een lijst van meest recente commentaren in de zijbalk weergeven."
 
 #: admin/includes/admin-about.php:130
 msgid "There are also many options to modify the output."
-msgstr ""
+msgstr "Er zijn ook veel opties om de output te wijzigen."
 
 #: admin/includes/admin-about.php:144
 msgid "About the plugin author"
-msgstr ""
+msgstr "Over de plugin-auteur "
 
 #: admin/includes/admin-about.php:146
 #, php-format
 msgid ""
 "This plugin is developed by %1$s, you can find more information about the "
 "plugin on the %2$s."
-msgstr ""
+msgstr "Deze plugin i s ontwikkeld door %1$s, je vindt meer informatie over de plugin op de %2$s."
 
 #: admin/includes/admin-about.php:146
 msgid "WordPress plugin site"
@@ -129,7 +129,7 @@ msgstr ""
 #: admin/includes/admin-about.php:147
 #, php-format
 msgid "If you like the plugin please rate it on the %1$s."
-msgstr ""
+msgstr "Als je de plugin waardeert, hoop ik dat je hem wilt reviewen op de  %1$s."
 
 #: admin/includes/admin-about.php:147
 msgid "WordPress plugin review site"
@@ -138,7 +138,7 @@ msgstr ""
 #: admin/includes/admin-about.php:148
 msgid ""
 "If you want to support the plugin I would be happy to get a small donation"
-msgstr ""
+msgstr "Als je plugin wil ondersteunen, zou ik een kleine bijdrage zeer waarderen."
 
 #: admin/includes/admin-about.php:149 admin/includes/admin-about.php:150
 #: admin/includes/admin-about.php:151
@@ -168,51 +168,51 @@ msgstr ""
 
 #: includes/comments-functions.php:74
 msgid "&larr; Older Comments"
-msgstr "&Larr; Παλαιότερα Σχόλια"
+msgstr "&larr; Oudere commentaren"
 
 #: includes/comments-functions.php:76
 msgid "Newer Comments &rarr;"
-msgstr "Νεότερα Σχόλια &rarr¨"
+msgstr "Nieuwere commentaren &rarr;"
 
 #: includes/comments-functions.php:166
 msgid "Pingback:"
-msgstr ""
+msgstr "Pingback:"
 
 #: includes/comments-functions.php:169
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr "Edit"
 
 #: includes/comments-functions.php:214
 msgid "Comment navigation"
-msgstr ""
+msgstr "Comment navigatie"
 
 #: includes/comments-template.php:44
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
+msgstr "Deze post is beschermd door een wachtwoord. Voer het wachtwoord in om de commentaren te zien."
 
 #: includes/options-helptexts.php:22
 msgid "Guestbook comment status"
-msgstr ""
+msgstr "Gastenboek commentaar status"
 
 #: includes/options-helptexts.php:23
 msgid "Always allow comments on the guestbook page"
-msgstr ""
+msgstr "Sta altijd commentaar op de gastenboekpagina toe."
 
 #: includes/options-helptexts.php:24
 msgid ""
 "If this option is enabled comments on the guestbook page will always be "
 "allowed. Hence the corresponding WordPress and page standard settings will "
 "be overruled in the guestbook page."
-msgstr ""
+msgstr "Als deze optie aan staat, worden commentaren op de gastenboekpagina altijd toegestaan. De overeenkomende Wordpress en pagina standaardinstellingen zullen dus genegeerd worden in de gastenboekpagina."
 
 #: includes/options-helptexts.php:29
 msgid "Guestbook comment registration"
-msgstr ""
+msgstr "Gastenboek commentaar registratie"
 
 #: includes/options-helptexts.php:30
 msgid "Allow comments on the guestbook page without registration"
-msgstr ""
+msgstr "Sta commentaar toe op de gastenboekpagina zonder registratie"
 
 #: includes/options-helptexts.php:31
 msgid ""
@@ -223,11 +223,11 @@ msgstr ""
 
 #: includes/options-helptexts.php:36
 msgid "Guestbook comment moderation"
-msgstr ""
+msgstr "Gastenboek commentaar moderatie"
 
 #: includes/options-helptexts.php:37
 msgid "Disable moderation of new comments on the guestbook page"
-msgstr ""
+msgstr "Zet moderatie van nieuwe gastenboekcommentaren uit"
 
 #: includes/options-helptexts.php:38
 msgid ""
@@ -238,11 +238,11 @@ msgstr ""
 
 #: includes/options-helptexts.php:43
 msgid "Comments adjustment"
-msgstr ""
+msgstr "Commentaar aanpassen"
 
 #: includes/options-helptexts.php:44
 msgid "Adjust the guestbook comments output"
-msgstr ""
+msgstr "Pas de output van gastenboekcommentaren aan"
 
 #: includes/options-helptexts.php:47
 #, php-format
@@ -259,20 +259,20 @@ msgstr ""
 
 #: includes/options-helptexts.php:57
 msgid "Domain for translation"
-msgstr ""
+msgstr "Domein voor vertalingen"
 
 #: includes/options-helptexts.php:59
 msgid ""
 "This option defines the domain for translation for the adjusted guestbook "
 "comments output."
-msgstr ""
+msgstr "Deze optie definieert het domein voor de vertaling van het aangepaste gastenboek commentaar output."
 
 #: includes/options-helptexts.php:61
 #, php-format
 msgid ""
 "For example if you want to use the translations of the twentyeleven theme "
 "the correct value is %1$s."
-msgstr ""
+msgstr "Als je bijvoorbeeld de vertaling van het 'twentyeleven' thema wil gebruiken, de juiste waarde is  %1$s."
 
 #: includes/options-helptexts.php:65
 #, php-format
@@ -282,290 +282,290 @@ msgstr ""
 
 #: includes/options-helptexts.php:73
 msgid "Form below comments"
-msgstr ""
+msgstr "Form onder de commentaren"
 
 #: includes/options-helptexts.php:74
 msgid "Show a comment form in the comment area below the comments"
-msgstr ""
+msgstr "Toon een commentaarformulier in het commentaargebied onder de commentaren"
 
 #: includes/options-helptexts.php:75
 msgid ""
 "With this option you can add a comment form in the comment section below the"
 " comment list."
-msgstr ""
+msgstr "Met deze optie kun je een commentaarformulier in de commentaarsectie toevoegen onder de commentaren."
 
 #: includes/options-helptexts.php:80 includes/options-helptexts.php:93
 msgid "Form above comments"
-msgstr ""
+msgstr "Formulier boven de commentaren"
 
 #: includes/options-helptexts.php:81
 msgid "Show a comment form in the comment area above the comments"
-msgstr ""
+msgstr "Toon een commentaarformulier in het commentaargebied boven de commentaren"
 
 #: includes/options-helptexts.php:82
 msgid ""
 "With this option you can add a comment form in the comment section above the"
 " comment list."
-msgstr ""
+msgstr "Met deze optie kun je een commentaarformulier in de commentaarsectie toevoegen boven de commentaren."
 
 #: includes/options-helptexts.php:87
 msgid "Form in page/post"
-msgstr ""
+msgstr "Formulier in pagina/bericht"
 
 #: includes/options-helptexts.php:88
 msgid "Show a comment form in the page/post area"
-msgstr ""
+msgstr "Toon een commentaarformulier in het pagina/bericht gebied"
 
 #: includes/options-helptexts.php:90
 msgid ""
 "With this option you can add a comment form in the page or post area. The "
 "form will be displayed at the position of the shortcode."
-msgstr ""
+msgstr "Met deze optie kun je een commentaarformulier in het pagina of bericht gebied toevoegen. Het formulier wordt getoond op de plaats van de shortcode."
 
 #: includes/options-helptexts.php:92
 #, php-format
 msgid ""
 "If the option %1$s is enabled, this form will not be displayed to avoid "
 "showing 2 forms in succession."
-msgstr ""
+msgstr "Als optie %1$s aan is, wordt dit formulier niet getoond om te voorkomen dat er twee formulieren achter elkaar verschijnen."
 
 #: includes/options-helptexts.php:99 includes/options-helptexts.php:115
 msgid "Collapsed comment form"
-msgstr ""
+msgstr "Samengevouwen commentaarformulier"
 
 #: includes/options-helptexts.php:101
 msgid "form is not collapsed (default)"
-msgstr ""
+msgstr "Formulier is niet samengevouwen (default)"
 
 #: includes/options-helptexts.php:102
 msgid "collapsed form with static expansion"
-msgstr ""
+msgstr "Samengevouwen formulier met statische vergroting"
 
 #: includes/options-helptexts.php:103
 msgid "collapsed form with animated expansion"
-msgstr ""
+msgstr "Samengevouwen formulier met geanimeerde vergroting"
 
 #: includes/options-helptexts.php:106
 msgid ""
 "With this option you can collapse (hide) the comment forms by default and "
 "add a link which expands the form."
-msgstr ""
+msgstr "Met deze optie kun je het commentaarformulier standaard samenvouwen (verbergen) en een link toevoegen dat het formulier zichtbaar maakt."
 
 #: includes/options-helptexts.php:107
 msgid ""
 "There are 2 options for expansion available: static and animated. Animated "
 "shows a small animation during the form expansion."
-msgstr ""
+msgstr "Er zijn twee opties voor het vergroten (zichtbaar maken): statisch en geanimeerd. Geanimeerd laat een kleine animatie zien tijdens de expansie."
 
 #: includes/options-helptexts.php:112
 msgid "Link text for form expansion"
-msgstr ""
+msgstr "Tekst voor de link voor de formulier expansie"
 
 #: includes/options-helptexts.php:114
 #, php-format
 msgid ""
 "With this option you can set the link text to expand the comment form if "
 "%1$s is enabled."
-msgstr ""
+msgstr "Met deze optie kun je de tekst zetten met de link om het formulier zichtbaar te maken indien %1$s aan staat."
 
 #: includes/options-helptexts.php:121
 msgid "Comment author name/email"
-msgstr ""
+msgstr "naam/email van auteur commentaar"
 
 #: includes/options-helptexts.php:122
 msgid "Override Name and Email field requirement"
-msgstr ""
+msgstr "Maak Naam en Email veld niet verplicht"
 
 #: includes/options-helptexts.php:123
 msgid ""
 "If this option is enabled the name and email field is not a required field "
 "in the comment guestbook form (independent of the WordPress standard "
 "discussion setting)."
-msgstr ""
+msgstr "Indien deze optie aan staat zijn het naam en email veld niet verplicht in het gastenboek commentaarveld (onafhankelijk van de standaard WordPress discussie instelling)."
 
 #: includes/options-helptexts.php:128 includes/options-helptexts.php:515
 msgid "Remove Email field"
-msgstr ""
+msgstr "Verwijder het Email veld"
 
 #: includes/options-helptexts.php:129
 msgid "Remove the Email field in comment guestbook form"
-msgstr ""
+msgstr "Verwijder het Email veld in het gastenboek commentaarformulier"
 
 #: includes/options-helptexts.php:130
 msgid ""
 "If this option is enabled the email field will be removed in the comment "
 "guestbook form."
-msgstr ""
+msgstr "Als deze optie aan staat, wordt het email veld verwijderd in het gastenboek commentaarveld."
 
 #: includes/options-helptexts.php:135 includes/options-helptexts.php:522
 msgid "Remove Website field"
-msgstr ""
+msgstr "Verwijder Website veld"
 
 #: includes/options-helptexts.php:136
 msgid "Remove the Website url field in comment guestbook form"
-msgstr ""
+msgstr "Verwijder het Website url veld in het gastenboek commentaarformulier"
 
 #: includes/options-helptexts.php:137
 msgid ""
 "If this option is enabled the website url field will be removed in the "
 "comment guestbook form."
-msgstr ""
+msgstr "Als deze optie aan staat, wordt het website url veld verwijderd in het gastenboek commentaarformulier."
 
 #: includes/options-helptexts.php:142
 msgid "Label for comment field"
-msgstr ""
+msgstr "Label voor commentaarveld"
 
 #: includes/options-helptexts.php:144
 msgid "With this option you can specify a custom label for the comment field."
-msgstr ""
+msgstr "Met deze optie kun je een aangepast label geven voor het commentaarveld."
 
 #: includes/options-helptexts.php:145
 #, php-format
 msgid ""
 "Set the value to %1$s for the wordpress default label. Enter an empty string"
 " to hide the label."
-msgstr ""
+msgstr "Zet de waarde naar %1$s voor het Wordpress standaardlabel. Voer een lege string in om het label te verbergen."
 
 #: includes/options-helptexts.php:150
 msgid "Comment form title"
-msgstr ""
+msgstr "Titel van het commentaarformulier"
 
 #: includes/options-helptexts.php:152
 msgid ""
 "With this option you can specify a custom title for the comment form (when "
 "not replying to a comment)."
-msgstr ""
+msgstr "Met deze optie kun je een aangepaste titel voor het commentaarformulier zetten (als het niet een antwoord op een commentaar betreft)."
 
 #: includes/options-helptexts.php:153 includes/options-helptexts.php:161
 #, php-format
 msgid ""
 "Set the value to %1$s for the wordpress default title. Enter an empty string"
 " to hide the title."
-msgstr ""
+msgstr "Zet de waarde naar %1$s voor het Wordpress standaardtitel. Voer een lege string in om de titel te verbergen."
 
 #: includes/options-helptexts.php:158
 msgid "Reply comment form title"
-msgstr ""
+msgstr "Titel formulier voor antwoord"
 
 #: includes/options-helptexts.php:160
 msgid ""
 "With this option you can specify a custom title for the comment form (when "
 "replying to a comment)."
-msgstr ""
+msgstr "Met deze optie kun je de titel voor het commentaarformulier specificeren (bij een antwoord op een commentaar)."
 
 #: includes/options-helptexts.php:166
 msgid "Notes before form fields"
-msgstr ""
+msgstr "Notities voor de formuliervelden"
 
 #: includes/options-helptexts.php:168
 msgid ""
 "With this option you can override the text for the notes before the comment "
 "form fields."
-msgstr ""
+msgstr "Met deze optie kun je de tekst voor de notities voor de commentaarformuliervelden wijzigen."
 
 #: includes/options-helptexts.php:169 includes/options-helptexts.php:177
 #, php-format
 msgid ""
 "Set the value to %1$s for the wordpress default notes. Enter an empty string"
 " to hide the notes."
-msgstr ""
+msgstr "Zet de waarde tot %1$s voor de wordpress default notities. Laat leeg om de notities te verbergen."
 
 #: includes/options-helptexts.php:174
 msgid "Notes after form fields"
-msgstr ""
+msgstr "Notities na de formuliervelden"
 
 #: includes/options-helptexts.php:176
 msgid ""
 "With this option you can override the text for the notes after the comment "
 "form fields (and before the submit button)."
-msgstr ""
+msgstr "Met deze optie kun je de tekst voor de notities na de commentaarformuliervelden wijzigen (en voor de submit-knop)."
 
 #: includes/options-helptexts.php:182
 msgid "Label of submit button"
-msgstr ""
+msgstr "Label van de submit-knop"
 
 #: includes/options-helptexts.php:184
 msgid ""
 "With this option you can override the label of the comment form submit "
 "button."
-msgstr ""
+msgstr "Met deze optie kun je het label van het commentaarformulier submit-knop wijzigen."
 
 #: includes/options-helptexts.php:185 includes/options-helptexts.php:193
 #, php-format
 msgid ""
 "Set the value to %1$s or to an empty string for the wordpress default label."
-msgstr ""
+msgstr "Zet de waarde op %1$s of een lege string voor het wordpress standaard label."
 
 #: includes/options-helptexts.php:190
 msgid "Label for cancel reply link"
-msgstr ""
+msgstr "Label voor de cancel reply link"
 
 #: includes/options-helptexts.php:192
 msgid ""
 "With this option you can override the label for the comment form cancel "
 "reply link."
-msgstr ""
+msgstr "Met deze optie kun je het label wijzigen van de commentaarformulier cancel reply link."
 
 #: includes/options-helptexts.php:198
 msgid "\"Must login\" message"
-msgstr ""
+msgstr "\"Moet inloggen\" bericht"
 
 #: includes/options-helptexts.php:200
 msgid ""
 "With this option you can override the message which will be displayed when "
 "the user must login to add a new comment."
-msgstr ""
+msgstr "Met deze optie kun je het bericht wijzigen, dat wordt getoond als de gebruiker in moet loggen om een nieuw commentaar toe te voegen."
 
 #: includes/options-helptexts.php:201
 #, php-format
 msgid ""
 "The term %1$s will be replaced by the url to login. You can specify it in "
 "your text if you want to include a link to the login page."
-msgstr ""
+msgstr "De term %1$s zal worden vervangen door de url naar de inlogpagina. Je kunt die specificeren in je tekst indien je een link naar de inlogpagina wilt specificeren."
 
 #: includes/options-helptexts.php:202
 msgid "Example (standard text)"
-msgstr ""
+msgstr "Voorbeeld (standaard tekst)"
 
 #: includes/options-helptexts.php:203
 #, php-format
 msgid ""
 "Set the value to %1$s or to an empty string for the wordpress default "
 "message."
-msgstr ""
+msgstr "Zet de waarde op %1$s of op een lege string voor het wordpress standaard bericht."
 
 #: includes/options-helptexts.php:209
 msgid "Comment form styles"
-msgstr ""
+msgstr "Stijlen van het commentaarformulier"
 
 #: includes/options-helptexts.php:211
 msgid ""
 "With this option you can specify custom css styles for the guestbook comment"
 " form."
-msgstr ""
+msgstr "Met deze optie kun je maatwerk css stijlen specificeren voor het gastenboekcommentaarformulier."
 
 #: includes/options-helptexts.php:212 includes/options-helptexts.php:438
 msgid "Example"
-msgstr ""
+msgstr "Voorbeeld"
 
 #: includes/options-helptexts.php:219
 msgid "Comment form args"
-msgstr ""
+msgstr "Commentaarformulier argumenten"
 
 #: includes/options-helptexts.php:221
 msgid "With this option you can specify args for the comment form."
-msgstr ""
+msgstr "Met deze optie kun je argumenten specificeren voor het commentaarformulier"
 
 #: includes/options-helptexts.php:222
 msgid ""
 "This can be required because some themes change the comment form styling "
 "direcly with args."
-msgstr ""
+msgstr "Dit kan nodig zijn omdat sommige thema's de styling van het commentaarformulier direct met de argumenten veranderen."
 
 #: includes/options-helptexts.php:223
 msgid ""
 "With this option you can insert these specific args for the guestbook form."
-msgstr ""
+msgstr "Met deze optie kun je deze specifieke argumenten voor het gastenboekformulier invoegen."
 
 #: includes/options-helptexts.php:225
 #, php-format
@@ -575,13 +575,13 @@ msgstr ""
 
 #: includes/options-helptexts.php:228
 msgid "The given text must be valid php array, e.g.:"
-msgstr ""
+msgstr "De gegeven tekst moet een geldig PHP array zijn, b.v.:"
 
 #: includes/options-helptexts.php:236
 msgid ""
 "The given args will be overwritten with all the specific comment form "
 "options listed above."
-msgstr ""
+msgstr "De gegeven argumenten zullen worden overschreven met alle specifieke commentaarformulieropties die hierboven staan."
 
 #: includes/options-helptexts.php:242
 msgid "Threaded guestbook comments"
@@ -589,15 +589,15 @@ msgstr ""
 
 #: includes/options-helptexts.php:244 includes/options-helptexts.php:286
 msgid "Standard WP-discussion setting"
-msgstr ""
+msgstr "Standaard WP-discussie instelling"
 
 #: includes/options-helptexts.php:245
 msgid "Enabled"
-msgstr ""
+msgstr "Aan"
 
 #: includes/options-helptexts.php:246
 msgid "Disabled"
-msgstr ""
+msgstr "Uit"
 
 #: includes/options-helptexts.php:249
 msgid ""
@@ -615,7 +615,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:255
 msgid "Comment list order"
-msgstr ""
+msgstr "Volgorde van de commentaarlijst"
 
 #: includes/options-helptexts.php:261
 msgid ""
@@ -625,7 +625,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:266
 msgid "Comment list child order"
-msgstr ""
+msgstr "Volgorde sub-level commentaren"
 
 #: includes/options-helptexts.php:268
 msgid ""
@@ -635,7 +635,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:273
 msgid "Comment list default page"
-msgstr ""
+msgstr "Commentaarlijst standaard pagina"
 
 #: includes/options-helptexts.php:279
 msgid ""
@@ -645,15 +645,15 @@ msgstr ""
 
 #: includes/options-helptexts.php:284
 msgid "Break comments into pages"
-msgstr ""
+msgstr "Breek commentaren over pagina's"
 
 #: includes/options-helptexts.php:287
 msgid "Disable pagination"
-msgstr ""
+msgstr "Paginering uit"
 
 #: includes/options-helptexts.php:288
 msgid "Enable pagination"
-msgstr ""
+msgstr "Paginering aan"
 
 #: includes/options-helptexts.php:290
 msgid ""
@@ -663,7 +663,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:295
 msgid "Comments per page"
-msgstr ""
+msgstr "Commentaren per pagina"
 
 #: includes/options-helptexts.php:298
 msgid ""
@@ -701,11 +701,11 @@ msgstr ""
 
 #: includes/options-helptexts.php:317 includes/options-helptexts.php:435
 msgid "Show all comments"
-msgstr ""
+msgstr "Toon alle commentaren"
 
 #: includes/options-helptexts.php:318
 msgid "Show comments of all posts and pages"
-msgstr ""
+msgstr "Toon alle commentaren van alle berichten en alle pagina's"
 
 #: includes/options-helptexts.php:320
 msgid "Normally only the comments of the actual guestbook site are shown."
@@ -731,21 +731,21 @@ msgstr ""
 
 #: includes/options-helptexts.php:328
 msgid "Title for the comment list"
-msgstr ""
+msgstr "Titel voor de commentaarlijst"
 
 #: includes/options-helptexts.php:329
 msgid ""
 "With this option you can specify an additional title which will be displayed"
 " in front of the comment list."
-msgstr ""
+msgstr "Met deze optie kun je een aanvullende titel zetten, die getoond wordt voorafgaand aan de commentaren."
 
 #: includes/options-helptexts.php:334
 msgid "Comment list in page content"
-msgstr ""
+msgstr "Commentaarlijst in paginainhoud"
 
 #: includes/options-helptexts.php:335
 msgid "Show the comment list in the page content"
-msgstr ""
+msgstr "Toon de commentaarlijst in de paginainhoud"
 
 #: includes/options-helptexts.php:337
 msgid ""
@@ -768,7 +768,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:344
 msgid "Comment callback function"
-msgstr ""
+msgstr "Commentaar callbackfunctie"
 
 #: includes/options-helptexts.php:346
 msgid ""
@@ -808,7 +808,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:357
 msgid "Comment list styles"
-msgstr ""
+msgstr "Commentaarstijlen voor lijsten"
 
 #: includes/options-helptexts.php:359
 msgid ""
@@ -822,7 +822,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:367
 msgid "Comment list args"
-msgstr ""
+msgstr "Commentaarlijst args"
 
 #: includes/options-helptexts.php:369
 msgid "With this option you can manually specify args for the comment list."
@@ -851,11 +851,11 @@ msgstr ""
 
 #: includes/options-helptexts.php:385 includes/options-helptexts.php:436
 msgid "Comment adjustment"
-msgstr ""
+msgstr "Commentaaraanpassing"
 
 #: includes/options-helptexts.php:386
 msgid "Adjust the html-output of each comment"
-msgstr ""
+msgstr "Pas de HTML-output van elk commentaar aan"
 
 #: includes/options-helptexts.php:389
 #, php-format
@@ -867,7 +867,7 @@ msgstr ""
 #: includes/options-helptexts.php:390 includes/options-helptexts.php:402
 #: includes/options-helptexts.php:566
 msgid "Comment html code"
-msgstr ""
+msgstr "HTML-code van het commentaar"
 
 #: includes/options-helptexts.php:393
 #, php-format
@@ -881,7 +881,7 @@ msgstr ""
 #: includes/options-helptexts.php:395 includes/options-helptexts.php:535
 #: includes/options-helptexts.php:546 includes/options-helptexts.php:562
 msgid "General settings"
-msgstr ""
+msgstr "Algemene instellingen"
 
 #: includes/options-helptexts.php:404
 msgid ""
@@ -976,17 +976,17 @@ msgstr ""
 
 #: includes/options-helptexts.php:454
 msgid "Message text"
-msgstr ""
+msgstr "Berichttekst"
 
 #: includes/options-helptexts.php:455
 msgid ""
 "This option allows you to change the text for the message after a new "
 "comment."
-msgstr ""
+msgstr "Deze optie laat je de berichttekst wijzigen na een nieuw commentaar"
 
 #: includes/options-helptexts.php:460
 msgid "Message type"
-msgstr ""
+msgstr "Berichttype"
 
 #: includes/options-helptexts.php:466
 msgid ""
@@ -1013,7 +1013,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:480
 msgid "Message duration"
-msgstr ""
+msgstr "Berichtduur"
 
 #: includes/options-helptexts.php:482
 msgid "How long should the message after a new comment should be displayed?"
@@ -1036,7 +1036,7 @@ msgstr ""
 
 #: includes/options-helptexts.php:494
 msgid "Message styles"
-msgstr ""
+msgstr "Berichtstijlen"
 
 #: includes/options-helptexts.php:496
 msgid ""
@@ -1052,17 +1052,17 @@ msgstr ""
 
 #: includes/options-helptexts.php:503 includes/options-helptexts.php:570
 msgid "Message after new comments"
-msgstr ""
+msgstr "Bericht na nieuw commentaar"
 
 #: includes/options-helptexts.php:504
 msgid "Show a \"Thank you\" message after a new comment"
-msgstr ""
+msgstr "Toon een \"Dank je\" bericht na een nieuw commentaar"
 
 #: includes/options-helptexts.php:506
 msgid ""
 "If this option is enabled a message will be shown after a new comment was "
 "made."
-msgstr ""
+msgstr "Als deze optie aan staat wordt een bericht getoond nadat een nieuw commentaar is ingevoerd."
 
 #: includes/options-helptexts.php:508
 #, php-format
@@ -1077,66 +1077,66 @@ msgstr ""
 
 #: includes/options-helptexts.php:516
 msgid "Remove the Email field in comment forms"
-msgstr ""
+msgstr "Verwijder het Email-veld in de commentaarformulieren"
 
 #: includes/options-helptexts.php:517
 msgid ""
 "If this option is enabled the email field will be removed in comment forms."
-msgstr ""
+msgstr "Als deze optie aanstaat, wordt het Email-veld  verwijderd in de commentaarformulieren"
 
 #: includes/options-helptexts.php:523
 msgid "Remove the Website url field in comment forms"
-msgstr ""
+msgstr "Verwijder het Website-url veld in de commentaarformulieren"
 
 #: includes/options-helptexts.php:524
 msgid ""
 "If this option is enabled the website url field will be removed in comment "
 "forms."
-msgstr ""
+msgstr "Als deze optie aanstaat, wordt het Website-url verwijderd in de commentaarformulieren"
 
 #: includes/options-helptexts.php:536
 msgid "Some general settings for this plugin."
-msgstr ""
+msgstr "Enkele algemene instellingen voor deze plugin"
 
 #: includes/options-helptexts.php:539
 msgid "Comment-form settings"
-msgstr ""
+msgstr "Commentaarformulierinstellingen"
 
 #: includes/options-helptexts.php:541
 msgid "In this section you can find settings to modify the comment form."
-msgstr ""
+msgstr "In deze sectie vindt je instellingen om het commentaarformulier te wijzigen."
 
 #: includes/options-helptexts.php:542 includes/options-helptexts.php:558
 msgid "Attention"
-msgstr ""
+msgstr "Opgelet"
 
 #: includes/options-helptexts.php:544 includes/options-helptexts.php:560
 #, php-format
 msgid ""
 "If you want to change any option in this section you have to enable the "
 "option %1$s in %2$s first."
-msgstr ""
+msgstr "Als je een optie in deze sectie wil wijzigen, dan moet je eerst de optie %1$s in %2$s aan zetten."
 
 #: includes/options-helptexts.php:549
 #, php-format
 msgid ""
 "Only the options %1$s, %2$s and all comment form modification options are "
 "working without it."
-msgstr ""
+msgstr "Alleen de opties %1$s, %2$s en alle commentaarformulier wijzigingsopties werken zonder."
 
 #: includes/options-helptexts.php:555
 msgid "Comment-list settings"
-msgstr ""
+msgstr "Commentaarlijst instellingen"
 
 #: includes/options-helptexts.php:557
 msgid "In this section you can find settings to modify the comments list."
-msgstr ""
+msgstr "In deze sectie vindt je instellingen die de commentaarlijst wijzigen."
 
 #: includes/options-helptexts.php:567
 msgid ""
 "In this section you can change the html code for the comment output in "
 "guestbook pages."
-msgstr ""
+msgstr "In deze sectie kun je de HTML-code voor de commentaaroutput in de gastenboekpagina's wijzigen."
 
 #: includes/options-helptexts.php:571
 msgid ""
@@ -1152,63 +1152,63 @@ msgstr ""
 
 #: includes/options-helptexts.php:575 includes/options-helptexts.php:579
 msgid "Comments in other posts/pages"
-msgstr ""
+msgstr "Commentaren in andere berichten/pagina's"
 
 #: includes/options-helptexts.php:581
 msgid ""
 "In this sections you can change the behavior of comments lists and forms in "
 "all other posts and pages of your website (exept the guestbook pages)."
-msgstr ""
+msgstr "In deze sectie kun je wijzigingen aanbrengen in het gedrag van commentaarlijsten en formulieren in alle andere berichten en pagina's van je website (behalve de gastenboekpagina's)."
 
 #: includes/options-helptexts.php:582
 msgid ""
 "If you want to change these settings also for guestbook comments please "
 "specify the same setting values in the other option tabs."
-msgstr ""
+msgstr "Als je de instellingen ook voor de gastenboekcommentaren wilt wijzigen moet je dezelfde instellingen specificeren op de andere optie-tabs"
 
 #: includes/options.php:88
 msgid "Add a new guestbook entry"
-msgstr ""
+msgstr "Voeg een nieuwe gastenboekbijdrage toe"
 
 #: includes/options.php:121
 msgid "Thanks for your comment"
-msgstr ""
+msgstr "Dank voor je commentaar"
 
 #: includes/widget-helptexts.php:16
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: includes/widget-helptexts.php:18
 msgid "This option defines the displayed title for the widget."
-msgstr ""
+msgstr "Deze optie definieert de weergegeven titel voor het widget"
 
 #: includes/widget-helptexts.php:25
 msgid "Number of comments"
-msgstr ""
+msgstr "Het aantal commentaren"
 
 #: includes/widget-helptexts.php:27
 msgid "The number of comments to display"
-msgstr ""
+msgstr "Het aantal commentaren te tonen"
 
 #: includes/widget-helptexts.php:34
 msgid "Add a link to each comment"
-msgstr ""
+msgstr "Voeg een link toe aan elk commentaar"
 
 #: includes/widget-helptexts.php:36
 msgid "With this option a link to every displayed comment can be added."
-msgstr ""
+msgstr "Met deze optie kan een link naar elk getoond commentaar worden toegevoegd."
 
 #: includes/widget-helptexts.php:43
 msgid "Show comment date"
-msgstr ""
+msgstr "Toon de datum van het commentaar"
 
 #: includes/widget-helptexts.php:45
 msgid "This option defines if the comment date will be displayed."
-msgstr ""
+msgstr "Deze optie definieert dat de datum van het commentaar wordt getoond."
 
 #: includes/widget-helptexts.php:52
 msgid "Date format"
-msgstr ""
+msgstr "Datum formaat"
 
 #: includes/widget-helptexts.php:55
 msgid "This option defines the date format of the displayed comment."
@@ -1222,20 +1222,20 @@ msgstr ""
 
 #: includes/widget-helptexts.php:63
 msgid "Show comment author"
-msgstr ""
+msgstr "Toon de commentaar auteur"
 
 #: includes/widget-helptexts.php:65
 msgid "This option defines if the comment author will be displayed."
-msgstr ""
+msgstr "Deze optie bepaalt of de commentaarauteur zal worden getoond."
 
 #: includes/widget-helptexts.php:72
 msgid "Truncate author to"
-msgstr ""
+msgstr "Verkort de auteur tot"
 
 #: includes/widget-helptexts.php:73 includes/widget-helptexts.php:97
 #: includes/widget-helptexts.php:121
 msgid "characters"
-msgstr ""
+msgstr "karakters"
 
 #: includes/widget-helptexts.php:75
 msgid ""
@@ -1252,17 +1252,17 @@ msgstr ""
 
 #: includes/widget-helptexts.php:87 includes/widget-helptexts.php:160
 msgid "Show the title of the comment page"
-msgstr ""
+msgstr "Toon de titel van de commentaarpagina"
 
 #: includes/widget-helptexts.php:89
 msgid ""
 "This options specifies if the page title of the comment page will be "
 "displayed."
-msgstr ""
+msgstr "Deze optie specificeert of de paginatitel van de commentaarpagina wordt getoond."
 
 #: includes/widget-helptexts.php:96
 msgid "Truncate title to"
-msgstr ""
+msgstr "Verkort de titel tot"
 
 #: includes/widget-helptexts.php:99
 msgid ""
@@ -1279,16 +1279,16 @@ msgstr ""
 
 #: includes/widget-helptexts.php:111
 msgid "Show comment text"
-msgstr ""
+msgstr "Toon de commentaartekst"
 
 #: includes/widget-helptexts.php:113
 msgid ""
 "The options specifies if the comment text will be displayed in the widget."
-msgstr ""
+msgstr "Deze optie specificeert of de commentaartekst wordt getoond in het widget."
 
 #: includes/widget-helptexts.php:120
 msgid "Truncate text to"
-msgstr ""
+msgstr "Verkort het commentaar tot"
 
 #: includes/widget-helptexts.php:123
 msgid ""
@@ -1305,87 +1305,87 @@ msgstr ""
 
 #: includes/widget-helptexts.php:135
 msgid "URL to the linked guestbook page"
-msgstr ""
+msgstr "URL naar de gelinkte gastenboekpagina"
 
 #: includes/widget-helptexts.php:137
 msgid ""
 "This options specifies the url to the guestbook page. This url is must be "
 "set if one of the options below is required."
-msgstr ""
+msgstr "Deze optie specificeert de URL naar de gastenboekpagina. Deze URL moet gezet zijn indien een van de opties hieronder verplicht is."
 
 #: includes/widget-helptexts.php:144
 msgid "Show guestbook page comments only"
-msgstr ""
+msgstr "Toon alleen gastenboekpaginacommentaren"
 
 #: includes/widget-helptexts.php:147
 msgid "Only show comments from the guestbook page specified above."
-msgstr ""
+msgstr "Toon alleen commentaren van de gastenboekpagina die hierboven gespecificeerd is."
 
 #: includes/widget-helptexts.php:148 includes/widget-helptexts.php:162
 #: includes/widget-helptexts.php:173
 msgid ""
 "The url to the guestbook page is required if you want to enable this option."
-msgstr ""
+msgstr "De URL naar de gastenboekpagina is verplicht als je deze optie aan wil zetten"
 
 #: includes/widget-helptexts.php:155
 msgid "Hide guestbook page title"
-msgstr ""
+msgstr "Verberg de gastenboekpaginatitel"
 
 #: includes/widget-helptexts.php:159
 #, php-format
 msgid ""
 "With this option you can hide the page title for guestbook comments if you "
 "have enabled the option %1$s."
-msgstr ""
+msgstr "Met deze optie kun je de paginatitel voor gastenboekcommentaren verbergen als de optie  %1$saan staat."
 
 #: includes/widget-helptexts.php:169
 msgid "Add a link to the guestbook page"
-msgstr ""
+msgstr "Voeg een link toe aan de gastenboekpagina"
 
 #: includes/widget-helptexts.php:172
 msgid ""
 "The option adds a general link to the guestbook page below the comment list."
-msgstr ""
+msgstr "De optie voegt een algemene link toe naar de gastenboekpagina onder de lijst met commentaren."
 
 #: includes/widget-helptexts.php:180
 msgid "Caption for the link"
-msgstr ""
+msgstr "Tekst voor de link"
 
 #: includes/widget-helptexts.php:182
 msgid "Set the caption for the link to the guestbook page."
-msgstr ""
+msgstr "Zet de tekst voor de link naar de gastenboekpagina."
 
 #: includes/widget.php:45
 msgid "This widget displays a list of recent comments."
-msgstr ""
+msgstr "Deze widget toont een lijst van recente commentaren."
 
 #: includes/widget.php:54
 msgid "Recent guestbook entries"
-msgstr ""
+msgstr "Recente gastenboekbijdragen"
 
 #: includes/widget.php:69
 msgid "goto guestbook page"
-msgstr ""
+msgstr "Ga naar de gastenboekpagina"
 
 #: includes/widget.php:138
 msgid "Date of comment"
-msgstr ""
+msgstr "Datum van het commentaar"
 
 #: includes/widget.php:148
 msgid "Comment author"
-msgstr ""
+msgstr "Auteur van het commentaar"
 
 #: includes/widget.php:156
 msgid "Page of comment"
-msgstr ""
+msgstr "Commentaarpagina"
 
 #: includes/widget.php:158
 msgid "in"
-msgstr ""
+msgstr "in"
 
 #: includes/widget.php:236
 msgid ""
 "For all options tooltips are available which provide additional help and "
 "information. They appear if the mouse is hovered over the options text field"
 " or checkbox."
-msgstr ""
+msgstr "Voor alle opties zijn tooltips beschikbaar die aanvullende hulp en informatie bieden. Ze verschijnen als de muis over het optie tekstveld of checkbox wordt bewogen."

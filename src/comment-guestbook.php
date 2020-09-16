@@ -71,7 +71,7 @@ class CGB_CommentGuestbook {
 		$this->options = CGB_Options::get_instance();
 
 		// Always!
-		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) );
+		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ), 10 );
 		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
 		add_action( 'widgets_init', array( &$this, 'widget_init' ) );
 

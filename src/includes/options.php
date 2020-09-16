@@ -62,7 +62,8 @@ class CGB_Options {
 	 * @return void
 	 */
 	private function __construct() {
-		add_action( 'init', array( &$this, 'init' ), 1 );
+		// Inititialize options directly after loading the plugins textdomain (action: plugins_loaded, priority: 10).
+		add_action( 'plugins_loaded', array( &$this, 'init' ), 11 );
 		add_action( 'admin_init', array( &$this, 'register' ) );
 	}
 

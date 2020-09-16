@@ -101,7 +101,9 @@ class CGB_Comments_Functions {
 
 
 	/**
-	 * Show the comments list with the required adaptations
+	 * Show the comments list with the required modifications
+	 *
+	 * For the modifications the available arguments for the wp_list_comments function are used.
 	 *
 	 * @return void
 	 */

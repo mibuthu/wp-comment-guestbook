@@ -85,11 +85,7 @@ class CGB_Shortcode {
 			 * (The form will also be hidden if the comment list is displayed in page content.)
 			 */
 			require_once CGB_PATH . 'includes/comments-functions.php';
-			ob_start();
-				CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
-				$out = strval( ob_get_contents() );
-			ob_end_clean();
-			return $out;
+			return CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
 		} else {
 			/**
 			 * Show nothing

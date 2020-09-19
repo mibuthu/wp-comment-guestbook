@@ -34,7 +34,7 @@ if ( ( '' === $cgb_options->get( 'cgb_clist_in_page_content' ) && ! $cgb_in_page
 			<div id="comments">';
 
 	// Comment form above comments.
-	$cgb_func->show_comment_form_html( 'above_comments' );
+	echo $cgb_func->show_comment_form_html( 'above_comments' );
 
 	// Is a password required?
 	if ( post_password_required() ) {
@@ -66,15 +66,17 @@ if ( ( '' === $cgb_options->get( 'cgb_clist_in_page_content' ) && ! $cgb_in_page
 			echo '<h2 id="comments-title">' . esc_html( $cgb_title ) . '</h2>';
 		}
 		// Show comment list.
-		$cgb_func->show_nav_html( 'above_comments' );
+		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- no escaping required here
+		echo $cgb_func->show_nav_html( 'above_comments' );
 		echo '<ol class="commentlist cgb-commentlist">';
-		$cgb_func->list_comments();
+		echo $cgb_func->list_comments();
 		echo '</ol>';
-		$cgb_func->show_nav_html( 'below_comments' );
+		echo $cgb_func->show_nav_html( 'below_comments' );
+		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	// Comment form below comments.
-	$cgb_func->show_comment_form_html( 'below_comments' );
+	echo $cgb_func->show_comment_form_html( 'below_comments' );
 	echo '
 			</div><!-- #comments -->';
 }

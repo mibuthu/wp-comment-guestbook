@@ -75,9 +75,11 @@ class CGB_Shortcode {
 			 * Show comment list in page content
 			 */
 			ob_start();
-				include CGB_PATH . 'includes/comments-template.php';
+				$GLOBALS['cgb_comment_template_in_page'] = true;
+				comments_template();
 				$out = strval( ob_get_contents() );
 			ob_end_clean();
+			unset( $GLOBALS['cgb_comment_template_in_page'] );
 			return $out;
 		} elseif ( '' !== $this->options->get( 'cgb_form_in_page' ) && ( '' === $this->options->get( 'cgb_form_above_comments' ) || '' === $this->options->get( 'cgb_adjust_output' ) ) ) {
 			/**

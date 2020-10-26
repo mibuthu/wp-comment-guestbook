@@ -6,6 +6,7 @@
  * @phpcs:disable WordPress.Files.FileName
  * @phpcs:disable WordPress.NamingConventions
  * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
+ * @phpcs:disable Generic.Commenting.DocComment.MissingShort
  */
 
 // Class
@@ -40,11 +41,35 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListThreaded( AcceptanceTester $I ) {
+	public function CListInPageContent( AcceptanceTester $I ) {
+		$I->wantTo( 'test "Comment list in page content" (cgb_clist_in_page_content)' );
+		$gbPageId = $I->createGuestbookPage();
+		$I->allowGuestbookComments( $gbPageId );
+		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$comment   = 'Test comment ' . uniqid();
+		$commentId = $I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
+		// Check when disabled (default)
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '#comments #li-comment-' . $commentId );
+		$I->dontSeeElement( '.entry-content #comments' );
+		// Check when enabled
+		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_in_page_content', '1' );
+		$I->logout();
+		$I->amOnGuestbookPage( $gbPageId );
+		$I->seeElement( '.entry-content #comments #li-comment-' . $commentId );
+	}
+
+
+	/**
+	* @dataProvider optionProvider
+	*/
+	public function CListThreaded( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
 		$I->wantTo( 'test "Theaded comment list" (cgb_clist_threaded)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$parentComment   = 'Parent comment ' . uniqid();
 		$childComment    = 'Child comment ' . uniqid();
 		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at' );
@@ -75,11 +100,15 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListOrder( AcceptanceTester $I ) {
+	/**
+	* @dataProvider optionProvider
+	*/
+	public function CListOrder( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
 		$I->wantTo( 'test "Comment list order" (cgb_clist_order)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$firstComment    = 'First comment ' . uniqid();
 		$secondComment   = 'Second comment ' . uniqid();
 		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ) );
@@ -107,15 +136,19 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListChildOrderDesc( AcceptanceTester $I ) {
+	/**
+	* @dataProvider optionProvider
+	*/
+	public function CListChildOrderDesc( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
 		$I->wantTo( 'test "Comment list child order" (cgb_clist_child_order_desc)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$parentComment   = 'Parent comment ' . uniqid();
 		$firstComment    = 'First comment ' . uniqid();
 		$secondComment   = 'Second comment ' . uniqid();
-		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at' );
+		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at', '', array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 172800 ) ) );
 		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId, '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ) );
 		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId ) );
 		// Check with option disabled (oldest first)
@@ -152,11 +185,15 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListPage( AcceptanceTester $I ) {
+	/**
+	* @dataProvider optionProvider
+	*/
+	public function CListPage( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
 		$I->wantTo( 'test "Comment list page options" (cgb_clist_default_page, _pagination, _per_page, _show_all, _num_pagination)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$numComments = 21;
 		$comments    = $I->createGuestbookComments( $gbPageId, $numComments, 'testuser', 'user@test.at' );
 		// Check standard plugin and standard WP settings
@@ -228,13 +265,17 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListShowAllComments( AcceptanceTester $I ) {
+	/**
+	* @dataProvider optionProvider
+	*/
+	public function CListShowAllComments( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
 		$I->wantTo( 'test "Show all comments" (cgb_clist_show_all)' );
 		$gbPageId     = $I->createGuestbookPage();
 		$samplePageId = 2;
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		$I->updateWPOption( 'page_comments', '1' );
+		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$I->setPageCommentStatus( $samplePageId, true );
 		$I->deleteAllComments();
 		$numGbComments = 5;
@@ -269,11 +310,15 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListTitle( AcceptanceTester $I ) {
+	/**
+	* @dataProvider optionProvider
+	*/
+	public function CListTitle( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
 		$I->wantTo( 'test "Title for the comment list" (cgb_clist_title)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
+		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$comment   = 'Test comment ' . uniqid();
 		$commentId = $I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
 		// Check when disabled (default)
@@ -291,23 +336,14 @@ class CommentListSettingsCest {
 	}
 
 
-	public function CListInPageContent( AcceptanceTester $I ) {
-		$I->wantTo( 'test "Comment list in page content" (cgb_clist_in_page_content)' );
-		$gbPageId = $I->createGuestbookPage();
-		$I->allowGuestbookComments( $gbPageId );
-		$I->updateWPOption( 'cgb_adjust_output', '1' );
-		$comment   = 'Test comment ' . uniqid();
-		$commentId = $I->createGuestbookComment( $gbPageId, $comment, 'testuser', 'user@test.at' );
-		// Check when disabled (default)
-		$I->logout();
-		$I->amOnGuestbookPage( $gbPageId );
-		$I->seeElement( '#comments #li-comment-' . $commentId );
-		$I->dontSeeElement( '.entry-content #comments' );
-		// Check when enabled
-		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_in_page_content', '1' );
-		$I->logout();
-		$I->amOnGuestbookPage( $gbPageId );
-		$I->seeElement( '.entry-content #comments #li-comment-' . $commentId );
+	/**
+	 * @return array
+	 */
+	protected function optionProvider() {
+		return array(
+			array( 'clist_in_page_content' => '' ),
+			array( 'clist_in_page_content' => '1' ),
+		);
 	}
 
 }

@@ -75,9 +75,11 @@ class CGB_Shortcode {
 			 * Show comment list in page content
 			 */
 			ob_start();
-				include CGB_PATH . 'includes/comments-template.php';
+				$GLOBALS['cgb_comment_template_in_page'] = true;
+				comments_template();
 				$out = strval( ob_get_contents() );
 			ob_end_clean();
+			unset( $GLOBALS['cgb_comment_template_in_page'] );
 			return $out;
 		} elseif ( '' !== $this->options->get( 'cgb_form_in_page' ) && ( '' === $this->options->get( 'cgb_form_above_comments' ) || '' === $this->options->get( 'cgb_adjust_output' ) ) ) {
 			/**
@@ -85,11 +87,7 @@ class CGB_Shortcode {
 			 * (The form will also be hidden if the comment list is displayed in page content.)
 			 */
 			require_once CGB_PATH . 'includes/comments-functions.php';
-			ob_start();
-				CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
-				$out = strval( ob_get_contents() );
-			ob_end_clean();
-			return $out;
+			return CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
 		} else {
 			/**
 			 * Show nothing

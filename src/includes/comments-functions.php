@@ -101,12 +101,14 @@ class CGB_Comments_Functions {
 
 
 	/**
-	 * Show the comments list with the required adaptations
+	 * Get the comments list html with the required plugin modifications
 	 *
-	 * @return void
+	 * For the modifications the available arguments for the wp_list_comments function are used.
+	 *
+	 * @return string
 	 */
 	public function list_comments() {
-		$args = array();
+		$args = array( 'echo' => false );
 		// Comment list args.
 		if ( '' !== $this->options->get( 'cgb_clist_args' ) ) {
 			$args_array = null;
@@ -135,7 +137,7 @@ class CGB_Comments_Functions {
 			$args['reverse_children'] = isset( $args['reverse_children'] ) ? ! $args['reverse_children'] : true;
 		}
 		// Print comments.
-		wp_list_comments( $args );
+		return wp_list_comments( $args );
 	}
 
 
@@ -185,40 +187,43 @@ class CGB_Comments_Functions {
 
 
 	/**
-	 * Show the navigation bar
+	 * Get the navigation bar html
 	 *
 	 * @param string $location The position where the navigation bar should be displayed.
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function show_nav_html( $location ) {
 		if ( get_comment_pages_count() > 1 && (bool) get_option( 'page_comments' ) ) {
 			$nav_id = 'comment-nav-' . ( 'above_comments' === $location ? 'above' : 'below' );
-			echo '<nav id="' . esc_attr( $nav_id ) . '">';
+			$out    = '<nav id="' . esc_attr( $nav_id ) . '">';
 
 			if ( '' !== $this->options->get( 'cgb_clist_num_pagination' ) ) {
 				// Numbered Pagination.
-				echo '<div class="pagination" style="text-align:center;">';
-				paginate_comments_links(
+				$out .= '<div class="pagination" style="text-align:center;">';
+				$out .= paginate_comments_links(
 					array(
+						'echo'      => false,
 						'prev_text' => $this->nav_label_prev,
 						'next_text' => $this->nav_label_next,
 						'mid_size'  => 3,
 					)
 				);
-				echo '</div>';
+				$out .= '</div>';
 			} else {
 				// Only previous and next links.
 				// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->get_comment_nav_label is already escaped.
 				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain -- using a variable is required here.
-				echo '<h1 class="assistive-text">' . esc_html__( 'Comment navigation', $this->l10n_domain ) . '</h1>
+				$out .= '<h1 class="assistive-text">' . esc_html__( 'Comment navigation', $this->l10n_domain ) . '</h1>
 					<div class="nav-previous">' . $this->get_comment_nav_label( true ) . '</div>
 					<div class="nav-next">' . $this->get_comment_nav_label() . '</div>';
 				// phpcs:enable
 			}
 
-			echo '</nav>';
+			$out .= '</nav>';
+			return $out;
 		}
+		return '';
 	}
 
 
@@ -230,28 +235,24 @@ class CGB_Comments_Functions {
 	 * @return string
 	 */
 	private function get_comment_nav_label( $previous = false ) {
-		ob_start();
 		if ( $previous ) {
-			previous_comments_link( $this->nav_label_prev );
+			return get_previous_comments_link( $this->nav_label_prev );
 		} else {
-			next_comments_link( $this->nav_label_next );
+			return get_next_comments_link( $this->nav_label_next );
 		}
-		$out = strval( ob_get_contents() );
-		ob_end_clean();
-
-		return $out;
 	}
 
 
 	/**
-	 * Show the comment form with thre required plugin adaptations
+	 * Get the comment form html with the required plugin modifications
 	 *
 	 * @param string $location The location where the comment form shall be displayed.
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function show_comment_form_html( $location ) {
-		// Print custom form styles.
+		$out = '';
+		// Custom form styles.
 		if ( ! (bool) $this->num_forms ) {
 			$styles = $this->options->get( 'cgb_form_styles' );
 			// Add styles for foldable forms.
@@ -268,31 +269,35 @@ class CGB_Comments_Functions {
 			}
 			// Print styles.
 			if ( '' !== $styles ) {
-				echo '
+				$out .= '
 					<style>
 						' . esc_html( $styles ) . '
 					</style>';
 			}
 		}
 		$this->num_forms ++;
-		// Show form.
+		// Comment form.
 		if ( ( 'above_comments' === $location && '' !== $this->options->get( 'cgb_form_above_comments' ) )
 			|| ( 'below_comments' === $location && '' !== $this->options->get( 'cgb_form_below_comments' ) )
 			|| ( 'in_page' === $location )
 		) { // The check if the in_page form shall be displayed must be done before this function is called.
 			// Add required parts for foldable comment form.
 			if ( 'false' !== $this->options->get( 'cgb_form_expand_type' ) ) {
-				echo '
+				$out .= '
 					<a class="form-link" id="show-form-' . esc_attr( strval( $this->num_forms ) ) . '" href="#show-form-' . esc_attr( strval( $this->num_forms ) ) . '">' .
 						esc_html( $this->options->get( 'cgb_form_expand_link_text' ) ) . '</a>
 					<div class="form-wrapper">';
 			}
 			// Print form.
-			comment_form( $this->get_guestbook_comment_form_args() );
+			ob_start();
+				comment_form( $this->get_guestbook_comment_form_args() );
+				$out .= ob_get_contents();
+			ob_end_clean();
 			if ( 'false' !== $this->options->get( 'cgb_form_expand_type' ) ) {
-				echo '</div>';
+				$out .= '</div>';
 			}
 		}
+		return $out;
 	}
 
 

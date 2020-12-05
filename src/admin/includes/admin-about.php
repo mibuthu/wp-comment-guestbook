@@ -6,6 +6,11 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
+
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_URL;
+
 if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
@@ -15,7 +20,7 @@ if ( ! defined( 'WP_ADMIN' ) ) {
  *
  * This class handles the display of the admin about page
  */
-class CGB_Admin_About {
+class About {
 
 	/**
 	 * Class singleton instance reference
@@ -146,9 +151,9 @@ class CGB_Admin_About {
 				<p>' . sprintf( __( 'This plugin is developed by %1$s, you can find more information about the plugin on the %2$s.', 'comment-guestbook' ), 'mibuthu', '<a href="https://wordpress.org/plugins/comment-guestbook/" target="_blank" rel="noopener">' . __( 'WordPress plugin site', 'comment-guestbook' ) . '</a>' ) . '</p>
 				<p>' . sprintf( __( 'If you like the plugin please rate it on the %1$s.', 'comment-guestbook' ), '<a href="https://wordpress.org/support/plugin/comment-guestbook/reviews/" target="_blank" rel="noopener">' . __( 'WordPress plugin review site', 'comment-guestbook' ) . '</a>' ) . '<br />
 				<p>' . __( 'If you want to support the plugin I would be happy to get a small donation', 'comment-guestbook' ) . ':<br />
-				<a class="donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank" rel="noopener"><img src="' . CGB_URL . 'admin/images/paypal_btn_donate.gif" alt="PayPal Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'PayPal' ) . '" border="0"></a>
-				<a class="donate" href="https://liberapay.com/mibuthu/donate" target="_blank" rel="noopener"><img src="' . CGB_URL . 'admin/images/liberapay-donate.svg" alt="Liberapay Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Liberapay' ) . '" border="0"></a>
-				<a class="donate" href="https://flattr.com/submit/auto?user_id=mibuthu&url=https%3A%2F%2Fwordpress.org%2Fplugins%2Fcomment-guestbook" target="_blank" rel="noopener"><img src="' . CGB_URL . 'admin/images/flattr-badge-large.png" alt="Flattr this" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Flattr' ) . '" border="0"></a></p>
+				<a class="donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank" rel="noopener"><img src="' . PLUGIN_URL . 'admin/images/paypal_btn_donate.gif" alt="PayPal Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'PayPal' ) . '" border="0"></a>
+				<a class="donate" href="https://liberapay.com/mibuthu/donate" target="_blank" rel="noopener"><img src="' . PLUGIN_URL . 'admin/images/liberapay-donate.svg" alt="Liberapay Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Liberapay' ) . '" border="0"></a>
+				<a class="donate" href="https://flattr.com/submit/auto?user_id=mibuthu&url=https%3A%2F%2Fwordpress.org%2Fplugins%2Fcomment-guestbook" target="_blank" rel="noopener"><img src="' . PLUGIN_URL . 'admin/images/flattr-badge-large.png" alt="Flattr this" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Flattr' ) . '" border="0"></a></p>
 			</div>'
 		);
 	}

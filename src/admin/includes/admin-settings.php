@@ -6,18 +6,24 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
+
+use WordPress\Plugins\mibuthu\CommentGuestbook\Options;
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+
 if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/options.php';
 
 /**
  * CommentGuestbooks Settings Class
  *
  * This class handles the display of the admin settings page
  */
-class CGB_Admin_Settings {
+class Settings {
 
 	/**
 	 * Class singleton instance reference
@@ -29,7 +35,7 @@ class CGB_Admin_Settings {
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
@@ -53,7 +59,7 @@ class CGB_Admin_Settings {
 	 * Class constructor which initializes required variables
 	 */
 	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
+		$this->options = &Options::get_instance();
 		$this->options->load_options_helptexts();
 	}
 

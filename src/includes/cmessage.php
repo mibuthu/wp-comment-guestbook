@@ -6,18 +6,21 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/options.php';
 
 
 
 /**
  * Class for handling of cmessages (Messages after a new comment)
  */
-class CGB_CMessage {
+class CMessage {
 
 	/**
 	 * Class singleton instance reference
@@ -29,7 +32,7 @@ class CGB_CMessage {
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
@@ -55,7 +58,7 @@ class CGB_CMessage {
 	 * @return void
 	 */
 	protected function __construct() {
-		$this->options = &CGB_Options::get_instance();
+		$this->options = &Options::get_instance();
 	}
 
 
@@ -76,7 +79,7 @@ class CGB_CMessage {
 	 * @return void
 	 */
 	public function register_scripts() {
-		wp_register_script( 'cgb_cmessage', CGB_URL . 'includes/js/cmessage.js', array( 'jquery' ), '1.0', true );
+		wp_register_script( 'cgb_cmessage', PLUGIN_URL . 'includes/js/cmessage.js', array( 'jquery' ), '1.0', true );
 	}
 
 

@@ -6,29 +6,32 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
-require_once CGB_PATH . 'includes/attribute.php';
+require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/attribute.php';
 
 /**
  * Comment Guestbook Widget
  */
-class CGB_Widget extends WP_Widget {
+class Widget extends \WP_Widget {
 
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
 	/**
 	 * Widget Items
 	 *
-	 * @var array<string,CGB_Attribute>
+	 * @var array<string,Attribute>
 	 */
 	private $items;
 
@@ -47,26 +50,26 @@ class CGB_Widget extends WP_Widget {
 		add_action( 'comment_post', array( $this, 'flush_widget_cache' ) );
 		add_action( 'transition_comment_status', array( $this, 'flush_widget_cache' ) );
 		add_filter( 'safe_style_css', array( $this, 'safe_style_css_filter' ) );
-		$this->options = &CGB_Options::get_instance();
+		$this->options = &Options::get_instance();
 
 		// Define all available items.
 		$this->items = array(
-			'title'                => new CGB_Attribute( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => new CGB_Attribute( '5' ),
-			'link_to_comment'      => new CGB_Attribute( 'false' ),
-			'show_date'            => new CGB_Attribute( 'false' ),
-			'date_format'          => new CGB_Attribute( get_option( 'date_format' ) ),
-			'show_author'          => new CGB_Attribute( 'true' ),
-			'author_length'        => new CGB_Attribute( '18' ),
-			'show_page_title'      => new CGB_Attribute( 'false' ),
-			'page_title_length'    => new CGB_Attribute( '18' ),
-			'show_comment_text'    => new CGB_Attribute( 'true' ),
-			'comment_text_length'  => new CGB_Attribute( '25' ),
-			'url_to_page'          => new CGB_Attribute( '' ),
-			'gb_comments_only'     => new CGB_Attribute( 'false' ),
-			'hide_gb_page_title'   => new CGB_Attribute( 'false' ),
-			'link_to_page'         => new CGB_Attribute( 'false' ),
-			'link_to_page_caption' => new CGB_Attribute( __( 'goto guestbook page', 'comment-guestbook' ) ),
+			'title'                => new Attribute( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
+			'num_comments'         => new Attribute( '5' ),
+			'link_to_comment'      => new Attribute( 'false' ),
+			'show_date'            => new Attribute( 'false' ),
+			'date_format'          => new Attribute( get_option( 'date_format' ) ),
+			'show_author'          => new Attribute( 'true' ),
+			'author_length'        => new Attribute( '18' ),
+			'show_page_title'      => new Attribute( 'false' ),
+			'page_title_length'    => new Attribute( '18' ),
+			'show_comment_text'    => new Attribute( 'true' ),
+			'comment_text_length'  => new Attribute( '25' ),
+			'url_to_page'          => new Attribute( '' ),
+			'gb_comments_only'     => new Attribute( 'false' ),
+			'hide_gb_page_title'   => new Attribute( 'false' ),
+			'link_to_page'         => new Attribute( 'false' ),
+			'link_to_page_caption' => new Attribute( __( 'goto guestbook page', 'comment-guestbook' ) ),
 		);
 	}
 
@@ -126,7 +129,7 @@ class CGB_Widget extends WP_Widget {
 			$update_term_cache = strpos( get_option( 'permalink_structure' ), '%category%' ) !== false;
 			_prime_post_caches( $post_ids, $update_term_cache, false );
 			foreach ( $comments as $comment ) {
-				if ( ! $comment instanceof WP_Comment ) {
+				if ( ! $comment instanceof \WP_Comment ) {
 					continue;
 				}
 				$out .= '
@@ -197,7 +200,7 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Sanitize widget form values as they are saved.
 	 *
-	 * @see WP_Widget::update()
+	 * @see \WP_Widget::update()
 	 *
 	 * @param array<string,string> $new_instance Values just sent to be saved.
 	 * @param array<string,string> $old_instance Previously saved values from database.
@@ -225,7 +228,7 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Back-end widget form.
 	 *
-	 * @see WP_Widget::form()
+	 * @see \WP_Widget::form()
 	 *
 	 * @param array<string,string> $instance Previously saved values from database.
 	 * @return string
@@ -267,7 +270,7 @@ class CGB_Widget extends WP_Widget {
 	 * Provides the guestbook specific comment link for pages/posts
 	 * where the 'comment-guestbook' shortcode is used.
 	 *
-	 * @param WP_Comment $comment The WordPress comment object of the comment to retrieve.
+	 * @param \WP_Comment $comment The WordPress comment object of the comment to retrieve.
 	 * @return string
 	 */
 	private function get_comment_link( $comment ) {
@@ -450,7 +453,7 @@ class CGB_Widget extends WP_Widget {
 	 */
 	public function load_helptexts() {
 		global $cgb_widget_items_helptexts;
-		require_once CGB_PATH . 'includes/widget-helptexts.php';
+		require_once PLUGIN_PATH . 'includes/widget-helptexts.php';
 		foreach ( $cgb_widget_items_helptexts as $name => $values ) {
 			$this->items[ $name ]->update( $values );
 		}

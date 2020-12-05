@@ -6,6 +6,9 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
@@ -16,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * This class handles the attributes for shortcode, widget options and plugin options.
  */
-class CGB_Attribute {
+class Attribute {
 
 	/**
 	 * Attribute (default) value
@@ -141,7 +144,7 @@ class CGB_Attribute {
 	 *
 	 * @param array<string,string> $attributes Fields with values to update.
 	 * @return void
-	 * @throws Exception Option not available.
+	 * @throws \Exception Option not available.
 	 */
 	public function update( $attributes ) {
 		foreach ( $attributes as $name => $value ) {
@@ -149,7 +152,7 @@ class CGB_Attribute {
 				$this->$name = $value;
 			} else {
 				// Not available attribute.
-				throw new Exception( 'Requested attribute "' . $name . '" not available!' );
+				throw new \Exception( 'Requested attribute "' . $name . '" not available!' );
 			}
 		}
 	}

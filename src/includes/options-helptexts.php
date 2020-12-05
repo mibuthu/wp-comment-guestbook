@@ -6,6 +6,9 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }

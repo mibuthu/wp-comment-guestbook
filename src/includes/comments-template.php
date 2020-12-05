@@ -6,15 +6,18 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
-require_once CGB_PATH . 'includes/comments-functions.php';
+require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/comments-functions.php';
 
-$cgb_options = CGB_Options::get_instance();
-$cgb_func    = CGB_Comments_Functions::get_instance();
+$cgb_options = Options::get_instance();
+$cgb_func    = Comments_Functions::get_instance();
 
 global $wp_query;
 

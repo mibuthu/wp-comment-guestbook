@@ -6,23 +6,26 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/options.php';
 
 /**
  * CommentGuestbook Frontend Filter Class
  *
  * This class handles all filters to overwrite the defaults according to the CommentGuestbook settings.
  */
-class CGB_Filters {
+class Filters {
 
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
@@ -41,7 +44,7 @@ class CGB_Filters {
 	 * @return void
 	 */
 	public function __construct( $called_from = 'shortcode' ) {
-		$this->options     = &CGB_Options::get_instance();
+		$this->options     = &Options::get_instance();
 		$this->called_from = $called_from;
 		$this->prepare_filters();
 	}

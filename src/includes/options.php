@@ -6,18 +6,21 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/attribute.php';
+require_once PLUGIN_PATH . 'includes/attribute.php';
 
 /**
  * Options class
  *
  * This class handles all available options with their information
  */
-class CGB_Options {
+class Options {
 
 	/**
 	 * Class singleton instance reference
@@ -36,7 +39,7 @@ class CGB_Options {
 	/**
 	 * Options
 	 *
-	 * @var array<string,CGB_Attribute>
+	 * @var array<string,Attribute>
 	 */
 	public $options;
 
@@ -76,53 +79,53 @@ class CGB_Options {
 	public function init() {
 		$this->options = array(
 			// General.
-			'cgb_ignore_comments_open'        => new CGB_Attribute( '1', null, 'general' ),
-			'cgb_ignore_comment_registration' => new CGB_Attribute( '1', null, 'general' ),
-			'cgb_ignore_comment_moderation'   => new CGB_Attribute( '', null, 'general' ),
-			'cgb_adjust_output'               => new CGB_Attribute( '', null, 'general' ),
-			'cgb_l10n_domain'                 => new CGB_Attribute( 'default', null, 'general' ),
+			'cgb_ignore_comments_open'        => new Attribute( '1', null, 'general' ),
+			'cgb_ignore_comment_registration' => new Attribute( '1', null, 'general' ),
+			'cgb_ignore_comment_moderation'   => new Attribute( '', null, 'general' ),
+			'cgb_adjust_output'               => new Attribute( '', null, 'general' ),
+			'cgb_l10n_domain'                 => new Attribute( 'default', null, 'general' ),
 			// Comment form.
-			'cgb_form_below_comments'         => new CGB_Attribute( '', null, 'comment_form' ),
-			'cgb_form_above_comments'         => new CGB_Attribute( '', null, 'comment_form' ),
-			'cgb_form_in_page'                => new CGB_Attribute( '1', null, 'comment_form' ),
-			'cgb_form_expand_type'            => new CGB_Attribute( 'false', null, 'comment_form' ),
-			'cgb_form_expand_link_text'       => new CGB_Attribute( __( 'Add a new guestbook entry', 'comment-guestbook' ), null, 'comment_form' ),
-			'cgb_form_require_no_name_mail'   => new CGB_Attribute( '', null, 'comment_form' ),
-			'cgb_form_remove_mail'            => new CGB_Attribute( '', null, 'comment_form' ),
-			'cgb_form_remove_website'         => new CGB_Attribute( '', null, 'comment_form' ),
-			'cgb_form_comment_label'          => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_title'                  => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_title_reply_to'         => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_notes_before'           => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_notes_after'            => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_label_submit'           => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_cancel_reply'           => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_must_login_message'     => new CGB_Attribute( 'default', null, 'comment_form' ),
-			'cgb_form_styles'                 => new CGB_Attribute( '', null, 'comment_form' ),
-			'cgb_form_args'                   => new CGB_Attribute( '', null, 'comment_form' ),
+			'cgb_form_below_comments'         => new Attribute( '', null, 'comment_form' ),
+			'cgb_form_above_comments'         => new Attribute( '', null, 'comment_form' ),
+			'cgb_form_in_page'                => new Attribute( '1', null, 'comment_form' ),
+			'cgb_form_expand_type'            => new Attribute( 'false', null, 'comment_form' ),
+			'cgb_form_expand_link_text'       => new Attribute( __( 'Add a new guestbook entry', 'comment-guestbook' ), null, 'comment_form' ),
+			'cgb_form_require_no_name_mail'   => new Attribute( '', null, 'comment_form' ),
+			'cgb_form_remove_mail'            => new Attribute( '', null, 'comment_form' ),
+			'cgb_form_remove_website'         => new Attribute( '', null, 'comment_form' ),
+			'cgb_form_comment_label'          => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_title'                  => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_title_reply_to'         => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_notes_before'           => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_notes_after'            => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_label_submit'           => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_cancel_reply'           => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_must_login_message'     => new Attribute( 'default', null, 'comment_form' ),
+			'cgb_form_styles'                 => new Attribute( '', null, 'comment_form' ),
+			'cgb_form_args'                   => new Attribute( '', null, 'comment_form' ),
 			// Comment list.
-			'cgb_clist_threaded'              => new CGB_Attribute( 'default', null, 'comment_list' ),
-			'cgb_clist_order'                 => new CGB_Attribute( 'default', null, 'comment_list' ),
-			'cgb_clist_child_order_desc'      => new CGB_Attribute( '', null, 'comment_list' ),
-			'cgb_clist_default_page'          => new CGB_Attribute( 'default', null, 'comment_list' ),
-			'cgb_clist_pagination'            => new CGB_Attribute( 'default', null, 'comment_list' ),
-			'cgb_clist_per_page'              => new CGB_Attribute( '0', null, 'comment_list' ),
-			'cgb_clist_num_pagination'        => new CGB_Attribute( '', null, 'comment_list' ),
-			'cgb_clist_show_all'              => new CGB_Attribute( '', null, 'comment_list' ),
-			'cgb_clist_title'                 => new CGB_Attribute( '', null, 'comment_list' ),
-			'cgb_clist_in_page_content'       => new CGB_Attribute( '', null, 'comment_list' ),
-			'cgb_comment_callback'            => new CGB_Attribute( '--func--comment_callback', null, 'comment_list' ),
-			'cgb_clist_styles'                => new CGB_Attribute( '', null, 'comment_list' ),
-			'cgb_clist_args'                  => new CGB_Attribute( '', null, 'comment_list' ),
+			'cgb_clist_threaded'              => new Attribute( 'default', null, 'comment_list' ),
+			'cgb_clist_order'                 => new Attribute( 'default', null, 'comment_list' ),
+			'cgb_clist_child_order_desc'      => new Attribute( '', null, 'comment_list' ),
+			'cgb_clist_default_page'          => new Attribute( 'default', null, 'comment_list' ),
+			'cgb_clist_pagination'            => new Attribute( 'default', null, 'comment_list' ),
+			'cgb_clist_per_page'              => new Attribute( '0', null, 'comment_list' ),
+			'cgb_clist_num_pagination'        => new Attribute( '', null, 'comment_list' ),
+			'cgb_clist_show_all'              => new Attribute( '', null, 'comment_list' ),
+			'cgb_clist_title'                 => new Attribute( '', null, 'comment_list' ),
+			'cgb_clist_in_page_content'       => new Attribute( '', null, 'comment_list' ),
+			'cgb_comment_callback'            => new Attribute( '--func--comment_callback', null, 'comment_list' ),
+			'cgb_clist_styles'                => new Attribute( '', null, 'comment_list' ),
+			'cgb_clist_args'                  => new Attribute( '', null, 'comment_list' ),
 			// Comment html code.
-			'cgb_comment_adjust'              => new CGB_Attribute( '', null, 'comment_html' ),
-			'cgb_comment_html'                => new CGB_Attribute( '--func--comment_html', null, 'comment_html' ),
+			'cgb_comment_adjust'              => new Attribute( '', null, 'comment_html' ),
+			'cgb_comment_html'                => new Attribute( '--func--comment_html', null, 'comment_html' ),
 			// Message after new comment.
-			'cgb_cmessage_enabled'            => new CGB_Attribute( '', null, 'cmessage' ),
-			'cgb_cmessage_text'               => new CGB_Attribute( __( 'Thanks for your comment', 'comment-guestbook' ), null, 'cmessage' ),
-			'cgb_cmessage_type'               => new CGB_Attribute( 'inline', null, 'cmessage' ),
-			'cgb_cmessage_duration'           => new CGB_Attribute( '3000', null, 'cmessage' ),
-			'cgb_cmessage_styles'             => new CGB_Attribute(
+			'cgb_cmessage_enabled'            => new Attribute( '', null, 'cmessage' ),
+			'cgb_cmessage_text'               => new Attribute( __( 'Thanks for your comment', 'comment-guestbook' ), null, 'cmessage' ),
+			'cgb_cmessage_type'               => new Attribute( 'inline', null, 'cmessage' ),
+			'cgb_cmessage_duration'           => new Attribute( '3000', null, 'cmessage' ),
+			'cgb_cmessage_styles'             => new Attribute(
 				'background-color:rgb(255, 255, 224);' .
 				'&#10;border-color:rgb(230, 219, 85);' .
 				'&#10;color:rgb(51, 51, 51);' .
@@ -135,9 +138,9 @@ class CGB_Options {
 				'cmessage'
 			),
 			// Comments in other pages/posts.
-			'cgb_page_cmessage_enabled'       => new CGB_Attribute( '', null, 'page_comments' ),
-			'cgb_page_remove_mail'            => new CGB_Attribute( '', null, 'page_comments' ),
-			'cgb_page_remove_website'         => new CGB_Attribute( '', null, 'page_comments' ),
+			'cgb_page_cmessage_enabled'       => new Attribute( '', null, 'page_comments' ),
+			'cgb_page_remove_mail'            => new Attribute( '', null, 'page_comments' ),
+			'cgb_page_remove_website'         => new Attribute( '', null, 'page_comments' ),
 		);
 	}
 
@@ -162,7 +165,7 @@ class CGB_Options {
 	public function load_options_helptexts() {
 		$cgb_options_helptexts = array();
 		$cgb_sections          = array();
-		require_once CGB_PATH . 'includes/options-helptexts.php';
+		require_once PLUGIN_PATH . 'includes/options-helptexts.php';
 		foreach ( $cgb_options_helptexts as $name => $values ) {
 			$this->options[ $name ]->update( $values );
 		}
@@ -178,15 +181,15 @@ class CGB_Options {
 	 *
 	 * @param string $name Option name.
 	 * @return string Option value.
-	 * @throws Exception Option not available.
+	 * @throws \Exception Option not available.
 	 */
 	public function get( $name ) {
 		if ( ! isset( $this->options[ $name ] ) ) {
-			throw new Exception( 'Requested option "' . $name . '" not available!' );
+			throw new \Exception( 'Requested option "' . $name . '" not available!' );
 		}
 		// Execute callback, if a function is used to set the value.
 		if ( '--func--' === substr( $this->options[ $name ]->value, 0, 8 ) ) {
-			$this->options[ $name ]->value = call_user_func( array( 'cgb_options', substr( $this->options[ $name ]->value, 8 ) ) );
+			$this->options[ $name ]->value = call_user_func( array( __NAMESPACE__ . '\Options', substr( $this->options[ $name ]->value, 8 ) ) );
 		}
 		return get_option( $name, $this->options[ $name ]->value );
 	}

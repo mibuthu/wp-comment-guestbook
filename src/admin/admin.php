@@ -6,18 +6,25 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
+
+use WordPress\Plugins\mibuthu\CommentGuestbook\Options;
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_URL;
+
 if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/options.php';
 
 /**
  * CommentGuestbooms Main Admin Class
  *
  * This class handles all CommentGuestbook admin pages.
  */
-class CGB_Admin {
+class Admin {
 
 	/**
 	 * Class singleton instance reference
@@ -29,7 +36,7 @@ class CGB_Admin {
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
@@ -53,7 +60,7 @@ class CGB_Admin {
 	 * Class constructor which initializes required variables
 	 */
 	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
+		$this->options = &Options::get_instance();
 	}
 
 
@@ -101,8 +108,8 @@ class CGB_Admin {
 	 * @return void
 	 */
 	public function show_about_page() {
-		require_once CGB_PATH . 'admin/includes/admin-about.php';
-		CGB_Admin_About::get_instance()->show_page();
+		require_once PLUGIN_PATH . 'admin/includes/admin-about.php';
+		About::get_instance()->show_page();
 	}
 
 
@@ -112,8 +119,8 @@ class CGB_Admin {
 	 * @return void
 	 */
 	public function show_settings_page() {
-		require_once CGB_PATH . 'admin/includes/admin-settings.php';
-		CGB_Admin_Settings::get_instance()->show_page();
+		require_once PLUGIN_PATH . 'admin/includes/admin-settings.php';
+		Settings::get_instance()->show_page();
 	}
 
 
@@ -124,7 +131,7 @@ class CGB_Admin {
 	 * @return void
 	 */
 	public function embed_about_styles() {
-		wp_enqueue_style( 'cgb_admin_about', CGB_URL . 'admin/css/admin_about.css', array(), '1.0' );
+		wp_enqueue_style( 'cgb_admin_about', PLUGIN_URL . 'admin/css/admin_about.css', array(), '1.0' );
 	}
 
 
@@ -135,7 +142,7 @@ class CGB_Admin {
 	 * @return void
 	 */
 	public function embed_settings_styles() {
-		wp_enqueue_style( 'cgb_admin_settings', CGB_URL . 'admin/css/admin_settings.css', array(), '1.0' );
+		wp_enqueue_style( 'cgb_admin_settings', PLUGIN_URL . 'admin/css/admin_settings.css', array(), '1.0' );
 	}
 
 }

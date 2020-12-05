@@ -6,18 +6,21 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/options.php';
 
 /**
  * CommentGuestbook Shortcode Class
  *
  * This class handles the shortcode [comment-guestbook].
  */
-class CGB_Shortcode {
+class Shortcode {
 
 	/**
 	 * Class singleton instance reference
@@ -29,7 +32,7 @@ class CGB_Shortcode {
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
@@ -55,9 +58,9 @@ class CGB_Shortcode {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
-		require_once CGB_PATH . '/includes/filters.php';
-		new CGB_Filters();
+		$this->options = &Options::get_instance();
+		require_once PLUGIN_PATH . '/includes/filters.php';
+		new Filters();
 	}
 
 
@@ -86,8 +89,8 @@ class CGB_Shortcode {
 			 * Show comment form in page content (Only show one form above the comment list. The form_in_page will not be displayed if form_above_comments and adjust_output is enabled.)
 			 * (The form will also be hidden if the comment list is displayed in page content.)
 			 */
-			require_once CGB_PATH . 'includes/comments-functions.php';
-			return CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
+			require_once PLUGIN_PATH . 'includes/comments-functions.php';
+			return Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
 		} else {
 			/**
 			 * Show nothing
@@ -152,7 +155,7 @@ class CGB_Shortcode {
 	 * @return string
 	 */
 	public function filter_comments_template( $file ) {
-		return CGB_PATH . 'includes/comments-template.php';
+		return PLUGIN_PATH . 'includes/comments-template.php';
 	}
 
 

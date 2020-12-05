@@ -6,18 +6,21 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/options.php';
 
 /**
  * CommentGuestbook Functions Class
  *
  * This class handles some general function required for CommentGuestbook.
  */
-class CGB_Comments_Functions {
+class Comments_Functions {
 
 	/**
 	 * Class singleton instance reference
@@ -36,7 +39,7 @@ class CGB_Comments_Functions {
 	/**
 	 * Options class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Options
 	 */
 	private $options;
 
@@ -68,7 +71,7 @@ class CGB_Comments_Functions {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->options     = &CGB_Options::get_instance();
+		$this->options     = &Options::get_instance();
 		$this->l10n_domain = $this->options->get( 'cgb_l10n_domain' );
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 		$this->nav_label_prev = __( '&larr; Older Comments', $this->l10n_domain );
@@ -144,7 +147,7 @@ class CGB_Comments_Functions {
 	/**
 	 * Show comment
 	 *
-	 * @param WP_Comment           $comment The comment to display.
+	 * @param \WP_Comment          $comment The comment to display.
 	 * @param array<string,string> $args The comment args (not used).
 	 * @param int                  $depth The depth of the comment (not used).
 	 *
@@ -378,7 +381,7 @@ class CGB_Comments_Functions {
 	public function get_page_of_comment( $comment_id, $comment_author = null ) {
 		global $wpdb;
 		$comment = get_comment( $comment_id );
-		if ( ! $comment instanceof WP_Comment ) {
+		if ( ! $comment instanceof \WP_Comment ) {
 			return 1;
 		}
 		// Set initial comment author (required for threaded comments).
@@ -447,7 +450,7 @@ class CGB_Comments_Functions {
 	 *
 	 * @param null|int $post_id The optional post id where the comments shall be displayed from. Use null for all posts/pages.
 	 *
-	 * @return WP_Comment[]
+	 * @return \WP_Comment[]
 	 */
 	public function get_comments( $post_id = null ) {
 		// TODO: Use API instead of SELECTs. (see same todo in wp-includes/comment-template.php line 881 (tag 3.6).

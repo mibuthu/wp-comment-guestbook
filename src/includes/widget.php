@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 require_once PLUGIN_PATH . 'includes/options.php';
-require_once PLUGIN_PATH . 'includes/attribute.php';
+require_once PLUGIN_PATH . 'includes/option.php';
 
 /**
  * Comment Guestbook Widget
@@ -31,7 +31,7 @@ class Widget extends \WP_Widget {
 	/**
 	 * Widget Items
 	 *
-	 * @var array<string,Attribute>
+	 * @var array<string,Option>
 	 */
 	private $items;
 
@@ -54,22 +54,22 @@ class Widget extends \WP_Widget {
 
 		// Define all available items.
 		$this->items = [
-			'title'                => new Attribute( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => new Attribute( '5' ),
-			'link_to_comment'      => new Attribute( 'false' ),
-			'show_date'            => new Attribute( 'false' ),
-			'date_format'          => new Attribute( get_option( 'date_format' ) ),
-			'show_author'          => new Attribute( 'true' ),
-			'author_length'        => new Attribute( '18' ),
-			'show_page_title'      => new Attribute( 'false' ),
-			'page_title_length'    => new Attribute( '18' ),
-			'show_comment_text'    => new Attribute( 'true' ),
-			'comment_text_length'  => new Attribute( '25' ),
-			'url_to_page'          => new Attribute( '' ),
-			'gb_comments_only'     => new Attribute( 'false' ),
-			'hide_gb_page_title'   => new Attribute( 'false' ),
-			'link_to_page'         => new Attribute( 'false' ),
-			'link_to_page_caption' => new Attribute( __( 'goto guestbook page', 'comment-guestbook' ) ),
+			'title'                => new Option( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
+			'num_comments'         => new Option( '5' ),
+			'link_to_comment'      => new Option( 'false' ),
+			'show_date'            => new Option( 'false' ),
+			'date_format'          => new Option( get_option( 'date_format' ) ),
+			'show_author'          => new Option( 'true' ),
+			'author_length'        => new Option( '18' ),
+			'show_page_title'      => new Option( 'false' ),
+			'page_title_length'    => new Option( '18' ),
+			'show_comment_text'    => new Option( 'true' ),
+			'comment_text_length'  => new Option( '25' ),
+			'url_to_page'          => new Option( '' ),
+			'gb_comments_only'     => new Option( 'false' ),
+			'hide_gb_page_title'   => new Option( 'false' ),
+			'link_to_page'         => new Option( 'false' ),
+			'link_to_page_caption' => new Option( __( 'goto guestbook page', 'comment-guestbook' ) ),
 		];
 	}
 
@@ -455,7 +455,7 @@ class Widget extends \WP_Widget {
 		global $cgb_widget_items_helptexts;
 		require_once PLUGIN_PATH . 'includes/widget-helptexts.php';
 		foreach ( $cgb_widget_items_helptexts as $name => $values ) {
-			$this->items[ $name ]->update( $values );
+			$this->items[ $name ]->modify( $values );
 		}
 		unset( $cgb_widget_items_helptexts );
 	}

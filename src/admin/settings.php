@@ -121,7 +121,7 @@ class Settings {
 				<a class="nav-tab' . $class . '" href="' .
 				add_query_arg(
 					[
-						'page' => 'cgb_admin_options',
+						'page' => 'cgb_admin_settings',
 						'tab'  => $tabname,
 					],
 					admin_url( 'options-general.php' )

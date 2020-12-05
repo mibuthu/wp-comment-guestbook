@@ -70,7 +70,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	public function amOnGuestbookOptions( string $section ) {
 		$I = $this;
 		$I->loginAsAdmin();
-		$I->amOnAdminPage( 'options-general.php?page=cgb_admin_options&tab=' . $section );
+		$I->amOnAdminPage( 'options-general.php?page=cgb_admin_settings&tab=' . $section );
 		$I->see( 'Comment Guestbook Settings', 'h2' );
 	}
 

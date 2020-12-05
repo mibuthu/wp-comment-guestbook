@@ -95,7 +95,7 @@ class Admin {
 			__( 'Comment Guestbook Settings', 'comment-guestbook' ),
 			__( 'Guestbook', 'comment-guestbook' ),
 			'manage_options',
-			'cgb_admin_options',
+			'cgb_admin_settings',
 			[ &$this, 'show_settings_page' ]
 		);
 		add_action( 'admin_print_scripts-' . $page, [ &$this, 'embed_settings_styles' ] );

@@ -113,7 +113,7 @@ class About {
 				sprintf(
 					__( 'In the %1$s settings page, available under %2$s, you can find a huge amount of options to modify the guestbook page.', 'comment-guestbook' ),
 					'Comment Guestbook',
-					'<a href="' . admin_url( 'options-general.php?page=cgb_admin_options' ) . '">' .
+					'<a href="' . admin_url( 'options-general.php?page=cgb_admin_settings' ) . '">' .
 					// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault
 					__( 'Settings' ) .
 					' &rarr; ' . __( 'Guestbook', 'comment-guestbook' ) . '</a>'

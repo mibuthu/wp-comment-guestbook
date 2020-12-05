@@ -23,13 +23,6 @@ require_once PLUGIN_PATH . 'includes/config.php';
 class Comments_Functions {
 
 	/**
-	 * Class singleton instance reference
-	 *
-	 * @var self
-	 */
-	private static $instance;
-
-	/**
 	 * The used textdomain for the translations
 	 *
 	 * @var string
@@ -68,10 +61,11 @@ class Comments_Functions {
 	/**
 	 * Class constructor which initializes required variables
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	private function __construct() {
-		$this->config      = &Config::get_instance();
+	public function __construct( &$config_instance ) {
+		$this->config      = $config_instance;
 		$this->l10n_domain = $this->config->get( 'cgb_l10n_domain' );
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 		$this->nav_label_prev = __( '&larr; Older Comments', $this->l10n_domain );
@@ -84,22 +78,6 @@ class Comments_Functions {
 			$this->nav_label_next = substr( $tmp_label, 6 ) . ' &rarr;';
 		}
 		$this->num_forms = 0;
-	}
-
-
-	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
 	}
 
 

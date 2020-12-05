@@ -39,9 +39,11 @@ class Widget extends \WP_Widget {
 	/**
 	 * Register widget with WordPress.
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	public function __construct() {
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 		parent::__construct(
 			'comment_guestbook_widget', // Base ID.
 			'Comment Guestbook', // Name.
@@ -50,7 +52,6 @@ class Widget extends \WP_Widget {
 		add_action( 'comment_post', [ $this, 'flush_widget_cache' ] );
 		add_action( 'transition_comment_status', [ $this, 'flush_widget_cache' ] );
 		add_filter( 'safe_style_css', [ $this, 'safe_style_css_filter' ] );
-		$this->config = &Config::get_instance();
 
 		// Define all available items.
 		$this->items = [

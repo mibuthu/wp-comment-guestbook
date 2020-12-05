@@ -40,11 +40,12 @@ class Filters {
 	/**
 	 * Class constructor which initializes required variables
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @param string $called_from  If the function was called from 'shortcode' or 'after_new_comment'.
 	 * @return void
 	 */
-	public function __construct( $called_from = 'shortcode' ) {
-		$this->config      = &Config::get_instance();
+	public function __construct( &$config_instance, $called_from = 'shortcode' ) {
+		$this->config      = $config_instance;
 		$this->called_from = $called_from;
 		$this->prepare_filters();
 	}

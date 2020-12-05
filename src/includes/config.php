@@ -20,14 +20,7 @@ require_once PLUGIN_PATH . 'includes/option.php';
  *
  * This class handles all available options with their information
  */
-class Config {
-
-	/**
-	 * Class singleton instance reference
-	 *
-	 * @var object
-	 */
-	private static $instance;
+final class Config {
 
 	/**
 	 * Config sections
@@ -45,26 +38,11 @@ class Config {
 
 
 	/**
-	 * Singleton provider and setup
-	 *
-	 * @return object
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-
-	/**
 	 * Class constructor which initializes required variables
 	 *
 	 * @return void
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Inititialize options directly after loading the plugins textdomain (action: plugins_loaded, priority: 10).
 		add_action( 'plugins_loaded', [ &$this, 'init' ], 11 );
 		add_action( 'admin_init', [ &$this, 'register' ] );

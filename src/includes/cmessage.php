@@ -23,13 +23,6 @@ require_once PLUGIN_PATH . 'includes/config.php';
 class CMessage {
 
 	/**
-	 * Class singleton instance reference
-	 *
-	 * @var self
-	 */
-	protected static $instance;
-
-	/**
 	 * Config class instance reference
 	 *
 	 * @var Config
@@ -38,27 +31,13 @@ class CMessage {
 
 
 	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-
-	/**
 	 * Class constructor which initializes required variables
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	protected function __construct() {
-		$this->config = &Config::get_instance();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 	}
 
 

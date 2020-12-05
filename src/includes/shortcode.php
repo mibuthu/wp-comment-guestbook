@@ -23,13 +23,6 @@ require_once PLUGIN_PATH . 'includes/config.php';
 class Shortcode {
 
 	/**
-	 * Class singleton instance reference
-	 *
-	 * @var self
-	 */
-	private static $instance;
-
-	/**
 	 * Config class instance reference
 	 *
 	 * @var Config
@@ -38,29 +31,15 @@ class Shortcode {
 
 
 	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-
-	/**
 	 * Class constructor which initializes required variables
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	private function __construct() {
-		$this->config = &Config::get_instance();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 		require_once PLUGIN_PATH . '/includes/filters.php';
-		new Filters();
+		new Filters( $this->config );
 	}
 
 
@@ -90,7 +69,8 @@ class Shortcode {
 			 * (The form will also be hidden if the comment list is displayed in page content.)
 			 */
 			require_once PLUGIN_PATH . 'includes/comments-functions.php';
-			return Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
+			$comment_functions = new Comments_Functions( $this->config );
+			return $comment_functions->show_comment_form_html( 'in_page' );
 		} else {
 			/**
 			 * Show nothing
@@ -155,6 +135,10 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_comments_template( $file ) {
+		// Set required global variables which are required in the template.
+		require_once PLUGIN_PATH . 'includes/comments-functions.php';
+		$GLOBALS['cgb_func']   = new Comments_Functions( $this->config );
+		$GLOBALS['cgb_config'] = &$this->config;
 		return PLUGIN_PATH . 'includes/comments-template.php';
 	}
 

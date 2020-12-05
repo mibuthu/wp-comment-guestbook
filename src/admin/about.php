@@ -22,33 +22,11 @@ if ( ! defined( 'WP_ADMIN' ) ) {
  */
 class About {
 
-	/**
-	 * Class singleton instance reference
-	 *
-	 * @var self
-	 */
-	private static $instance;
-
-
-	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
 
 	/**
 	 * Class constructor which initializes required variables
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Nothing to do.
 	}
 

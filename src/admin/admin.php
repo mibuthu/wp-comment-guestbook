@@ -20,18 +20,11 @@ if ( ! defined( 'WP_ADMIN' ) ) {
 require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
- * CommentGuestbooms Main Admin Class
+ * The Comment Guestbook Main Admin Class
  *
  * This class handles all CommentGuestbook admin pages.
  */
 class Admin {
-
-	/**
-	 * Class singleton instance reference
-	 *
-	 * @var self
-	 */
-	private static $instance;
 
 	/**
 	 * Config class instance reference
@@ -42,25 +35,12 @@ class Admin {
 
 
 	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-
-	/**
 	 * Class constructor which initializes required variables
+	 *
+	 * @param Config $config_instance The config instance as a reference.
 	 */
-	private function __construct() {
-		$this->config = &Config::get_instance();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 	}
 
 
@@ -109,7 +89,8 @@ class Admin {
 	 */
 	public function show_about_page() {
 		require_once PLUGIN_PATH . 'admin/about.php';
-		About::get_instance()->show_page();
+		$about = new About();
+		$about->show_page();
 	}
 
 
@@ -120,7 +101,8 @@ class Admin {
 	 */
 	public function show_settings_page() {
 		require_once PLUGIN_PATH . 'admin/settings.php';
-		Settings::get_instance()->show_page();
+		$settings = new Settings( $this->config );
+		$settings->show_page();
 	}
 
 

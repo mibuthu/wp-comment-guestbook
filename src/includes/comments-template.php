@@ -16,11 +16,14 @@ if ( ! defined( 'WPINC' ) ) {
 require_once PLUGIN_PATH . 'includes/config.php';
 require_once PLUGIN_PATH . 'includes/comments-functions.php';
 
-$cgb_config = Config::get_instance();
-$cgb_func   = Comments_Functions::get_instance();
-
-global $wp_query;
-
+// cgb_config and cgb_func must be provided.
+global $wp_query, $cgb_config, $cgb_func;
+if ( ! isset( $cgb_config ) || ! $cgb_config instanceof Config ) {
+	error_log( 'Required Config instance in the variable "cgb_config" is missing!' );
+}
+if ( ! isset( $cgb_func ) || ! $cgb_func instanceof Comments_Functions ) {
+	error_log( 'Required Config instance in the variable "cgb_config" is missing!' );
+}
 // Show comment including the comment forms (in page content or in comment area).
 if ( ( '' === $cgb_config->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ||
 		( '' !== $cgb_config->get( 'cgb_clist_in_page_content' ) && isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ) {

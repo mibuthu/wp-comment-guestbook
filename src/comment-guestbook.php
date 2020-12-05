@@ -52,7 +52,7 @@ require_once PLUGIN_PATH . 'includes/config.php';
 class CommentGuestbook {
 
 	/**
-	 * Reference to config instance
+	 * Config instance used for the whole plugin
 	 *
 	 * @var Config
 	 */
@@ -73,7 +73,7 @@ class CommentGuestbook {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->config = Config::get_instance();
+		$this->config = new Config();
 
 		// Always!
 		add_action( 'plugins_loaded', [ &$this, 'load_textdomain' ], 10 );
@@ -83,7 +83,8 @@ class CommentGuestbook {
 		// Depending on Page Type!
 		if ( is_admin() ) { // Admin page.
 			require_once PLUGIN_PATH . 'admin/admin.php';
-			Admin::get_instance()->init_admin_page();
+			$admin = new Admin( $this->config );
+			$admin->init_admin_page();
 		} else { // Front page.
 			add_filter( 'option_comments_per_page', [ &$this, 'filter_comments_per_page' ] );
 			add_action( 'pre_get_posts', [ &$this, 'detect_shortcode' ] );
@@ -95,7 +96,7 @@ class CommentGuestbook {
 				// Filters required after new guestbook comment.
 				if ( $this->is_guestbook_post ) {
 					require_once PLUGIN_PATH . 'includes/filters.php';
-					new Filters( 'after_new_comment' );
+					new Filters( $this->config, 'after_new_comment' );
 					add_filter( 'comment_post_redirect', [ &$this, 'filter_comment_post_redirect' ] );
 				}
 			}
@@ -107,7 +108,7 @@ class CommentGuestbook {
 		$cmessage = isset( $_GET['cmessage'] ) ? intval( $_GET['cmessage'] ) : 0;
 		if ( 1 === $cmessage ) {
 			require_once PLUGIN_PATH . 'includes/cmessage.php';
-			$cmessage = CMessage::get_instance();
+			$cmessage = new CMessage( $this->config );
 			$cmessage->init();
 		}
 	}
@@ -152,7 +153,7 @@ class CommentGuestbook {
 		static $shortcodes;
 		if ( ! $shortcodes instanceof Shortcode ) {
 			require_once PLUGIN_PATH . 'includes/shortcode.php';
-			$shortcodes = Shortcode::get_instance();
+			$shortcodes = new Shortcode( $this->config );
 		}
 		return $shortcodes->show_html( $atts, $content );
 	}
@@ -165,7 +166,8 @@ class CommentGuestbook {
 	 */
 	public function widget_init() {
 		require_once PLUGIN_PATH . 'includes/widget.php';
-		register_widget( __NAMESPACE__ . '\Widget' );
+		$widget = new Widget( $this->config );
+		register_widget( $widget );
 	}
 
 
@@ -203,14 +205,14 @@ class CommentGuestbook {
 		if ( $is_cgb_comment === $comment_post_id ) {
 			global $comment_id;
 			require_once PLUGIN_PATH . 'includes/comments-functions.php';
-			$cgb_func = Comments_Functions::get_instance();
+			$cgb_func = new Comments_Functions( $this->config );
 			$page     = $cgb_func->get_page_of_comment( $comment_id );
 			$location = get_comment_link( $comment_id, [ 'page' => $page ] );
 		}
 
 		// Add the query value for message after comment.
 		require_once PLUGIN_PATH . 'includes/cmessage.php';
-		$cmessage = CMessage::get_instance();
+		$cmessage = new CMessage( $this->config );
 		$location = $cmessage->add_cmessage_indicator( $location );
 		return $location;
 	}

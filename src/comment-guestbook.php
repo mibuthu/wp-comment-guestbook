@@ -76,17 +76,17 @@ class CommentGuestbook {
 		$this->options = Options::get_instance();
 
 		// Always!
-		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ), 10 );
-		add_shortcode( 'comment-guestbook', array( &$this, 'shortcode_comment_guestbook' ) );
-		add_action( 'widgets_init', array( &$this, 'widget_init' ) );
+		add_action( 'plugins_loaded', [ &$this, 'load_textdomain' ], 10 );
+		add_shortcode( 'comment-guestbook', [ &$this, 'shortcode_comment_guestbook' ] );
+		add_action( 'widgets_init', [ &$this, 'widget_init' ] );
 
 		// Depending on Page Type!
 		if ( is_admin() ) { // Admin page.
 			require_once PLUGIN_PATH . 'admin/admin.php';
 			Admin::get_instance()->init_admin_page();
 		} else { // Front page.
-			add_filter( 'option_comments_per_page', array( &$this, 'filter_comments_per_page' ) );
-			add_action( 'pre_get_posts', array( &$this, 'detect_shortcode' ) );
+			add_filter( 'option_comments_per_page', [ &$this, 'filter_comments_per_page' ] );
+			add_action( 'pre_get_posts', [ &$this, 'detect_shortcode' ] );
 			// Enable filters after a new comment (required to overwrite settings during comment creation).
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : false;
@@ -96,12 +96,12 @@ class CommentGuestbook {
 				if ( $this->is_guestbook_post ) {
 					require_once PLUGIN_PATH . 'includes/filters.php';
 					new Filters( 'after_new_comment' );
-					add_filter( 'comment_post_redirect', array( &$this, 'filter_comment_post_redirect' ) );
+					add_filter( 'comment_post_redirect', [ &$this, 'filter_comment_post_redirect' ] );
 				}
 			}
 		}
 		// Filters for comments on other pages/posts.
-		add_action( 'comment_form_before_fields', array( &$this, 'page_comment_filters' ) );
+		add_action( 'comment_form_before_fields', [ &$this, 'page_comment_filters' ] );
 		// Add message after comment.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$cmessage = isset( $_GET['cmessage'] ) ? intval( $_GET['cmessage'] ) : 0;
@@ -125,7 +125,7 @@ class CommentGuestbook {
 		if ( $post instanceof \WP_Post ) {
 			$this->is_guestbook_post = has_shortcode( $post->post_content, 'comment-guestbook' );
 			if ( $this->is_guestbook_post ) {
-				add_filter( 'option_comments_per_page', array( &$this, 'filter_comments_per_page' ) );
+				add_filter( 'option_comments_per_page', [ &$this, 'filter_comments_per_page' ] );
 			}
 		}
 	}
@@ -205,7 +205,7 @@ class CommentGuestbook {
 			require_once PLUGIN_PATH . 'includes/comments-functions.php';
 			$cgb_func = Comments_Functions::get_instance();
 			$page     = $cgb_func->get_page_of_comment( $comment_id );
-			$location = get_comment_link( $comment_id, array( 'page' => $page ) );
+			$location = get_comment_link( $comment_id, [ 'page' => $page ] );
 		}
 
 		// Add the query value for message after comment.

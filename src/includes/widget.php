@@ -45,15 +45,15 @@ class Widget extends \WP_Widget {
 		parent::__construct(
 			'comment_guestbook_widget', // Base ID.
 			'Comment Guestbook', // Name.
-			array( 'description' => __( 'This widget displays a list of recent comments.', 'comment-guestbook' ) ) // Args.
+			[ 'description' => __( 'This widget displays a list of recent comments.', 'comment-guestbook' ) ] // Args.
 		);
-		add_action( 'comment_post', array( $this, 'flush_widget_cache' ) );
-		add_action( 'transition_comment_status', array( $this, 'flush_widget_cache' ) );
-		add_filter( 'safe_style_css', array( $this, 'safe_style_css_filter' ) );
+		add_action( 'comment_post', [ $this, 'flush_widget_cache' ] );
+		add_action( 'transition_comment_status', [ $this, 'flush_widget_cache' ] );
+		add_filter( 'safe_style_css', [ $this, 'safe_style_css_filter' ] );
 		$this->options = &Options::get_instance();
 
 		// Define all available items.
-		$this->items = array(
+		$this->items = [
 			'title'                => new Attribute( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
 			'num_comments'         => new Attribute( '5' ),
 			'link_to_comment'      => new Attribute( 'false' ),
@@ -70,7 +70,7 @@ class Widget extends \WP_Widget {
 			'hide_gb_page_title'   => new Attribute( 'false' ),
 			'link_to_page'         => new Attribute( 'false' ),
 			'link_to_page_caption' => new Attribute( __( 'goto guestbook page', 'comment-guestbook' ) ),
-		);
+		];
 	}
 
 
@@ -87,7 +87,7 @@ class Widget extends \WP_Widget {
 		// Use html from cache if available.
 		$cache = wp_cache_get( 'widget_comment_guestbook', 'widget' );
 		if ( ! is_array( $cache ) ) {
-			$cache = array();
+			$cache = [];
 		}
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
@@ -105,11 +105,11 @@ class Widget extends \WP_Widget {
 		}
 		$out               = '';
 		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
-		$comment_args      = array(
+		$comment_args      = [
 			'number'      => absint( $instance['num_comments'] ),
 			'status'      => 'approve',
 			'post_status' => 'publish',
-		);
+		];
 		if ( 'true' === $instance['gb_comments_only'] ) {
 			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
 		}
@@ -145,13 +145,13 @@ class Widget extends \WP_Widget {
 						$instance['author_length'],
 						get_comment_author( $comment ),
 						'span',
-						array(
+						[
 							'class' => 'cgb-author',
 							'title' => __(
 								'Comment author',
 								'comment-guestbook'
 							) . ': ' . esc_attr( get_comment_author( $comment ) ),
-						)
+						]
 					);
 				}
 				if ( 'true' === $instance['show_page_title'] ) {
@@ -171,10 +171,10 @@ class Widget extends \WP_Widget {
 						$instance['comment_text_length'],
 						get_comment_text( $comment ),
 						'div',
-						array(
+						[
 							'class' => 'cgb-widget-text',
 							'title' => esc_attr( get_comment_text( $comment ) ),
-						)
+						]
 					);
 				}
 				$out .= '</li>';
@@ -208,7 +208,7 @@ class Widget extends \WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$this->load_helptexts();
-		$instance = array();
+		$instance = [];
 		foreach ( $this->items as $itemname => $item ) {
 			if ( 'checkbox' === $item->type ) {
 				$instance[ $itemname ] = ( isset( $new_instance[ $itemname ] ) && 1 === intval( $new_instance[ $itemname ] ) ) ? 'true' : 'false';
@@ -274,7 +274,7 @@ class Widget extends \WP_Widget {
 	 * @return string
 	 */
 	private function get_comment_link( $comment ) {
-		$link_args = array();
+		$link_args = [];
 		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
 			if ( 0 !== get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
 				if ( 'desc' === $this->options->get( 'cgb_clist_order' )
@@ -285,15 +285,15 @@ class Widget extends \WP_Widget {
 							&& array_key_exists( 2, $matches )
 							&& in_array( 'comment-guestbook', $matches[2], true ) ) {
 						// Shortcode is being used in that page or post.
-						$args = array(
+						$args = [
 							'status' => 'approve',
 							'order'  => $this->options->get( 'cgb_clist_order' ),
-						);
+						];
 						if ( '' === $this->options->get( 'cgb_clist_show_all' ) ) {
 							$args['post_id'] = $comment->comment_post_ID;
 						}
 						$comments          = get_comments( $args );
-						$toplevel_comments = array();
+						$toplevel_comments = [];
 						foreach ( $comments as $_comment ) {
 							if ( 0 === $_comment->comment_parent ) {
 								$toplevel_comments[] = $_comment->comment_ID;
@@ -328,7 +328,7 @@ class Widget extends \WP_Widget {
 	 * @param array<string,string> $wrapper_attributes Additional attributes for the wrapper element. The array key defines the attribute name.
 	 * @return string
 	 */
-	private function truncate( $max_length, $html, $wrapper_type = 'none', $wrapper_attributes = array() ) {
+	private function truncate( $max_length, $html, $wrapper_type = 'none', $wrapper_attributes = [] ) {
 		// Apply wrapper and add required css for autolength (if required).
 		$autolength = 'auto' === $max_length ? true : false;
 		if ( $autolength ) {
@@ -358,8 +358,8 @@ class Widget extends \WP_Widget {
 		$truncated      = false;
 		$printed_length = 0;
 		$position       = 0;
-		$tags           = array();
-		$match          = array();
+		$tags           = [];
+		$match          = [];
 		$ret            = '';
 
 		while ( $printed_length < $max_length && $this->mb_preg_match( '{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position ) ) {

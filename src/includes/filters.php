@@ -56,10 +56,10 @@ class Filters {
 	 * @return void
 	 */
 	public function prepare_filters() {
-		add_filter( 'comments_open', array( &$this, 'filter_comments_open' ), 50, 2 );
-		add_filter( 'option_comment_registration', array( &$this, 'filter_ignore_comment_registration' ) );
-		add_filter( 'option_comment_moderation', array( &$this, 'filter_ignore_comment_moderation' ) );
-		add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
+		add_filter( 'comments_open', [ &$this, 'filter_comments_open' ], 50, 2 );
+		add_filter( 'option_comment_registration', [ &$this, 'filter_ignore_comment_registration' ] );
+		add_filter( 'option_comment_moderation', [ &$this, 'filter_ignore_comment_moderation' ] );
+		add_filter( 'option_require_name_email', [ &$this, 'filter_require_name_email' ] );
 	}
 
 

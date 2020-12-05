@@ -68,8 +68,8 @@ class CMessage {
 	 * @return void
 	 */
 	public function init() {
-		add_action( 'init', array( &$this, 'register_scripts' ) );
-		add_action( 'wp_footer', array( &$this, 'print_scripts' ) );
+		add_action( 'init', [ &$this, 'register_scripts' ] );
+		add_action( 'wp_footer', [ &$this, 'print_scripts' ] );
 	}
 
 
@@ -79,7 +79,7 @@ class CMessage {
 	 * @return void
 	 */
 	public function register_scripts() {
-		wp_register_script( 'cgb_cmessage', PLUGIN_URL . 'includes/js/cmessage.js', array( 'jquery' ), '1.0', true );
+		wp_register_script( 'cgb_cmessage', PLUGIN_URL . 'includes/js/cmessage.js', [ 'jquery' ], '1.0', true );
 	}
 
 
@@ -125,7 +125,7 @@ class CMessage {
 				var cmessage_text = "' . wp_kses_post( $this->options->get( 'cgb_cmessage_text' ) ) . '";
 				var cmessage_type = "' . wp_kses_post( $this->options->get( 'cgb_cmessage_type' ) ) . '";
 				var cmessage_duration = ' . intval( $this->options->get( 'cgb_cmessage_duration' ) ) . ';
-				var cmessage_styles = "' . wp_kses_post( str_replace( array( '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ), ' ', $this->options->get( 'cgb_cmessage_styles' ) ) ) . '";
+				var cmessage_styles = "' . wp_kses_post( str_replace( [ '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ], ' ', $this->options->get( 'cgb_cmessage_styles' ) ) ) . '";
 			</script>';
 	}
 

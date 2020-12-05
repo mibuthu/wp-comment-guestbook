@@ -70,8 +70,8 @@ class Admin {
 	 * @return void
 	 */
 	public function init_admin_page() {
-		add_action( 'admin_menu', array( &$this, 'register_pages' ) );
-		add_action( 'plugins_loaded', array( &$this->options, 'version_upgrade' ) );
+		add_action( 'admin_menu', [ &$this, 'register_pages' ] );
+		add_action( 'plugins_loaded', [ &$this->options, 'version_upgrade' ] );
 	}
 
 
@@ -87,18 +87,18 @@ class Admin {
 			__( 'About Guestbook', 'comment-guestbook' ),
 			'edit_posts',
 			'cgb_admin_about',
-			array( &$this, 'show_about_page' )
+			[ &$this, 'show_about_page' ]
 		);
-		add_action( 'admin_print_scripts-' . $page, array( &$this, 'embed_about_styles' ) );
+		add_action( 'admin_print_scripts-' . $page, [ &$this, 'embed_about_styles' ] );
 		$page = add_submenu_page(
 			'options-general.php',
 			__( 'Comment Guestbook Settings', 'comment-guestbook' ),
 			__( 'Guestbook', 'comment-guestbook' ),
 			'manage_options',
 			'cgb_admin_options',
-			array( &$this, 'show_settings_page' )
+			[ &$this, 'show_settings_page' ]
 		);
-		add_action( 'admin_print_scripts-' . $page, array( &$this, 'embed_settings_styles' ) );
+		add_action( 'admin_print_scripts-' . $page, [ &$this, 'embed_settings_styles' ] );
 	}
 
 
@@ -131,7 +131,7 @@ class Admin {
 	 * @return void
 	 */
 	public function embed_about_styles() {
-		wp_enqueue_style( 'cgb_admin_about', PLUGIN_URL . 'admin/css/admin_about.css', array(), '1.0' );
+		wp_enqueue_style( 'cgb_admin_about', PLUGIN_URL . 'admin/css/admin_about.css', [], '1.0' );
 	}
 
 
@@ -142,7 +142,7 @@ class Admin {
 	 * @return void
 	 */
 	public function embed_settings_styles() {
-		wp_enqueue_style( 'cgb_admin_settings', PLUGIN_URL . 'admin/css/admin_settings.css', array(), '1.0' );
+		wp_enqueue_style( 'cgb_admin_settings', PLUGIN_URL . 'admin/css/admin_settings.css', [], '1.0' );
 	}
 
 }

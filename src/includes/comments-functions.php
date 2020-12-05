@@ -111,7 +111,7 @@ class Comments_Functions {
 	 * @return string
 	 */
 	public function list_comments() {
-		$args = array( 'echo' => false );
+		$args = [ 'echo' => false ];
 		// Comment list args.
 		if ( '' !== $this->options->get( 'cgb_clist_args' ) ) {
 			$args_array = null;
@@ -125,7 +125,7 @@ class Comments_Functions {
 		if ( '' === $this->options->get( 'cgb_comment_adjust' ) && is_callable( $this->options->get( 'cgb_comment_callback' ) ) ) {
 			$args['callback'] = $this->options->get( 'cgb_comment_callback' );
 		} else {
-			$args['callback'] = array( &$this, 'show_comment_html' );
+			$args['callback'] = [ &$this, 'show_comment_html' ];
 		}
 		// Fix order of top level comments.
 		if ( 'default' !== $this->options->get( 'cgb_clist_order' ) ) {
@@ -205,12 +205,12 @@ class Comments_Functions {
 				// Numbered Pagination.
 				$out .= '<div class="pagination" style="text-align:center;">';
 				$out .= paginate_comments_links(
-					array(
+					[
 						'echo'      => false,
 						'prev_text' => $this->nav_label_prev,
 						'next_text' => $this->nav_label_next,
 						'mid_size'  => 3,
-					)
+					]
 				);
 				$out .= '</div>';
 			} else {
@@ -310,7 +310,7 @@ class Comments_Functions {
 	 * @return array<string,string>
 	 */
 	public function get_guestbook_comment_form_args() {
-		$args = array();
+		$args = [];
 		// Form args.
 		if ( '' !== $this->options->get( 'cgb_form_args' ) ) {
 			$args_array = null;
@@ -330,7 +330,7 @@ class Comments_Functions {
 		}
 		// Change comment field label.
 		if ( 'default' !== $this->options->get( 'cgb_form_comment_label' ) ) {
-			add_filter( 'comment_form_field_comment', array( &$this, 'comment_field_label_filter' ), 20 );
+			add_filter( 'comment_form_field_comment', [ &$this, 'comment_field_label_filter' ], 20 );
 		}
 		// title.
 		if ( 'default' !== $this->options->get( 'cgb_form_title' ) ) {
@@ -472,10 +472,10 @@ class Comments_Functions {
 				);
 			} elseif ( empty( $comment_author ) ) {
 				$comments = get_comments(
-					array(
+					[
 						'status' => 'approve',
 						'order'  => 'ASC',
-					)
+					]
 				);
 			} else {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -504,11 +504,11 @@ class Comments_Functions {
 				);
 			} elseif ( empty( $comment_author ) ) {
 				$comments = get_comments(
-					array(
+					[
 						'post_id' => $post_id,
 						'status'  => 'approve',
 						'order'   => 'ASC',
-					)
+					]
 				);
 			} else {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -524,7 +524,7 @@ class Comments_Functions {
 				);
 			}
 		}
-		return is_array( $comments ) ? $comments : array();
+		return is_array( $comments ) ? $comments : [];
 	}
 
 

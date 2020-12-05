@@ -61,7 +61,7 @@ class Attribute {
 	 *
 	 * @var array<string,int>
 	 */
-	public $range = array();
+	public $range = [];
 
 	/**
 	 * Attribute label
@@ -82,7 +82,7 @@ class Attribute {
 	 *
 	 * @var string[]
 	 */
-	public $captions = array();
+	public $captions = [];
 
 	/**
 	 * Attribute caption after widget

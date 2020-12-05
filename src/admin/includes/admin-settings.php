@@ -120,10 +120,10 @@ class Settings {
 				'
 				<a class="nav-tab' . $class . '" href="' .
 				add_query_arg(
-					array(
+					[
 						'page' => 'cgb_admin_options',
 						'tab'  => $tabname,
-					),
+					],
 					admin_url( 'options-general.php' )
 				) .
 				'">' . $tab['caption'] . '</a>'
@@ -243,7 +243,7 @@ class Settings {
 	 * @param array<string,int> $range The range of the number input containing the optional fields $range['min_value'] and $range['max_value'].
 	 * @return void
 	 */
-	private function show_number( $name, $value, $range = array( 'min_value' => 0 ) ) {
+	private function show_number( $name, $value, $range = [ 'min_value' => 0 ] ) {
 		$value = intval( $value );
 		$step  = esc_attr( isset( $range['step'] ) ? strval( $range['step'] ) : '1' );
 		$min   = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';

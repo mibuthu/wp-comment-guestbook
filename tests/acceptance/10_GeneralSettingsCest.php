@@ -21,13 +21,13 @@ class GeneralSettingsCest {
 		$I->amOnGuestbookOptions( 'general' );
 		$I->seeInFormFields(
 			'form[name=cgb-general-settings]',
-			array(
+			[
 				'cgb_ignore_comments_open'        => '1',
 				'cgb_ignore_comment_registration' => '1',
 				'cgb_ignore_comment_moderation'   => '',
 				'cgb_adjust_output'               => '',
 				'cgb_l10n_domain'                 => 'default',
-			)
+			]
 		);
 	}
 

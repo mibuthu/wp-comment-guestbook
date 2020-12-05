@@ -110,7 +110,7 @@ class Shortcode {
 	private function init_sc() {
 		// Filter to override threaded comments on guestbook page.
 		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) || 'disabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
-			add_filter( 'option_thread_comments', array( &$this, 'filter_threaded_comments' ) );
+			add_filter( 'option_thread_comments', [ &$this, 'filter_threaded_comments' ] );
 		}
 		// Filter to override name and email requirement on guestbook page.
 		if ( '' !== $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
@@ -118,19 +118,19 @@ class Shortcode {
 		}
 		// Filter to show the adjusted comment style.
 		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
-			add_filter( 'comments_template', array( &$this, 'filter_comments_template' ) );
+			add_filter( 'comments_template', [ &$this, 'filter_comments_template' ] );
 			if ( 'desc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
-				add_filter( 'comments_template_query_args', array( &$this, 'filter_comments_template_query_args' ) );
+				add_filter( 'comments_template_query_args', [ &$this, 'filter_comments_template_query_args' ] );
 			}
 			if ( 'default' !== $this->options->get( 'cgb_clist_default_page' ) ) {
-				add_filter( 'option_default_comments_page', array( &$this, 'filter_comments_default_page' ) );
+				add_filter( 'option_default_comments_page', [ &$this, 'filter_comments_default_page' ] );
 			}
 			if ( 'default' !== $this->options->get( 'cgb_clist_pagination' ) ) {
-				add_filter( 'option_page_comments', array( &$this, 'filter_comments_pagination' ) );
+				add_filter( 'option_page_comments', [ &$this, 'filter_comments_pagination' ] );
 			}
 		}
 		// Filter to add comment id fields to identify required filters.
-		add_filter( 'comment_id_fields', array( &$this, 'filter_comment_id_fields' ) );
+		add_filter( 'comment_id_fields', [ &$this, 'filter_comment_id_fields' ] );
 	}
 
 

@@ -66,8 +66,8 @@ class Options {
 	 */
 	private function __construct() {
 		// Inititialize options directly after loading the plugins textdomain (action: plugins_loaded, priority: 10).
-		add_action( 'plugins_loaded', array( &$this, 'init' ), 11 );
-		add_action( 'admin_init', array( &$this, 'register' ) );
+		add_action( 'plugins_loaded', [ &$this, 'init' ], 11 );
+		add_action( 'admin_init', [ &$this, 'register' ] );
 	}
 
 
@@ -77,7 +77,7 @@ class Options {
 	 * @return void
 	 */
 	public function init() {
-		$this->options = array(
+		$this->options = [
 			// General.
 			'cgb_ignore_comments_open'        => new Attribute( '1', null, 'general' ),
 			'cgb_ignore_comment_registration' => new Attribute( '1', null, 'general' ),
@@ -141,7 +141,7 @@ class Options {
 			'cgb_page_cmessage_enabled'       => new Attribute( '', null, 'page_comments' ),
 			'cgb_page_remove_mail'            => new Attribute( '', null, 'page_comments' ),
 			'cgb_page_remove_website'         => new Attribute( '', null, 'page_comments' ),
-		);
+		];
 	}
 
 
@@ -163,8 +163,8 @@ class Options {
 	 * @return void
 	 */
 	public function load_options_helptexts() {
-		$cgb_options_helptexts = array();
-		$cgb_sections          = array();
+		$cgb_options_helptexts = [];
+		$cgb_sections          = [];
 		require_once PLUGIN_PATH . 'includes/options-helptexts.php';
 		foreach ( $cgb_options_helptexts as $name => $values ) {
 			$this->options[ $name ]->update( $values );
@@ -189,7 +189,7 @@ class Options {
 		}
 		// Execute callback, if a function is used to set the value.
 		if ( '--func--' === substr( $this->options[ $name ]->value, 0, 8 ) ) {
-			$this->options[ $name ]->value = call_user_func( array( __NAMESPACE__ . '\Options', substr( $this->options[ $name ]->value, 8 ) ) );
+			$this->options[ $name ]->value = call_user_func( [ __NAMESPACE__ . '\Options', substr( $this->options[ $name ]->value, 8 ) ] );
 		}
 		return get_option( $name, $this->options[ $name ]->value );
 	}

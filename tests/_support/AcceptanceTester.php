@@ -32,11 +32,11 @@ class AcceptanceTester extends \Codeception\Actor {
 	/**
 	 * Define custom actions here
 	 */
-	public function createGuestbookPage( bool $commentStatus = true, array $cliOptions = array() ): int {
+	public function createGuestbookPage( bool $commentStatus = true, array $cliOptions = [] ): int {
 		$I      = $this;
 		$ret    = $I->cliToString(
 			array_merge(
-				array(
+				[
 					'post',
 					'create',
 					'--post_type=page',
@@ -45,7 +45,7 @@ class AcceptanceTester extends \Codeception\Actor {
 					'--post_status=publish',
 					'--comment_status=' . ( $commentStatus ? 'open' : 'closed' ),
 					'--porcelain',
-				),
+				],
 				$cliOptions
 			)
 		);
@@ -127,12 +127,12 @@ class AcceptanceTester extends \Codeception\Actor {
 	public function setPageCommentStatus( int $pageId, $status ) {
 		$I = $this;
 		$I->cli(
-			array(
+			[
 				'post',
 				'update',
 				$pageId,
 				'--comment_status=' . ( $status ? 'open' : 'closed' ),
-			)
+			]
 		);
 	}
 
@@ -150,11 +150,11 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function createGuestbookComment( int $pageId, string $comment, string $author = '', string $email = '', string $url = '', array $cliOptions = array() ): int {
+	public function createGuestbookComment( int $pageId, string $comment, string $author = '', string $email = '', string $url = '', array $cliOptions = [] ): int {
 		$I         = $this;
 		$ret       = $I->cliToString(
 			array_merge(
-				array(
+				[
 					'comment',
 					'create',
 					'--comment_post_ID=' . $pageId,
@@ -163,7 +163,7 @@ class AcceptanceTester extends \Codeception\Actor {
 					'--comment_author_email=' . $email,
 					'--comment_author_url=' . $url,
 					'--porcelain',
-				),
+				],
 				$cliOptions
 			)
 		);
@@ -177,7 +177,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		$comments = array_fill( 1, $numComments, null );
 		foreach ( $comments as $n => &$comment ) {
 			$comment['content'] = 'Comment ' . $n . ' ' . uniqid();
-			$comment['id']      = $I->createGuestbookComment( $pageId, $comment['content'], $author, $email, $url, array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * ( $numComments - $n ) ) ) );
+			$comment['id']      = $I->createGuestbookComment( $pageId, $comment['content'], $author, $email, $url, [ '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * ( $numComments - $n ) ) ] );
 		}
 		unset( $comment );
 		return $comments;
@@ -186,20 +186,20 @@ class AcceptanceTester extends \Codeception\Actor {
 
 	public function deleteGuestbookComment( string $comment_content ) {
 		$I = $this;
-		$I->cli( array( 'db', 'query', 'DELETE FROM wp_comments WHERE comment_content="' . addslashes( $comment_content ) . '"' ) );
+		$I->cli( [ 'db', 'query', 'DELETE FROM wp_comments WHERE comment_content="' . addslashes( $comment_content ) . '"' ] );
 	}
 
 
 	public function deleteAllComments() {
 		$I   = $this;
-		$ids = $I->cliToString( array( 'comment', 'list', '--format=ids' ) );
-		$I->cli( array( 'comment', 'delete', $ids ) );
+		$ids = $I->cliToString( [ 'comment', 'list', '--format=ids' ] );
+		$I->cli( [ 'comment', 'delete', $ids ] );
 	}
 
 
 	public function updateWPOption( string $option_name, string $option_value ) {
 		$I = $this;
-		$I->cli( array( 'option', 'update', $option_name, $option_value ) );
+		$I->cli( [ 'option', 'update', $option_name, $option_value ] );
 	}
 
 

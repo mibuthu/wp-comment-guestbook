@@ -108,7 +108,7 @@ class Admin {
 	 * @return void
 	 */
 	public function show_about_page() {
-		require_once PLUGIN_PATH . 'admin/includes/admin-about.php';
+		require_once PLUGIN_PATH . 'admin/about.php';
 		About::get_instance()->show_page();
 	}
 
@@ -119,7 +119,7 @@ class Admin {
 	 * @return void
 	 */
 	public function show_settings_page() {
-		require_once PLUGIN_PATH . 'admin/includes/admin-settings.php';
+		require_once PLUGIN_PATH . 'admin/settings.php';
 		Settings::get_instance()->show_page();
 	}
 
@@ -131,7 +131,7 @@ class Admin {
 	 * @return void
 	 */
 	public function embed_about_styles() {
-		wp_enqueue_style( 'cgb_admin_about', PLUGIN_URL . 'admin/css/admin_about.css', [], '1.0' );
+		wp_enqueue_style( 'cgb_admin_about', PLUGIN_URL . 'admin/css/about.css', [], '1.0' );
 	}
 
 
@@ -142,7 +142,7 @@ class Admin {
 	 * @return void
 	 */
 	public function embed_settings_styles() {
-		wp_enqueue_style( 'cgb_admin_settings', PLUGIN_URL . 'admin/css/admin_settings.css', [], '1.0' );
+		wp_enqueue_style( 'cgb_admin_settings', PLUGIN_URL . 'admin/css/settings.css', [], '1.0' );
 	}
 
 }

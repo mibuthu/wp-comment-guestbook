@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbook Shortcode Class
@@ -30,11 +30,11 @@ class Shortcode {
 	private static $instance;
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var Options
+	 * @var Config
 	 */
-	private $options;
+	private $config;
 
 
 	/**
@@ -58,7 +58,7 @@ class Shortcode {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->options = &Options::get_instance();
+		$this->config = &Config::get_instance();
 		require_once PLUGIN_PATH . '/includes/filters.php';
 		new Filters();
 	}
@@ -73,7 +73,7 @@ class Shortcode {
 	 */
 	public function show_html( $atts, $content ) {
 		$this->init_sc();
-		if ( '' !== $this->options->get( 'cgb_clist_in_page_content' ) && '' !== $this->options->get( 'cgb_adjust_output' ) ) {
+		if ( '' !== $this->config->get( 'cgb_clist_in_page_content' ) && '' !== $this->config->get( 'cgb_adjust_output' ) ) {
 			/**
 			 * Show comment list in page content
 			 */
@@ -84,7 +84,7 @@ class Shortcode {
 			ob_end_clean();
 			unset( $GLOBALS['cgb_comment_template_in_page'] );
 			return $out;
-		} elseif ( '' !== $this->options->get( 'cgb_form_in_page' ) && ( '' === $this->options->get( 'cgb_form_above_comments' ) || '' === $this->options->get( 'cgb_adjust_output' ) ) ) {
+		} elseif ( '' !== $this->config->get( 'cgb_form_in_page' ) && ( '' === $this->config->get( 'cgb_form_above_comments' ) || '' === $this->config->get( 'cgb_adjust_output' ) ) ) {
 			/**
 			 * Show comment form in page content (Only show one form above the comment list. The form_in_page will not be displayed if form_above_comments and adjust_output is enabled.)
 			 * (The form will also be hidden if the comment list is displayed in page content.)
@@ -109,23 +109,23 @@ class Shortcode {
 	 */
 	private function init_sc() {
 		// Filter to override threaded comments on guestbook page.
-		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) || 'disabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
+		if ( 'enabled' === $this->config->get( 'cgb_clist_threaded' ) || 'disabled' === $this->config->get( 'cgb_clist_threaded' ) ) {
 			add_filter( 'option_thread_comments', [ &$this, 'filter_threaded_comments' ] );
 		}
 		// Filter to override name and email requirement on guestbook page.
-		if ( '' !== $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
+		if ( '' !== $this->config->get( 'cgb_form_require_no_name_mail' ) ) {
 			add_filter( 'option_require_name_email', '__return_false' );
 		}
 		// Filter to show the adjusted comment style.
-		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
+		if ( '' !== $this->config->get( 'cgb_adjust_output' ) ) {
 			add_filter( 'comments_template', [ &$this, 'filter_comments_template' ] );
-			if ( 'desc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+			if ( 'desc' === $this->config->get( 'cgb_clist_order' ) || '' !== $this->config->get( 'cgb_clist_show_all' ) ) {
 				add_filter( 'comments_template_query_args', [ &$this, 'filter_comments_template_query_args' ] );
 			}
-			if ( 'default' !== $this->options->get( 'cgb_clist_default_page' ) ) {
+			if ( 'default' !== $this->config->get( 'cgb_clist_default_page' ) ) {
 				add_filter( 'option_default_comments_page', [ &$this, 'filter_comments_default_page' ] );
 			}
-			if ( 'default' !== $this->options->get( 'cgb_clist_pagination' ) ) {
+			if ( 'default' !== $this->config->get( 'cgb_clist_pagination' ) ) {
 				add_filter( 'option_page_comments', [ &$this, 'filter_comments_pagination' ] );
 			}
 		}
@@ -141,7 +141,7 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_threaded_comments( $option_value ) {
-		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
+		if ( 'enabled' === $this->config->get( 'cgb_clist_threaded' ) ) {
 			return '1';
 		}
 		return '';
@@ -167,11 +167,11 @@ class Shortcode {
 	 */
 	public function filter_comments_template_query_args( $query_args ) {
 		// Unset post_id to include the comments of all pages/posts if clist show all option is set.
-		if ( '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+		if ( '' !== $this->config->get( 'cgb_clist_show_all' ) ) {
 			unset( $query_args['post_id'] );
 		}
 		// Reverse array if clist order desc is required.
-		if ( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
+		if ( 'desc' === $this->config->get( 'cgb_clist_order' ) ) {
 			$query_args['order'] = 'DESC';
 		}
 		return $query_args;
@@ -185,9 +185,9 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_comments_default_page( $option_value ) {
-		if ( 'first' === $this->options->get( 'cgb_clist_default_page' ) ) {
+		if ( 'first' === $this->config->get( 'cgb_clist_default_page' ) ) {
 			return 'oldest';
-		} elseif ( 'last' === $this->options->get( 'cgb_clist_default_page' ) ) {
+		} elseif ( 'last' === $this->config->get( 'cgb_clist_default_page' ) ) {
 			return 'newest';
 		}
 	}
@@ -200,9 +200,9 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_comments_pagination( $option_value ) {
-		if ( 'false' === $this->options->get( 'cgb_clist_pagination' ) ) {
+		if ( 'false' === $this->config->get( 'cgb_clist_pagination' ) ) {
 			return '';
-		} elseif ( 'true' === $this->options->get( 'cgb_clist_pagination' ) ) {
+		} elseif ( 'true' === $this->config->get( 'cgb_clist_pagination' ) ) {
 			return '1';
 		}
 	}
@@ -221,7 +221,7 @@ class Shortcode {
 		 */
 		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="' . get_the_ID() . '" />';
 		// Add fields comment form to identify a guestbook comment when override of comment status is required.
-		if ( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
+		if ( '' !== $this->config->get( 'cgb_ignore_comments_open' ) ) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
 		}
 		return $html;

@@ -13,17 +13,17 @@ if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 require_once PLUGIN_PATH . 'includes/comments-functions.php';
 
-$cgb_options = Options::get_instance();
-$cgb_func    = Comments_Functions::get_instance();
+$cgb_config = Config::get_instance();
+$cgb_func   = Comments_Functions::get_instance();
 
 global $wp_query;
 
 // Show comment including the comment forms (in page content or in comment area).
-if ( ( '' === $cgb_options->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ||
-		( '' !== $cgb_options->get( 'cgb_clist_in_page_content' ) && isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ) {
+if ( ( '' === $cgb_config->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ||
+		( '' !== $cgb_config->get( 'cgb_clist_in_page_content' ) && isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ) {
 	echo '
 			<div id="comments">';
 	// Comment form above comments.
@@ -47,7 +47,7 @@ if ( ( '' === $cgb_options->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOB
 	// Are comments available?
 	if ( count( $wp_query->comments ) ) {
 		// Print custom list styles.
-		$cgb_styles = $cgb_options->get( 'cgb_clist_styles' );
+		$cgb_styles = $cgb_config->get( 'cgb_clist_styles' );
 		if ( '' !== $cgb_styles ) {
 			echo '
 				<style>
@@ -55,7 +55,7 @@ if ( ( '' === $cgb_options->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOB
 				</style>';
 		}
 		// Print custom title.
-		$cgb_title = $cgb_options->get( 'cgb_clist_title' );
+		$cgb_title = $cgb_config->get( 'cgb_clist_title' );
 		if ( '' !== $cgb_title ) {
 			echo '<h2 id="comments-title">' . esc_html( $cgb_title ) . '</h2>';
 		}

@@ -2,7 +2,7 @@
 /**
  * Additional data for the options required for the options help page.
  *
- * @package link-view
+ * @package comment-guestbook
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
@@ -14,11 +14,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Additional helptexts for the options
+ * Additional data for the Config class which is only required in the admin page.
  *
  * @var array<string,array<string,string>>
  */
-$cgb_options_helptexts = [
+$cgb_config_admin_data = [
 	// General.
 	'cgb_ignore_comments_open'        => [
 		'type'        => 'checkbox',
@@ -533,7 +533,7 @@ $cgb_options_helptexts = [
  *
  * @var array<string,array<string,string>>
  */
-$cgb_sections = [
+$cgb_sections_admin_data = [
 	'general'       => [
 		'caption'     => __( 'General settings', 'comment-guestbook' ),
 		'description' => __( 'Some general settings for this plugin.', 'comment-guestbook' ),
@@ -545,13 +545,13 @@ $cgb_sections = [
 			'<strong>' . __( 'Attention', 'comment-guestbook' ) . ':</strong><br />' .
 			sprintf(
 				__( 'If you want to change any option in this section you have to enable the option %1$s in %2$s first.', 'comment-guestbook' ),
-				'"' . $cgb_options_helptexts['cgb_adjust_output']['label'] . '"',
+				'"' . $cgb_config_admin_data['cgb_adjust_output']['label'] . '"',
 				'"' . __( 'General settings', 'comment-guestbook' ) . '"'
 			) . '<br />' .
 			sprintf(
 				__( 'Only the options %1$s, %2$s and all comment form modification options are working without it.', 'comment-guestbook' ),
-				'"' . $cgb_options_helptexts['cgb_form_in_page']['label'] . '"',
-				'"' . $cgb_options_helptexts['cgb_cmessage_enabled']['label'] . '"'
+				'"' . $cgb_config_admin_data['cgb_form_in_page']['label'] . '"',
+				'"' . $cgb_config_admin_data['cgb_cmessage_enabled']['label'] . '"'
 			),
 	],
 	'comment_list'  => [
@@ -561,7 +561,7 @@ $cgb_sections = [
 			'<strong>' . __( 'Attention', 'comment-guestbook' ) . ':</strong><br />' .
 			sprintf(
 				__( 'If you want to change any option in this section you have to enable the option %1$s in %2$s first.', 'comment-guestbook' ),
-				'"' . $cgb_options_helptexts['cgb_adjust_output']['label'] . '"',
+				'"' . $cgb_config_admin_data['cgb_adjust_output']['label'] . '"',
 				'"' . __( 'General settings', 'comment-guestbook' ) . '"'
 			),
 	],
@@ -574,7 +574,7 @@ $cgb_sections = [
 		'description' => __( 'In this section you can enable and modify the message after a new comment.', 'comment-guestbook' ) . '<br />' .
 			sprintf(
 				__( 'All modification options are also valid for other posts and pages if the option %1$s in the section %2$s is enabled.', 'comment-guestbook' ),
-				'"' . $cgb_options_helptexts['cgb_page_cmessage_enabled']['label'] . '"',
+				'"' . $cgb_config_admin_data['cgb_page_cmessage_enabled']['label'] . '"',
 				'"' . __( 'Comments in other posts/pages', 'comment-guestbook' ) . '"'
 			),
 	],

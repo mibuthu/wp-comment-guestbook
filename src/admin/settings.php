@@ -9,14 +9,14 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
 
-use WordPress\Plugins\mibuthu\CommentGuestbook\Options;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Config;
 use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
 
 if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbooks Settings Class
@@ -33,11 +33,11 @@ class Settings {
 	private static $instance;
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var Options
+	 * @var Config
 	 */
-	private $options;
+	private $config;
 
 
 	/**
@@ -59,8 +59,8 @@ class Settings {
 	 * Class constructor which initializes required variables
 	 */
 	private function __construct() {
-		$this->options = &Options::get_instance();
-		$this->options->load_options_helptexts();
+		$this->config = &Config::get_instance();
+		$this->config->load_config_admin_data();
 	}
 
 
@@ -78,10 +78,10 @@ class Settings {
 		// Define the tab to display.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
-		if ( ! isset( $this->options->sections[ $tab ] ) ) {
+		if ( ! isset( $this->config->sections[ $tab ] ) ) {
 			$tab = 'general';
 		}
-		// Show options.
+		// Show config options.
 		echo '
 			<div class="wrap nosubsub" style="padding-bottom:15px">
 			<div id="icon-edit-comments" class="icon32"><br /></div><h2>' . esc_html__( 'Comment Guestbook Settings', 'comment-guestbook' ) . '</h2>
@@ -114,7 +114,7 @@ class Settings {
 	 */
 	private function show_sections( $current = 'general' ) {
 		echo '<h3 class="nav-tab-wrapper">';
-		foreach ( $this->options->sections as $tabname => $tab ) {
+		foreach ( $this->config->sections as $tabname => $tab ) {
 			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
 			echo wp_kses_post(
 				'
@@ -130,7 +130,7 @@ class Settings {
 			);
 		}
 		echo '</h3>
-				<div class="section-desc">' . wp_kses_post( strval( $this->options->sections[ $current ]['description'] ) ) . '</div>';
+				<div class="section-desc">' . wp_kses_post( strval( $this->config->sections[ $current ]['description'] ) ) . '</div>';
 	}
 
 
@@ -146,7 +146,7 @@ class Settings {
 		if ( 'comment_html' === $section ) {
 			$desc_new_line = true;
 		}
-		foreach ( $this->options->options as $oname => $o ) {
+		foreach ( $this->config->options as $oname => $o ) {
 			if ( $o->section === $section ) {
 				echo '
 						<tr style="vertical-align:top;">
@@ -158,19 +158,19 @@ class Settings {
 						<td>';
 				switch ( $o->type ) {
 					case 'checkbox':
-						$this->show_checkbox( $oname, $this->options->get( $oname ), $o->caption );
+						$this->show_checkbox( $oname, $this->config->get( $oname ), $o->caption );
 						break;
 					case 'radio':
-						$this->show_radio( $oname, $this->options->get( $oname ), $o->captions );
+						$this->show_radio( $oname, $this->config->get( $oname ), $o->captions );
 						break;
 					case 'number':
-						$this->show_number( $oname, $this->options->get( $oname ), $o->range );
+						$this->show_number( $oname, $this->config->get( $oname ), $o->range );
 						break;
 					case 'text':
-						$this->show_text( $oname, $this->options->get( $oname ) );
+						$this->show_text( $oname, $this->config->get( $oname ) );
 						break;
 					case 'textarea':
-						$this->show_textarea( $oname, $this->options->get( $oname ), ( isset( $o->rows ) ? $o->rows : null ) );
+						$this->show_textarea( $oname, $this->config->get( $oname ), ( isset( $o->rows ) ? $o->rows : null ) );
 						break;
 				}
 				echo '

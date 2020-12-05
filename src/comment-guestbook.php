@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( __NAMESPACE__ . '\PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( __NAMESPACE__ . '\PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * Main plugin class
@@ -52,11 +52,11 @@ require_once PLUGIN_PATH . 'includes/options.php';
 class CommentGuestbook {
 
 	/**
-	 * Reference to options instance
+	 * Reference to config instance
 	 *
-	 * @var Options
+	 * @var Config
 	 */
-	private $options;
+	private $config;
 
 	/**
 	 * Holds the info if the actual post is a guestbook (has the guestbook shortcode)
@@ -73,7 +73,7 @@ class CommentGuestbook {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->options = Options::get_instance();
+		$this->config = Config::get_instance();
 
 		// Always!
 		add_action( 'plugins_loaded', [ &$this, 'load_textdomain' ], 10 );
@@ -176,8 +176,8 @@ class CommentGuestbook {
 	 * @return string
 	 */
 	public function filter_comments_per_page( $option_value ) {
-		if ( 0 < intval( $this->options->get( 'cgb_clist_per_page' ) ) ) {
-			return $this->options->get( 'cgb_clist_per_page' );
+		if ( 0 < intval( $this->config->get( 'cgb_clist_per_page' ) ) ) {
+			return $this->config->get( 'cgb_clist_per_page' );
 		}
 		return $option_value;
 	}
@@ -225,11 +225,11 @@ class CommentGuestbook {
 		global $post;
 		if ( ! ( is_object( $post ) && has_shortcode( $post->post_content, 'comment - guestbook' ) ) ) {
 			// Remove mail field.
-			if ( '' !== $this->options->get( 'cgb_page_remove_mail' ) ) {
+			if ( '' !== $this->config->get( 'cgb_page_remove_mail' ) ) {
 				add_filter( 'comment_form_field_email', '__return_empty_string', 20 );
 			}
 			// Remove website url field.
-			if ( '' !== $this->options->get( 'cgb_page_remove_website' ) ) {
+			if ( '' !== $this->config->get( 'cgb_page_remove_website' ) ) {
 				add_filter( 'comment_form_field_url', '__return_empty_string', 20 );
 			}
 		}

@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 require_once PLUGIN_PATH . 'includes/option.php';
 
 /**
@@ -22,11 +22,11 @@ require_once PLUGIN_PATH . 'includes/option.php';
 class Widget extends \WP_Widget {
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var Options
+	 * @var Config
 	 */
-	private $options;
+	private $config;
 
 	/**
 	 * Widget Items
@@ -50,7 +50,7 @@ class Widget extends \WP_Widget {
 		add_action( 'comment_post', [ $this, 'flush_widget_cache' ] );
 		add_action( 'transition_comment_status', [ $this, 'flush_widget_cache' ] );
 		add_filter( 'safe_style_css', [ $this, 'safe_style_css_filter' ] );
-		$this->options = &Options::get_instance();
+		$this->config = &Config::get_instance();
 
 		// Define all available items.
 		$this->items = [
@@ -275,11 +275,11 @@ class Widget extends \WP_Widget {
 	 */
 	private function get_comment_link( $comment ) {
 		$link_args = [];
-		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
+		if ( '' !== $this->config->get( 'cgb_adjust_output' ) ) {
 			if ( 0 !== get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
-				if ( 'desc' === $this->options->get( 'cgb_clist_order' )
-					|| 'asc' === $this->options->get( 'cgb_clist_order' )
-					|| '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+				if ( 'desc' === $this->config->get( 'cgb_clist_order' )
+					|| 'asc' === $this->config->get( 'cgb_clist_order' )
+					|| '' !== $this->config->get( 'cgb_clist_show_all' ) ) {
 					$pattern = get_shortcode_regex();
 					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( $comment->comment_post_ID )->post_content, $matches )
 							&& array_key_exists( 2, $matches )
@@ -287,9 +287,9 @@ class Widget extends \WP_Widget {
 						// Shortcode is being used in that page or post.
 						$args = [
 							'status' => 'approve',
-							'order'  => $this->options->get( 'cgb_clist_order' ),
+							'order'  => $this->config->get( 'cgb_clist_order' ),
 						];
-						if ( '' === $this->options->get( 'cgb_clist_show_all' ) ) {
+						if ( '' === $this->config->get( 'cgb_clist_show_all' ) ) {
 							$args['post_id'] = $comment->comment_post_ID;
 						}
 						$comments          = get_comments( $args );

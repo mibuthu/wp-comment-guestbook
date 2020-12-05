@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbook Frontend Filter Class
@@ -23,11 +23,11 @@ require_once PLUGIN_PATH . 'includes/options.php';
 class Filters {
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var Options
+	 * @var Config
 	 */
-	private $options;
+	private $config;
 
 	/**
 	 * Holds the variable where the filter setting was called from
@@ -44,7 +44,7 @@ class Filters {
 	 * @return void
 	 */
 	public function __construct( $called_from = 'shortcode' ) {
-		$this->options     = &Options::get_instance();
+		$this->config      = &Config::get_instance();
 		$this->called_from = $called_from;
 		$this->prepare_filters();
 	}
@@ -71,7 +71,7 @@ class Filters {
 	 * @return bool
 	 */
 	public function filter_comments_open( $open, $post_id ) {
-		if ( ! $open && (bool) $this->options->get( 'cgb_ignore_comments_open' ) ) {
+		if ( ! $open && (bool) $this->config->get( 'cgb_ignore_comments_open' ) ) {
 			return true;
 		}
 		return $open;
@@ -85,7 +85,7 @@ class Filters {
 	 * @return bool
 	 */
 	public function filter_ignore_comment_registration( $option_value ) {
-		if ( $this->options->get( 'cgb_ignore_comment_registration' ) ) {
+		if ( $this->config->get( 'cgb_ignore_comment_registration' ) ) {
 			return false;
 		}
 		return $option_value;
@@ -99,7 +99,7 @@ class Filters {
 	 * @return bool
 	 */
 	public function filter_ignore_comment_moderation( $option_value ) {
-		if ( $this->options->get( 'cgb_ignore_comment_moderation' ) ) {
+		if ( $this->config->get( 'cgb_ignore_comment_moderation' ) ) {
 			return false;
 		}
 		return $option_value;
@@ -119,11 +119,11 @@ class Filters {
 			return $option_value;
 		}
 		// Check if the "require name, email" option is disabled for comment-guestbook comments.
-		if ( (bool) $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
+		if ( (bool) $this->config->get( 'cgb_form_require_no_name_mail' ) ) {
 			return '';
 		}
 		// Check if the plugin options require an override.
-		if ( (bool) $this->options->get( 'cgb_form_remove_mail' ) || (bool) $this->options->get( 'cgb_page_remove_mail' ) ) {
+		if ( (bool) $this->config->get( 'cgb_form_remove_mail' ) || (bool) $this->config->get( 'cgb_page_remove_mail' ) ) {
 			$user = wp_get_current_user();
 			// Check if the user is logged in and if a valid author name is given.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing

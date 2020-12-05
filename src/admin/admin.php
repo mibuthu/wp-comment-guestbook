@@ -9,7 +9,7 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
 
-use WordPress\Plugins\mibuthu\CommentGuestbook\Options;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Config;
 use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
 use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_URL;
 
@@ -17,7 +17,7 @@ if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbooms Main Admin Class
@@ -34,11 +34,11 @@ class Admin {
 	private static $instance;
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var Options
+	 * @var Config
 	 */
-	private $options;
+	private $config;
 
 
 	/**
@@ -60,7 +60,7 @@ class Admin {
 	 * Class constructor which initializes required variables
 	 */
 	private function __construct() {
-		$this->options = &Options::get_instance();
+		$this->config = &Config::get_instance();
 	}
 
 
@@ -71,7 +71,7 @@ class Admin {
 	 */
 	public function init_admin_page() {
 		add_action( 'admin_menu', [ &$this, 'register_pages' ] );
-		add_action( 'plugins_loaded', [ &$this->options, 'version_upgrade' ] );
+		add_action( 'plugins_loaded', [ &$this->config, 'version_upgrade' ] );
 	}
 
 

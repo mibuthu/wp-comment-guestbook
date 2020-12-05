@@ -1,6 +1,6 @@
 <?php
 /**
- * Options Class
+ * CommentGuestbook Config Class
  *
  * @package comment-guestbook
  */
@@ -16,11 +16,11 @@ if ( ! defined( 'WPINC' ) ) {
 require_once PLUGIN_PATH . 'includes/option.php';
 
 /**
- * Options class
+ * Config class
  *
  * This class handles all available options with their information
  */
-class Options {
+class Config {
 
 	/**
 	 * Class singleton instance reference
@@ -30,14 +30,14 @@ class Options {
 	private static $instance;
 
 	/**
-	 * Option sections
+	 * Config sections
 	 *
 	 * @var array<string,array<string,string>>
 	 */
 	public $sections;
 
 	/**
-	 * Options
+	 * Options array
 	 *
 	 * @var array<string,Option>
 	 */
@@ -158,21 +158,21 @@ class Options {
 
 
 	/**
-	 * Load options helptexts from additional file
+	 * Load config helptexts from additional file
 	 *
 	 * @return void
 	 */
-	public function load_options_helptexts() {
-		$cgb_options_helptexts = [];
-		$cgb_sections          = [];
-		require_once PLUGIN_PATH . 'includes/options-helptexts.php';
-		foreach ( $cgb_options_helptexts as $name => $values ) {
+	public function load_config_admin_data() {
+		$cgb_config_admin_data   = [];
+		$cgb_sections_admin_data = [];
+		require_once PLUGIN_PATH . 'includes/config-admin-data.php';
+		foreach ( $cgb_config_admin_data as $name => $values ) {
 			$this->options[ $name ]->modify( $values );
 		}
-		unset( $cgb_options_helptexts );
+		unset( $cgb_config_admin_data );
 
-		$this->sections = $cgb_sections;
-		unset( $cgb_sections );
+		$this->sections = $cgb_sections_admin_data;
+		unset( $cgb_sections_admin_data );
 	}
 
 
@@ -189,7 +189,7 @@ class Options {
 		}
 		// Execute callback, if a function is used to set the value.
 		if ( '--func--' === substr( $this->options[ $name ]->value, 0, 8 ) ) {
-			$this->options[ $name ]->value = call_user_func( [ __NAMESPACE__ . '\Options', substr( $this->options[ $name ]->value, 8 ) ] );
+			$this->options[ $name ]->value = call_user_func( [ __NAMESPACE__ . '\Config', substr( $this->options[ $name ]->value, 8 ) ] );
 		}
 		return get_option( $name, $this->options[ $name ]->value );
 	}

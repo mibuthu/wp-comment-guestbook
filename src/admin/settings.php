@@ -40,7 +40,7 @@ class Settings {
 	 */
 	public function __construct( &$config_instance ) {
 		$this->config = $config_instance;
-		$this->config->load_config_admin_data();
+		$this->config->load_admin_data();
 	}
 
 

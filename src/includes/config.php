@@ -136,25 +136,6 @@ final class Config {
 
 
 	/**
-	 * Load config helptexts from additional file
-	 *
-	 * @return void
-	 */
-	public function load_config_admin_data() {
-		$cgb_config_admin_data   = [];
-		$cgb_sections_admin_data = [];
-		require_once PLUGIN_PATH . 'includes/config-admin-data.php';
-		foreach ( $cgb_config_admin_data as $name => $values ) {
-			$this->options[ $name ]->modify( $values );
-		}
-		unset( $cgb_config_admin_data );
-
-		$this->sections = $cgb_sections_admin_data;
-		unset( $cgb_sections_admin_data );
-	}
-
-
-	/**
 	 * Get the value of the specified option
 	 *
 	 * @param string $name Option name.
@@ -263,6 +244,21 @@ final class Config {
 <div class="reply">
 	<?php comment_reply_link(array_merge($args, array("reply_text" => __("Reply <span>&darr;</span>", $l10n_domain), "depth" => $depth, "max_depth" => $args["max_depth"]))); ?>
 </div><!-- .reply -->';
+	}
+
+
+	/**
+	 * Load the additional option data
+	 *
+	 * @return void
+	 */
+	public function load_admin_data() {
+		require_once PLUGIN_PATH . 'includes/config-admin-data.php';
+		$config_admin_data = new ConfigAdminData();
+		foreach ( array_keys( $this->options ) as $option_name ) {
+			$this->options[ $option_name ]->modify( $config_admin_data->$option_name );
+		}
+		$this->sections = $config_admin_data->section_data;
 	}
 
 }

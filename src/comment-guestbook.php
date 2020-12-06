@@ -178,8 +178,8 @@ class CommentGuestbook {
 	 * @return string
 	 */
 	public function filter_comments_per_page( $option_value ) {
-		if ( 0 < intval( $this->config->get( 'cgb_clist_per_page' ) ) ) {
-			return $this->config->get( 'cgb_clist_per_page' );
+		if ( 0 < intval( $this->config->clist_per_page ) ) {
+			return $this->config->clist_per_page;
 		}
 		return $option_value;
 	}
@@ -227,11 +227,11 @@ class CommentGuestbook {
 		global $post;
 		if ( ! ( is_object( $post ) && has_shortcode( $post->post_content, 'comment - guestbook' ) ) ) {
 			// Remove mail field.
-			if ( '' !== $this->config->get( 'cgb_page_remove_mail' ) ) {
+			if ( $this->config->page_remove_mail ) {
 				add_filter( 'comment_form_field_email', '__return_empty_string', 20 );
 			}
 			// Remove website url field.
-			if ( '' !== $this->config->get( 'cgb_page_remove_website' ) ) {
+			if ( $this->config->page_remove_website ) {
 				add_filter( 'comment_form_field_url', '__return_empty_string', 20 );
 			}
 		}
@@ -240,7 +240,8 @@ class CommentGuestbook {
 		$cmessage = isset( $_GET['cmessage'] ) ? intval( $_GET['cmessage'] ) : 0;
 		if ( 1 === $cmessage ) {
 			require_once PLUGIN_PATH . 'includes/cmessage.php';
-			CMessage::get_instance()->init();
+			$cmessage = new CMessage( $this->config );
+			$cmessage->init();
 		}
 	}
 

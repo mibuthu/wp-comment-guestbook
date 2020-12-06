@@ -119,6 +119,48 @@ class Option {
 	 */
 	public $form_width = null;
 
+	/**
+	 * The boolean TRUE value option
+	 *
+	 * @var string[]
+	 */
+	const TRUE = 'true';
+
+	/**
+	 * The boolean FALSE value option
+	 *
+	 * @var string[]
+	 */
+	const FALSE = 'false';
+
+	/**
+	 * The boolean value options
+	 *
+	 * @var string[]
+	 */
+	const BOOLEAN = [ self::TRUE, self::FALSE ];
+
+	/**
+	 * The boolean TRUE value option
+	 *
+	 * @var string[]
+	 */
+	const TRUE_NUM = '1';
+
+	/**
+	 * The boolean FALSE value option
+	 *
+	 * @var string[]
+	 */
+	const FALSE_NUM = '';
+
+	/**
+	 * The boolean value options
+	 *
+	 * @var string[]
+	 */
+	const BOOLEAN_NUM = [ self::TRUE_NUM, self::FALSE_NUM ];
+
 
 	/**
 	 * Class constructor which sets the required variables
@@ -155,6 +197,40 @@ class Option {
 				trigger_error( 'The requested field name "' . esc_attr( $field_name ) . '" does not exist!', E_USER_WARNING );
 			}
 		}
+	}
+
+
+	/**
+	 * Return a if the option is a boolean value
+	 *
+	 * @return bool
+	 */
+	public function is_bool() {
+		return self::BOOLEAN === $this->permitted_values || self::BOOLEAN_NUM === $this->permitted_values;
+	}
+
+
+	/**
+	 * Convert a given option value to a boolean value if the option is a boolean value
+	 *
+	 * @param string $value The option value.
+	 * @return string|bool
+	 */
+	public function to_bool( $value ) {
+		if ( $this->is_bool() ) {
+			return self::TRUE === $value || self::TRUE_NUM === $value;
+		}
+		return $value;
+	}
+
+
+	/**
+	 * Return a boolean value if the option is a boolean, or the value string if not
+	 *
+	 * @return string|bool
+	 */
+	public function bool_value() {
+		return $this->to_bool( $this->value );
 	}
 
 }

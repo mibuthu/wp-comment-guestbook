@@ -25,8 +25,8 @@ if ( ! isset( $cgb_func ) || ! $cgb_func instanceof Comments_Functions ) {
 	error_log( 'Required Config instance in the variable "cgb_config" is missing!' );
 }
 // Show comment including the comment forms (in page content or in comment area).
-if ( ( '' === $cgb_config->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ||
-		( '' !== $cgb_config->get( 'cgb_clist_in_page_content' ) && isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ) {
+if ( ( ! $cgb_config->clist_in_page_content && ! isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ||
+		( $cgb_config->clist_in_page_content && isset( $GLOBALS['cgb_comment_template_in_page'] ) ) ) {
 	echo '
 			<div id="comments">';
 	// Comment form above comments.
@@ -50,17 +50,15 @@ if ( ( '' === $cgb_config->get( 'cgb_clist_in_page_content' ) && ! isset( $GLOBA
 	// Are comments available?
 	if ( count( $wp_query->comments ) ) {
 		// Print custom list styles.
-		$cgb_styles = $cgb_config->get( 'cgb_clist_styles' );
-		if ( '' !== $cgb_styles ) {
+		if ( '' !== $cgb_config->clist_styles ) {
 			echo '
 				<style>
-					' . wp_kses_post( $cgb_styles ) . '
+					' . wp_kses_post( strval( $cgb_config->clist_styles ) ) . '
 				</style>';
 		}
 		// Print custom title.
-		$cgb_title = $cgb_config->get( 'cgb_clist_title' );
-		if ( '' !== $cgb_title ) {
-			echo '<h2 id="comments-title">' . esc_html( $cgb_title ) . '</h2>';
+		if ( '' !== $cgb_config->clist_title ) {
+			echo '<h2 id="comments-title">' . esc_html( strval( $cgb_config->clist_title ) ) . '</h2>';
 		}
 		// Show comment list.
 		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- no escaping required here

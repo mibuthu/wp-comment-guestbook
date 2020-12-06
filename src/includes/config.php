@@ -19,6 +19,53 @@ require_once PLUGIN_PATH . 'includes/option.php';
  * Config class
  *
  * This class handles all available options with their information
+ *
+ * @property-read string $cgb_ignore_comments_open Guestbook comment status.
+ * @property-read string $cgb_ignore_comment_registration Guestbook comment registration.
+ * @property-read string $cgb_ignore_comment_moderation Guestbook comment moderation.
+ * @property-read string $cgb_adjust_output Comments ajdustment.
+ * @property-read string $cgb_l10n_domain Domain for translation.
+ * @property-read string $cgb_form_below_comments Form below comments.
+ * @property-read string $cgb_form_above_comments Form above comments.
+ * @property-read string $cgb_form_in_page Form in page/post.
+ * @property-read string $cgb_form_expand_type Collapsed comment form.
+ * @property-read string $cgb_form_expand_link_text Link text for form expansion.
+ * @property-read string $cgb_form_require_no_name_mail Comment author name/email.
+ * @property-read string $cgb_form_remove_mail Remove Email field.
+ * @property-read string $cgb_form_remove_website Remove website field.
+ * @property-read string $cgb_form_comment_label Label for comment field.
+ * @property-read string $cgb_form_title Comment form title.
+ * @property-read string $cgb_form_title_reply_to Reply comment form title.
+ * @property-read string $cgb_form_notes_before Notes before form fields.
+ * @property-read string $cgb_form_notes_after Notes after form fields.
+ * @property-read string $cgb_form_label_submit Label of submit button.
+ * @property-read string $cgb_form_cancel_reply Label for cancel reply link.
+ * @property-read string $cgb_form_must_login_message Must login message.
+ * @property-read string $cgb_form_styles Comment form styles.
+ * @property-read string $cgb_form_args Comment form args.
+ * @property-read string $cgb_clist_threaded Threaded guestbook comments.
+ * @property-read string $cgb_clist_order Comment list order.
+ * @property-read string $cgb_clist_child_order_desc Comment list child order.
+ * @property-read string $cgb_clist_default_page Comment list default page.
+ * @property-read string $cgb_clist_pagination Bread comments into pages.
+ * @property-read string $cgb_clist_per_page Comments per page.
+ * @property-read string $cgb_clist_num_pagination Numbered pagination.
+ * @property-read string $cgb_clist_show_all Show all comments.
+ * @property-read string $cgb_clist_title Title for the comment list.
+ * @property-read string $cgb_clist_in_page_content Comment list in page content.
+ * @property-read string $cgb_clist_styles Comment list styles.
+ * @property-read string $cgb_clist_args Comment list args.
+ * @property-read string $cgb_comment_adjust Comment adjustment.
+ * @property-read string $cgb_comment_html Comment html code.
+ * @property-read string $cgb_comment_callback Comment callback function.
+ * @property-read string $cgb_cmessage_enabled Enable message.
+ * @property-read string $cgb_cmessage_text New comment message text.
+ * @property-read string $cgb_cmessage_type New comment message type.
+ * @property-read string $cgb_cmessage_duration New comment message duration.
+ * @property-read string $cgb_cmessage_styles New comment message styles.
+ * @property-read string $cgb_page_cmessage_enabled Message after new comments in other pages/posts.
+ * @property-read string $cgb_page_remove_mail Remove Email field in other pages/posts.
+ * @property-read string $cgb_page_remove_website Remove Website field in other pages/posts.
  */
 final class Config {
 
@@ -57,20 +104,20 @@ final class Config {
 	public function init() {
 		$this->options = [
 			// General.
-			'cgb_ignore_comments_open'        => new Option( '1', null, 'general' ),
-			'cgb_ignore_comment_registration' => new Option( '1', null, 'general' ),
-			'cgb_ignore_comment_moderation'   => new Option( '', null, 'general' ),
-			'cgb_adjust_output'               => new Option( '', null, 'general' ),
+			'cgb_ignore_comments_open'        => new Option( Option::TRUE_NUM, Option::BOOLEAN_NUM, 'general' ),
+			'cgb_ignore_comment_registration' => new Option( Option::TRUE_NUM, Option::BOOLEAN_NUM, 'general' ),
+			'cgb_ignore_comment_moderation'   => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'general' ),
+			'cgb_adjust_output'               => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'general' ),
 			'cgb_l10n_domain'                 => new Option( 'default', null, 'general' ),
 			// Comment form.
-			'cgb_form_below_comments'         => new Option( '', null, 'comment_form' ),
-			'cgb_form_above_comments'         => new Option( '', null, 'comment_form' ),
-			'cgb_form_in_page'                => new Option( '1', null, 'comment_form' ),
+			'cgb_form_below_comments'         => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_form' ),
+			'cgb_form_above_comments'         => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_form' ),
+			'cgb_form_in_page'                => new Option( Option::TRUE_NUM, Option::BOOLEAN_NUM, 'comment_form' ),
 			'cgb_form_expand_type'            => new Option( 'false', null, 'comment_form' ),
 			'cgb_form_expand_link_text'       => new Option( __( 'Add a new guestbook entry', 'comment-guestbook' ), null, 'comment_form' ),
-			'cgb_form_require_no_name_mail'   => new Option( '', null, 'comment_form' ),
-			'cgb_form_remove_mail'            => new Option( '', null, 'comment_form' ),
-			'cgb_form_remove_website'         => new Option( '', null, 'comment_form' ),
+			'cgb_form_require_no_name_mail'   => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_form' ),
+			'cgb_form_remove_mail'            => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_form' ),
+			'cgb_form_remove_website'         => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_form' ),
 			'cgb_form_comment_label'          => new Option( 'default', null, 'comment_form' ),
 			'cgb_form_title'                  => new Option( 'default', null, 'comment_form' ),
 			'cgb_form_title_reply_to'         => new Option( 'default', null, 'comment_form' ),
@@ -88,18 +135,18 @@ final class Config {
 			'cgb_clist_default_page'          => new Option( 'default', null, 'comment_list' ),
 			'cgb_clist_pagination'            => new Option( 'default', null, 'comment_list' ),
 			'cgb_clist_per_page'              => new Option( '0', null, 'comment_list' ),
-			'cgb_clist_num_pagination'        => new Option( '', null, 'comment_list' ),
-			'cgb_clist_show_all'              => new Option( '', null, 'comment_list' ),
+			'cgb_clist_num_pagination'        => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_list' ),
+			'cgb_clist_show_all'              => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_list' ),
 			'cgb_clist_title'                 => new Option( '', null, 'comment_list' ),
-			'cgb_clist_in_page_content'       => new Option( '', null, 'comment_list' ),
+			'cgb_clist_in_page_content'       => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_list' ),
 			'cgb_clist_styles'                => new Option( '', null, 'comment_list' ),
 			'cgb_clist_args'                  => new Option( '', null, 'comment_list' ),
 			// Comment html code.
-			'cgb_comment_adjust'              => new Option( '', null, 'comment_html' ),
+			'cgb_comment_adjust'              => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'comment_html' ),
 			'cgb_comment_html'                => new Option( '--func--comment_html', null, 'comment_html' ),
 			'cgb_comment_callback'            => new Option( '--func--comment_callback', null, 'comment_html' ),
 			// Message after new comment.
-			'cgb_cmessage_enabled'            => new Option( '', null, 'cmessage' ),
+			'cgb_cmessage_enabled'            => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'cmessage' ),
 			'cgb_cmessage_text'               => new Option( __( 'Thanks for your comment', 'comment-guestbook' ), null, 'cmessage' ),
 			'cgb_cmessage_type'               => new Option( 'inline', null, 'cmessage' ),
 			'cgb_cmessage_duration'           => new Option( '3000', null, 'cmessage' ),
@@ -116,9 +163,9 @@ final class Config {
 				'cmessage'
 			),
 			// Comments in other pages/posts.
-			'cgb_page_cmessage_enabled'       => new Option( '', null, 'page_comments' ),
-			'cgb_page_remove_mail'            => new Option( '', null, 'page_comments' ),
-			'cgb_page_remove_website'         => new Option( '', null, 'page_comments' ),
+			'cgb_page_cmessage_enabled'       => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'page_comments' ),
+			'cgb_page_remove_mail'            => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'page_comments' ),
+			'cgb_page_remove_website'         => new Option( Option::FALSE_NUM, Option::BOOLEAN_NUM, 'page_comments' ),
 		];
 	}
 
@@ -136,21 +183,39 @@ final class Config {
 
 
 	/**
-	 * Get the value of the specified option
+	 * Get the value of the given option
+	 *
+	 * The "cgb_" prefix in the option name is optional.
+	 * If the option is of type boolean, a boolean value will be returned.
 	 *
 	 * @param string $name Option name.
-	 * @return string Option value.
-	 * @throws \Exception Option not available.
+	 * @return string|bool Option value.
 	 */
-	public function get( $name ) {
+	public function __get( $name ) {
+		if ( 'cgb_' !== substr( $name, 0, 4 ) ) {
+			$name = 'cgb_' . $name;
+		}
 		if ( ! isset( $this->options[ $name ] ) ) {
-			throw new \Exception( 'Requested option "' . $name . '" not available!' );
+			// Trigger error is allowed in this case.
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+			trigger_error( 'The requested option "' . esc_attr( $name ) . '" does not exist!', E_USER_WARNING );
+			return '';
 		}
 		// Execute callback, if a function is used to set the value.
 		if ( '--func--' === substr( $this->options[ $name ]->value, 0, 8 ) ) {
 			$this->options[ $name ]->value = call_user_func( [ __NAMESPACE__ . '\Config', substr( $this->options[ $name ]->value, 8 ) ] );
 		}
-		return get_option( $name, $this->options[ $name ]->value );
+		return $this->options[ $name ]->to_bool( get_option( $name, $this->options[ $name ]->value ) );
+	}
+
+
+	/**
+	 * Get all specified options
+	 *
+	 * @return array<string,Option>
+	 */
+	public function get_all() {
+		return $this->options;
 	}
 
 

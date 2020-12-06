@@ -138,19 +138,19 @@ class Settings {
 						<td>';
 				switch ( $o->type ) {
 					case 'checkbox':
-						$this->show_checkbox( $oname, $this->config->get( $oname ), $o->caption );
+						$this->show_checkbox( $oname, $this->config->$oname, $o->caption );
 						break;
 					case 'radio':
-						$this->show_radio( $oname, $this->config->get( $oname ), $o->captions );
+						$this->show_radio( $oname, $this->config->$oname, $o->captions );
 						break;
 					case 'number':
-						$this->show_number( $oname, $this->config->get( $oname ), $o->range );
+						$this->show_number( $oname, $this->config->$oname, $o->range );
 						break;
 					case 'text':
-						$this->show_text( $oname, $this->config->get( $oname ) );
+						$this->show_text( $oname, $this->config->$oname );
 						break;
 					case 'textarea':
-						$this->show_textarea( $oname, $this->config->get( $oname ), ( isset( $o->rows ) ? $o->rows : null ) );
+						$this->show_textarea( $oname, $this->config->$oname, ( isset( $o->rows ) ? $o->rows : null ) );
 						break;
 				}
 				echo '

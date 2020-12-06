@@ -72,7 +72,7 @@ class Filters {
 	 * @return bool
 	 */
 	public function filter_comments_open( $open, $post_id ) {
-		if ( ! $open && (bool) $this->config->get( 'cgb_ignore_comments_open' ) ) {
+		if ( ! $open && $this->config->ignore_comments_open ) {
 			return true;
 		}
 		return $open;
@@ -86,7 +86,7 @@ class Filters {
 	 * @return bool
 	 */
 	public function filter_ignore_comment_registration( $option_value ) {
-		if ( $this->config->get( 'cgb_ignore_comment_registration' ) ) {
+		if ( $this->config->ignore_comment_registration ) {
 			return false;
 		}
 		return $option_value;
@@ -100,7 +100,7 @@ class Filters {
 	 * @return bool
 	 */
 	public function filter_ignore_comment_moderation( $option_value ) {
-		if ( $this->config->get( 'cgb_ignore_comment_moderation' ) ) {
+		if ( $this->config->ignore_comment_moderation ) {
 			return false;
 		}
 		return $option_value;
@@ -120,11 +120,11 @@ class Filters {
 			return $option_value;
 		}
 		// Check if the "require name, email" option is disabled for comment-guestbook comments.
-		if ( (bool) $this->config->get( 'cgb_form_require_no_name_mail' ) ) {
+		if ( $this->config->form_require_no_name_mail ) {
 			return '';
 		}
 		// Check if the plugin options require an override.
-		if ( (bool) $this->config->get( 'cgb_form_remove_mail' ) || (bool) $this->config->get( 'cgb_page_remove_mail' ) ) {
+		if ( $this->config->form_remove_mail || $this->config->page_remove_mail ) {
 			$user = wp_get_current_user();
 			// Check if the user is logged in and if a valid author name is given.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing

@@ -276,11 +276,9 @@ class Widget extends \WP_Widget {
 	 */
 	private function get_comment_link( $comment ) {
 		$link_args = [];
-		if ( '' !== $this->config->get( 'cgb_adjust_output' ) ) {
+		if ( $this->config->adjust_output ) {
 			if ( 0 !== get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
-				if ( 'desc' === $this->config->get( 'cgb_clist_order' )
-					|| 'asc' === $this->config->get( 'cgb_clist_order' )
-					|| '' !== $this->config->get( 'cgb_clist_show_all' ) ) {
+				if ( 'desc' === $this->config->clist_order || 'asc' === $this->config->clist_order || $this->config->clist_show_all ) {
 					$pattern = get_shortcode_regex();
 					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( $comment->comment_post_ID )->post_content, $matches )
 							&& array_key_exists( 2, $matches )
@@ -288,9 +286,9 @@ class Widget extends \WP_Widget {
 						// Shortcode is being used in that page or post.
 						$args = [
 							'status' => 'approve',
-							'order'  => $this->config->get( 'cgb_clist_order' ),
+							'order'  => $this->config->clist_order,
 						];
-						if ( '' === $this->config->get( 'cgb_clist_show_all' ) ) {
+						if ( ! $this->config->clist_show_all ) {
 							$args['post_id'] = $comment->comment_post_ID;
 						}
 						$comments          = get_comments( $args );

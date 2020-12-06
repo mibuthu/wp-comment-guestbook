@@ -51,11 +51,11 @@ if ( ! defined( 'WPINC' ) ) {
  * @property-read string $cgb_clist_show_all Show all comments.
  * @property-read string $cgb_clist_title Title for the comment list.
  * @property-read string $cgb_clist_in_page_content Comment list in page content.
- * @property-read string $cgb_comment_callback Comment callback function.
  * @property-read string $cgb_clist_styles Comment list styles.
  * @property-read string $cgb_clist_args Comment list args.
  * @property-read string $cgb_comment_adjust Comment adjustment.
  * @property-read string $cgb_comment_html Comment html code.
+ * @property-read string $cgb_comment_callback Comment callback function.
  * @property-read string $cgb_cmessage_enabled Enable message.
  * @property-read string $cgb_cmessage_text New comment message text.
  * @property-read string $cgb_cmessage_type New comment message type.
@@ -409,18 +409,6 @@ final class ConfigAdminData {
 					__( 'The comment list will be displayed instead of the shortcode, the comment form in the comment sections will be displayed before and/or after the comment list, as specified in the comment form options.', 'comment-guestbook' ),
 			],
 
-			'cgb_comment_callback'            => [
-				'type'        => 'text',
-				'label'       => __( 'Comment callback function', 'comment-guestbook' ),
-				'description' =>
-					__( 'This option sets the name of comment callback function which outputs the html-code to view each comment.', 'comment-guestbook' ) . '<br />' .
-					__( 'You only require this function if "Guestbook comments adjustment" is enabled and "Comment adjustment" is disabled.', 'comment-guestbook' ) . '<br />' .
-					__( 'Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default.', 'comment-guestbook' ) . '<br />' .
-					__( 'If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.', 'comment-guestbook' ) . '<br />' .
-					__( 'If you want to insert the function of your theme manually, you can find the name normally in file "functions.php" of your theme.', 'comment-guestbook' ) . '<br />' .
-					__( 'Often it is called "themename_comment", e.g. "twentyeleven_comment" for twentyeleven theme.', 'comment-guestbook' ),
-			],
-
 			'cgb_clist_styles'                => [
 				'type'        => 'textarea',
 				'rows'        => 7,
@@ -509,6 +497,18 @@ final class ConfigAdminData {
 					'<code>if($is_comment_from_other_page && "0" == $comment->comment_parent) {<br />' .
 					'&nbsp;&nbsp;&nbsp;&nbsp;echo \' \'.__(\'Link to page:\', $l10n_domain).\' \'.$other_page_link;<br />' .
 					'}</code>',
+			],
+
+			'cgb_comment_callback'            => [
+				'type'        => 'text',
+				'label'       => __( 'Comment callback function', 'comment-guestbook' ),
+				'description' =>
+					__( 'This option sets the name of comment callback function which outputs the html-code to view each comment.', 'comment-guestbook' ) . '<br />' .
+					__( 'You only require this function if "Guestbook comments adjustment" is enabled and "Comment adjustment" is disabled.', 'comment-guestbook' ) . '<br />' .
+					__( 'Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default.', 'comment-guestbook' ) . '<br />' .
+					__( 'If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.', 'comment-guestbook' ) . '<br />' .
+					__( 'If you want to insert the function of your theme manually, you can find the name normally in file "functions.php" of your theme.', 'comment-guestbook' ) . '<br />' .
+					__( 'Often it is called "themename_comment", e.g. "twentyeleven_comment" for twentyeleven theme.', 'comment-guestbook' ),
 			],
 
 			// Message after new comment.

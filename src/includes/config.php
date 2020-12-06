@@ -92,12 +92,12 @@ final class Config {
 			'cgb_clist_show_all'              => new Option( '', null, 'comment_list' ),
 			'cgb_clist_title'                 => new Option( '', null, 'comment_list' ),
 			'cgb_clist_in_page_content'       => new Option( '', null, 'comment_list' ),
-			'cgb_comment_callback'            => new Option( '--func--comment_callback', null, 'comment_list' ),
 			'cgb_clist_styles'                => new Option( '', null, 'comment_list' ),
 			'cgb_clist_args'                  => new Option( '', null, 'comment_list' ),
 			// Comment html code.
 			'cgb_comment_adjust'              => new Option( '', null, 'comment_html' ),
 			'cgb_comment_html'                => new Option( '--func--comment_html', null, 'comment_html' ),
+			'cgb_comment_callback'            => new Option( '--func--comment_callback', null, 'comment_html' ),
 			// Message after new comment.
 			'cgb_cmessage_enabled'            => new Option( '', null, 'cmessage' ),
 			'cgb_cmessage_text'               => new Option( __( 'Thanks for your comment', 'comment-guestbook' ), null, 'cmessage' ),

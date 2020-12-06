@@ -18,7 +18,7 @@ class CommentFormSettingsCest {
 
 	public function DefaultValues( AcceptanceTester $I ) {
 		$I->wantTo( 'check default values of the comment form options' );
-		$I->amOnGuestbookOptions( 'comment_form' );
+		$I->amOnGuestbookSettings( 'comment_form' );
 		$I->seeInFormFields(
 			'form[name=cgb-comment_form-settings]',
 			[

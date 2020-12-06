@@ -18,8 +18,8 @@ class CommentListSettingsCest {
 
 
 	public function DefaultValues( AcceptanceTester $I ) {
-		$I->wantTo( 'check default values of the comment form options' );
-		$I->amOnGuestbookOptions( 'comment_list' );
+		$I->wantTo( 'check default values of the comment list options' );
+		$I->amOnGuestbookSettings( 'comment_list' );
 		$I->seeInFormFields(
 			'form[name=cgb-comment_list-settings]',
 			[
@@ -33,7 +33,6 @@ class CommentListSettingsCest {
 				'cgb_clist_num_pagination'   => '',
 				'cgb_clist_title'            => '',
 				'cgb_clist_in_page_content'  => '',
-				'cgb_comment_callback'       => '',  // empty value seem to work here
 				'cgb_clist_styles'           => '',
 				'cgb_clist_args'             => '',
 			]

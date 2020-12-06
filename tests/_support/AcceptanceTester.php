@@ -67,7 +67,7 @@ class AcceptanceTester extends \Codeception\Actor {
 	}
 
 
-	public function amOnGuestbookOptions( string $section ) {
+	public function amOnGuestbookSettings( string $section ) {
 		$I = $this;
 		$I->loginAsAdmin();
 		$I->amOnAdminPage( 'options-general.php?page=cgb_admin_settings&tab=' . $section );
@@ -87,7 +87,7 @@ class AcceptanceTester extends \Codeception\Actor {
 
 	public function changeGuestbookOption( string $section, string $input_type, string $option, string $newValue ) {
 		$I = $this;
-		$I->amOnGuestbookOptions( $section );
+		$I->amOnGuestbookSettings( $section );
 		$verify = null;
 		switch ( $input_type ) {
 			case 'checkbox':

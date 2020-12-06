@@ -18,7 +18,7 @@ class GeneralSettingsCest {
 
 	public function DefaultValues( AcceptanceTester $I ) {
 		$I->wantTo( 'check default values of the general options' );
-		$I->amOnGuestbookOptions( 'general' );
+		$I->amOnGuestbookSettings( 'general' );
 		$I->seeInFormFields(
 			'form[name=cgb-general-settings]',
 			[

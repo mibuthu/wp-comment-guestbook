@@ -32,6 +32,7 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook;
 
+use WordPress\Plugins\mibuthu\CommentGuestbook\Shortcode\Shortcode;
 use WordPress\Plugins\mibuthu\CommentGuestbook\Admin\Admin;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -152,7 +153,7 @@ class CommentGuestbook {
 	public function shortcode_comment_guestbook( $atts, $content = '' ) {
 		static $shortcodes;
 		if ( ! $shortcodes instanceof Shortcode ) {
-			require_once PLUGIN_PATH . 'includes/shortcode.php';
+			require_once PLUGIN_PATH . 'shortcode/shortcode.php';
 			$shortcodes = new Shortcode( $this->config );
 		}
 		return $shortcodes->show_html( $atts, $content );

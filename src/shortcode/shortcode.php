@@ -7,7 +7,12 @@
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
 
-namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Shortcode;
+
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Config;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Filters;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Comments_Functions;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit();

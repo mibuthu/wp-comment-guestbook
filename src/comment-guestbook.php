@@ -166,8 +166,8 @@ class CommentGuestbook {
 	 * @return void
 	 */
 	public function widget_init() {
-		require_once PLUGIN_PATH . 'includes/widget.php';
-		$widget = new Widget( $this->config );
+		require_once PLUGIN_PATH . 'widget/widget.php';
+		$widget = new Widget\Widget( $this->config );
 		register_widget( $widget );
 	}
 

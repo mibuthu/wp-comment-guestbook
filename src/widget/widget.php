@@ -7,14 +7,17 @@
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
 
-namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Widget;
+
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Option;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
 require_once PLUGIN_PATH . 'includes/config.php';
-require_once PLUGIN_PATH . 'includes/option.php';
+require_once PLUGIN_PATH . 'widget/config.php';
 
 /**
  * Comment Guestbook Widget
@@ -24,26 +27,27 @@ class Widget extends \WP_Widget {
 	/**
 	 * Config class instance reference
 	 *
-	 * @var Config
+	 * @var \WordPress\Plugins\mibuthu\CommentGuestbook\Config
 	 */
 	private $config;
 
 	/**
-	 * Widget Items
+	 * Widget Arguments
 	 *
-	 * @var array<string,Option>
+	 * @var Config
 	 */
-	private $items;
+	private $args;
 
 
 	/**
 	 * Register widget with WordPress.
 	 *
-	 * @param Config $config_instance The Config instance as a reference.
+	 * @param \WordPress\Plugins\mibuthu\CommentGuestbook\Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
 	public function __construct( &$config_instance ) {
 		$this->config = $config_instance;
+		$this->args   = new Config();
 		parent::__construct(
 			'comment_guestbook_widget', // Base ID.
 			'Comment Guestbook', // Name.
@@ -52,26 +56,6 @@ class Widget extends \WP_Widget {
 		add_action( 'comment_post', [ $this, 'flush_widget_cache' ] );
 		add_action( 'transition_comment_status', [ $this, 'flush_widget_cache' ] );
 		add_filter( 'safe_style_css', [ $this, 'safe_style_css_filter' ] );
-
-		// Define all available items.
-		$this->items = [
-			'title'                => new Option( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => new Option( '5' ),
-			'link_to_comment'      => new Option( 'false' ),
-			'show_date'            => new Option( 'false' ),
-			'date_format'          => new Option( get_option( 'date_format' ) ),
-			'show_author'          => new Option( 'true' ),
-			'author_length'        => new Option( '18' ),
-			'show_page_title'      => new Option( 'false' ),
-			'page_title_length'    => new Option( '18' ),
-			'show_comment_text'    => new Option( 'true' ),
-			'comment_text_length'  => new Option( '25' ),
-			'url_to_page'          => new Option( '' ),
-			'gb_comments_only'     => new Option( 'false' ),
-			'hide_gb_page_title'   => new Option( 'false' ),
-			'link_to_page'         => new Option( 'false' ),
-			'link_to_page_caption' => new Option( __( 'goto guestbook page', 'comment-guestbook' ) ),
-		];
 	}
 
 
@@ -99,11 +83,6 @@ class Widget extends \WP_Widget {
 		}
 
 		// Prepare html.
-		foreach ( $this->items as $itemname => $item ) {
-			if ( ! isset( $instance[ $itemname ] ) ) {
-				$instance[ $itemname ] = $item->value;
-			}
-		}
 		$out               = '';
 		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
 		$comment_args      = [
@@ -139,11 +118,12 @@ class Widget extends \WP_Widget {
 					$out .= '<a href="' . $this->get_comment_link( $comment ) . '">';
 				}
 				if ( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( $instance['date_format'], $comment ) . ' </span>';
+					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' .
+						esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( strval( $instance['date_format'] ), $comment ) . ' </span>';
 				}
 				if ( 'true' === $instance['show_author'] ) {
 					$out .= $this->truncate(
-						$instance['author_length'],
+						strval( $instance['author_length'] ),
 						get_comment_author( $comment ),
 						'span',
 						[
@@ -208,13 +188,12 @@ class Widget extends \WP_Widget {
 	 * @return array<string,string> Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$this->load_helptexts();
 		$instance = [];
-		foreach ( $this->items as $itemname => $item ) {
+		foreach ( array_keys( $this->config->get_all() ) as $name ) {
 			if ( 'checkbox' === $item->type ) {
-				$instance[ $itemname ] = ( isset( $new_instance[ $itemname ] ) && 1 === intval( $new_instance[ $itemname ] ) ) ? 'true' : 'false';
+				$instance[ $name ] = ( isset( $new_instance[ $name ] ) && 1 === intval( $new_instance[ $name ] ) ) ? 'true' : 'false';
 			} else { // 'text'
-				$instance[ $itemname ] = wp_strip_all_tags( $new_instance[ $itemname ] );
+				$instance[ $name ] = wp_strip_all_tags( $new_instance[ $name ] );
 			}
 		}
 		$this->flush_widget_cache();
@@ -235,20 +214,20 @@ class Widget extends \WP_Widget {
 	 * @return string
 	 */
 	public function form( $instance ) {
-		$this->load_helptexts();
+		$this->args->load_args_admin_data();
 		// Display general information at the top.
 		echo '<p>' . esc_html__( 'For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.', 'comment-guestbook' ) . '</p>';
 		// Display the options.
-		foreach ( $this->items as $itemname => $item ) {
-			if ( ! isset( $instance[ $itemname ] ) ) {
-				$instance[ $itemname ] = $item->value;
+		foreach ( $this->args->get_all() as $name => $item ) {
+			if ( ! isset( $instance[ $name ] ) ) {
+				$instance[ $name ] = $item->value;
 			}
 			$style_text = ( null === $item->form_style ) ? '' : ' style="' . $item->form_style . '"';
 			if ( 'checkbox' === $item->type ) {
-				$checked_text = ( 'true' === $instance[ $itemname ] || 1 === $instance[ $itemname ] ) ? 'checked = "checked" ' : '';
+				$checked_text = ( 'true' === $instance[ $name ] || 1 === $instance[ $name ] ) ? 'checked = "checked" ' : '';
 				echo '
 					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
-						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) . '" name="' . esc_attr( $this->get_field_name( $itemname ) ) .
+						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $name ) ) . '" name="' . esc_attr( $this->get_field_name( $name ) ) .
 							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $item->caption ) . '</label>
 					</p>';
 			} else { // 'text'
@@ -256,9 +235,9 @@ class Widget extends \WP_Widget {
 				$caption_after_text = ( null === $item->caption_after ) ? '' : '<label> ' . $item->caption_after . '</label>';
 				echo '
 					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $itemname ) ) . '">' . wp_kses_post( $item->caption ) . ' </label>
-						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) .
-							'" name="' . esc_attr( $this->get_field_name( $itemname ) ) . '" type="text" value="' . esc_attr( $instance[ $itemname ] ) . '" />' .
+						<label for="' . esc_attr( $this->get_field_id( $name ) ) . '">' . wp_kses_post( $item->caption ) . ' </label>
+						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $name ) ) .
+							'" name="' . esc_attr( $this->get_field_name( $name ) ) . '" type="text" value="' . esc_attr( $instance[ $name ] ) . '" />' .
 							wp_kses_post( $caption_after_text ) . '
 					</p>';
 			}
@@ -442,21 +421,6 @@ class Widget extends \WP_Widget {
 		$styles[] = 'white-space';
 		$styles[] = 'text-overflow';
 		return $styles;
-	}
-
-
-	/**
-	 * Load the widget items helptexts
-	 *
-	 * @return void
-	 */
-	public function load_helptexts() {
-		global $cgb_widget_items_helptexts;
-		require_once PLUGIN_PATH . 'includes/widget-helptexts.php';
-		foreach ( $cgb_widget_items_helptexts as $name => $values ) {
-			$this->items[ $name ]->modify( $values );
-		}
-		unset( $cgb_widget_items_helptexts );
 	}
 
 

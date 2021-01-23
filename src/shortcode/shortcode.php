@@ -57,7 +57,7 @@ class Shortcode {
 	 */
 	public function show_html( $atts, $content ) {
 		$this->init_sc();
-		if ( $this->config->clist_in_page_content && $this->config->adjust_output ) {
+		if ( $this->config->clist_in_page_content->to_bool() && $this->config->adjust_output->to_bool() ) {
 			/**
 			 * Show comment list in page content
 			 */
@@ -68,7 +68,7 @@ class Shortcode {
 			ob_end_clean();
 			unset( $GLOBALS['cgb_comment_template_in_page'] );
 			return $out;
-		} elseif ( $this->config->form_in_page && ( ! $this->config->form_above_comments || ! $this->config->adjust_output ) ) {
+		} elseif ( $this->config->form_in_page->to_bool() && ( ! $this->config->form_above_comments->to_bool() || ! $this->config->adjust_output->to_bool() ) ) {
 			/**
 			 * Show comment form in page content (Only show one form above the comment list. The form_in_page will not be displayed if form_above_comments and adjust_output is enabled.)
 			 * (The form will also be hidden if the comment list is displayed in page content.)
@@ -94,23 +94,23 @@ class Shortcode {
 	 */
 	private function init_sc() {
 		// Filter to override threaded comments on guestbook page.
-		if ( 'enabled' === $this->config->clist_threaded || 'disabled' === $this->config->clist_threaded ) {
+		if ( 'enabled' === $this->config->clist_threaded->to_str() || 'disabled' === $this->config->clist_threaded->to_str() ) {
 			add_filter( 'option_thread_comments', [ &$this, 'filter_threaded_comments' ] );
 		}
 		// Filter to override name and email requirement on guestbook page.
-		if ( $this->config->form_require_no_name_mail ) {
+		if ( $this->config->form_require_no_name_mail->to_bool() ) {
 			add_filter( 'option_require_name_email', '__return_false' );
 		}
 		// Filter to show the adjusted comment style.
-		if ( $this->config->adjust_output ) {
+		if ( $this->config->adjust_output->to_bool() ) {
 			add_filter( 'comments_template', [ &$this, 'filter_comments_template' ] );
-			if ( 'desc' === $this->config->clist_order || $this->config->clist_show_all ) {
+			if ( 'desc' === $this->config->clist_order->to_str() || $this->config->clist_show_all->to_bool() ) {
 				add_filter( 'comments_template_query_args', [ &$this, 'filter_comments_template_query_args' ] );
 			}
-			if ( 'default' !== $this->config->clist_default_page ) {
+			if ( 'default' !== $this->config->clist_default_page->to_str() ) {
 				add_filter( 'option_default_comments_page', [ &$this, 'filter_comments_default_page' ] );
 			}
-			if ( 'default' !== $this->config->clist_pagination ) {
+			if ( 'default' !== $this->config->clist_pagination->to_str() ) {
 				add_filter( 'option_page_comments', [ &$this, 'filter_comments_pagination' ] );
 			}
 		}
@@ -126,7 +126,7 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_threaded_comments( $option_value ) {
-		if ( 'enabled' === $this->config->clist_threaded ) {
+		if ( 'enabled' === $this->config->clist_threaded->to_str() ) {
 			return '1';
 		}
 		return '';
@@ -156,11 +156,11 @@ class Shortcode {
 	 */
 	public function filter_comments_template_query_args( $query_args ) {
 		// Unset post_id to include the comments of all pages/posts if clist show all option is set.
-		if ( $this->config->clist_show_all ) {
+		if ( $this->config->clist_show_all->to_bool() ) {
 			unset( $query_args['post_id'] );
 		}
 		// Reverse array if clist order desc is required.
-		if ( 'desc' === $this->config->clist_order ) {
+		if ( 'desc' === $this->config->clist_order->to_str() ) {
 			$query_args['order'] = 'DESC';
 		}
 		return $query_args;
@@ -174,9 +174,9 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_comments_default_page( $option_value ) {
-		if ( 'first' === $this->config->clist_default_page ) {
+		if ( 'first' === $this->config->clist_default_page->to_str() ) {
 			return 'oldest';
-		} elseif ( 'last' === $this->config->clist_default_page ) {
+		} elseif ( 'last' === $this->config->clist_default_page->to_str() ) {
 			return 'newest';
 		}
 	}
@@ -189,9 +189,9 @@ class Shortcode {
 	 * @return string
 	 */
 	public function filter_comments_pagination( $option_value ) {
-		if ( 'false' === $this->config->clist_pagination ) {
+		if ( 'false' === $this->config->clist_pagination->to_str() ) {
 			return '';
-		} elseif ( 'true' === $this->config->clist_pagination ) {
+		} elseif ( 'true' === $this->config->clist_pagination->to_str() ) {
 			return '1';
 		}
 	}
@@ -210,7 +210,7 @@ class Shortcode {
 		 */
 		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="' . get_the_ID() . '" />';
 		// Add fields comment form to identify a guestbook comment when override of comment status is required.
-		if ( $this->config->ignore_comments_open ) {
+		if ( $this->config->ignore_comments_open->to_bool() ) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
 		}
 		return $html;

@@ -66,12 +66,12 @@ class Comments_Functions {
 	 */
 	public function __construct( &$config_instance ) {
 		$this->config      = $config_instance;
-		$this->l10n_domain = strval( $this->config->l10n_domain );
+		$this->l10n_domain = $this->config->l10n_domain->to_str();
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 		$this->nav_label_prev = __( '&larr; Older Comments', $this->l10n_domain );
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 		$this->nav_label_next = __( 'Newer Comments &rarr;', $this->l10n_domain );
-		if ( 'desc' === $this->config->clist_order ) {
+		if ( 'desc' === $this->config->clist_order->to_str() ) {
 			// Switch labels and correct arrow.
 			$tmp_label            = $this->nav_label_prev;
 			$this->nav_label_prev = '&larr; ' . substr( $this->nav_label_next, 0, - 6 );
@@ -91,30 +91,30 @@ class Comments_Functions {
 	public function list_comments() {
 		$args = [ 'echo' => false ];
 		// Comment list args.
-		if ( $this->config->clist_args ) {
+		if ( $this->config->clist_args->to_bool() ) {
 			$args_array = null;
 			// phpcs:ignore Squiz.PHP.Eval.Discouraged
-			eval( '$args_array = ' . strval( $this->config->clist_args ) . ';' );
+			eval( '$args_array = ' . $this->config->clist_args->to_str() . ';' );
 			if ( is_array( $args_array ) ) {
 				$args += $args_array;
 			}
 		}
 		// Comment callback function.
-		if ( ! $this->config->comment_adjust && is_callable( $this->config->comment_callback ) ) {
-			$args['callback'] = $this->config->comment_callback;
+		if ( $this->config->comment_adjust->to_bool() && is_callable( $this->config->comment_callback->to_str() ) ) {
+			$args['callback'] = $this->config->comment_callback->to_str();
 		} else {
 			$args['callback'] = [ &$this, 'show_comment_html' ];
 		}
 		// Fix order of top level comments.
-		if ( 'default' !== $this->config->clist_order ) {
+		if ( 'default' !== $this->config->clist_order->to_str() ) {
 			$args['reverse_top_level'] = false;
 		}
 		// Fix order of child comments.
-		if ( '1' === $this->config->clist_child_order_desc ) {
+		if ( $this->config->clist_child_order_desc->to_bool() ) {
 			$args['reverse_children'] = true;
 		}
 		// Change child order if top level order is desc due to array_reverse.
-		if ( 'desc' === $this->config->clist_order ) {
+		if ( 'desc' === $this->config->clist_order->to_str() ) {
 			$args['reverse_children'] = isset( $args['reverse_children'] ) ? ! $args['reverse_children'] : true;
 		}
 		// Print comments.
@@ -135,7 +135,7 @@ class Comments_Functions {
 		// Define all variables which can be used in show_comments_html text option.
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$GLOBALS['comment']         = $comment;
-		$l10n_domain                = strval( $this->config->l10n_domain );
+		$l10n_domain                = $this->config->l10n_domain->to_str();
 		$is_comment_from_other_page = ( get_the_ID() !== $comment->comment_post_ID );
 		$other_page_title           = $is_comment_from_other_page ? get_the_title( $comment->comment_post_ID ) : '';
 		$other_page_link            = $is_comment_from_other_page ? '<a href="' . get_page_link( $comment->comment_post_ID ) . '">' . $other_page_title . '</a>' : '';
@@ -159,7 +159,7 @@ class Comments_Functions {
 						comment_class( '', null, null, false ) . ' id="li-comment-' . esc_attr( strval( get_comment_ID() ) ) . '">
 						<article id="comment-' . esc_attr( strval( get_comment_ID() ) ) . '" class="comment">';
 				// phpcs:ignore Squiz.PHP.Eval.Discouraged
-				eval( '?>' . $this->config->comment_html );
+				eval( '?>' . $this->config->comment_html->to_str() );
 				echo '
 						</article><!-- #comment-## -->';
 				break;
@@ -179,7 +179,7 @@ class Comments_Functions {
 			$nav_id = 'comment-nav-' . ( 'above_comments' === $location ? 'above' : 'below' );
 			$out    = '<nav id="' . esc_attr( $nav_id ) . '">';
 
-			if ( $this->config->clist_num_pagination ) {
+			if ( $this->config->clist_num_pagination->to_bool() ) {
 				// Numbered Pagination.
 				$out .= '<div class="pagination" style="text-align:center;">';
 				$out .= paginate_comments_links(
@@ -235,14 +235,14 @@ class Comments_Functions {
 		$out = '';
 		// Custom form styles.
 		if ( ! (bool) $this->num_forms ) {
-			$styles = $this->config->form_styles;
+			$styles = $this->config->form_styles->to_str();
 			// Add styles for foldable forms.
-			if ( 'static' === $this->config->form_expand_type ) {
+			if ( 'static' === $this->config->form_expand_type->to_str() ) {
 				$styles .= '
 						div.form-wrapper { display:none; }
 						a.form-link:target { display:none; }
 						a.form-link:target + div.form-wrapper { display:block; }';
-			} elseif ( 'animated' === $this->config->form_expand_type ) {
+			} elseif ( 'animated' === $this->config->form_expand_type->to_str() ) {
 				$styles .= '
 						div.form-wrapper { position:absolute; transform:scaleY(0); transform-origin:top; transition:transform 0.3s; }
 						a.form-link:target { display:none; }
@@ -258,15 +258,15 @@ class Comments_Functions {
 		}
 		$this->num_forms ++;
 		// Comment form.
-		if ( ( 'above_comments' === $location && $this->config->form_above_comments )
-			|| ( 'below_comments' === $location && $this->config->form_below_comments )
+		if ( ( 'above_comments' === $location && $this->config->form_above_comments->to_str() )
+			|| ( 'below_comments' === $location && $this->config->form_below_comments->to_str() )
 			|| ( 'in_page' === $location )
 		) { // The check if the in_page form shall be displayed must be done before this function is called.
 			// Add required parts for foldable comment form.
-			if ( 'false' !== $this->config->form_expand_type ) {
+			if ( 'false' !== $this->config->form_expand_type->to_str() ) {
 				$out .= '
 					<a class="form-link" id="show-form-' . esc_attr( strval( $this->num_forms ) ) . '" href="#show-form-' . esc_attr( strval( $this->num_forms ) ) . '">' .
-						esc_html( $this->config->form_expand_link_text ) . '</a>
+						esc_html( $this->config->form_expand_link_text->to_str() ) . '</a>
 					<div class="form-wrapper">';
 			}
 			// Print form.
@@ -274,7 +274,7 @@ class Comments_Functions {
 				comment_form( $this->get_guestbook_comment_form_args() );
 				$out .= ob_get_contents();
 			ob_end_clean();
-			if ( 'false' !== $this->config->form_expand_type ) {
+			if ( 'false' !== $this->config->form_expand_type->to_str() ) {
 				$out .= '</div>';
 			}
 		}
@@ -290,55 +290,55 @@ class Comments_Functions {
 	public function get_guestbook_comment_form_args() {
 		$args = [];
 		// Form args.
-		if ( '' !== $this->config->form_args ) {
+		if ( $this->config->form_args->to_bool() ) {
 			$args_array = null;
 			// phpcs:ignore Squiz.PHP.Eval.Discouraged
-			eval( '$args_array = ' . $this->config->form_args . ';' );
+			eval( '$args_array = ' . $this->config->form_args->to_str() . ';' );
 			if ( is_array( $args_array ) ) {
 				$args += $args_array;
 			}
 		}
 		// Remove mail field.
-		if ( $this->config->form_remove_mail ) {
+		if ( $this->config->form_remove_mail->to_bool() ) {
 			add_filter( 'comment_form_field_email', '__return_empty_string', 20 );
 		}
 		// Remove website url field.
-		if ( $this->config->form_remove_website ) {
+		if ( $this->config->form_remove_website->to_bool() ) {
 			add_filter( 'comment_form_field_url', '__return_empty_string', 20 );
 		}
 		// Change comment field label.
-		if ( 'default' !== $this->config->form_comment_label ) {
+		if ( 'default' !== $this->config->form_comment_label->to_str() ) {
 			add_filter( 'comment_form_field_comment', [ &$this, 'comment_field_label_filter' ], 20 );
 		}
 		// title.
-		if ( 'default' !== $this->config->form_title ) {
-			$args['title_reply'] = $this->config->form_title;
+		if ( 'default' !== $this->config->form_title->to_str() ) {
+			$args['title_reply'] = $this->config->form_title->to_str();
 		}
 		// title_reply_to.
-		if ( 'default' !== $this->config->form_title_reply_to ) {
-			$args['title_reply_to'] = $this->config->form_title_reply_to;
+		if ( 'default' !== $this->config->form_title_reply_to->to_str() ) {
+			$args['title_reply_to'] = $this->config->form_title_reply_to->to_str();
 		}
 		// comment_notes_before.
-		if ( 'default' !== $this->config->form_notes_before ) {
-			$args['comment_notes_before'] = $this->config->form_notes_before;
+		if ( 'default' !== $this->config->form_notes_before->to_str() ) {
+			$args['comment_notes_before'] = $this->config->form_notes_before->to_str();
 		}
 		// comment_notes_after.
-		if ( 'default' !== $this->config->form_notes_after ) {
-			$args['comment_notes_after'] = $this->config->form_notes_after;
+		if ( 'default' !== $this->config->form_notes_after->to_str() ) {
+			$args['comment_notes_after'] = $this->config->form_notes_after->to_str();
 		}
 		// label_submit.
-		if ( 'default' !== $this->config->form_label_submit && '' !== $this->config->form_label_submit ) {
-			$args['label_submit'] = $this->config->form_label_submit;
+		if ( 'default' !== $this->config->form_label_submit->to_str() && $this->config->form_label_submit->to_bool() ) {
+			$args['label_submit'] = $this->config->form_label_submit->to_str();
 		}
 		// cancel_reply_link.
-		if ( 'default' !== $this->config->form_cancel_reply && '' !== $this->config->form_cancel_reply ) {
-			$args['cancel_reply_link'] = $this->config->form_cancel_reply;
+		if ( 'default' !== $this->config->form_cancel_reply->to_str() && $this->config->form_cancel_reply->to_bool() ) {
+			$args['cancel_reply_link'] = $this->config->form_cancel_reply->to_str();
 		}
 
 		// must_login message.
-		if ( 'default' !== $this->config->form_must_login_message && '' !== $this->config->form_must_login_message ) {
+		if ( 'default' !== $this->config->form_must_login_message->to_str() && $this->config->form_must_login_message->to_bool() ) {
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-			$args['must_log_in'] = sprintf( strval( $this->config->form_must_login_message ), wp_login_url( apply_filters( 'the_permalink', get_permalink() ) ) );
+			$args['must_log_in'] = sprintf( $this->config->form_must_login_message->to_str(), wp_login_url( apply_filters( 'the_permalink', get_permalink() ) ) );
 		}
 
 		return $args;
@@ -379,9 +379,9 @@ class Comments_Functions {
 			return 1;
 		}
 		// Set show_all_comments option.
-		$show_all_comments = ( $this->config->adjust_output && $this->config->clist_show_all );
+		$show_all_comments = ( $this->config->adjust_output->to_bool() && $this->config->clist_show_all->to_bool() );
 		// Prepare sql string.
-		$time_compare_operator = ( 'desc' === $this->config->clist_order ) ? '>' : '<';
+		$time_compare_operator = ( 'desc' === $this->config->clist_order->to_str() ) ? '>' : '<';
 		$sql                   =
 			'SELECT COUNT(comment_ID) FROM ' . $wpdb->comments .
 			' WHERE comment_parent = 0 AND (comment_approved = "1" OR (comment_approved = "0" AND comment_author = "%s"))' .
@@ -509,7 +509,7 @@ class Comments_Functions {
 	 * @return string
 	 */
 	public function comment_field_label_filter( $comment_html ) {
-		return preg_replace( '/(<label.*>)(.*)(<\/label>)/i', '${1}' . $this->config->form_comment_label . '${3}', $comment_html, 1 );
+		return preg_replace( '/(<label.*>)(.*)(<\/label>)/i', '${1}' . $this->config->form_comment_label->to_str() . '${3}', $comment_html, 1 );
 	}
 
 }

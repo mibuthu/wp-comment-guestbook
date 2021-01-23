@@ -179,8 +179,8 @@ class CommentGuestbook {
 	 * @return string
 	 */
 	public function filter_comments_per_page( $option_value ) {
-		if ( 0 < intval( $this->config->clist_per_page ) ) {
-			return $this->config->clist_per_page;
+		if ( 0 < $this->config->clist_per_page->to_int() ) {
+			return $this->config->clist_per_page->to_str();
 		}
 		return $option_value;
 	}
@@ -228,11 +228,11 @@ class CommentGuestbook {
 		global $post;
 		if ( ! ( is_object( $post ) && has_shortcode( $post->post_content, 'comment - guestbook' ) ) ) {
 			// Remove mail field.
-			if ( $this->config->page_remove_mail ) {
+			if ( $this->config->page_remove_mail->to_bool() ) {
 				add_filter( 'comment_form_field_email', '__return_empty_string', 20 );
 			}
 			// Remove website url field.
-			if ( $this->config->page_remove_website ) {
+			if ( $this->config->page_remove_website->to_bool() ) {
 				add_filter( 'comment_form_field_url', '__return_empty_string', 20 );
 			}
 		}

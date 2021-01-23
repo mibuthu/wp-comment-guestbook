@@ -85,7 +85,7 @@ class Config {
 	 */
 	public function __get( $name ) {
 		if ( isset( $this->args[ $name ] ) ) {
-			return $this->args[ $name ]->bool_value();
+			return $this->args[ $name ]->to_bool();
 		}
 		// Trigger error is allowed in this case.
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error

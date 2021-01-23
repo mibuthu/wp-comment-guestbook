@@ -189,7 +189,7 @@ final class Config {
 	 * If the option is of type boolean, a boolean value will be returned.
 	 *
 	 * @param string $name Option name.
-	 * @return string|bool Option value.
+	 * @return Option Option value.
 	 */
 	public function __get( $name ) {
 		if ( 'cgb_' !== substr( $name, 0, 4 ) ) {
@@ -199,13 +199,16 @@ final class Config {
 			// Trigger error is allowed in this case.
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 			trigger_error( 'The requested option "' . esc_attr( $name ) . '" does not exist!', E_USER_WARNING );
-			return '';
+			return new Option( '' );
 		}
 		// Execute callback, if a function is used to set the value.
 		if ( '--func--' === substr( $this->options[ $name ]->value, 0, 8 ) ) {
-			$this->options[ $name ]->value = call_user_func( [ __NAMESPACE__ . '\Config', substr( $this->options[ $name ]->value, 8 ) ] );
+			$this->options[ $name ]->value = call_user_func( [ __CLASS__, substr( $this->options[ $name ]->value, 8 ) ] );
+			error_log( 'callback: ' . $this->options[ $name ]->value );
+		} else {
+			$this->options[ $name ]->value = get_option( $name, $this->options[ $name ]->value );
 		}
-		return $this->options[ $name ]->to_bool( get_option( $name, $this->options[ $name ]->value ) );
+		return $this->options[ $name ];
 	}
 
 
@@ -270,8 +273,10 @@ final class Config {
 	private function comment_callback() {
 		$func = get_stylesheet() . '_comment';
 		if ( function_exists( $func ) ) {
+			error_log( $func . ' does exist!' );
 			return $func;
 		} else {
+			error_log( $func . ' does not exist!' );
 			return '';
 		}
 	}

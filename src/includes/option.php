@@ -201,36 +201,80 @@ class Option {
 
 
 	/**
-	 * Return a if the option is a boolean value
+	 * Return the option value as boolean
 	 *
 	 * @return bool
 	 */
-	public function is_bool() {
-		return self::BOOLEAN === $this->permitted_values || self::BOOLEAN_NUM === $this->permitted_values;
-	}
-
-
-	/**
-	 * Convert a given option value to a boolean value if the option is a boolean value
-	 *
-	 * @param string $value The option value.
-	 * @return string|bool
-	 */
-	public function to_bool( $value ) {
-		if ( $this->is_bool() ) {
-			return self::TRUE === $value || self::TRUE_NUM === $value;
+	public function to_bool() {
+		if ( $this->is_true() ) {
+			return true;
 		}
-		return $value;
+		if ( $this->is_false() ) {
+			return false;
+		}
+		return boolval( $this->value );
 	}
 
 
 	/**
-	 * Return a boolean value if the option is a boolean, or the value string if not
+	 * Return the option value as integer
 	 *
-	 * @return string|bool
+	 * @return int
 	 */
-	public function bool_value() {
-		return $this->to_bool( $this->value );
+	public function to_int() {
+		if ( $this->is_true() ) {
+			return 1;
+		}
+		if ( $this->is_false() ) {
+			return 0;
+		}
+		return intval( $this->value );
+	}
+
+
+	/**
+	 * Return the option value as float
+	 *
+	 * @return float
+	 */
+	public function to_float() {
+		if ( $this->is_true() ) {
+			return 1.0;
+		}
+		if ( $this->is_false() ) {
+			return 0.0;
+		}
+		return floatval( $this->value );
+	}
+
+
+	/**
+	 * Return the option value as string
+	 *
+	 * @return string
+	 */
+	public function to_str() {
+		return strval( $this->value );
+	}
+
+
+	/**
+	 * Return if the option is a boolean true value
+	 *
+	 * @return bool
+	 */
+	private function is_true() {
+		return in_array( $this->value, [ self::TRUE, self::TRUE_NUM ], true );
+	}
+
+
+	/**
+	 * Return if the option is a boolean false value
+	 *
+	 * @return bool
+	 */
+	private function is_false() {
+		return in_array( $this->value, [ self::FALSE, self::FALSE_NUM ], true );
 	}
 
 }

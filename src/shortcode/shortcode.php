@@ -55,6 +55,8 @@ class Shortcode {
 	 * @param array<string,string> $atts Shortcode attributes (not used).
 	 * @param string               $content Shortcode content (not used).
 	 * @return string HTML to render.
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function show_html( $atts, $content ) {
 		$this->init_sc();
@@ -125,6 +127,8 @@ class Shortcode {
 	 *
 	 * @param string $option_value The actual value of the option "thread_comments" (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_threaded_comments( $option_value ) {
 		if ( 'enabled' === $this->config->clist_threaded->to_str() ) {
@@ -139,6 +143,8 @@ class Shortcode {
 	 *
 	 * @param string $file The actual file of the template (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_template( $file ) {
 		// Set required global variables which are required in the template.
@@ -152,8 +158,8 @@ class Shortcode {
 	/**
 	 * Filter to adjust the comments query args
 	 *
-	 * @param array $query_args The actual comments array (not used).
-	 * @return array
+	 * @param array<string,string> $query_args The actual comments array.
+	 * @return array<string,string>
 	 */
 	public function filter_comments_template_query_args( $query_args ) {
 		// Unset post_id to include the comments of all pages/posts if clist show all option is set.
@@ -173,6 +179,8 @@ class Shortcode {
 	 *
 	 * @param string $option_value The actual value of the option "default_comments_page" (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_default_page( $option_value ) {
 		if ( 'first' === $this->config->clist_default_page->to_str() ) {
@@ -188,6 +196,8 @@ class Shortcode {
 	 *
 	 * @param string $option_value The actual value of the option "page_comments" (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_pagination( $option_value ) {
 		if ( 'false' === $this->config->clist_pagination->to_str() ) {

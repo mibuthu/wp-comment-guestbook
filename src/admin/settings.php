@@ -57,7 +57,7 @@ class Settings {
 		}
 		// Define the tab to display.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';  // @phan-suppress-current-line PhanPartialTypeMismatchArgument
 		if ( ! isset( $this->config->sections[ $tab ] ) ) {
 			$tab = 'general';
 		}
@@ -150,6 +150,7 @@ class Settings {
 						$this->show_text( $oname, $this->config->$oname->to_str() );
 						break;
 					case 'textarea':
+						// @phan-suppress-next-line PhanPluginDuplicateConditionalNullCoalescing -- Required due to PHP 5.6 support.
 						$this->show_textarea( $oname, $this->config->$oname->to_str(), ( isset( $o->rows ) ? $o->rows : null ) );
 						break;
 				}

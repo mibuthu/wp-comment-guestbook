@@ -44,7 +44,8 @@ class Shortcode {
 	public function __construct( &$config_instance ) {
 		$this->config = $config_instance;
 		require_once PLUGIN_PATH . '/includes/filters.php';
-		new Filters( $this->config );
+		$filters = new Filters( $this->config );
+		$filters->init();
 	}
 
 

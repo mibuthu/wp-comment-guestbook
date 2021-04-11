@@ -29,25 +29,15 @@ class Filters {
 	 */
 	private $config;
 
-	/**
-	 * Holds the variable where the filter setting was called from
-	 *
-	 * @var string
-	 */
-	private $called_from;
-
 
 	/**
 	 * Class constructor which initializes required variables
 	 *
 	 * @param Config $config_instance The Config instance as a reference.
-	 * @param string $called_from  If the function was called from 'shortcode' or 'after_new_comment'.
 	 * @return void
 	 */
-	public function __construct( &$config_instance, $called_from = 'shortcode' ) {
-		$this->config      = $config_instance;
-		$this->called_from = $called_from;
-		$this->prepare_filters();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 	}
 
 
@@ -56,7 +46,7 @@ class Filters {
 	 *
 	 * @return void
 	 */
-	public function prepare_filters() {
+	public function init() {
 		add_filter( 'comments_open', [ &$this, 'filter_comments_open' ], 50, 2 );
 		add_filter( 'option_comment_registration', [ &$this, 'filter_ignore_comment_registration' ] );
 		add_filter( 'option_comment_moderation', [ &$this, 'filter_ignore_comment_moderation' ] );
@@ -68,7 +58,7 @@ class Filters {
 	 * Filter to override comments_open status.
 	 *
 	 * @param bool $open    Whether the current post is open for comments.
-	 * @param int  $post_id The post ID.
+	 * @param int  $post_id The post ID (not used in function).
 	 * @return bool
 	 */
 	public function filter_comments_open( $open, $post_id ) {

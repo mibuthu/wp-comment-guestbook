@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[wp-comment-guestbook.comment-guestbook_pot]
+[wp-comment-guestbook.comment-guestbook]
 file_filter = src/languages/comment-guestbook-<lang>.po
 source_file = src/languages/comment-guestbook.pot
 source_lang = en

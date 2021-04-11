@@ -204,6 +204,7 @@ final class Config {
 		// Execute callback, if a function is used to set the value.
 		if ( '--func--' === substr( $this->options[ $name ]->value, 0, 8 ) ) {
 			$this->options[ $name ]->value = call_user_func( [ __CLASS__, substr( $this->options[ $name ]->value, 8 ) ] );
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			error_log( 'callback: ' . $this->options[ $name ]->value );
 		} else {
 			$this->options[ $name ]->value = get_option( $name, $this->options[ $name ]->value );
@@ -273,9 +274,11 @@ final class Config {
 	private function comment_callback() {
 		$func = get_stylesheet() . '_comment';
 		if ( function_exists( $func ) ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			error_log( $func . ' does exist!' );
 			return $func;
 		} else {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			error_log( $func . ' does not exist!' );
 			return '';
 		}

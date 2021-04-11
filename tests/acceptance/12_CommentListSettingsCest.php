@@ -110,7 +110,7 @@ class CommentListSettingsCest {
 		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$firstComment    = 'First comment ' . uniqid();
 		$secondComment   = 'Second comment ' . uniqid();
-		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', [ '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ] );
+		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', [ '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) . '"' ] );
 		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at' );
 		// Check default option with WordPress setting oldest first
 		$I->updateWPOption( 'comment_order', 'asc' );
@@ -147,8 +147,8 @@ class CommentListSettingsCest {
 		$parentComment   = 'Parent comment ' . uniqid();
 		$firstComment    = 'First comment ' . uniqid();
 		$secondComment   = 'Second comment ' . uniqid();
-		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at', '', [ '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 172800 ) ] );
-		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', [ '--comment_parent=' . $parentCommentId, '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ] );
+		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at', '', [ '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 172800 ) . '"' ] );
+		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', [ '--comment_parent=' . $parentCommentId, '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) . '"' ] );
 		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at', '', [ '--comment_parent=' . $parentCommentId ] );
 		// Check with option disabled (oldest first)
 		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_child_order_desc', '' );
@@ -286,7 +286,7 @@ class CommentListSettingsCest {
 			'testuser',
 			'user@test.at',
 			'',
-			[ '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * floor( $numGbComments / 2 ) ) ]  // set date in between the guestbook comments
+			[ '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 86400 * floor( $numGbComments / 2 ) ) . '"' ]  // set date in between the guestbook comments
 		);
 		// Check when disabled (default)
 		$I->logout();

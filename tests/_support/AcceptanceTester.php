@@ -41,7 +41,7 @@ class AcceptanceTester extends \Codeception\Actor {
 					'create',
 					'--post_type=page',
 					'--post_title=Guestbook',
-					'--post_content=<p>before the shortcode</p>[comment-guestbook]<p>after the shortcode</p>',
+					'--post_content=' . $I->addQuotes( '<p>before the shortcode</p>[comment-guestbook]<p>after the shortcode</p>' ),
 					'--post_status=publish',
 					'--comment_status=' . ( $commentStatus ? 'open' : 'closed' ),
 					'--porcelain',
@@ -131,7 +131,7 @@ class AcceptanceTester extends \Codeception\Actor {
 				'post',
 				'update',
 				$pageId,
-				'--comment_status=' . ( $status ? 'open' : 'closed' ),
+				'--comment_status=' . $I->addQuotes( $status ? 'open' : 'closed' ),
 			]
 		);
 	}
@@ -158,10 +158,10 @@ class AcceptanceTester extends \Codeception\Actor {
 					'comment',
 					'create',
 					'--comment_post_ID=' . $pageId,
-					'--comment_content=' . $comment,
-					'--comment_author=' . $author,
-					'--comment_author_email=' . $email,
-					'--comment_author_url=' . $url,
+					'--comment_content=' . $I->addQuotes( $comment ),
+					'--comment_author=' . $I->addQuotes( $author ),
+					'--comment_author_email=' . $I->addQuotes( $email ),
+					'--comment_author_url=' . $I->addQuotes( $url ),
 					'--porcelain',
 				],
 				$cliOptions
@@ -177,7 +177,7 @@ class AcceptanceTester extends \Codeception\Actor {
 		$comments = array_fill( 1, $numComments, null );
 		foreach ( $comments as $n => &$comment ) {
 			$comment['content'] = 'Comment ' . $n . ' ' . uniqid();
-			$comment['id']      = $I->createGuestbookComment( $pageId, $comment['content'], $author, $email, $url, [ '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * ( $numComments - $n ) ) ] );
+			$comment['id']      = $I->createGuestbookComment( $pageId, $comment['content'], $author, $email, $url, [ '--comment_date=' . $I->addQuotes( gmdate( 'Y-m-d H:i:s', time() - 86400 * ( $numComments - $n ) ) ) ] );
 		}
 		unset( $comment );
 		return $comments;
@@ -186,20 +186,20 @@ class AcceptanceTester extends \Codeception\Actor {
 
 	public function deleteGuestbookComment( string $comment_content ) {
 		$I = $this;
-		$I->cli( [ 'db', 'query', 'DELETE FROM wp_comments WHERE comment_content="' . addslashes( $comment_content ) . '"' ] );
+		$I->cli( [ 'db', 'query', $I->addQuotes( 'DELETE FROM wp_comments WHERE comment_content=\'' . addslashes( $comment_content ) . '\'' ) ] );
 	}
 
 
 	public function deleteAllComments() {
 		$I   = $this;
-		$ids = $I->cliToString( [ 'comment', 'list', '--format=ids' ] );
+		$ids = $I->cliToString( [ 'comment', 'list', '--format="ids"' ] );
 		$I->cli( [ 'comment', 'delete', $ids ] );
 	}
 
 
 	public function updateWPOption( string $option_name, string $option_value ) {
 		$I = $this;
-		$I->cli( [ 'option', 'update', $option_name, $option_value ] );
+		$I->cli( [ 'option', 'update', $option_name, $I->addQuotes( $option_value ) ] );
 	}
 
 
@@ -247,6 +247,11 @@ class AcceptanceTester extends \Codeception\Actor {
 		$I->loginAsAdmin();
 		$I->amOnAdminPage( 'edit-comments.php' . ( '' === $status ? '' : '?comment_status=' . $status ) );
 		$I->see( $comment, '.comment' );
+	}
+
+
+	public function addQuotes( string $text ) : string {
+		return '"' . $text . '"';
 	}
 
 }

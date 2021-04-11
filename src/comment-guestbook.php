@@ -97,7 +97,6 @@ class CommentGuestbook {
 				// Filters required after new guestbook comment.
 				if ( $this->is_guestbook_post ) {
 					require_once PLUGIN_PATH . 'includes/filters.php';
-					// @phan-suppress-next-line PhanNoopNeew -- This is o.k. here.
 					$filters = new Filters( $this->config );
 					$filters->init();
 					add_filter( 'comment_post_redirect', [ &$this, 'filter_comment_post_redirect' ] );

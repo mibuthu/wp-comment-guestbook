@@ -449,8 +449,8 @@ return [
 	// to `exclude_analysis_directory_list`.
 	// MODIFIED!
 	'exclude_analysis_directory_list'                   => [
-		'vendor/php-stubs/wordpress-stubs/',
-		'vendor/php-stubs/wordpress-globals/',
+		'vendor/php-stubs/wordpress-stubs',
+		'vendor/php-stubs/wordpress-globals',
 	],
 
 	// By default, Phan will log error messages to stdout if PHP is using options that slow the analysis.

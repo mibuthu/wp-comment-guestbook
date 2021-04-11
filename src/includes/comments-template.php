@@ -19,9 +19,11 @@ require_once PLUGIN_PATH . 'includes/comments-functions.php';
 // cgb_config and cgb_func must be provided.
 global $wp_query, $cgb_config, $cgb_func;
 if ( ! isset( $cgb_config ) || ! $cgb_config instanceof Config ) {
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 	error_log( 'Required Config instance in the variable "cgb_config" is missing!' );
 }
 if ( ! isset( $cgb_func ) || ! $cgb_func instanceof Comments_Functions ) {
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 	error_log( 'Required Config instance in the variable "cgb_config" is missing!' );
 }
 // Show comment including the comment forms (in page content or in comment area).
@@ -31,7 +33,7 @@ if ( ( ! $cgb_config->clist_in_page_content->to_bool() && ! isset( $GLOBALS['cgb
 			<div id="comments">';
 	// Comment form above comments.
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- no escaping required here
-	echo $cgb_func->show_comment_form_html( 'above_comments' );
+	echo $cgb_func->show_comment_form_html( 'above_comments' );  // @phan-suppress-current-line PhanPossiblyNonClassMethodCall
 
 	// Is a password required?
 	if ( post_password_required() ) {
@@ -41,7 +43,7 @@ if ( ( ! $cgb_config->clist_in_page_content->to_bool() && ! isset( $GLOBALS['cgb
 					'This post is password protected. Enter the password to view any comments.',
 					// A function for the translation domain is required here.
 					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
-					$cgb_func->l10n_domain
+					$cgb_func->l10n_domain  // @phan-suppress-current-line PhanPossiblyUndeclaredProperty
 				) . '</p>
 			</div><!-- #comments -->';
 		return;
@@ -62,17 +64,17 @@ if ( ( ! $cgb_config->clist_in_page_content->to_bool() && ! isset( $GLOBALS['cgb
 		}
 		// Show comment list.
 		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- no escaping required here
-		echo $cgb_func->show_nav_html( 'above_comments' );
+		echo $cgb_func->show_nav_html( 'above_comments' );  // @phan-suppress-current-line PhanPossiblyNonClassMethodCall
 		echo '<ol class="commentlist cgb-commentlist">';
-		echo $cgb_func->list_comments();
+		echo $cgb_func->list_comments();  // @phan-suppress-current-line PhanPossiblyNonClassMethodCall
 		echo '</ol>';
-		echo $cgb_func->show_nav_html( 'below_comments' );
+		echo $cgb_func->show_nav_html( 'below_comments' );  // @phan-suppress-current-line PhanPossiblyNonClassMethodCall
 		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	// Comment form below comments.
-	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- no escaping required here
-	echo $cgb_func->show_comment_form_html( 'below_comments' );
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- no escaping required here
+	echo $cgb_func->show_comment_form_html( 'below_comments' );  // @phan-suppress-current-line PhanPossiblyNonClassMethodCall
 	echo '
 			</div><!-- #comments -->';
 }

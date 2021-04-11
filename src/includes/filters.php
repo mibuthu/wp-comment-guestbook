@@ -58,8 +58,10 @@ class Filters {
 	 * Filter to override comments_open status.
 	 *
 	 * @param bool $open    Whether the current post is open for comments.
-	 * @param int  $post_id The post ID (not used in function).
+	 * @param int  $post_id The post ID (not used).
 	 * @return bool
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_open( $open, $post_id ) {
 		if ( ! $open && $this->config->ignore_comments_open->to_bool() ) {

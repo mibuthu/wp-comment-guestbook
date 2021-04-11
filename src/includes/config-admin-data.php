@@ -70,7 +70,7 @@ final class ConfigAdminData {
 	/**
 	 * Additional data for the config options
 	 *
-	 * @var array<string,array<string,string|array>>
+	 * @var array<string,array<string,string|array<string,string>>>
 	 */
 	private $config_data;
 
@@ -275,7 +275,7 @@ final class ConfigAdminData {
 
 			'cgb_form_styles'                 => [
 				'type'        => 'textarea',
-				'rows'        => 7,
+				'rows'        => '7',
 				'label'       => __( 'Comment form styles', 'comment-guestbook' ),
 				'description' =>
 					__( 'With this option you can specify custom css styles for the guestbook comment form.', 'comment-guestbook' ) . '<br />' .
@@ -285,7 +285,7 @@ final class ConfigAdminData {
 
 			'cgb_form_args'                   => [
 				'type'        => 'textarea',
-				'rows'        => 10,
+				'rows'        => '10',
 				'label'       => __( 'Comment form args', 'comment-guestbook' ),
 				'description' =>
 					__( 'With this option you can specify args for the comment form.', 'comment-guestbook' ) . '<br />' .
@@ -411,7 +411,7 @@ final class ConfigAdminData {
 
 			'cgb_clist_styles'                => [
 				'type'        => 'textarea',
-				'rows'        => 7,
+				'rows'        => '7',
 				'label'       => __( 'Comment list styles', 'comment-guestbook' ),
 				'description' =>
 					__( 'With this option you can specify custom css styles for the guestbook comment list.', 'comment-guestbook' ) . '<br />' .
@@ -421,7 +421,7 @@ final class ConfigAdminData {
 
 			'cgb_clist_args'                  => [
 				'type'        => 'textarea',
-				'rows'        => 7,
+				'rows'        => '7',
 				'label'       => __( 'Comment list args', 'comment-guestbook' ),
 				'description' =>
 					__( 'With this option you can manually specify args for the comment list.', 'comment-guestbook' ) . '<br />' .
@@ -654,7 +654,7 @@ final class ConfigAdminData {
 	 * Get the data for a given option.
 	 *
 	 * @param string $option_name The name of the option.
-	 * @return array<string,string|array>
+	 * @return array<string,string|array<string,string>>
 	 */
 	public function __get( $option_name ) {
 		if ( isset( $this->config_data[ $option_name ] ) ) {

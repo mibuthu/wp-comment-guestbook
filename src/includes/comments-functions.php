@@ -86,7 +86,7 @@ class Comments_Functions {
 	 *
 	 * For the modifications the available arguments for the wp_list_comments function are used.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	public function list_comments() {
 		$args = [ 'echo' => false ];
@@ -95,6 +95,7 @@ class Comments_Functions {
 			$args_array = null;
 			// phpcs:ignore Squiz.PHP.Eval.Discouraged
 			eval( '$args_array = ' . $this->config->clist_args->to_str() . ';' );
+			// @phan-suppress-next-line PhanImpossibleCondition - evaluated through eval
 			if ( is_array( $args_array ) ) {
 				$args += $args_array;
 			}
@@ -130,6 +131,8 @@ class Comments_Functions {
 	 * @param int                  $depth The depth of the comment (not used).
 	 *
 	 * @return void
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function show_comment_html( $comment, $args, $depth ) {
 		// Define all variables which can be used in show_comments_html text option.
@@ -137,8 +140,9 @@ class Comments_Functions {
 		$GLOBALS['comment']         = $comment;
 		$l10n_domain                = $this->config->l10n_domain->to_str();
 		$is_comment_from_other_page = ( get_the_ID() !== $comment->comment_post_ID );
-		$other_page_title           = $is_comment_from_other_page ? get_the_title( $comment->comment_post_ID ) : '';
-		$other_page_link            = $is_comment_from_other_page ? '<a href="' . get_page_link( $comment->comment_post_ID ) . '">' . $other_page_title . '</a>' : '';
+		$other_page_title           = $is_comment_from_other_page ? get_the_title( intval( $comment->comment_post_ID ) ) : '';
+		// @phan-suppress-next-line PhanUnusedVariable - required in eval
+		$other_page_link = $is_comment_from_other_page ? '<a href="' . get_page_link( intval( $comment->comment_post_ID ) ) . '">' . $other_page_title . '</a>' : '';
 		switch ( $comment->comment_type ) {
 			case 'pingback':
 			case 'trackback':
@@ -155,7 +159,7 @@ class Comments_Functions {
 			default:
 				echo '
 					<li ' .
-						// @phan-suppress-next-line PhanTypeMismatchArgument -- null is o.k. for comment_class arguments, it's the default value.
+						// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal -- null is o.k. for comment_class arguments, it's the default value.
 						comment_class( '', null, null, false ) . ' id="li-comment-' . esc_attr( strval( get_comment_ID() ) ) . '">
 						<article id="comment-' . esc_attr( strval( get_comment_ID() ) ) . '" class="comment">';
 				// phpcs:ignore Squiz.PHP.Eval.Discouraged
@@ -213,7 +217,7 @@ class Comments_Functions {
 	 *
 	 * @param bool $previous If the label for the previous button shall be displayed instead of the next label.
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	private function get_comment_nav_label( $previous = false ) {
 		if ( $previous ) {
@@ -294,6 +298,7 @@ class Comments_Functions {
 			$args_array = null;
 			// phpcs:ignore Squiz.PHP.Eval.Discouraged
 			eval( '$args_array = ' . $this->config->form_args->to_str() . ';' );
+			// @phan-suppress-next-line PhanImpossibleCondition - evaluated through eval
 			if ( is_array( $args_array ) ) {
 				$args += $args_array;
 			}

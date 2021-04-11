@@ -10,7 +10,6 @@
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Widget;
 
 use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
-use WordPress\Plugins\mibuthu\CommentGuestbook\Option;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit();
@@ -136,12 +135,12 @@ class Widget extends \WP_Widget {
 					);
 				}
 				if ( 'true' === $instance['show_page_title'] ) {
-					if ( 'true' !== $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) !== intval( $comment->comment_post_ID ) ) {
-						$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( $comment->comment_post_ID ) ) . '">';
+					if ( 'true' !== $instance['hide_gb_page_title'] || url_to_postid( strval( $instance['url_to_page'] ) ) !== intval( $comment->comment_post_ID ) ) {
+						$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( intval( $comment->comment_post_ID ) ) ) . '">';
 						if ( 'true' === $instance['show_author'] ) {
 							$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';
 						}
-						$out .= $this->truncate( $instance['page_title_length'], get_the_title( $comment->comment_post_ID ) ) . '</span>';
+						$out .= $this->truncate( strval( $instance['page_title_length'] ), get_the_title( intval( $comment->comment_post_ID ) ) ) . '</span>';
 					}
 				}
 				if ( 'true' === $instance['link_to_comment'] ) {
@@ -149,7 +148,7 @@ class Widget extends \WP_Widget {
 				}
 				if ( 'true' === $instance['show_comment_text'] ) {
 					$out .= $this->truncate(
-						$instance['comment_text_length'],
+						strval( $instance['comment_text_length'] ),
 						get_comment_text( $comment ),
 						'div',
 						[
@@ -167,7 +166,7 @@ class Widget extends \WP_Widget {
 				';
 		if ( 'true' === $instance['link_to_page'] ) {
 			$out .= '
-				<div class="cgb-widget-pagelink" style="clear:both"><a title="' . esc_attr( $instance['link_to_page_caption'] ) . '" href="' . $instance['url_to_page'] . '">' .
+				<div class="cgb-widget-pagelink" style="clear:both"><a title="' . esc_attr( strval( $instance['link_to_page_caption'] ) ) . '" href="' . $instance['url_to_page'] . '">' .
 					$instance['link_to_page_caption'] . '</a></div>
 				';
 		}
@@ -184,12 +183,14 @@ class Widget extends \WP_Widget {
 	 * @see \WP_Widget::update()
 	 *
 	 * @param array<string,string> $new_instance Values just sent to be saved.
-	 * @param array<string,string> $old_instance Previously saved values from database.
+	 * @param array<string,string> $old_instance Previously saved values from database (not used).
 	 * @return array<string,string> Updated safe values to be saved.
+	 *
+	 * @suppress PhanUnusedPublicMethodParameter
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = [];
-		foreach ( array_keys( $this->config->get_all() ) as $name ) {
+		foreach ( $this->config->get_all() as $name => $item ) {
 			if ( 'checkbox' === $item->type ) {
 				$instance[ $name ] = ( isset( $new_instance[ $name ] ) && 1 === intval( $new_instance[ $name ] ) ) ? 'true' : 'false';
 			} else { // 'text'
@@ -259,7 +260,8 @@ class Widget extends \WP_Widget {
 			if ( 0 !== get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
 				if ( 'desc' === $this->config->clist_order->to_str() || 'asc' === $this->config->clist_order->to_str() || $this->config->clist_show_all->to_bool() ) {
 					$pattern = get_shortcode_regex();
-					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( $comment->comment_post_ID )->post_content, $matches )
+					// @phan-suppress-next-line PhanPossiblyUndeclaredProperty - no problem here.
+					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( intval( $comment->comment_post_ID ) )->post_content, $matches )
 							&& array_key_exists( 2, $matches )
 							&& in_array( 'comment-guestbook', $matches[2], true ) ) {
 						// Shortcode is being used in that page or post.
@@ -282,13 +284,14 @@ class Widget extends \WP_Widget {
 						while ( 0 !== intval( $toplevel_comment->comment_parent ) ) {
 							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
 						}
+						// @phan-suppress-next-line PhanPossiblyUndeclaredProperty - no problem here.
 						$oldercoms         = array_search( $toplevel_comment->comment_ID, $toplevel_comments, true );
 						$link_args['page'] = ceil( ( $oldercoms + 1 ) / get_option( 'comments_per_page' ) );
 					}
 				}
 			}
 		}
-		return esc_url( get_comment_link( $comment->comment_ID, $link_args ) );
+		return esc_url( get_comment_link( intval( $comment->comment_ID ), $link_args ) );
 	}
 
 

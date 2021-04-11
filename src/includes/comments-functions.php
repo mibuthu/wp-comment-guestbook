@@ -320,11 +320,11 @@ class Comments_Functions {
 		}
 		// comment_notes_before.
 		if ( 'default' !== $this->config->form_notes_before->to_str() ) {
-			$args['comment_notes_before'] = $this->config->form_notes_before->to_str();
+			$args['comment_notes_before'] = '<div class="comment-notes-before">' . $this->config->form_notes_before->to_str() . '</div>';
 		}
 		// comment_notes_after.
 		if ( 'default' !== $this->config->form_notes_after->to_str() ) {
-			$args['comment_notes_after'] = $this->config->form_notes_after->to_str();
+			$args['comment_notes_after'] = '<div class="comment-notes-after">' . $this->config->form_notes_after->to_str() . '</div>';
 		}
 		// label_submit.
 		if ( 'default' !== $this->config->form_label_submit->to_str() && $this->config->form_label_submit->to_bool() ) {

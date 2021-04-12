@@ -189,12 +189,13 @@ class Widget extends \WP_Widget {
 	 * @suppress PhanUnusedPublicMethodParameter
 	 */
 	public function update( $new_instance, $old_instance ) {
+		$this->args->load_args_admin_data();
 		$instance = [];
-		foreach ( $this->config->get_all() as $name => $item ) {
-			if ( 'checkbox' === $item->type ) {
-				$instance[ $name ] = ( isset( $new_instance[ $name ] ) && 1 === intval( $new_instance[ $name ] ) ) ? 'true' : 'false';
+		foreach ( $this->args->get_all() as $argname => $arg ) {
+			if ( 'checkbox' === $arg->type ) {
+				$instance[ $argname ] = ( isset( $new_instance[ $argname ] ) && 1 === intval( $new_instance[ $argname ] ) ) ? 'true' : 'false';
 			} else { // 'text'
-				$instance[ $name ] = wp_strip_all_tags( $new_instance[ $name ] );
+				$instance[ $argname ] = wp_strip_all_tags( $new_instance[ $argname ] );
 			}
 		}
 		$this->flush_widget_cache();
@@ -219,26 +220,26 @@ class Widget extends \WP_Widget {
 		// Display general information at the top.
 		echo '<p>' . esc_html__( 'For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.', 'comment-guestbook' ) . '</p>';
 		// Display the options.
-		foreach ( $this->args->get_all() as $name => $item ) {
-			if ( ! isset( $instance[ $name ] ) ) {
-				$instance[ $name ] = $item->value;
+		foreach ( $this->args->get_all() as $argname => $arg ) {
+			if ( ! isset( $instance[ $argname ] ) ) {
+				$instance[ $argname ] = $arg->value;
 			}
-			$style_text = ( null === $item->form_style ) ? '' : ' style="' . $item->form_style . '"';
-			if ( 'checkbox' === $item->type ) {
-				$checked_text = ( 'true' === $instance[ $name ] || 1 === $instance[ $name ] ) ? 'checked = "checked" ' : '';
+			$style_text = ( null === $arg->form_style ) ? '' : ' style="' . $arg->form_style . '"';
+			if ( 'checkbox' === $arg->type ) {
+				$checked_text = ( 'true' === $instance[ $argname ] || 1 === $instance[ $argname ] ) ? 'checked = "checked" ' : '';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
-						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $name ) ) . '" name="' . esc_attr( $this->get_field_name( $name ) ) .
-							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $item->caption ) . '</label>
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg->tooltip ) . '">
+						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) . '" name="' . esc_attr( $this->get_field_name( $argname ) ) .
+							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $arg->caption ) . '</label>
 					</p>';
 			} else { // 'text'
-				$width_text         = ( null === $item->form_width ) ? '' : 'style="width:' . $item->form_width . 'px" ';
-				$caption_after_text = ( null === $item->caption_after ) ? '' : '<label> ' . $item->caption_after . '</label>';
+				$width_text         = ( null === $arg->form_width ) ? '' : 'style="width:' . $arg->form_width . 'px" ';
+				$caption_after_text = ( null === $arg->caption_after ) ? '' : '<label> ' . $arg->caption_after . '</label>';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $name ) ) . '">' . wp_kses_post( $item->caption ) . ' </label>
-						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $name ) ) .
-							'" name="' . esc_attr( $this->get_field_name( $name ) ) . '" type="text" value="' . esc_attr( $instance[ $name ] ) . '" />' .
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg->tooltip ) . '">
+						<label for="' . esc_attr( $this->get_field_id( $argname ) ) . '">' . wp_kses_post( $arg->caption ) . ' </label>
+						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) .
+							'" name="' . esc_attr( $this->get_field_name( $argname ) ) . '" type="text" value="' . esc_attr( $instance[ $argname ] ) . '" />' .
 							wp_kses_post( $caption_after_text ) . '
 					</p>';
 			}

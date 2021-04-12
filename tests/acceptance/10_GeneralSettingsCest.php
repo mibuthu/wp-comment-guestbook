@@ -18,16 +18,16 @@ class GeneralSettingsCest {
 
 	public function DefaultValues( AcceptanceTester $I ) {
 		$I->wantTo( 'check default values of the general options' );
-		$I->amOnGuestbookOptions( 'general' );
+		$I->amOnGuestbookSettings( 'general' );
 		$I->seeInFormFields(
 			'form[name=cgb-general-settings]',
-			array(
+			[
 				'cgb_ignore_comments_open'        => '1',
 				'cgb_ignore_comment_registration' => '1',
 				'cgb_ignore_comment_moderation'   => '',
 				'cgb_adjust_output'               => '',
 				'cgb_l10n_domain'                 => 'default',
-			)
+			]
 		);
 	}
 

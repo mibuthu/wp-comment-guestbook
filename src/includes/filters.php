@@ -6,44 +6,38 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbook Frontend Filter Class
  *
  * This class handles all filters to overwrite the defaults according to the CommentGuestbook settings.
  */
-class CGB_Filters {
+class Filters {
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var Config
 	 */
-	private $options;
-
-	/**
-	 * Holds the variable where the filter setting was called from
-	 *
-	 * @var string
-	 */
-	private $called_from;
+	private $config;
 
 
 	/**
 	 * Class constructor which initializes required variables
 	 *
-	 * @param string $called_from  If the function was called from 'shortcode' or 'after_new_comment'.
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	public function __construct( $called_from = 'shortcode' ) {
-		$this->options     = &CGB_Options::get_instance();
-		$this->called_from = $called_from;
-		$this->prepare_filters();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 	}
 
 
@@ -52,11 +46,11 @@ class CGB_Filters {
 	 *
 	 * @return void
 	 */
-	public function prepare_filters() {
-		add_filter( 'comments_open', array( &$this, 'filter_comments_open' ), 50, 2 );
-		add_filter( 'option_comment_registration', array( &$this, 'filter_ignore_comment_registration' ) );
-		add_filter( 'option_comment_moderation', array( &$this, 'filter_ignore_comment_moderation' ) );
-		add_filter( 'option_require_name_email', array( &$this, 'filter_require_name_email' ) );
+	public function init() {
+		add_filter( 'comments_open', [ &$this, 'filter_comments_open' ], 50, 2 );
+		add_filter( 'option_comment_registration', [ &$this, 'filter_ignore_comment_registration' ] );
+		add_filter( 'option_comment_moderation', [ &$this, 'filter_ignore_comment_moderation' ] );
+		add_filter( 'option_require_name_email', [ &$this, 'filter_require_name_email' ] );
 	}
 
 
@@ -64,11 +58,13 @@ class CGB_Filters {
 	 * Filter to override comments_open status.
 	 *
 	 * @param bool $open    Whether the current post is open for comments.
-	 * @param int  $post_id The post ID.
+	 * @param int  $post_id The post ID (not used).
 	 * @return bool
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_open( $open, $post_id ) {
-		if ( ! $open && (bool) $this->options->get( 'cgb_ignore_comments_open' ) ) {
+		if ( ! $open && $this->config->ignore_comments_open->to_bool() ) {
 			return true;
 		}
 		return $open;
@@ -82,7 +78,7 @@ class CGB_Filters {
 	 * @return bool
 	 */
 	public function filter_ignore_comment_registration( $option_value ) {
-		if ( $this->options->get( 'cgb_ignore_comment_registration' ) ) {
+		if ( $this->config->ignore_comment_registration->to_bool() ) {
 			return false;
 		}
 		return $option_value;
@@ -96,7 +92,7 @@ class CGB_Filters {
 	 * @return bool
 	 */
 	public function filter_ignore_comment_moderation( $option_value ) {
-		if ( $this->options->get( 'cgb_ignore_comment_moderation' ) ) {
+		if ( $this->config->ignore_comment_moderation->to_bool() ) {
 			return false;
 		}
 		return $option_value;
@@ -116,11 +112,11 @@ class CGB_Filters {
 			return $option_value;
 		}
 		// Check if the "require name, email" option is disabled for comment-guestbook comments.
-		if ( (bool) $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
+		if ( $this->config->form_require_no_name_mail->to_bool() ) {
 			return '';
 		}
 		// Check if the plugin options require an override.
-		if ( (bool) $this->options->get( 'cgb_form_remove_mail' ) || (bool) $this->options->get( 'cgb_page_remove_mail' ) ) {
+		if ( $this->config->form_remove_mail->to_bool() || $this->config->page_remove_mail->to_bool() ) {
 			$user = wp_get_current_user();
 			// Check if the user is logged in and if a valid author name is given.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing

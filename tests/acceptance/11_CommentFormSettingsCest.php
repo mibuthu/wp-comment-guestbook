@@ -18,10 +18,10 @@ class CommentFormSettingsCest {
 
 	public function DefaultValues( AcceptanceTester $I ) {
 		$I->wantTo( 'check default values of the comment form options' );
-		$I->amOnGuestbookOptions( 'comment_form' );
+		$I->amOnGuestbookSettings( 'comment_form' );
 		$I->seeInFormFields(
 			'form[name=cgb-comment_form-settings]',
-			array(
+			[
 				'cgb_form_below_comments'       => '',
 				'cgb_form_above_comments'       => '',
 				'cgb_form_in_page'              => '1',
@@ -40,7 +40,7 @@ class CommentFormSettingsCest {
 				'cgb_form_must_login_message'   => 'default',
 				'cgb_form_styles'               => '',
 				'cgb_form_args'                 => '',
-			)
+			]
 		);
 	}
 
@@ -370,7 +370,7 @@ class CommentFormSettingsCest {
 		$I->updateWPOption( 'cgb_adjust_output', '1' );
 		// Check when enabled
 		$formId = 'form-id-' . uniqid();
-		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_args', 'array("id_form" => "' . $formId . '")' );
+		$I->changeGuestbookOption( 'comment_form', 'text', 'cgb_form_args', '["id_form" => "' . $formId . '"]' );
 		$I->logout();
 		$I->amOnGuestbookPage( $gbPageId );
 		$I->dontSeeElement( '#commentform' );

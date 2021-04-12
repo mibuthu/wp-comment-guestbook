@@ -6,55 +6,41 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
+
+use WordPress\Plugins\mibuthu\CommentGuestbook\Config;
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+
 if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbooks Settings Class
  *
  * This class handles the display of the admin settings page
  */
-class CGB_Admin_Settings {
+class Settings {
 
 	/**
-	 * Class singleton instance reference
+	 * Config class instance reference
 	 *
-	 * @var self
+	 * @var Config
 	 */
-	private static $instance;
-
-	/**
-	 * Options class instance reference
-	 *
-	 * @var CGB_Options
-	 */
-	private $options;
-
-
-	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+	private $config;
 
 
 	/**
 	 * Class constructor which initializes required variables
+	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 */
-	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
-		$this->options->load_options_helptexts();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
+		$this->config->load_admin_data();
 	}
 
 
@@ -71,11 +57,11 @@ class CGB_Admin_Settings {
 		}
 		// Define the tab to display.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
-		if ( ! isset( $this->options->sections[ $tab ] ) ) {
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';  // @phan-suppress-current-line PhanPartialTypeMismatchArgument
+		if ( ! isset( $this->config->sections[ $tab ] ) ) {
 			$tab = 'general';
 		}
-		// Show options.
+		// Show config options.
 		echo '
 			<div class="wrap nosubsub" style="padding-bottom:15px">
 			<div id="icon-edit-comments" class="icon32"><br /></div><h2>' . esc_html__( 'Comment Guestbook Settings', 'comment-guestbook' ) . '</h2>
@@ -108,23 +94,23 @@ class CGB_Admin_Settings {
 	 */
 	private function show_sections( $current = 'general' ) {
 		echo '<h3 class="nav-tab-wrapper">';
-		foreach ( $this->options->sections as $tabname => $tab ) {
+		foreach ( $this->config->sections as $tabname => $tab ) {
 			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
 			echo wp_kses_post(
 				'
 				<a class="nav-tab' . $class . '" href="' .
 				add_query_arg(
-					array(
-						'page' => 'cgb_admin_options',
+					[
+						'page' => 'cgb_admin_settings',
 						'tab'  => $tabname,
-					),
+					],
 					admin_url( 'options-general.php' )
 				) .
 				'">' . $tab['caption'] . '</a>'
 			);
 		}
 		echo '</h3>
-				<div class="section-desc">' . wp_kses_post( strval( $this->options->sections[ $current ]['description'] ) ) . '</div>';
+				<div class="section-desc">' . wp_kses_post( strval( $this->config->sections[ $current ]['description'] ) ) . '</div>';
 	}
 
 
@@ -140,7 +126,7 @@ class CGB_Admin_Settings {
 		if ( 'comment_html' === $section ) {
 			$desc_new_line = true;
 		}
-		foreach ( $this->options->options as $oname => $o ) {
+		foreach ( $this->config->options as $oname => $o ) {
 			if ( $o->section === $section ) {
 				echo '
 						<tr style="vertical-align:top;">
@@ -152,19 +138,20 @@ class CGB_Admin_Settings {
 						<td>';
 				switch ( $o->type ) {
 					case 'checkbox':
-						$this->show_checkbox( $oname, $this->options->get( $oname ), $o->caption );
+						$this->show_checkbox( $oname, $this->config->$oname->to_str(), $o->caption );
 						break;
 					case 'radio':
-						$this->show_radio( $oname, $this->options->get( $oname ), $o->captions );
+						$this->show_radio( $oname, $this->config->$oname->to_str(), $o->captions );
 						break;
 					case 'number':
-						$this->show_number( $oname, $this->options->get( $oname ), $o->range );
+						$this->show_number( $oname, $this->config->$oname->to_str(), $o->range );
 						break;
 					case 'text':
-						$this->show_text( $oname, $this->options->get( $oname ) );
+						$this->show_text( $oname, $this->config->$oname->to_str() );
 						break;
 					case 'textarea':
-						$this->show_textarea( $oname, $this->options->get( $oname ), ( isset( $o->rows ) ? $o->rows : null ) );
+						// @phan-suppress-next-line PhanPluginDuplicateConditionalNullCoalescing -- Required due to PHP 5.6 support.
+						$this->show_textarea( $oname, $this->config->$oname->to_str(), ( isset( $o->rows ) ? $o->rows : null ) );
 						break;
 				}
 				echo '
@@ -237,7 +224,7 @@ class CGB_Admin_Settings {
 	 * @param array<string,int> $range The range of the number input containing the optional fields $range['min_value'] and $range['max_value'].
 	 * @return void
 	 */
-	private function show_number( $name, $value, $range = array( 'min_value' => 0 ) ) {
+	private function show_number( $name, $value, $range = [ 'min_value' => 0 ] ) {
 		$value = intval( $value );
 		$step  = esc_attr( isset( $range['step'] ) ? strval( $range['step'] ) : '1' );
 		$min   = isset( $range['min_value'] ) ? ' min="' . intval( $range['min_value'] ) . '"' : '';

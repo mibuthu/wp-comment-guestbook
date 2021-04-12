@@ -6,58 +6,46 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Shortcode;
+
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Config;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Filters;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Comments_Functions;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 /**
  * CommentGuestbook Shortcode Class
  *
  * This class handles the shortcode [comment-guestbook].
  */
-class CGB_Shortcode {
+class Shortcode {
 
 	/**
-	 * Class singleton instance reference
+	 * Config class instance reference
 	 *
-	 * @var self
+	 * @var Config
 	 */
-	private static $instance;
-
-	/**
-	 * Options class instance reference
-	 *
-	 * @var CGB_Options
-	 */
-	private $options;
-
-
-	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+	private $config;
 
 
 	/**
 	 * Class constructor which initializes required variables
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	private function __construct() {
-		$this->options = &CGB_Options::get_instance();
-		require_once CGB_PATH . '/includes/filters.php';
-		new CGB_Filters();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
+		require_once PLUGIN_PATH . '/includes/filters.php';
+		$filters = new Filters( $this->config );
+		$filters->init();
 	}
 
 
@@ -67,10 +55,12 @@ class CGB_Shortcode {
 	 * @param array<string,string> $atts Shortcode attributes (not used).
 	 * @param string               $content Shortcode content (not used).
 	 * @return string HTML to render.
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function show_html( $atts, $content ) {
 		$this->init_sc();
-		if ( '' !== $this->options->get( 'cgb_clist_in_page_content' ) && '' !== $this->options->get( 'cgb_adjust_output' ) ) {
+		if ( $this->config->clist_in_page_content->to_bool() && $this->config->adjust_output->to_bool() ) {
 			/**
 			 * Show comment list in page content
 			 */
@@ -81,13 +71,14 @@ class CGB_Shortcode {
 			ob_end_clean();
 			unset( $GLOBALS['cgb_comment_template_in_page'] );
 			return $out;
-		} elseif ( '' !== $this->options->get( 'cgb_form_in_page' ) && ( '' === $this->options->get( 'cgb_form_above_comments' ) || '' === $this->options->get( 'cgb_adjust_output' ) ) ) {
+		} elseif ( $this->config->form_in_page->to_bool() && ( ! $this->config->form_above_comments->to_bool() || ! $this->config->adjust_output->to_bool() ) ) {
 			/**
 			 * Show comment form in page content (Only show one form above the comment list. The form_in_page will not be displayed if form_above_comments and adjust_output is enabled.)
 			 * (The form will also be hidden if the comment list is displayed in page content.)
 			 */
-			require_once CGB_PATH . 'includes/comments-functions.php';
-			return CGB_Comments_Functions::get_instance()->show_comment_form_html( 'in_page' );
+			require_once PLUGIN_PATH . 'includes/comments-functions.php';
+			$comment_functions = new Comments_Functions( $this->config );
+			return $comment_functions->show_comment_form_html( 'in_page' );
 		} else {
 			/**
 			 * Show nothing
@@ -106,28 +97,28 @@ class CGB_Shortcode {
 	 */
 	private function init_sc() {
 		// Filter to override threaded comments on guestbook page.
-		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) || 'disabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
-			add_filter( 'option_thread_comments', array( &$this, 'filter_threaded_comments' ) );
+		if ( 'enabled' === $this->config->clist_threaded->to_str() || 'disabled' === $this->config->clist_threaded->to_str() ) {
+			add_filter( 'option_thread_comments', [ &$this, 'filter_threaded_comments' ] );
 		}
 		// Filter to override name and email requirement on guestbook page.
-		if ( '' !== $this->options->get( 'cgb_form_require_no_name_mail' ) ) {
+		if ( $this->config->form_require_no_name_mail->to_bool() ) {
 			add_filter( 'option_require_name_email', '__return_false' );
 		}
 		// Filter to show the adjusted comment style.
-		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
-			add_filter( 'comments_template', array( &$this, 'filter_comments_template' ) );
-			if ( 'desc' === $this->options->get( 'cgb_clist_order' ) || '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
-				add_filter( 'comments_template_query_args', array( &$this, 'filter_comments_template_query_args' ) );
+		if ( $this->config->adjust_output->to_bool() ) {
+			add_filter( 'comments_template', [ &$this, 'filter_comments_template' ] );
+			if ( 'desc' === $this->config->clist_order->to_str() || $this->config->clist_show_all->to_bool() ) {
+				add_filter( 'comments_template_query_args', [ &$this, 'filter_comments_template_query_args' ] );
 			}
-			if ( 'default' !== $this->options->get( 'cgb_clist_default_page' ) ) {
-				add_filter( 'option_default_comments_page', array( &$this, 'filter_comments_default_page' ) );
+			if ( 'default' !== $this->config->clist_default_page->to_str() ) {
+				add_filter( 'option_default_comments_page', [ &$this, 'filter_comments_default_page' ] );
 			}
-			if ( 'default' !== $this->options->get( 'cgb_clist_pagination' ) ) {
-				add_filter( 'option_page_comments', array( &$this, 'filter_comments_pagination' ) );
+			if ( 'default' !== $this->config->clist_pagination->to_str() ) {
+				add_filter( 'option_page_comments', [ &$this, 'filter_comments_pagination' ] );
 			}
 		}
 		// Filter to add comment id fields to identify required filters.
-		add_filter( 'comment_id_fields', array( &$this, 'filter_comment_id_fields' ) );
+		add_filter( 'comment_id_fields', [ &$this, 'filter_comment_id_fields' ] );
 	}
 
 
@@ -136,9 +127,11 @@ class CGB_Shortcode {
 	 *
 	 * @param string $option_value The actual value of the option "thread_comments" (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_threaded_comments( $option_value ) {
-		if ( 'enabled' === $this->options->get( 'cgb_clist_threaded' ) ) {
+		if ( 'enabled' === $this->config->clist_threaded->to_str() ) {
 			return '1';
 		}
 		return '';
@@ -150,25 +143,31 @@ class CGB_Shortcode {
 	 *
 	 * @param string $file The actual file of the template (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_template( $file ) {
-		return CGB_PATH . 'includes/comments-template.php';
+		// Set required global variables which are required in the template.
+		require_once PLUGIN_PATH . 'includes/comments-functions.php';
+		$GLOBALS['cgb_func']   = new Comments_Functions( $this->config );
+		$GLOBALS['cgb_config'] = &$this->config;
+		return PLUGIN_PATH . 'includes/comments-template.php';
 	}
 
 
 	/**
 	 * Filter to adjust the comments query args
 	 *
-	 * @param array $query_args The actual comments array (not used).
-	 * @return array
+	 * @param array<string,string> $query_args The actual comments array.
+	 * @return array<string,string>
 	 */
 	public function filter_comments_template_query_args( $query_args ) {
 		// Unset post_id to include the comments of all pages/posts if clist show all option is set.
-		if ( '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+		if ( $this->config->clist_show_all->to_bool() ) {
 			unset( $query_args['post_id'] );
 		}
 		// Reverse array if clist order desc is required.
-		if ( 'desc' === $this->options->get( 'cgb_clist_order' ) ) {
+		if ( 'desc' === $this->config->clist_order->to_str() ) {
 			$query_args['order'] = 'DESC';
 		}
 		return $query_args;
@@ -180,11 +179,13 @@ class CGB_Shortcode {
 	 *
 	 * @param string $option_value The actual value of the option "default_comments_page" (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_default_page( $option_value ) {
-		if ( 'first' === $this->options->get( 'cgb_clist_default_page' ) ) {
+		if ( 'first' === $this->config->clist_default_page->to_str() ) {
 			return 'oldest';
-		} elseif ( 'last' === $this->options->get( 'cgb_clist_default_page' ) ) {
+		} elseif ( 'last' === $this->config->clist_default_page->to_str() ) {
 			return 'newest';
 		}
 	}
@@ -195,11 +196,13 @@ class CGB_Shortcode {
 	 *
 	 * @param string $option_value The actual value of the option "page_comments" (not used).
 	 * @return string
+	 *
+	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
 	public function filter_comments_pagination( $option_value ) {
-		if ( 'false' === $this->options->get( 'cgb_clist_pagination' ) ) {
+		if ( 'false' === $this->config->clist_pagination->to_str() ) {
 			return '';
-		} elseif ( 'true' === $this->options->get( 'cgb_clist_pagination' ) ) {
+		} elseif ( 'true' === $this->config->clist_pagination->to_str() ) {
 			return '1';
 		}
 	}
@@ -218,7 +221,7 @@ class CGB_Shortcode {
 		 */
 		$html .= '<input type="hidden" name="is_cgb_comment" id="is_cgb_comment" value="' . get_the_ID() . '" />';
 		// Add fields comment form to identify a guestbook comment when override of comment status is required.
-		if ( '' !== $this->options->get( 'cgb_ignore_comments_open' ) ) {
+		if ( $this->config->ignore_comments_open->to_bool() ) {
 			$html .= '<input type="hidden" name="cgb_comments_status" id="cgb_comments_status" value="open" />';
 		}
 		return $html;

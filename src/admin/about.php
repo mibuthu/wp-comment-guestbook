@@ -6,6 +6,11 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
+
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_URL;
+
 if ( ! defined( 'WP_ADMIN' ) ) {
 	exit();
 }
@@ -15,35 +20,13 @@ if ( ! defined( 'WP_ADMIN' ) ) {
  *
  * This class handles the display of the admin about page
  */
-class CGB_Admin_About {
-
-	/**
-	 * Class singleton instance reference
-	 *
-	 * @var self
-	 */
-	private static $instance;
-
-
-	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+class About {
 
 
 	/**
 	 * Class constructor which initializes required variables
 	 */
-	private function __construct() {
+	public function __construct() {
 		// Nothing to do.
 	}
 
@@ -108,7 +91,7 @@ class CGB_Admin_About {
 				sprintf(
 					__( 'In the %1$s settings page, available under %2$s, you can find a huge amount of options to modify the guestbook page.', 'comment-guestbook' ),
 					'Comment Guestbook',
-					'<a href="' . admin_url( 'options-general.php?page=cgb_admin_options' ) . '">' .
+					'<a href="' . admin_url( 'options-general.php?page=cgb_admin_settings' ) . '">' .
 					// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault
 					__( 'Settings' ) .
 					' &rarr; ' . __( 'Guestbook', 'comment-guestbook' ) . '</a>'
@@ -146,9 +129,9 @@ class CGB_Admin_About {
 				<p>' . sprintf( __( 'This plugin is developed by %1$s, you can find more information about the plugin on the %2$s.', 'comment-guestbook' ), 'mibuthu', '<a href="https://wordpress.org/plugins/comment-guestbook/" target="_blank" rel="noopener">' . __( 'WordPress plugin site', 'comment-guestbook' ) . '</a>' ) . '</p>
 				<p>' . sprintf( __( 'If you like the plugin please rate it on the %1$s.', 'comment-guestbook' ), '<a href="https://wordpress.org/support/plugin/comment-guestbook/reviews/" target="_blank" rel="noopener">' . __( 'WordPress plugin review site', 'comment-guestbook' ) . '</a>' ) . '<br />
 				<p>' . __( 'If you want to support the plugin I would be happy to get a small donation', 'comment-guestbook' ) . ':<br />
-				<a class="donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank" rel="noopener"><img src="' . CGB_URL . 'admin/images/paypal_btn_donate.gif" alt="PayPal Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'PayPal' ) . '" border="0"></a>
-				<a class="donate" href="https://liberapay.com/mibuthu/donate" target="_blank" rel="noopener"><img src="' . CGB_URL . 'admin/images/liberapay-donate.svg" alt="Liberapay Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Liberapay' ) . '" border="0"></a>
-				<a class="donate" href="https://flattr.com/submit/auto?user_id=mibuthu&url=https%3A%2F%2Fwordpress.org%2Fplugins%2Fcomment-guestbook" target="_blank" rel="noopener"><img src="' . CGB_URL . 'admin/images/flattr-badge-large.png" alt="Flattr this" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Flattr' ) . '" border="0"></a></p>
+				<a class="donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2" target="_blank" rel="noopener"><img src="' . PLUGIN_URL . 'admin/images/paypal_btn_donate.gif" alt="PayPal Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'PayPal' ) . '" border="0"></a>
+				<a class="donate" href="https://liberapay.com/mibuthu/donate" target="_blank" rel="noopener"><img src="' . PLUGIN_URL . 'admin/images/liberapay-donate.svg" alt="Liberapay Donation" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Liberapay' ) . '" border="0"></a>
+				<a class="donate" href="https://flattr.com/submit/auto?user_id=mibuthu&url=https%3A%2F%2Fwordpress.org%2Fplugins%2Fcomment-guestbook" target="_blank" rel="noopener"><img src="' . PLUGIN_URL . 'admin/images/flattr-badge-large.png" alt="Flattr this" title="' . sprintf( __( 'Donate with %1$s', 'comment-guestbook' ), 'Flattr' ) . '" border="0"></a></p>
 			</div>'
 		);
 	}

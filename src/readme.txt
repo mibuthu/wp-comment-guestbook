@@ -2,10 +2,10 @@
 Contributors: mibuthu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W54LNZMWF9KW2
 Tags: comment, guestbook, site, comments, integrated, shortcode, modify, list, form
-Requires at least: 4.5
-Tested up to: 5.6
-Requires PHP: 5.2
-Stable tag: 0.7.5
+Requires at least: 4.9
+Tested up to: 5.7
+Requires PHP: 5.6
+Stable tag: 0.8.0
 Plugin URI: https://wordpress.org/plugins/comment-guestbook/
 Licence: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,11 @@ Yes, you can create an instance of the "CGB_Shortcode" class which located in "i
 10. Example guestbook widget
 
 == Changelog ==
+
+= 0.8.0 (2021-04-12) =
+* raised minimum required PHP version to 5.6
+* some internal code refactoring (namespaces, file structure, ...)
+* added a wrapper div with a specific class for the notes-before and notes-after the comment form
 
 = 0.7.5 (2020-10-26) =
 * fixed plugin error with some themes and in the customizer

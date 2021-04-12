@@ -1,4 +1,12 @@
 <?php
+/**
+ * Phan config file
+ *
+ * @package CommentGuestbook
+ *
+ * phpcs:disable Squiz.Commenting.InlineComment.InvalidEndChar
+ * phpcs:disable Squiz.PHP.CommentedOutCode.Found
+ */
 
 declare(strict_types=1);
 
@@ -37,7 +45,7 @@ use Phan\Issue;
 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $quick = true;
 
-return array(
+return [
 	// Supported values: `'5.6'`, `'7.0'`, `'7.1'`, `'7.2'`, `'7.3'`, `'7.4'`, `null`.
 	// If this is set to `null`,
 	// then Phan assumes the PHP version which is closest to the minor version
@@ -118,7 +126,7 @@ return array(
 	// E.g. ['int' => ['float', 'string'], 'float' => ['int'], 'string' => ['int'], 'null' => ['string']]
 	// allows casting null to a string, but not vice versa.
 	// (subset of scalar_implicit_cast)
-	'scalar_implicit_partial'                           => array(),
+	'scalar_implicit_partial'                           => [],
 
 	// If true, Phan will convert the type of a possibly undefined array offset to the nullable, defined equivalent.
 	// If false, Phan will convert the type of a possibly undefined array offset to the defined equivalent (without converting to nullable).
@@ -209,7 +217,7 @@ return array(
 	// (Phan does not check if classes with these names exist)
 	//
 	// Example setting: ['unknown' => '', 'number' => 'int|float', 'char' => 'string', 'long' => 'int', 'the' => '']
-	'phpdoc_type_mapping'                               => array(),
+	'phpdoc_type_mapping'                               => [],
 
 	// Set to true in order to attempt to detect dead
 	// (unreferenced) code. Keep in mind that the
@@ -289,7 +297,7 @@ return array(
 	// for any of the listed classes or their subclasses.
 	// This setting only matters when warn_about_undocumented_throw_statements is true.
 	// The default is the empty array (Warn about every kind of Throwable)
-	'exception_classes_with_optional_throws_phpdoc'     => array(
+	'exception_classes_with_optional_throws_phpdoc'     => [
 		'LogicException',
 		'RuntimeException',
 		'InvalidArgumentException',
@@ -303,7 +311,7 @@ return array(
 		// phpunit
 		'PHPUnit\Framework\ExpectationFailedException',
 		'SebastianBergmann\RecursionContext\InvalidArgumentException',
-	),
+	],
 
 	// Increase this to properly analyze require_once statements
 	'max_literal_string_type_length'                    => 1000,
@@ -328,7 +336,7 @@ return array(
 	// Override to hardcode existence and types of (non-builtin) globals.
 	// Class names should be prefixed with '\\'.
 	// (E.g. ['_FOO' => '\\FooClass', 'page' => '\\PageClass', 'userId' => 'int'])
-	'globals_type_map'                                  => array(),
+	'globals_type_map'                                  => [],
 
 	// The minimum severity level to report on. This can be
 	// set to Issue::SEVERITY_LOW, Issue::SEVERITY_NORMAL or
@@ -338,7 +346,7 @@ return array(
 	// Add any issue types (such as 'PhanUndeclaredMethod')
 	// here to inhibit them from being reported
 	// MODIFIED!
-	'suppress_issue_types'                              => array(
+	'suppress_issue_types'                              => [
 		// 'PhanUnreferencedClosure',  // False positives seen with closures in arrays, TODO: move closure checks closer to what is done by unused variable plugin
 		// 'PhanPluginNoCommentOnProtectedMethod',
 		// 'PhanPluginDescriptionlessCommentOnProtectedMethod',
@@ -355,7 +363,7 @@ return array(
 		'PhanPluginPrintfVariableFormatString',
 		// MODIFIED!
 		'PhanPluginUnknownArrayPropertyType',
-	),
+	],
 
 	// If empty, no filter against issues types will be applied.
 	// If non-empty, only issues within the list will be emitted
@@ -366,13 +374,13 @@ return array(
 	//
 	// Phan is capable of detecting hundreds of types of issues.
 	// Projects should almost always use `suppress_issue_types` instead.
-	'whitelist_issue_types'                             => array(
+	'whitelist_issue_types'                             => [
 		// 'PhanUndeclaredClass',
-	),
+	],
 
 	// A list of files to include in analysis
 	// MODIFIED!
-	'file_list'                                         => array(),
+	'file_list'                                         => [],
 
 	// A regular expression to match files to be excluded
 	// from parsing and analysis and will not be read at all.
@@ -392,7 +400,7 @@ return array(
 	// To refer to the project root directory, you must use \Phan\Config::getProjectRootDirectory()
 	//
 	// (E.g. `['.', \Phan\Config::getProjectRootDirectory() . '/src/folder-added-to-include_path']`)
-	'include_paths'                                     => array( '.' ),
+	'include_paths'                                     => [ '.' ],
 
 	// Enable this to warn about the use of relative paths in `require_once`, `include`, etc.
 	// Relative paths are harder to reason about, and opcache may have issues with relative paths in edge cases.
@@ -404,7 +412,7 @@ return array(
 	// This is useful for excluding hopelessly unanalyzable
 	// files that can't be removed for whatever reason.
 	// MODIFIED!
-	'exclude_file_list'                                 => array(),
+	'exclude_file_list'                                 => [],
 
 	// The number of processes to fork off during the analysis
 	// phase.
@@ -418,15 +426,15 @@ return array(
 	// Thus, both first-party and third-party code being used by
 	// your application should be included in this list.
 	// MODIFIED!
-	'directory_list'                                    => array(
+	'directory_list'                                    => [
 		'src',
 		'vendor/php-stubs/wordpress-stubs',
 		'vendor/php-stubs/wordpress-globals',
-	),
+	],
 
 	// List of case-insensitive file extensions supported by Phan.
 	// (e.g. php, html, htm)
-	'analyzed_file_extensions'                          => array( 'php' ),
+	'analyzed_file_extensions'                          => [ 'php' ],
 
 	// A directory list that defines files that will be excluded
 	// from static analysis, but whose class and method
@@ -440,10 +448,10 @@ return array(
 	// should be added to the `directory_list` as
 	// to `exclude_analysis_directory_list`.
 	// MODIFIED!
-	'exclude_analysis_directory_list'                   => array(
-		'vendor/php-stubs/wordpress-stubs/',
-		'vendor/php-stubs/wordpress-globals/',
-	),
+	'exclude_analysis_directory_list'                   => [
+		'vendor/php-stubs/wordpress-stubs',
+		'vendor/php-stubs/wordpress-globals',
+	],
 
 	// By default, Phan will log error messages to stdout if PHP is using options that slow the analysis.
 	// (e.g. PHP is compiled with --enable-debug or when using Xdebug)
@@ -453,7 +461,7 @@ return array(
 	// Phan will continue using its detailed type annotations, but load the constants, classes, functions, and classes (and their Reflection types) from these stub files (doubling as valid php files).
 	// Use a different extension from php to avoid accidentally loading these.
 	// The 'mkstubs' script can be used to generate your own stubs (compatible with php 7.0+ right now)
-	'autoload_internal_extension_signatures'            => array(
+	'autoload_internal_extension_signatures'            => [
 		'ast'      => '.phan/internal_stubs/ast.phan_php',
 		'ctype'    => '.phan/internal_stubs/ctype.phan_php',
 		// MODIFIED!
@@ -468,7 +476,7 @@ return array(
 		// 'sysvsem'  => '.phan/internal_stubs/sysvsem.phan_php',
 		// MODIFIED!
 		// 'sysvshm'  => '.phan/internal_stubs/sysvshm.phan_php',
-	),
+	],
 
 	// Set this to false to emit `PhanUndeclaredFunction` issues for internal functions that Phan has signatures for,
 	// but aren't available in the codebase, or from Reflection.
@@ -480,7 +488,7 @@ return array(
 	// if Phan has the signatures.
 	'ignore_undeclared_functions_with_known_signatures' => false,
 
-	'plugin_config'                                     => array(
+	'plugin_config'                                     => [
 		// A list of 1 or more PHP binaries (Absolute path or program name found in $PATH)
 		// to use to analyze your files with PHP's native `--syntax-check`.
 		//
@@ -507,12 +515,12 @@ return array(
 
 		// Automatically infer which methods are pure (i.e. should have no side effects) in UseReturnValuePlugin.
 		'infer_pure_methods'                    => true,
-	),
+	],
 
 	// A list of plugin files to execute
 	// NOTE: values can be the base name without the extension for plugins bundled with Phan (E.g. 'AlwaysReturnPlugin')
 	// or relative/absolute paths to the plugin (Relative to the project root).
-	'plugins'                                           => array(
+	'plugins'                                           => [
 		'AlwaysReturnPlugin',
 		'DollarDollarPlugin',
 		'UnreachableCodePlugin',
@@ -577,5 +585,5 @@ return array(
 		// NOTE: This plugin only produces correct results when
 		// Phan is run on a single core (-j1).
 		// 'UnusedSuppressionPlugin',
-	),
-);
+	],
+];

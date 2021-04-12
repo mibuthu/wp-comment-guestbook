@@ -18,11 +18,11 @@ class CommentListSettingsCest {
 
 
 	public function DefaultValues( AcceptanceTester $I ) {
-		$I->wantTo( 'check default values of the comment form options' );
-		$I->amOnGuestbookOptions( 'comment_list' );
+		$I->wantTo( 'check default values of the comment list options' );
+		$I->amOnGuestbookSettings( 'comment_list' );
 		$I->seeInFormFields(
 			'form[name=cgb-comment_list-settings]',
-			array(
+			[
 				'cgb_clist_threaded'         => 'default',
 				'cgb_clist_order'            => 'default',
 				'cgb_clist_child_order_desc' => '',
@@ -33,10 +33,9 @@ class CommentListSettingsCest {
 				'cgb_clist_num_pagination'   => '',
 				'cgb_clist_title'            => '',
 				'cgb_clist_in_page_content'  => '',
-				'cgb_comment_callback'       => '',  // empty value seem to work here
 				'cgb_clist_styles'           => '',
 				'cgb_clist_args'             => '',
-			)
+			]
 		);
 	}
 
@@ -73,7 +72,7 @@ class CommentListSettingsCest {
 		$parentComment   = 'Parent comment ' . uniqid();
 		$childComment    = 'Child comment ' . uniqid();
 		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at' );
-		$childCommentId  = $I->createGuestbookComment( $gbPageId, $childComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId ) );
+		$childCommentId  = $I->createGuestbookComment( $gbPageId, $childComment, 'testuser', 'user@test.at', '', [ '--comment_parent=' . $parentCommentId ] );
 		// Check default option with WordPress setting enabled
 		$I->updateWPOption( 'thread_comments', '1' );
 		$I->logout();
@@ -111,7 +110,7 @@ class CommentListSettingsCest {
 		$I->updateWPOption( 'cbg_clist_in_page_content', $optionProvider['clist_in_page_content'] );
 		$firstComment    = 'First comment ' . uniqid();
 		$secondComment   = 'Second comment ' . uniqid();
-		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ) );
+		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', [ '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) . '"' ] );
 		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at' );
 		// Check default option with WordPress setting oldest first
 		$I->updateWPOption( 'comment_order', 'asc' );
@@ -148,9 +147,9 @@ class CommentListSettingsCest {
 		$parentComment   = 'Parent comment ' . uniqid();
 		$firstComment    = 'First comment ' . uniqid();
 		$secondComment   = 'Second comment ' . uniqid();
-		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at', '', array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 172800 ) ) );
-		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId, '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) ) );
-		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at', '', array( '--comment_parent=' . $parentCommentId ) );
+		$parentCommentId = $I->createGuestbookComment( $gbPageId, $parentComment, 'testuser', 'user@test.at', '', [ '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 172800 ) . '"' ] );
+		$firstCommentId  = $I->createGuestbookComment( $gbPageId, $firstComment, 'testuser', 'user@test.at', '', [ '--comment_parent=' . $parentCommentId, '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 86400 ) . '"' ] );
+		$secondCommentId = $I->createGuestbookComment( $gbPageId, $secondComment, 'testuser', 'user@test.at', '', [ '--comment_parent=' . $parentCommentId ] );
 		// Check with option disabled (oldest first)
 		$I->changeGuestbookOption( 'comment_list', 'checkbox', 'cgb_clist_child_order_desc', '' );
 		$I->logout();
@@ -287,7 +286,7 @@ class CommentListSettingsCest {
 			'testuser',
 			'user@test.at',
 			'',
-			array( '--comment_date=' . gmdate( 'Y-m-d H:i:s', time() - 86400 * floor( $numGbComments / 2 ) ) )  // set date in between the guestbook comments
+			[ '--comment_date="' . gmdate( 'Y-m-d H:i:s', time() - 86400 * floor( $numGbComments / 2 ) ) . '"' ]  // set date in between the guestbook comments
 		);
 		// Check when disabled (default)
 		$I->logout();
@@ -340,10 +339,10 @@ class CommentListSettingsCest {
 	 * @return array
 	 */
 	protected function optionProvider() {
-		return array(
-			array( 'clist_in_page_content' => '' ),
-			array( 'clist_in_page_content' => '1' ),
-		);
+		return [
+			[ 'clist_in_page_content' => '' ],
+			[ 'clist_in_page_content' => '1' ],
+		];
 	}
 
 }

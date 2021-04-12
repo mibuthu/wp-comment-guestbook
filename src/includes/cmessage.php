@@ -6,56 +6,38 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
+require_once PLUGIN_PATH . 'includes/config.php';
 
 
 
 /**
  * Class for handling of cmessages (Messages after a new comment)
  */
-class CGB_CMessage {
+class CMessage {
 
 	/**
-	 * Class singleton instance reference
+	 * Config class instance reference
 	 *
-	 * @var self
+	 * @var Config
 	 */
-	protected static $instance;
-
-	/**
-	 * Options class instance reference
-	 *
-	 * @var CGB_Options
-	 */
-	private $options;
-
-
-	/**
-	 * Singleton provider and setup
-	 *
-	 * @return self
-	 */
-	public static function &get_instance() {
-		// There seems to be an issue with the self variable in phan.
-		// @phan-suppress-next-line PhanPluginUndeclaredVariableIsset.
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+	private $config;
 
 
 	/**
 	 * Class constructor which initializes required variables
 	 *
+	 * @param Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	protected function __construct() {
-		$this->options = &CGB_Options::get_instance();
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
 	}
 
 
@@ -65,8 +47,8 @@ class CGB_CMessage {
 	 * @return void
 	 */
 	public function init() {
-		add_action( 'init', array( &$this, 'register_scripts' ) );
-		add_action( 'wp_footer', array( &$this, 'print_scripts' ) );
+		add_action( 'init', [ &$this, 'register_scripts' ] );
+		add_action( 'wp_footer', [ &$this, 'print_scripts' ] );
 	}
 
 
@@ -76,7 +58,7 @@ class CGB_CMessage {
 	 * @return void
 	 */
 	public function register_scripts() {
-		wp_register_script( 'cgb_cmessage', CGB_URL . 'includes/js/cmessage.js', array( 'jquery' ), '1.0', true );
+		wp_register_script( 'cgb_cmessage', PLUGIN_URL . 'includes/js/cmessage.js', [ 'jquery' ], '1.0', true );
 	}
 
 
@@ -100,8 +82,8 @@ class CGB_CMessage {
 	public function add_cmessage_indicator( $url ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? (bool) intval( $_POST['is_cgb_comment'] ) : false;
-		if ( ( '' !== $this->options->get( 'cgb_page_cmessage_enabled' ) && ! $is_cgb_comment )
-			|| ( '' !== $this->options->get( 'cgb_cmessage_enabled' ) && $is_cgb_comment )
+		if ( ( $this->config->page_cmessage_enabled->to_bool() && ! $is_cgb_comment )
+			|| ( $this->config->cmessage_enabled->to_bool() && $is_cgb_comment )
 		) {
 			$url_array       = explode( '#', $url );
 			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
@@ -119,10 +101,10 @@ class CGB_CMessage {
 	private function print_script_variables() {
 		echo '
 			<script type="text/javascript">
-				var cmessage_text = "' . wp_kses_post( $this->options->get( 'cgb_cmessage_text' ) ) . '";
-				var cmessage_type = "' . wp_kses_post( $this->options->get( 'cgb_cmessage_type' ) ) . '";
-				var cmessage_duration = ' . intval( $this->options->get( 'cgb_cmessage_duration' ) ) . ';
-				var cmessage_styles = "' . wp_kses_post( str_replace( array( '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ), ' ', $this->options->get( 'cgb_cmessage_styles' ) ) ) . '";
+				var cmessage_text = "' . wp_kses_post( $this->config->cmessage_text->to_str() ) . '";
+				var cmessage_type = "' . wp_kses_post( $this->config->cmessage_type->to_str() ) . '";
+				var cmessage_duration = ' . wp_kses_post( $this->config->cmessage_duration->to_str() ) . ';
+				var cmessage_styles = "' . wp_kses_post( str_replace( [ '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ], ' ', $this->config->cmessage_styles->to_str() ) ) . '";
 			</script>';
 	}
 

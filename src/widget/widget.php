@@ -6,68 +6,55 @@
  */
 
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
+
+namespace WordPress\Plugins\mibuthu\CommentGuestbook\Widget;
+
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once CGB_PATH . 'includes/options.php';
-require_once CGB_PATH . 'includes/attribute.php';
+require_once PLUGIN_PATH . 'includes/config.php';
+require_once PLUGIN_PATH . 'widget/config.php';
 
 /**
  * Comment Guestbook Widget
  */
-class CGB_Widget extends WP_Widget {
+class Widget extends \WP_Widget {
 
 	/**
-	 * Options class instance reference
+	 * Config class instance reference
 	 *
-	 * @var CGB_Options
+	 * @var \WordPress\Plugins\mibuthu\CommentGuestbook\Config
 	 */
-	private $options;
+	private $config;
 
 	/**
-	 * Widget Items
+	 * Widget Arguments
 	 *
-	 * @var array<string,CGB_Attribute>
+	 * @var Config
 	 */
-	private $items;
+	private $args;
 
 
 	/**
 	 * Register widget with WordPress.
 	 *
+	 * @param \WordPress\Plugins\mibuthu\CommentGuestbook\Config $config_instance The Config instance as a reference.
 	 * @return void
 	 */
-	public function __construct() {
+	public function __construct( &$config_instance ) {
+		$this->config = $config_instance;
+		$this->args   = new Config();
 		parent::__construct(
 			'comment_guestbook_widget', // Base ID.
 			'Comment Guestbook', // Name.
-			array( 'description' => __( 'This widget displays a list of recent comments.', 'comment-guestbook' ) ) // Args.
+			[ 'description' => __( 'This widget displays a list of recent comments.', 'comment-guestbook' ) ] // Args.
 		);
-		add_action( 'comment_post', array( $this, 'flush_widget_cache' ) );
-		add_action( 'transition_comment_status', array( $this, 'flush_widget_cache' ) );
-		add_filter( 'safe_style_css', array( $this, 'safe_style_css_filter' ) );
-		$this->options = &CGB_Options::get_instance();
-
-		// Define all available items.
-		$this->items = array(
-			'title'                => new CGB_Attribute( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => new CGB_Attribute( '5' ),
-			'link_to_comment'      => new CGB_Attribute( 'false' ),
-			'show_date'            => new CGB_Attribute( 'false' ),
-			'date_format'          => new CGB_Attribute( get_option( 'date_format' ) ),
-			'show_author'          => new CGB_Attribute( 'true' ),
-			'author_length'        => new CGB_Attribute( '18' ),
-			'show_page_title'      => new CGB_Attribute( 'false' ),
-			'page_title_length'    => new CGB_Attribute( '18' ),
-			'show_comment_text'    => new CGB_Attribute( 'true' ),
-			'comment_text_length'  => new CGB_Attribute( '25' ),
-			'url_to_page'          => new CGB_Attribute( '' ),
-			'gb_comments_only'     => new CGB_Attribute( 'false' ),
-			'hide_gb_page_title'   => new CGB_Attribute( 'false' ),
-			'link_to_page'         => new CGB_Attribute( 'false' ),
-			'link_to_page_caption' => new CGB_Attribute( __( 'goto guestbook page', 'comment-guestbook' ) ),
-		);
+		add_action( 'comment_post', [ $this, 'flush_widget_cache' ] );
+		add_action( 'transition_comment_status', [ $this, 'flush_widget_cache' ] );
+		add_filter( 'safe_style_css', [ $this, 'safe_style_css_filter' ] );
 	}
 
 
@@ -84,7 +71,7 @@ class CGB_Widget extends WP_Widget {
 		// Use html from cache if available.
 		$cache = wp_cache_get( 'widget_comment_guestbook', 'widget' );
 		if ( ! is_array( $cache ) ) {
-			$cache = array();
+			$cache = [];
 		}
 		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->id;
@@ -95,18 +82,13 @@ class CGB_Widget extends WP_Widget {
 		}
 
 		// Prepare html.
-		foreach ( $this->items as $itemname => $item ) {
-			if ( ! isset( $instance[ $itemname ] ) ) {
-				$instance[ $itemname ] = $item->value;
-			}
-		}
 		$out               = '';
 		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
-		$comment_args      = array(
+		$comment_args      = [
 			'number'      => absint( $instance['num_comments'] ),
 			'status'      => 'approve',
 			'post_status' => 'publish',
-		);
+		];
 		if ( 'true' === $instance['gb_comments_only'] ) {
 			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
 		}
@@ -126,7 +108,7 @@ class CGB_Widget extends WP_Widget {
 			$update_term_cache = strpos( get_option( 'permalink_structure' ), '%category%' ) !== false;
 			_prime_post_caches( $post_ids, $update_term_cache, false );
 			foreach ( $comments as $comment ) {
-				if ( ! $comment instanceof WP_Comment ) {
+				if ( ! $comment instanceof \WP_Comment ) {
 					continue;
 				}
 				$out .= '
@@ -135,29 +117,30 @@ class CGB_Widget extends WP_Widget {
 					$out .= '<a href="' . $this->get_comment_link( $comment ) . '">';
 				}
 				if ( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( $instance['date_format'], $comment ) . ' </span>';
+					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' .
+						esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( strval( $instance['date_format'] ), $comment ) . ' </span>';
 				}
 				if ( 'true' === $instance['show_author'] ) {
 					$out .= $this->truncate(
-						$instance['author_length'],
+						strval( $instance['author_length'] ),
 						get_comment_author( $comment ),
 						'span',
-						array(
+						[
 							'class' => 'cgb-author',
 							'title' => __(
 								'Comment author',
 								'comment-guestbook'
 							) . ': ' . esc_attr( get_comment_author( $comment ) ),
-						)
+						]
 					);
 				}
 				if ( 'true' === $instance['show_page_title'] ) {
-					if ( 'true' !== $instance['hide_gb_page_title'] || url_to_postid( $instance['url_to_page'] ) !== intval( $comment->comment_post_ID ) ) {
-						$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( $comment->comment_post_ID ) ) . '">';
+					if ( 'true' !== $instance['hide_gb_page_title'] || url_to_postid( strval( $instance['url_to_page'] ) ) !== intval( $comment->comment_post_ID ) ) {
+						$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( intval( $comment->comment_post_ID ) ) ) . '">';
 						if ( 'true' === $instance['show_author'] ) {
 							$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';
 						}
-						$out .= $this->truncate( $instance['page_title_length'], get_the_title( $comment->comment_post_ID ) ) . '</span>';
+						$out .= $this->truncate( strval( $instance['page_title_length'] ), get_the_title( intval( $comment->comment_post_ID ) ) ) . '</span>';
 					}
 				}
 				if ( 'true' === $instance['link_to_comment'] ) {
@@ -165,13 +148,13 @@ class CGB_Widget extends WP_Widget {
 				}
 				if ( 'true' === $instance['show_comment_text'] ) {
 					$out .= $this->truncate(
-						$instance['comment_text_length'],
+						strval( $instance['comment_text_length'] ),
 						get_comment_text( $comment ),
 						'div',
-						array(
+						[
 							'class' => 'cgb-widget-text',
 							'title' => esc_attr( get_comment_text( $comment ) ),
-						)
+						]
 					);
 				}
 				$out .= '</li>';
@@ -183,7 +166,7 @@ class CGB_Widget extends WP_Widget {
 				';
 		if ( 'true' === $instance['link_to_page'] ) {
 			$out .= '
-				<div class="cgb-widget-pagelink" style="clear:both"><a title="' . esc_attr( $instance['link_to_page_caption'] ) . '" href="' . $instance['url_to_page'] . '">' .
+				<div class="cgb-widget-pagelink" style="clear:both"><a title="' . esc_attr( strval( $instance['link_to_page_caption'] ) ) . '" href="' . $instance['url_to_page'] . '">' .
 					$instance['link_to_page_caption'] . '</a></div>
 				';
 		}
@@ -197,20 +180,22 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Sanitize widget form values as they are saved.
 	 *
-	 * @see WP_Widget::update()
+	 * @see \WP_Widget::update()
 	 *
 	 * @param array<string,string> $new_instance Values just sent to be saved.
-	 * @param array<string,string> $old_instance Previously saved values from database.
+	 * @param array<string,string> $old_instance Previously saved values from database (not used).
 	 * @return array<string,string> Updated safe values to be saved.
+	 *
+	 * @suppress PhanUnusedPublicMethodParameter
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$this->load_helptexts();
-		$instance = array();
-		foreach ( $this->items as $itemname => $item ) {
-			if ( 'checkbox' === $item->type ) {
-				$instance[ $itemname ] = ( isset( $new_instance[ $itemname ] ) && 1 === intval( $new_instance[ $itemname ] ) ) ? 'true' : 'false';
+		$this->args->load_args_admin_data();
+		$instance = [];
+		foreach ( $this->args->get_all() as $argname => $arg ) {
+			if ( 'checkbox' === $arg->type ) {
+				$instance[ $argname ] = ( isset( $new_instance[ $argname ] ) && 1 === intval( $new_instance[ $argname ] ) ) ? 'true' : 'false';
 			} else { // 'text'
-				$instance[ $itemname ] = wp_strip_all_tags( $new_instance[ $itemname ] );
+				$instance[ $argname ] = wp_strip_all_tags( $new_instance[ $argname ] );
 			}
 		}
 		$this->flush_widget_cache();
@@ -225,36 +210,36 @@ class CGB_Widget extends WP_Widget {
 	/**
 	 * Back-end widget form.
 	 *
-	 * @see WP_Widget::form()
+	 * @see \WP_Widget::form()
 	 *
 	 * @param array<string,string> $instance Previously saved values from database.
 	 * @return string
 	 */
 	public function form( $instance ) {
-		$this->load_helptexts();
+		$this->args->load_args_admin_data();
 		// Display general information at the top.
 		echo '<p>' . esc_html__( 'For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.', 'comment-guestbook' ) . '</p>';
 		// Display the options.
-		foreach ( $this->items as $itemname => $item ) {
-			if ( ! isset( $instance[ $itemname ] ) ) {
-				$instance[ $itemname ] = $item->value;
+		foreach ( $this->args->get_all() as $argname => $arg ) {
+			if ( ! isset( $instance[ $argname ] ) ) {
+				$instance[ $argname ] = $arg->value;
 			}
-			$style_text = ( null === $item->form_style ) ? '' : ' style="' . $item->form_style . '"';
-			if ( 'checkbox' === $item->type ) {
-				$checked_text = ( 'true' === $instance[ $itemname ] || 1 === $instance[ $itemname ] ) ? 'checked = "checked" ' : '';
+			$style_text = ( null === $arg->form_style ) ? '' : ' style="' . $arg->form_style . '"';
+			if ( 'checkbox' === $arg->type ) {
+				$checked_text = ( 'true' === $instance[ $argname ] || 1 === $instance[ $argname ] ) ? 'checked = "checked" ' : '';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
-						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) . '" name="' . esc_attr( $this->get_field_name( $itemname ) ) .
-							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $item->caption ) . '</label>
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg->tooltip ) . '">
+						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) . '" name="' . esc_attr( $this->get_field_name( $argname ) ) .
+							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $arg->caption ) . '</label>
 					</p>';
 			} else { // 'text'
-				$width_text         = ( null === $item->form_width ) ? '' : 'style="width:' . $item->form_width . 'px" ';
-				$caption_after_text = ( null === $item->caption_after ) ? '' : '<label> ' . $item->caption_after . '</label>';
+				$width_text         = ( null === $arg->form_width ) ? '' : 'style="width:' . $arg->form_width . 'px" ';
+				$caption_after_text = ( null === $arg->caption_after ) ? '' : '<label> ' . $arg->caption_after . '</label>';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $item->tooltip ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $itemname ) ) . '">' . wp_kses_post( $item->caption ) . ' </label>
-						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $itemname ) ) .
-							'" name="' . esc_attr( $this->get_field_name( $itemname ) ) . '" type="text" value="' . esc_attr( $instance[ $itemname ] ) . '" />' .
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg->tooltip ) . '">
+						<label for="' . esc_attr( $this->get_field_id( $argname ) ) . '">' . wp_kses_post( $arg->caption ) . ' </label>
+						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) .
+							'" name="' . esc_attr( $this->get_field_name( $argname ) ) . '" type="text" value="' . esc_attr( $instance[ $argname ] ) . '" />' .
 							wp_kses_post( $caption_after_text ) . '
 					</p>';
 			}
@@ -267,30 +252,29 @@ class CGB_Widget extends WP_Widget {
 	 * Provides the guestbook specific comment link for pages/posts
 	 * where the 'comment-guestbook' shortcode is used.
 	 *
-	 * @param WP_Comment $comment The WordPress comment object of the comment to retrieve.
+	 * @param \WP_Comment $comment The WordPress comment object of the comment to retrieve.
 	 * @return string
 	 */
 	private function get_comment_link( $comment ) {
-		$link_args = array();
-		if ( '' !== $this->options->get( 'cgb_adjust_output' ) ) {
+		$link_args = [];
+		if ( $this->config->adjust_output->to_bool() ) {
 			if ( 0 !== get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
-				if ( 'desc' === $this->options->get( 'cgb_clist_order' )
-					|| 'asc' === $this->options->get( 'cgb_clist_order' )
-					|| '' !== $this->options->get( 'cgb_clist_show_all' ) ) {
+				if ( 'desc' === $this->config->clist_order->to_str() || 'asc' === $this->config->clist_order->to_str() || $this->config->clist_show_all->to_bool() ) {
 					$pattern = get_shortcode_regex();
-					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( $comment->comment_post_ID )->post_content, $matches )
+					// @phan-suppress-next-line PhanPossiblyUndeclaredProperty - no problem here.
+					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( intval( $comment->comment_post_ID ) )->post_content, $matches )
 							&& array_key_exists( 2, $matches )
 							&& in_array( 'comment-guestbook', $matches[2], true ) ) {
 						// Shortcode is being used in that page or post.
-						$args = array(
+						$args = [
 							'status' => 'approve',
-							'order'  => $this->options->get( 'cgb_clist_order' ),
-						);
-						if ( '' === $this->options->get( 'cgb_clist_show_all' ) ) {
+							'order'  => $this->config->clist_order->to_str(),
+						];
+						if ( ! $this->config->clist_show_all->to_bool() ) {
 							$args['post_id'] = $comment->comment_post_ID;
 						}
 						$comments          = get_comments( $args );
-						$toplevel_comments = array();
+						$toplevel_comments = [];
 						foreach ( $comments as $_comment ) {
 							if ( 0 === $_comment->comment_parent ) {
 								$toplevel_comments[] = $_comment->comment_ID;
@@ -301,13 +285,14 @@ class CGB_Widget extends WP_Widget {
 						while ( 0 !== intval( $toplevel_comment->comment_parent ) ) {
 							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
 						}
+						// @phan-suppress-next-line PhanPossiblyUndeclaredProperty - no problem here.
 						$oldercoms         = array_search( $toplevel_comment->comment_ID, $toplevel_comments, true );
 						$link_args['page'] = ceil( ( $oldercoms + 1 ) / get_option( 'comments_per_page' ) );
 					}
 				}
 			}
 		}
-		return esc_url( get_comment_link( $comment->comment_ID, $link_args ) );
+		return esc_url( get_comment_link( intval( $comment->comment_ID ), $link_args ) );
 	}
 
 
@@ -325,7 +310,7 @@ class CGB_Widget extends WP_Widget {
 	 * @param array<string,string> $wrapper_attributes Additional attributes for the wrapper element. The array key defines the attribute name.
 	 * @return string
 	 */
-	private function truncate( $max_length, $html, $wrapper_type = 'none', $wrapper_attributes = array() ) {
+	private function truncate( $max_length, $html, $wrapper_type = 'none', $wrapper_attributes = [] ) {
 		// Apply wrapper and add required css for autolength (if required).
 		$autolength = 'auto' === $max_length ? true : false;
 		if ( $autolength ) {
@@ -355,8 +340,8 @@ class CGB_Widget extends WP_Widget {
 		$truncated      = false;
 		$printed_length = 0;
 		$position       = 0;
-		$tags           = array();
-		$match          = array();
+		$tags           = [];
+		$match          = [];
 		$ret            = '';
 
 		while ( $printed_length < $max_length && $this->mb_preg_match( '{</?([a-z]+\d?)[^>]*>|&#?[a-zA-Z0-9]+;}', $html, $match, PREG_OFFSET_CAPTURE, $position ) ) {
@@ -440,21 +425,6 @@ class CGB_Widget extends WP_Widget {
 		$styles[] = 'white-space';
 		$styles[] = 'text-overflow';
 		return $styles;
-	}
-
-
-	/**
-	 * Load the widget items helptexts
-	 *
-	 * @return void
-	 */
-	public function load_helptexts() {
-		global $cgb_widget_items_helptexts;
-		require_once CGB_PATH . 'includes/widget-helptexts.php';
-		foreach ( $cgb_widget_items_helptexts as $name => $values ) {
-			$this->items[ $name ]->update( $values );
-		}
-		unset( $cgb_widget_items_helptexts );
 	}
 
 

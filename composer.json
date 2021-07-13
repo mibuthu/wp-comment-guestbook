@@ -8,7 +8,7 @@
         "php-stubs/wordpress-stubs": "^5.4",
         "php-stubs/wordpress-globals": "^0.2",
         "lucatume/wp-browser": "^3.0",
-        "wp-cli/wp-cli-bundle": "^2.4",
+        "wp-cli/wp-cli-bundle": "^2.5",
         "codeception/module-asserts": "^1.0",
         "codeception/module-phpbrowser": "^1.0",
         "codeception/module-webdriver": "^1.0",

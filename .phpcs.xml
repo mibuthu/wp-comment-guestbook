@@ -58,6 +58,14 @@
         </properties>
     </rule>
 
+    <!-- Allow comments without special end character -->
+    <rule ref="Squiz.Commenting.InlineComment">
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment">
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
+    </rule>
+
     <!-- Use short array syntax instead of long array syntax specified in Wordpress -->
     <rule ref="Generic.Arrays.DisallowShortArraySyntax.Found">
         <severity>0</severity>

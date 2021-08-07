@@ -20,52 +20,52 @@ require_once PLUGIN_PATH . 'includes/option.php';
  *
  * This class handles all available options with their information
  *
- * @property-read Option $cgb_ignore_comments_open Guestbook comment status.
- * @property-read Option $cgb_ignore_comment_registration Guestbook comment registration.
- * @property-read Option $cgb_ignore_comment_moderation Guestbook comment moderation.
- * @property-read Option $cgb_adjust_output Comments ajdustment.
- * @property-read Option $cgb_l10n_domain Domain for translation.
- * @property-read Option $cgb_form_below_comments Form below comments.
- * @property-read Option $cgb_form_above_comments Form above comments.
- * @property-read Option $cgb_form_in_page Form in page/post.
- * @property-read Option $cgb_form_expand_type Collapsed comment form.
- * @property-read Option $cgb_form_expand_link_text Link text for form expansion.
- * @property-read Option $cgb_form_require_no_name_mail Comment author name/email.
- * @property-read Option $cgb_form_remove_mail Remove Email field.
- * @property-read Option $cgb_form_remove_website Remove website field.
- * @property-read Option $cgb_form_comment_label Label for comment field.
- * @property-read Option $cgb_form_title Comment form title.
- * @property-read Option $cgb_form_title_reply_to Reply comment form title.
- * @property-read Option $cgb_form_notes_before Notes before form fields.
- * @property-read Option $cgb_form_notes_after Notes after form fields.
- * @property-read Option $cgb_form_label_submit Label of submit button.
- * @property-read Option $cgb_form_cancel_reply Label for cancel reply link.
- * @property-read Option $cgb_form_must_login_message Must login message.
- * @property-read Option $cgb_form_styles Comment form styles.
- * @property-read Option $cgb_form_args Comment form args.
- * @property-read Option $cgb_clist_threaded Threaded guestbook comments.
- * @property-read Option $cgb_clist_order Comment list order.
- * @property-read Option $cgb_clist_child_order_desc Comment list child order.
- * @property-read Option $cgb_clist_default_page Comment list default page.
- * @property-read Option $cgb_clist_pagination Bread comments into pages.
- * @property-read Option $cgb_clist_per_page Comments per page.
- * @property-read Option $cgb_clist_num_pagination Numbered pagination.
- * @property-read Option $cgb_clist_show_all Show all comments.
- * @property-read Option $cgb_clist_title Title for the comment list.
- * @property-read Option $cgb_clist_in_page_content Comment list in page content.
- * @property-read Option $cgb_clist_styles Comment list styles.
- * @property-read Option $cgb_clist_args Comment list args.
- * @property-read Option $cgb_comment_adjust Comment adjustment.
- * @property-read Option $cgb_comment_html Comment html code.
- * @property-read Option $cgb_comment_callback Comment callback function.
- * @property-read Option $cgb_cmessage_enabled Enable message.
- * @property-read Option $cgb_cmessage_text New comment message text.
- * @property-read Option $cgb_cmessage_type New comment message type.
- * @property-read Option $cgb_cmessage_duration New comment message duration.
- * @property-read Option $cgb_cmessage_styles New comment message styles.
- * @property-read Option $cgb_page_cmessage_enabled Message after new comments in other pages/posts.
- * @property-read Option $cgb_page_remove_mail Remove Email field in other pages/posts.
- * @property-read Option $cgb_page_remove_website Remove Website field in other pages/posts.
+ * @property-read Option $ignore_comments_open Guestbook comment status.
+ * @property-read Option $ignore_comment_registration Guestbook comment registration.
+ * @property-read Option $ignore_comment_moderation Guestbook comment moderation.
+ * @property-read Option $adjust_output Comments ajdustment.
+ * @property-read Option $l10n_domain Domain for translation.
+ * @property-read Option $form_below_comments Form below comments.
+ * @property-read Option $form_above_comments Form above comments.
+ * @property-read Option $form_in_page Form in page/post.
+ * @property-read Option $form_expand_type Collapsed comment form.
+ * @property-read Option $form_expand_link_text Link text for form expansion.
+ * @property-read Option $form_require_no_name_mail Comment author name/email.
+ * @property-read Option $form_remove_mail Remove Email field.
+ * @property-read Option $form_remove_website Remove website field.
+ * @property-read Option $form_comment_label Label for comment field.
+ * @property-read Option $form_title Comment form title.
+ * @property-read Option $form_title_reply_to Reply comment form title.
+ * @property-read Option $form_notes_before Notes before form fields.
+ * @property-read Option $form_notes_after Notes after form fields.
+ * @property-read Option $form_label_submit Label of submit button.
+ * @property-read Option $form_cancel_reply Label for cancel reply link.
+ * @property-read Option $form_must_login_message Must login message.
+ * @property-read Option $form_styles Comment form styles.
+ * @property-read Option $form_args Comment form args.
+ * @property-read Option $clist_threaded Threaded guestbook comments.
+ * @property-read Option $clist_order Comment list order.
+ * @property-read Option $clist_child_order_desc Comment list child order.
+ * @property-read Option $clist_default_page Comment list default page.
+ * @property-read Option $clist_pagination Bread comments into pages.
+ * @property-read Option $clist_per_page Comments per page.
+ * @property-read Option $clist_num_pagination Numbered pagination.
+ * @property-read Option $clist_show_all Show all comments.
+ * @property-read Option $clist_title Title for the comment list.
+ * @property-read Option $clist_in_page_content Comment list in page content.
+ * @property-read Option $clist_styles Comment list styles.
+ * @property-read Option $clist_args Comment list args.
+ * @property-read Option $comment_adjust Comment adjustment.
+ * @property-read Option $comment_html Comment html code.
+ * @property-read Option $comment_callback Comment callback function.
+ * @property-read Option $cmessage_enabled Enable message.
+ * @property-read Option $cmessage_text New comment message text.
+ * @property-read Option $cmessage_type New comment message type.
+ * @property-read Option $cmessage_duration New comment message duration.
+ * @property-read Option $cmessage_styles New comment message styles.
+ * @property-read Option $page_cmessage_enabled Message after new comments in other pages/posts.
+ * @property-read Option $page_remove_mail Remove Email field in other pages/posts.
+ * @property-read Option $page_remove_website Remove Website field in other pages/posts.
  */
 final class Config {
 

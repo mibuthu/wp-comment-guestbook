@@ -28,7 +28,8 @@ class Option {
 	 */
 	public $value;
 
-	/** Default value
+	/**
+	 * Default value
 	 *
 	 * @var string
 	 */
@@ -36,8 +37,6 @@ class Option {
 
 	/**
 	 * Permitted values
-	 *
-	 * An array of all allowed values as key, the value is the help text description
 	 *
 	 * @var string[]
 	 */

@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Option Admin Data Class
  *
- * This class handles an option which can be used for shortcodes, widgets and the plugin config.
+ * This class handles an the additional data for an option which is only required in the admin page.
  */
 class OptionAdminData {
 
@@ -47,7 +47,7 @@ class OptionAdminData {
 	/**
 	 * Permitted values
 	 *
-	 * An array of all allowed values as key, and the help text description as value
+	 * An array of all allowed values as key, and the help text description as value.
 	 *
 	 * @var array<string,string>
 	 */
@@ -120,7 +120,7 @@ class OptionAdminData {
 	/**
 	 * Default class constructor
 	 *
-	 * @param string              $display_type The display
+	 * @param string              $display_type The display type on the admin page
 	 * @param array<string,mixed> $data All data fields to set in an array where the key is the field name
 	 * @return void
 	 */

@@ -9,63 +9,64 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook;
 
-require_once PLUGIN_PATH . 'includes/option-admin-data.php';
-
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
+
+require_once PLUGIN_PATH . 'includes/option-admin-data.php';
+
 
 /**
  * ConfigAdminData class
  *
  * This class provides all additional data for the Config class which is only required in the admin page.
  *
- * @property-read OptionAdminData $cgb_ignore_comments_open Guestbook comment status.
- * @property-read OptionAdminData $cgb_ignore_comment_registration Guestbook comment registration.
- * @property-read OptionAdminData $cgb_ignore_comment_moderation Guestbook comment moderation.
- * @property-read OptionAdminData $cgb_adjust_output Comments ajdustment.
- * @property-read OptionAdminData $cgb_l10n_domain Domain for translation.
- * @property-read OptionAdminData $cgb_form_below_comments Form below comments.
- * @property-read OptionAdminData $cgb_form_above_comments Form above comments.
- * @property-read OptionAdminData $cgb_form_in_page Form in page/post.
- * @property-read OptionAdminData $cgb_form_expand_type Collapsed comment form.
- * @property-read OptionAdminData $cgb_form_expand_link_text Link text for form expansion.
- * @property-read OptionAdminData $cgb_form_require_no_name_mail Comment author name/email.
- * @property-read OptionAdminData $cgb_form_remove_mail Remove Email field.
- * @property-read OptionAdminData $cgb_form_remove_website Remove website field.
- * @property-read OptionAdminData $cgb_form_comment_label Label for comment field.
- * @property-read OptionAdminData $cgb_form_title Comment form title.
- * @property-read OptionAdminData $cgb_form_title_reply_to Reply comment form title.
- * @property-read OptionAdminData $cgb_form_notes_before Notes before form fields.
- * @property-read OptionAdminData $cgb_form_notes_after Notes after form fields.
- * @property-read OptionAdminData $cgb_form_label_submit Label of submit button.
- * @property-read OptionAdminData $cgb_form_cancel_reply Label for cancel reply link.
- * @property-read OptionAdminData $cgb_form_must_login_message Must login message.
- * @property-read OptionAdminData $cgb_form_styles Comment form styles.
- * @property-read OptionAdminData $cgb_form_args Comment form args.
- * @property-read OptionAdminData $cgb_clist_threaded Threaded guestbook comments.
- * @property-read OptionAdminData $cgb_clist_order Comment list order.
- * @property-read OptionAdminData $cgb_clist_child_order_desc Comment list child order.
- * @property-read OptionAdminData $cgb_clist_default_page Comment list default page.
- * @property-read OptionAdminData $cgb_clist_pagination Bread comments into pages.
- * @property-read OptionAdminData $cgb_clist_per_page Comments per page.
- * @property-read OptionAdminData $cgb_clist_num_pagination Numbered pagination.
- * @property-read OptionAdminData $cgb_clist_show_all Show all comments.
- * @property-read OptionAdminData $cgb_clist_title Title for the comment list.
- * @property-read OptionAdminData $cgb_clist_in_page_content Comment list in page content.
- * @property-read OptionAdminData $cgb_clist_styles Comment list styles.
- * @property-read OptionAdminData $cgb_clist_args Comment list args.
- * @property-read OptionAdminData $cgb_comment_adjust Comment adjustment.
- * @property-read OptionAdminData $cgb_comment_html Comment html code.
- * @property-read OptionAdminData $cgb_comment_callback Comment callback function.
- * @property-read OptionAdminData $cgb_cmessage_enabled Enable message.
- * @property-read OptionAdminData $cgb_cmessage_text New comment message text.
- * @property-read OptionAdminData $cgb_cmessage_type New comment message type.
- * @property-read OptionAdminData $cgb_cmessage_duration New comment message duration.
- * @property-read OptionAdminData $cgb_cmessage_styles New comment message styles.
- * @property-read OptionAdminData $cgb_page_cmessage_enabled Message after new comments in other pages/posts.
- * @property-read OptionAdminData $cgb_page_remove_mail Remove Email field in other pages/posts.
- * @property-read OptionAdminData $cgb_page_remove_website Remove Website field in other pages/posts.
+ * @property-read OptionAdminData $ignore_comments_open Guestbook comment status.
+ * @property-read OptionAdminData $ignore_comment_registration Guestbook comment registration.
+ * @property-read OptionAdminData $ignore_comment_moderation Guestbook comment moderation.
+ * @property-read OptionAdminData $adjust_output Comments ajdustment.
+ * @property-read OptionAdminData $l10n_domain Domain for translation.
+ * @property-read OptionAdminData $form_below_comments Form below comments.
+ * @property-read OptionAdminData $form_above_comments Form above comments.
+ * @property-read OptionAdminData $form_in_page Form in page/post.
+ * @property-read OptionAdminData $form_expand_type Collapsed comment form.
+ * @property-read OptionAdminData $form_expand_link_text Link text for form expansion.
+ * @property-read OptionAdminData $form_require_no_name_mail Comment author name/email.
+ * @property-read OptionAdminData $form_remove_mail Remove Email field.
+ * @property-read OptionAdminData $form_remove_website Remove website field.
+ * @property-read OptionAdminData $form_comment_label Label for comment field.
+ * @property-read OptionAdminData $form_title Comment form title.
+ * @property-read OptionAdminData $form_title_reply_to Reply comment form title.
+ * @property-read OptionAdminData $form_notes_before Notes before form fields.
+ * @property-read OptionAdminData $form_notes_after Notes after form fields.
+ * @property-read OptionAdminData $form_label_submit Label of submit button.
+ * @property-read OptionAdminData $form_cancel_reply Label for cancel reply link.
+ * @property-read OptionAdminData $form_must_login_message Must login message.
+ * @property-read OptionAdminData $form_styles Comment form styles.
+ * @property-read OptionAdminData $form_args Comment form args.
+ * @property-read OptionAdminData $clist_threaded Threaded guestbook comments.
+ * @property-read OptionAdminData $clist_order Comment list order.
+ * @property-read OptionAdminData $clist_child_order_desc Comment list child order.
+ * @property-read OptionAdminData $clist_default_page Comment list default page.
+ * @property-read OptionAdminData $clist_pagination Bread comments into pages.
+ * @property-read OptionAdminData $clist_per_page Comments per page.
+ * @property-read OptionAdminData $clist_num_pagination Numbered pagination.
+ * @property-read OptionAdminData $clist_show_all Show all comments.
+ * @property-read OptionAdminData $clist_title Title for the comment list.
+ * @property-read OptionAdminData $clist_in_page_content Comment list in page content.
+ * @property-read OptionAdminData $clist_styles Comment list styles.
+ * @property-read OptionAdminData $clist_args Comment list args.
+ * @property-read OptionAdminData $comment_adjust Comment adjustment.
+ * @property-read OptionAdminData $comment_html Comment html code.
+ * @property-read OptionAdminData $comment_callback Comment callback function.
+ * @property-read OptionAdminData $cmessage_enabled Enable message.
+ * @property-read OptionAdminData $cmessage_text New comment message text.
+ * @property-read OptionAdminData $cmessage_type New comment message type.
+ * @property-read OptionAdminData $cmessage_duration New comment message duration.
+ * @property-read OptionAdminData $cmessage_styles New comment message styles.
+ * @property-read OptionAdminData $page_cmessage_enabled Message after new comments in other pages/posts.
+ * @property-read OptionAdminData $page_remove_mail Remove Email field in other pages/posts.
+ * @property-read OptionAdminData $page_remove_website Remove Website field in other pages/posts.
  */
 final class ConfigAdminData {
 
@@ -722,6 +723,10 @@ final class ConfigAdminData {
 	 * @return OptionAdminData
 	 */
 	public function __get( $option_name ) {
+		// Set the prefix if required
+		if ( 'cgb_' !== substr( $option_name, 0, 4 ) ) {
+			$option_name = 'cgb_' . $option_name;
+		}
 		if ( isset( $this->config_data[ $option_name ] ) ) {
 			return $this->config_data[ $option_name ];
 		}

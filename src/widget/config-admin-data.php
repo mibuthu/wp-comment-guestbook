@@ -16,7 +16,6 @@ if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-require_once PLUGIN_PATH . 'includes/option.php';
 require_once PLUGIN_PATH . 'includes/option-admin-data.php';
 
 
@@ -25,22 +24,22 @@ require_once PLUGIN_PATH . 'includes/option-admin-data.php';
  *
  * This class provides all additional data for the arguments which is only required in the admin page.
  *
- * @property OptionAdminData $title The widget title
- * @property OptionAdminData $num_comments The number of comments
- * @property OptionAdminData $link_to_comment Add a link to the comment
- * @property OptionAdminData $show_data Show the comment date
- * @property OptionAdminData $date_format The date format
- * @property OptionAdminData $show_author Show the comment author
- * @property OptionAdminData $author_length Max display length of the comment author
- * @property OptionAdminData $show_page_title Show the page title
- * @property OptionAdminData $page_title_length The page title length
- * @property OptionAdminData $show_comment_text Show the comment text
- * @property OptionAdminData $comment_text_length The comment text length
- * @property OptionAdminData $url_to_page The URL of the guestbook page
- * @property OptionAdminData $gb_comments_only Show guestbook page comments only
- * @property OptionAdminData $hide_gb_page_title Hide the guestbook page title
- * @property OptionAdminData $link_to_page Add a link with the url to the guestbook page
- * @property OptionAdminData $link_to_page_caption The caption of the guestbook page link
+ * @property-read OptionAdminData $title The widget title
+ * @property-read OptionAdminData $num_comments The number of comments
+ * @property-read OptionAdminData $link_to_comment Add a link to the comment
+ * @property-read OptionAdminData $show_data Show the comment date
+ * @property-read OptionAdminData $date_format The date format
+ * @property-read OptionAdminData $show_author Show the comment author
+ * @property-read OptionAdminData $author_length Max display length of the comment author
+ * @property-read OptionAdminData $show_page_title Show the page title
+ * @property-read OptionAdminData $page_title_length The page title length
+ * @property-read OptionAdminData $show_comment_text Show the comment text
+ * @property-read OptionAdminData $comment_text_length The comment text length
+ * @property-read OptionAdminData $url_to_page The URL of the guestbook page
+ * @property-read OptionAdminData $gb_comments_only Show guestbook page comments only
+ * @property-read OptionAdminData $hide_gb_page_title Hide the guestbook page title
+ * @property-read OptionAdminData $link_to_page Add a link with the url to the guestbook page
+ * @property-read OptionAdminData $link_to_page_caption The caption of the guestbook page link
  */
 class ConfigAdminData {
 
@@ -252,7 +251,7 @@ class ConfigAdminData {
 	/**
 	 * Get the data for a given option
 	 *
-	 * @param string $name The name of the attribute
+	 * @param string $name The name of the option
 	 * @return OptionAdminData
 	 */
 	public function __get( $name ) {

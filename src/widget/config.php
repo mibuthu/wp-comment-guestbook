@@ -9,37 +9,35 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Widget;
 
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
+use WordPress\Plugins\mibuthu\CommentGuestbook\Option;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit();
 }
 
-use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
-use WordPress\Plugins\mibuthu\CommentGuestbook\Option;
-
-
 require_once PLUGIN_PATH . 'includes/option.php';
-
 
 
 /**
  * CommentGuestbook Widget arguments config class
  *
- * @property Option $title The widget title
- * @property Option $num_comments The number of comments
- * @property Option $link_to_comment Add a link to the comment
- * @property Option $show_data Show the comment date
- * @property Option $date_format The date format
- * @property Option $show_author Show the comment author
- * @property Option $author_length Max display length of the comment author
- * @property Option $show_page_title Show the page title
- * @property Option $page_title_length The page title length
- * @property Option $show_comment_text Show the comment text
- * @property Option $comment_text_length The comment text length
- * @property Option $url_to_page The URL of the guestbook page
- * @property Option $gb_comments_only Show guestbook page comments only
- * @property Option $hide_gb_page_title Hide the guestbook page title
- * @property Option $link_to_page Add a link with the url to the guestbook page
- * @property Option $link_to_page_caption The caption of the guestbook page link
+ * @property-read Option $title The widget title
+ * @property-read Option $num_comments The number of comments
+ * @property-read Option $link_to_comment Add a link to the comment
+ * @property-read Option $show_data Show the comment date
+ * @property-read Option $date_format The date format
+ * @property-read Option $show_author Show the comment author
+ * @property-read Option $author_length Max display length of the comment author
+ * @property-read Option $show_page_title Show the page title
+ * @property-read Option $page_title_length The page title length
+ * @property-read Option $show_comment_text Show the comment text
+ * @property-read Option $comment_text_length The comment text length
+ * @property-read Option $url_to_page The URL of the guestbook page
+ * @property-read Option $gb_comments_only Show guestbook page comments only
+ * @property-read Option $hide_gb_page_title Hide the guestbook page title
+ * @property-read Option $link_to_page Add a link with the url to the guestbook page
+ * @property-read Option $link_to_page_caption The caption of the guestbook page link
  */
 class Config {
 
@@ -87,8 +85,8 @@ class Config {
 	/**
 	 * Get the widget option
 	 *
-	 * @param string $name Argument name.
-	 * @return Option Argument value.
+	 * @param string $name Option name
+	 * @return Option
 	 */
 	public function __get( $name ) {
 		if ( isset( $this->options[ $name ] ) ) {

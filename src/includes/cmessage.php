@@ -82,8 +82,8 @@ class CMessage {
 	public function add_cmessage_indicator( $url ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$is_cgb_comment = isset( $_POST['is_cgb_comment'] ) ? (bool) intval( $_POST['is_cgb_comment'] ) : false;
-		if ( ( $this->config->page_cmessage_enabled->to_bool() && ! $is_cgb_comment )
-			|| ( $this->config->cmessage_enabled->to_bool() && $is_cgb_comment )
+		if ( ( $this->config->page_cmessage_enabled->is_true() && ! $is_cgb_comment )
+			|| ( $this->config->cmessage_enabled->is_true() && $is_cgb_comment )
 		) {
 			$url_array       = explode( '#', $url );
 			$query_delimiter = ( false !== strpos( $url_array[0], '?' ) ) ? '&' : '?';
@@ -101,10 +101,10 @@ class CMessage {
 	private function print_script_variables() {
 		echo '
 			<script type="text/javascript">
-				var cmessage_text = "' . wp_kses_post( $this->config->cmessage_text->to_str() ) . '";
-				var cmessage_type = "' . wp_kses_post( $this->config->cmessage_type->to_str() ) . '";
-				var cmessage_duration = ' . wp_kses_post( $this->config->cmessage_duration->to_str() ) . ';
-				var cmessage_styles = "' . wp_kses_post( str_replace( [ '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ], ' ', $this->config->cmessage_styles->to_str() ) ) . '";
+				var cmessage_text = "' . wp_kses_post( $this->config->cmessage_text->as_str() ) . '";
+				var cmessage_type = "' . wp_kses_post( $this->config->cmessage_type->as_str() ) . '";
+				var cmessage_duration = ' . wp_kses_post( $this->config->cmessage_duration->as_str() ) . ';
+				var cmessage_styles = "' . wp_kses_post( str_replace( [ '&#10;&#13;', "\r\n", '&#10;', '&#13;', "\r", "\n" ], ' ', $this->config->cmessage_styles->as_str() ) ) . '";
 			</script>';
 	}
 

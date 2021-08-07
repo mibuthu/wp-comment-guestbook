@@ -24,82 +24,105 @@ require_once PLUGIN_PATH . 'includes/option.php';
 /**
  * CommentGuestbook Widget arguments config class
  *
- * @property string $title The widget title
- * @property string $num_comments The number of comments
- * @property string $link_to_comment Add a link to the comment
- * @property string $show_data Show the comment date
- * @property string $date_format The date format
- * @property string $show_author Show the comment author
- * @property string $author_length Max display length of the comment author
- * @property string $show_page_title Show the page title
- * @property string $page_title_length The page title length
- * @property string $show_comment_text Show the comment text
- * @property string $comment_text_length The comment text length
- * @property string $url_to_page The URL of the guestbook page
- * @property string $gb_comments_only Show guestbook page comments only
- * @property string $hide_gb_page_title Hide the guestbook page title
- * @property string $link_to_page Add a link with the url to the guestbook page
- * @property string $link_to_page_caption The caption of the guestbook page link
+ * @property Option $title The widget title
+ * @property Option $num_comments The number of comments
+ * @property Option $link_to_comment Add a link to the comment
+ * @property Option $show_data Show the comment date
+ * @property Option $date_format The date format
+ * @property Option $show_author Show the comment author
+ * @property Option $author_length Max display length of the comment author
+ * @property Option $show_page_title Show the page title
+ * @property Option $page_title_length The page title length
+ * @property Option $show_comment_text Show the comment text
+ * @property Option $comment_text_length The comment text length
+ * @property Option $url_to_page The URL of the guestbook page
+ * @property Option $gb_comments_only Show guestbook page comments only
+ * @property Option $hide_gb_page_title Hide the guestbook page title
+ * @property Option $link_to_page Add a link with the url to the guestbook page
+ * @property Option $link_to_page_caption The caption of the guestbook page link
  */
 class Config {
 
 	/**
-	 * Widget Items
+	 * Widget Config Options
 	 *
 	 * @var array<string,Option>
 	 */
-	private $args;
+	private $options;
+
+	/**
+	 * Widget Config Admin Data
+	 *
+	 * @var ConfigAdminData
+	 */
+	public $admin_data = null;
 
 
 	/**
 	 * Class constructor which initializes required variables
 	 */
 	public function __construct() {
-		// Define all available args.
-		$this->args = [
-			'title'                => new Option( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => new Option( '5' ),
-			'link_to_comment'      => new Option( Option::FALSE, OPTION::BOOLEAN ),
-			'show_date'            => new Option( Option::FALSE, OPTION::BOOLEAN ),
-			'date_format'          => new Option( get_option( 'date_format' ) ),
-			'show_author'          => new Option( Option::TRUE, OPTION::BOOLEAN ),
-			'author_length'        => new Option( '18' ),
-			'show_page_title'      => new Option( Option::FALSE, OPTION::BOOLEAN ),
-			'page_title_length'    => new Option( '18' ),
-			'show_comment_text'    => new Option( Option::TRUE, OPTION::BOOLEAN ),
-			'comment_text_length'  => new Option( '25' ),
-			'url_to_page'          => new Option( '' ),
-			'gb_comments_only'     => new Option( Option::FALSE, OPTION::BOOLEAN ),
-			'hide_gb_page_title'   => new Option( Option::FALSE, OPTION::BOOLEAN ),
-			'link_to_page'         => new Option( Option::FALSE, OPTION::BOOLEAN ),
-			'link_to_page_caption' => new Option( __( 'goto guestbook page', 'comment-guestbook' ) ),
+		// Define all available options
+		$this->options = [
+			'title'                => Option::new( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
+			'num_comments'         => Option::new( '5' ),
+			'link_to_comment'      => Option::new_false(),
+			'show_date'            => Option::new_false(),
+			'date_format'          => Option::new( get_option( 'date_format' ) ),
+			'show_author'          => Option::new_true(),
+			'author_length'        => Option::new( '18' ),
+			'show_page_title'      => Option::new_false(),
+			'page_title_length'    => Option::new( '18' ),
+			'show_comment_text'    => Option::new_true(),
+			'comment_text_length'  => Option::new( '25' ),
+			'url_to_page'          => Option::new( '' ),
+			'gb_comments_only'     => Option::new_false(),
+			'hide_gb_page_title'   => Option::new_false(),
+			'link_to_page'         => Option::new_false(),
+			'link_to_page_caption' => Option::new( __( 'goto guestbook page', 'comment-guestbook' ) ),
 		];
 	}
 
 
 	/**
-	 * Get the value of the given arguments
+	 * Get the widget option
 	 *
 	 * @param string $name Argument name.
-	 * @return string|bool Argument value.
+	 * @return Option Argument value.
 	 */
 	public function __get( $name ) {
-		if ( isset( $this->args[ $name ] ) ) {
-			return $this->args[ $name ]->to_bool();
+		if ( isset( $this->options[ $name ] ) ) {
+			return $this->options[ $name ];
 		}
 		// Trigger error is allowed in this case.
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 		trigger_error( 'Widget argument "' . esc_attr( $name ) . '" does not exist!', E_USER_WARNING );
+		return Option::new( '' );
 	}
 
 
 	/**
-	 * Get all specified arguments
+	 * Get all widget options
 	 *
 	 * @return array<string,Option>
 	 */
 	public function get_all() {
-		return $this->args;
+		return $this->options;
+	}
+
+
+	/**
+	 * Set the values of a provided $instance array
+	 *
+	 * @param array<string,string> $instance The array including the values to set.
+	 * @return void Nothing to return.
+	 */
+	public function set_from_instance( $instance ) {
+		foreach ( $instance as $name => $value ) {
+			if ( isset( $this->options[ $name ] ) ) {
+				$this->options[ $name ]->value = $value;
+			}
+		}
 	}
 
 
@@ -110,10 +133,7 @@ class Config {
 	 */
 	public function load_args_admin_data() {
 		require_once PLUGIN_PATH . 'widget/config-admin-data.php';
-		$args_admin_data = new ConfigAdminData();
-		foreach ( array_keys( $this->args ) as $arg_name ) {
-			$this->args[ $arg_name ]->modify( $args_admin_data->$arg_name );
-		}
+		$this->admin_data = new ConfigAdminData();
 	}
 
 }

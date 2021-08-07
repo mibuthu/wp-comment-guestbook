@@ -81,93 +81,40 @@ class Widget extends \WP_Widget {
 			return '';
 		}
 
-		// Prepare html.
-		$out               = '';
-		$instance['title'] = apply_filters( 'widget_title', $instance['title'] );
-		$comment_args      = [
-			'number'      => absint( $instance['num_comments'] ),
-			'status'      => 'approve',
-			'post_status' => 'publish',
-		];
-		if ( 'true' === $instance['gb_comments_only'] ) {
-			$comment_args['post_id'] = url_to_postid( $instance['url_to_page'] );
-		}
-		$out .= $args['before_widget'];
-		if ( ! empty( $instance['title'] ) ) {
-			$out .= $args['before_title'] . $instance['title'] . $args['after_title'];
+		// Prepare args config
+		$this->args->set_from_instance( $instance );
+		unset( $instance );
+		$this->args->title->value = apply_filters( 'widget_title', $this->args->title->value );
+
+		// Get the comments
+		$comments = $this->get_comments();
+
+		// Prepare the output html
+		$out = $args['before_widget'];
+		if ( ! empty( $this->args->title ) ) {
+			$out .= $args['before_title'] . $this->args->title->as_str() . $args['after_title'];
 		}
 		// Create comment list and keep widget content out of google indexing.
 		$out .= '
-					<!--googleoff: all-->
-					<ul class="cgb-widget">';
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
+		<!--googleoff: all-->
+		<ul class="cgb-widget">';
 		if ( is_array( $comments ) && ! empty( $comments ) ) {
 			// Prime cache for associated posts. (Prime post term cache if we need it for permalinks.).
 			$post_ids          = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
 			$update_term_cache = strpos( get_option( 'permalink_structure' ), '%category%' ) !== false;
 			_prime_post_caches( $post_ids, $update_term_cache, false );
 			foreach ( $comments as $comment ) {
-				if ( ! $comment instanceof \WP_Comment ) {
-					continue;
-				}
-				$out .= '
-					<li class="cgb-widget-item">';
-				if ( 'true' === $instance['link_to_comment'] ) {
-					$out .= '<a href="' . $this->get_comment_link( $comment ) . '">';
-				}
-				if ( 'true' === $instance['show_date'] ) {
-					$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' .
-						esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( strval( $instance['date_format'] ), $comment ) . ' </span>';
-				}
-				if ( 'true' === $instance['show_author'] ) {
-					$out .= $this->truncate(
-						strval( $instance['author_length'] ),
-						get_comment_author( $comment ),
-						'span',
-						[
-							'class' => 'cgb-author',
-							'title' => __(
-								'Comment author',
-								'comment-guestbook'
-							) . ': ' . esc_attr( get_comment_author( $comment ) ),
-						]
-					);
-				}
-				if ( 'true' === $instance['show_page_title'] ) {
-					if ( 'true' !== $instance['hide_gb_page_title'] || url_to_postid( strval( $instance['url_to_page'] ) ) !== intval( $comment->comment_post_ID ) ) {
-						$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( intval( $comment->comment_post_ID ) ) ) . '">';
-						if ( 'true' === $instance['show_author'] ) {
-							$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';
-						}
-						$out .= $this->truncate( strval( $instance['page_title_length'] ), get_the_title( intval( $comment->comment_post_ID ) ) ) . '</span>';
-					}
-				}
-				if ( 'true' === $instance['link_to_comment'] ) {
-					$out .= '</a>';
-				}
-				if ( 'true' === $instance['show_comment_text'] ) {
-					$out .= $this->truncate(
-						strval( $instance['comment_text_length'] ),
-						get_comment_text( $comment ),
-						'div',
-						[
-							'class' => 'cgb-widget-text',
-							'title' => esc_attr( get_comment_text( $comment ) ),
-						]
-					);
-				}
-				$out .= '</li>';
+				$out .= $this->comment_html( $comment );
 			}
 		}
 		$out .= '
 				</ul>
 				<!--googleon: all>
 				';
-		if ( 'true' === $instance['link_to_page'] ) {
+		if ( $this->args->link_to_page->is_true() ) {
 			$out .= '
-				<div class="cgb-widget-pagelink" style="clear:both"><a title="' . esc_attr( strval( $instance['link_to_page_caption'] ) ) . '" href="' . $instance['url_to_page'] . '">' .
-					$instance['link_to_page_caption'] . '</a></div>
+				<div class="cgb-widget-pagelink" style="clear:both"><a title="' . esc_attr( $this->args->link_to_page_caption->as_str() ) . '" href="' . $this->args->url_to_page->as_str() . '">' .
+					$this->args->link_to_page_caption->as_str() . '</a></div>
 				';
 		}
 		$out .= $args['after_widget'];
@@ -191,8 +138,8 @@ class Widget extends \WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$this->args->load_args_admin_data();
 		$instance = [];
-		foreach ( $this->args->get_all() as $argname => $arg ) {
-			if ( 'checkbox' === $arg->type ) {
+		foreach ( array_keys( $this->args->get_all() ) as $argname ) {
+			if ( 'checkbox' === $this->args->admin_data->$argname->display_type ) {
 				$instance[ $argname ] = ( isset( $new_instance[ $argname ] ) && 1 === intval( $new_instance[ $argname ] ) ) ? 'true' : 'false';
 			} else { // 'text'
 				$instance[ $argname ] = wp_strip_all_tags( $new_instance[ $argname ] );
@@ -221,23 +168,24 @@ class Widget extends \WP_Widget {
 		echo '<p>' . esc_html__( 'For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.', 'comment-guestbook' ) . '</p>';
 		// Display the options.
 		foreach ( $this->args->get_all() as $argname => $arg ) {
+			$arg_admin_data = $this->args->admin_data->$argname;
 			if ( ! isset( $instance[ $argname ] ) ) {
 				$instance[ $argname ] = $arg->value;
 			}
-			$style_text = ( null === $arg->form_style ) ? '' : ' style="' . $arg->form_style . '"';
-			if ( 'checkbox' === $arg->type ) {
+			$style_text = ( null === $arg_admin_data->form_style ) ? '' : ' style="' . $arg_admin_data->form_style . '"';
+			if ( 'checkbox' === $arg_admin_data->display_type ) {
 				$checked_text = ( 'true' === $instance[ $argname ] || 1 === $instance[ $argname ] ) ? 'checked = "checked" ' : '';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg->tooltip ) . '">
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg_admin_data->tooltip ) . '">
 						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) . '" name="' . esc_attr( $this->get_field_name( $argname ) ) .
-							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $arg->caption ) . '</label>
+							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $arg_admin_data->caption ) . '</label>
 					</p>';
 			} else { // 'text'
-				$width_text         = ( null === $arg->form_width ) ? '' : 'style="width:' . $arg->form_width . 'px" ';
-				$caption_after_text = ( null === $arg->caption_after ) ? '' : '<label> ' . $arg->caption_after . '</label>';
+				$width_text         = ( null === $arg_admin_data->form_width ) ? '' : 'style="width:' . $arg_admin_data->form_width . 'px" ';
+				$caption_after_text = ( null === $arg_admin_data->caption_after ) ? '' : '<label> ' . $arg_admin_data->caption_after . '</label>';
 				echo '
-					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg->tooltip ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $argname ) ) . '">' . wp_kses_post( $arg->caption ) . ' </label>
+					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg_admin_data->tooltip ) . '">
+						<label for="' . esc_attr( $this->get_field_id( $argname ) ) . '">' . wp_kses_post( $arg_admin_data->caption ) . ' </label>
 						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) .
 							'" name="' . esc_attr( $this->get_field_name( $argname ) ) . '" type="text" value="' . esc_attr( $instance[ $argname ] ) . '" />' .
 							wp_kses_post( $caption_after_text ) . '
@@ -245,6 +193,88 @@ class Widget extends \WP_Widget {
 			}
 		}
 		return '';
+	}
+
+
+	/**
+	 * Get the comments
+	 *
+	 * @return \WP_Comment[]
+	 */
+	private function get_comments() {
+		$comment_args = [
+			'number'      => $this->args->num_comments->as_int(),
+			'status'      => 'approve',
+			'post_status' => 'publish',
+		];
+		if ( $this->args->gb_comments_only->is_true() ) {
+			$comment_args['post_id'] = url_to_postid( $this->args->url_to_page->as_str() );
+		}
+
+		$comments = get_comments( apply_filters( 'widget_comments_args', $comment_args ) );
+		if ( is_array( $comments ) ) {
+			return $comments;
+		} else {
+			return [];
+		}
+	}
+
+
+	/**
+	 * Get the comment html
+	 *
+	 * @param \WP_Comment $comment The comment object
+	 * @return string
+	 */
+	private function comment_html( $comment ) {
+		$out = '
+			<li class="cgb-widget-item">';
+		if ( $this->args->link_to_comment->is_true() ) {
+			$out .= '<a href="' . $this->get_comment_link( $comment ) . '">';
+		}
+		if ( $this->args->show_date->is_true() ) {
+			$out .= '<span class="cgb-date" title="' . __( 'Date of comment', 'comment-guestbook' ) . ': ' .
+				esc_attr( get_comment_date( '', $comment ) ) . '">' . get_comment_date( $this->args->date_format->as_str(), $comment ) . ' </span>';
+		}
+		if ( $this->args->show_author->is_true() ) {
+			$out .= $this->truncate(
+				$this->args->author_length->as_str(),
+				get_comment_author( $comment ),
+				'span',
+				[
+					'class' => 'cgb-author',
+					'title' => __(
+						'Comment author',
+						'comment-guestbook'
+					) . ': ' . esc_attr( get_comment_author( $comment ) ),
+				]
+			);
+		}
+		if ( $this->args->show_page_title->is_true() ) {
+			if ( $this->args->hide_gb_page_title->is_false() || url_to_postid( $this->args->url_to_page->as_str() ) !== intval( $comment->comment_post_ID ) ) {
+				$out .= '<span class="cgb-widget-title" title="' . __( 'Page of comment', 'comment-guestbook' ) . ': ' . esc_attr( get_the_title( intval( $comment->comment_post_ID ) ) ) . '">';
+				if ( $this->args->show_author->is_true() ) {
+					$out .= ' ' . __( 'in', 'comment-guestbook' ) . ' ';
+				}
+				$out .= $this->truncate( $this->args->page_title_length->as_int(), get_the_title( intval( $comment->comment_post_ID ) ) ) . '</span>';
+			}
+		}
+		if ( $this->args->link_to_comment->is_true() ) {
+			$out .= '</a>';
+		}
+		if ( $this->args->show_comment_text->is_true() ) {
+			$out .= $this->truncate(
+				$this->args->comment_text_length->as_int(),
+				get_comment_text( $comment ),
+				'div',
+				[
+					'class' => 'cgb-widget-text',
+					'title' => esc_attr( get_comment_text( $comment ) ),
+				]
+			);
+		}
+		$out .= '</li>';
+		return $out;
 	}
 
 
@@ -257,9 +287,9 @@ class Widget extends \WP_Widget {
 	 */
 	private function get_comment_link( $comment ) {
 		$link_args = [];
-		if ( $this->config->adjust_output->to_bool() ) {
+		if ( $this->config->adjust_output->is_true() ) {
 			if ( 0 !== get_option( 'page_comments' ) && 0 < get_option( 'comments_per_page' ) ) {
-				if ( 'desc' === $this->config->clist_order->to_str() || 'asc' === $this->config->clist_order->to_str() || $this->config->clist_show_all->to_bool() ) {
+				if ( 'desc' === $this->config->clist_order->as_str() || 'asc' === $this->config->clist_order->as_str() || $this->config->clist_show_all->is_true() ) {
 					$pattern = get_shortcode_regex();
 					// @phan-suppress-next-line PhanPossiblyUndeclaredProperty - no problem here.
 					if ( 0 < preg_match_all( '/' . $pattern . '/s', get_post( intval( $comment->comment_post_ID ) )->post_content, $matches )
@@ -268,9 +298,9 @@ class Widget extends \WP_Widget {
 						// Shortcode is being used in that page or post.
 						$args = [
 							'status' => 'approve',
-							'order'  => $this->config->clist_order->to_str(),
+							'order'  => $this->config->clist_order->as_str(),
 						];
-						if ( ! $this->config->clist_show_all->to_bool() ) {
+						if ( $this->config->clist_show_all->is_false() ) {
 							$args['post_id'] = $comment->comment_post_ID;
 						}
 						$comments          = get_comments( $args );

@@ -22,18 +22,26 @@ if ( ! defined( 'WPINC' ) ) {
 class Option {
 
 	/**
-	 * Actual or default value
+	 * Actual value as string
 	 *
 	 * @var string
 	 */
 	public $value;
 
+	/** Default value
+	 *
+	 * @var string
+	 */
+	public $default_value;
+
 	/**
 	 * Permitted values
 	 *
-	 * @var string|array
+	 * An array of all allowed values as key, the value is the help text description
+	 *
+	 * @var string[]
 	 */
-	public $permitted_values = '';
+	public $permitted_values = null;
 
 	/**
 	 * Section
@@ -43,176 +51,142 @@ class Option {
 	public $section = '';
 
 	/**
-	 * Type
+	 * The boolean TRUE value
 	 *
 	 * @var string
-	 */
-	public $type = '';
-
-	/**
-	 * Label
-	 *
-	 * @var string
-	 */
-	public $label = '';
-
-	/**
-	 * Caption
-	 *
-	 * @var string
-	 */
-	public $caption = '';
-
-	/**
-	 * Captions
-	 *
-	 * @var string[]
-	 */
-	public $captions = [];
-
-	/**
-	 * Caption after widget
-	 *
-	 * @var null|string
-	 */
-	public $caption_after = '';
-
-	/**
-	 * Description
-	 *
-	 * @var string
-	 */
-	public $description = '';
-
-	/**
-	 * Tooltip
-	 *
-	 * @var string
-	 */
-	public $tooltip = '';
-
-	/**
-	 * Number of rows in textarea
-	 *
-	 * @var null|int
-	 */
-	public $rows = null;
-
-	/**
-	 * Value range in number field
-	 *
-	 * @var array<string,int>
-	 */
-	public $range = [];
-
-	/**
-	 * Form styles
-	 *
-	 * @var null|string
-	 */
-	public $form_style = null;
-
-	/**
-	 * Form width
-	 *
-	 * @var null|string
-	 */
-	public $form_width = null;
-
-	/**
-	 * The boolean TRUE value option
-	 *
-	 * @var string[]
 	 */
 	const TRUE = 'true';
 
 	/**
-	 * The boolean FALSE value option
+	 * The boolean FALSE value
 	 *
-	 * @var string[]
+	 * @var string
 	 */
 	const FALSE = 'false';
 
-	/**
-	 * The boolean value options
+	/** The permitted boolean value options
 	 *
 	 * @var string[]
 	 */
-	const BOOLEAN = [ self::TRUE, self::FALSE ];
+	const BOOLEAN = [
+		self::TRUE,
+		self::FALSE,
+	];
 
 	/**
-	 * The boolean TRUE value option
+	 * The boolean TRUE value as a number
 	 *
-	 * @var string[]
+	 * @var string
 	 */
 	const TRUE_NUM = '1';
 
 	/**
-	 * The boolean FALSE value option
+	 * The boolean FALSE value as a number
 	 *
-	 * @var string[]
+	 * @var string
 	 */
 	const FALSE_NUM = '';
 
-	/**
-	 * The boolean value options
+	/** The permitted boolean value options as a number
 	 *
-	 * @var string[]
+	 * @var array<string,string>
 	 */
-	const BOOLEAN_NUM = [ self::TRUE_NUM, self::FALSE_NUM ];
+	const BOOLEAN_NUM = [
+		self::TRUE_NUM,
+		self::FALSE_NUM,
+	];
 
 
 	/**
-	 * Class constructor which sets the required variables
+	 * Default class constructor
 	 *
-	 * @param string            $default_value Standard value for the option.
-	 * @param null|string|array $permitted_values Available values for the option (optional).
-	 * @param null|string       $section Section of the option (optional).
+	 * @param string $default_value The default value of the option
 	 * @return void
 	 */
-	public function __construct( $default_value, $permitted_values = null, $section = null ) {
-		$this->value = $default_value;
-		if ( ! is_null( $permitted_values ) ) {
-			$this->permitted_values = $permitted_values;
-		}
-		if ( ! is_null( $section ) ) {
-			$this->section = $section;
-		}
+	private function __construct( $default_value ) {
+		$this->default_value = $default_value;
+		$this->value         = $default_value;
 	}
 
 
 	/**
-	 * Modify several fields at once with the values given in an array
+	 * Create a new option with a given default value.
 	 *
-	 * @param array<string,string> $option_fields Fields with values to modify.
-	 * @return void
+	 * @param string $default_value The default value of the option
+	 * @param string $section The section of the option (optional)
+	 * @return static
 	 */
-	public function modify( $option_fields ) {
-		foreach ( $option_fields as $field_name => $field_value ) {
-			if ( property_exists( $this, $field_name ) ) {
-				$this->$field_name = $field_value;
-			} else {
-				// Trigger error is allowed in this case.
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
-				trigger_error( 'The requested field name "' . esc_attr( $field_name ) . '" does not exist!', E_USER_WARNING );
-			}
-		}
+	public static function new( $default_value, $section = null ) {
+		$option          = new static( $default_value );
+		$option->section = $section;
+		return $option;
 	}
 
 
 	/**
-	 * Return the option value as boolean
+	 * Create a new boolean option with default value true.
 	 *
-	 * @return bool
+	 * @param string $section The section of the option (optional)
+	 * @return static
 	 */
-	public function to_bool() {
-		if ( $this->is_true() ) {
-			return true;
-		}
-		if ( $this->is_false() ) {
-			return false;
-		}
-		return boolval( $this->value );
+	public static function new_true( $section = '' ) {
+		$option                   = new static( static::TRUE );
+		$option->permitted_values = static::BOOLEAN;
+		$option->section          = $section;
+		return $option;
+	}
+
+
+	/**
+	 * Create a new boolean option with default value false.
+	 *
+	 * @param string $section The section of the option (optional)
+	 * @return static
+	 */
+	public static function new_false( $section = '' ) {
+		$option                   = new static( static::FALSE );
+		$option->permitted_values = static::BOOLEAN;
+		$option->section          = $section;
+		return $option;
+	}
+
+
+	/**
+	 * Create a new boolean option as a number with default value true.
+	 *
+	 * @param string $section The section of the option (optional)
+	 * @return static
+	 */
+	public static function new_true_num( $section = '' ) {
+		$option                   = new static( static::TRUE_NUM );
+		$option->permitted_values = static::BOOLEAN_NUM;
+		$option->section          = $section;
+		return $option;
+	}
+
+
+	/**
+	 * Create a new boolean option as a number with default value false.
+	 *
+	 * @param string $section The section of the option (optional)
+	 * @return static
+	 */
+	public static function new_false_num( $section = '' ) {
+		$option                   = new static( static::FALSE_NUM );
+		$option->permitted_values = static::BOOLEAN_NUM;
+		$option->section          = $section;
+		return $option;
+	}
+
+
+	/**
+	 * Return the option value as string
+	 * This is a alternative way to get the value directly via $option->value.
+	 *
+	 * @return string
+	 */
+	public function as_str() {
+		return $this->value;
 	}
 
 
@@ -221,13 +195,15 @@ class Option {
 	 *
 	 * @return int
 	 */
-	public function to_int() {
-		if ( $this->is_true() ) {
+	public function as_int() {
+		// Boolean values
+		if ( $this->is_boolean_true() ) {
 			return 1;
 		}
-		if ( $this->is_false() ) {
+		if ( $this->is_boolean_false() ) {
 			return 0;
 		}
+		// All other types
 		return intval( $this->value );
 	}
 
@@ -237,11 +213,11 @@ class Option {
 	 *
 	 * @return float
 	 */
-	public function to_float() {
-		if ( $this->is_true() ) {
+	public function as_float() {
+		if ( $this->is_boolean_true() ) {
 			return 1.0;
 		}
-		if ( $this->is_false() ) {
+		if ( $this->is_boolean_false() ) {
 			return 0.0;
 		}
 		return floatval( $this->value );
@@ -249,31 +225,47 @@ class Option {
 
 
 	/**
-	 * Return the option value as string
+	 * Return if the option value is true
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	public function to_str() {
-		return strval( $this->value );
+	public function is_true() {
+		if ( $this->is_boolean_true() ) {
+			return true;
+		}
+		if ( $this->is_boolean_false() ) {
+			return false;
+		}
+		return boolval( $this->value );
 	}
 
 
 	/**
-	 * Return if the option is a boolean true value
+	 * Return if the option value is false
 	 *
 	 * @return bool
 	 */
-	private function is_true() {
+	public function is_false() {
+		return ! $this->is_true();
+	}
+
+
+	/**
+	 * Return if the option is true
+	 *
+	 * @return bool
+	 */
+	private function is_boolean_true() {
 		return in_array( $this->value, [ self::TRUE, self::TRUE_NUM ], true );
 	}
 
 
 	/**
-	 * Return if the option is a boolean false value
+	 * Return if the option is false
 	 *
 	 * @return bool
 	 */
-	private function is_false() {
+	private function is_boolean_false() {
 		return in_array( $this->value, [ self::FALSE, self::FALSE_NUM ], true );
 	}
 

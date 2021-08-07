@@ -58,7 +58,7 @@ class Settings {
 		// Define the tab to display.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';  // @phan-suppress-current-line PhanPartialTypeMismatchArgument
-		if ( ! isset( $this->config->sections[ $tab ] ) ) {
+		if ( ! isset( $this->config->admin_data->sections[ $tab ] ) ) {
 			$tab = 'general';
 		}
 		// Show config options.
@@ -94,7 +94,7 @@ class Settings {
 	 */
 	private function show_sections( $current = 'general' ) {
 		echo '<h3 class="nav-tab-wrapper">';
-		foreach ( $this->config->sections as $tabname => $tab ) {
+		foreach ( $this->config->admin_data->sections as $tabname => $tab ) {
 			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
 			echo wp_kses_post(
 				'
@@ -106,11 +106,11 @@ class Settings {
 					],
 					admin_url( 'options-general.php' )
 				) .
-				'">' . $tab['caption'] . '</a>'
+				'">' . $tab->caption . '</a>'
 			);
 		}
 		echo '</h3>
-				<div class="section-desc">' . wp_kses_post( strval( $this->config->sections[ $current ]['description'] ) ) . '</div>';
+				<div class="section-desc">' . wp_kses_post( strval( $this->config->admin_data->sections[ $current ]->description ) ) . '</div>';
 	}
 
 
@@ -126,33 +126,38 @@ class Settings {
 		if ( 'comment_html' === $section ) {
 			$desc_new_line = true;
 		}
-		foreach ( $this->config->options as $oname => $o ) {
+		foreach ( $this->config->get_all() as $oname => $o ) {
+			$admin_data = $this->config->admin_data->$oname;
 			if ( $o->section === $section ) {
 				echo '
 						<tr style="vertical-align:top;">
 							<th>';
-				if ( ! empty( $o->label ) ) {
-					echo '<label for="' . esc_attr( $oname ) . '">' . esc_html( $o->label ) . ':</label>';
+				if ( ! empty( $admin_data->label ) ) {
+					echo '<label for="' . esc_attr( $oname ) . '">' . esc_html( $admin_data->label ) . ':</label>';
 				}
 				echo '</th>
 						<td>';
-				switch ( $o->type ) {
+				switch ( $admin_data->display_type ) {
 					case 'checkbox':
-						$this->show_checkbox( $oname, $this->config->$oname->to_str(), $o->caption );
+						$this->show_checkbox( $oname, $this->config->$oname->as_str(), $admin_data->caption );
 						break;
 					case 'radio':
-						$this->show_radio( $oname, $this->config->$oname->to_str(), $o->captions );
+						$this->show_radio( $oname, $this->config->$oname->as_str(), $admin_data->permitted_values );
 						break;
 					case 'number':
-						$this->show_number( $oname, $this->config->$oname->to_str(), $o->range );
+						$this->show_number( $oname, $this->config->$oname->as_str(), $admin_data->range );
 						break;
 					case 'text':
-						$this->show_text( $oname, $this->config->$oname->to_str() );
+						$this->show_text( $oname, $this->config->$oname->as_str() );
 						break;
 					case 'textarea':
 						// @phan-suppress-next-line PhanPluginDuplicateConditionalNullCoalescing -- Required due to PHP 5.6 support.
-						$this->show_textarea( $oname, $this->config->$oname->to_str(), ( isset( $o->rows ) ? $o->rows : null ) );
+						$this->show_textarea( $oname, $this->config->$oname->as_str(), ( isset( $admin_data->rows ) ? $admin_data->rows : null ) );
 						break;
+					default:
+						// Trigger error is allowed in this case.
+						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+						trigger_error( 'Unknown display type "' . esc_html( $admin_data->display_type ) . '" provided for option "' . esc_html( $oname ) . '"!', E_USER_WARNING );
 				}
 				echo '
 						</td>';
@@ -163,7 +168,7 @@ class Settings {
 						<td></td>';
 				}
 				echo '
-						<td class="description">' . wp_kses_post( $o->description ) . '</td>
+						<td class="description">' . wp_kses_post( $admin_data->description ) . '</td>
 					</tr>';
 			}
 		}
@@ -196,18 +201,18 @@ class Settings {
 	 *
 	 * @param string               $name The name of the option.
 	 * @param string               $value The value of the option.
-	 * @param array<string,string> $captions The captions of the option.
+	 * @param array<string,string> $permitted_values The permitted values [name => description] of the option.
 	 * @return void
 	 */
-	private function show_radio( $name, $value, $captions ) {
+	private function show_radio( $name, $value, $permitted_values ) {
 		echo '
 							<fieldset>';
-		foreach ( $captions as $okey => $ocaption ) {
-			$checked = ( $value === $okey ) ? 'checked="checked" ' : '';
+		foreach ( $permitted_values as $vname => $vdescription ) {
+			$checked = ( $value === $vname ) ? 'checked="checked" ' : '';
 			echo '
-								<label title="' . esc_attr( $ocaption ) . '">
-									<input type="radio" ' . esc_html( $checked ) . 'value="' . esc_attr( $okey ) . '" name="' . esc_attr( $name ) . '">
-									<span>' . esc_html( $ocaption ) . '</span>
+								<label title="' . esc_attr( $vdescription ) . '">
+									<input type="radio" ' . esc_html( $checked ) . 'value="' . esc_attr( $vname ) . '" name="' . esc_attr( $name ) . '">
+									<span>' . esc_html( $vdescription ) . '</span>
 								</label>
 								<br />';
 		}

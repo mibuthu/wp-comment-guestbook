@@ -237,49 +237,6 @@ final class Config {
 
 
 	/**
-	 * Upgrades renamed or modified options to the actual version
-	 *
-	 * Version 0.7.3 to 0.7.4:
-	 *   cgb_threaded_gb_comments -> cgb_clist_threaded
-	 *   cgb_add_cmessage -> cgb_cmessage_enabled
-	 *   cgb_page_add_cmessage -> cgb_page_cmessage_enabled
-	 *   cgb_form_title_reply -> cgb_form_title
-	 *   cgb_clist_child_order (radio) -> cgb_clist_child_order_desc (checkbox)
-	 *
-	 * @return void
-	 */
-	public function version_upgrade() {
-		$value = get_option( 'cgb_threaded_gb_comments', null );
-		if ( null !== $value ) {
-			add_option( 'cgb_clist_threaded', $value );
-			delete_option( 'cgb_threaded_gb_comments' );
-		}
-		$value = get_option( 'cgb_add_cmessage', null );
-		if ( null !== $value ) {
-			add_option( 'cgb_cmessage_enabled', $value );
-			delete_option( 'cgb_add_cmessage' );
-		}
-		$value = get_option( 'cgb_page_add_cmessage', null );
-		if ( null !== $value ) {
-			add_option( 'cgb_page_cmessage_enabled', $value );
-			delete_option( 'cgb_page_add_cmessage' );
-		}
-		$value = get_option( 'cgb_form_title_reply', null );
-		if ( null !== $value ) {
-			add_option( 'cgb_form_title', $value );
-			delete_option( 'cgb_form_title_reply' );
-		}
-		$value = get_option( 'cgb_clist_child_order, null' );
-		if ( null !== $value ) {
-			if ( 'desc' === $value ) {
-				add_option( 'cgb_clist_child_order_desc', 1 );
-			}
-			delete_option( 'cgb_clist_child_order' );
-		}
-	}
-
-
-	/**
 	 * Returns the default value for the comment_callback option
 	 *
 	 * @return string
@@ -341,6 +298,43 @@ final class Config {
 	public function load_admin_data() {
 		require_once PLUGIN_PATH . 'includes/config-admin-data.php';
 		$this->admin_data = new ConfigAdminData();
+	}
+
+
+	/**
+	 * Upgrades renamed or modified options to the actual version
+	 *
+	 * Version 0.7.3 to 0.7.4:
+	 *   cgb_threaded_gb_comments -> cgb_clist_threaded
+	 *   cgb_add_cmessage -> cgb_cmessage_enabled
+	 *   cgb_page_add_cmessage -> cgb_page_cmessage_enabled
+	 *   cgb_form_title_reply -> cgb_form_title
+	 *   cgb_clist_child_order (radio) -> cgb_clist_child_order_desc (checkbox)
+	 *
+	 * @return void
+	 */
+	public function version_upgrade() {
+		$this->rename_option( 'cgb_threaded_gb_comments', 'cgb_clist_threaded' );
+		$this->rename_option( 'cgb_add_cmessage', 'cgb_cmessage_enabled' );
+		$this->rename_option( 'cgb_page_add_cmessage', 'cgb_page_cmessage_enabled' );
+		$this->rename_option( 'cgb_form_title_reply', 'cgb_form_title' );
+		$this->rename_option( 'cgb_clist_child_order', 'cgb_clist_child_order_desc' );
+	}
+
+
+	/**
+	 * Rename an existing option
+	 *
+	 * @param string $old_name The old option name.
+	 * @param string $new_name The new option name.
+	 * @return void
+	 */
+	private function rename_option( $old_name, $new_name ) {
+		$value = get_option( $old_name, null );
+		if ( null !== $value ) {
+			add_option( $new_name, $value );
+			delete_option( $old_name );
+		}
 	}
 
 }

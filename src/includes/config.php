@@ -193,10 +193,9 @@ final class Config {
 	 * Get the option
 	 *
 	 * The "cgb_" prefix in the option name is optional.
-	 * If the option is of type boolean, a boolean value will be returned.
 	 *
-	 * @param string $name Option name.
-	 * @return Option Option value.
+	 * @param string $name Option name
+	 * @return Option
 	 */
 	public function __get( $name ) {
 		// Set the prefix if required
@@ -212,16 +211,16 @@ final class Config {
 		}
 		// Load the option if not already loaded
 		if ( ! in_array( $name, $this->loaded_options, true ) ) {
-			// Execute callback, if a function is used to set the value.
 			if ( '--func--' === substr( $this->options[ $name ]->default_value, 0, 8 ) ) {
+				// Execute the callback function
 				$this->options[ $name ]->value = call_user_func( [ __CLASS__, substr( $this->options[ $name ]->default_value, 8 ) ] );
 			} else {
+				// Get the option value
 				$this->options[ $name ]->value = get_option( $name, $this->options[ $name ]->default_value );
 			}
 			// Set option as loaded
 			$this->loaded_options[] = $name;
 		}
-		// Return the option
 		return $this->options[ $name ];
 	}
 

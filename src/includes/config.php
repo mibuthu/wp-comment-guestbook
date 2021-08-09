@@ -295,8 +295,10 @@ final class Config {
 	 * @return void
 	 */
 	public function load_admin_data() {
-		require_once PLUGIN_PATH . 'includes/config-admin-data.php';
-		$this->admin_data = new ConfigAdminData();
+		if ( is_null( $this->admin_data ) ) {
+			require_once PLUGIN_PATH . 'includes/config-admin-data.php';
+			$this->admin_data = new ConfigAdminData();
+		}
 	}
 
 

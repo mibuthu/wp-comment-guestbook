@@ -112,8 +112,8 @@ class Config {
 	/**
 	 * Set the values of a provided $instance array
 	 *
-	 * @param array<string,string> $instance The array including the values to set.
-	 * @return void Nothing to return.
+	 * @param array<string,string> $instance The array including the values to set
+	 * @return void
 	 */
 	public function set_from_instance( $instance ) {
 		foreach ( $instance as $name => $value ) {
@@ -130,8 +130,10 @@ class Config {
 	 * @return void
 	 */
 	public function load_args_admin_data() {
-		require_once PLUGIN_PATH . 'widget/config-admin-data.php';
-		$this->admin_data = new ConfigAdminData();
+		if ( is_null( $this->admin_data ) ) {
+			require_once PLUGIN_PATH . 'widget/config-admin-data.php';
+			$this->admin_data = new ConfigAdminData();
+		}
 	}
 
 }

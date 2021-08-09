@@ -105,16 +105,16 @@ class OptionAdminData {
 	/**
 	 * Form styles
 	 *
-	 * @var null|string
+	 * @var string
 	 */
-	public $form_style = null;
+	public $form_style = '';
 
 	/**
 	 * Form width
 	 *
-	 * @var null|string
+	 * @var string
 	 */
-	public $form_width = null;
+	public $form_width = '';
 
 
 	/**

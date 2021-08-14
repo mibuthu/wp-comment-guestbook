@@ -116,49 +116,49 @@ final class Config {
 			'cgb_ignore_comment_registration' => Option::new_true_num( 'general' ),
 			'cgb_ignore_comment_moderation'   => Option::new_false_num( 'general' ),
 			'cgb_adjust_output'               => Option::new_false_num( 'general' ),
-			'cgb_l10n_domain'                 => Option::new( 'default', 'general' ),
+			'cgb_l10n_domain'                 => Option::new_( 'default', 'general' ),
 			// Comment form.
 			'cgb_form_below_comments'         => Option::new_false_num( 'comment_form' ),
 			'cgb_form_above_comments'         => Option::new_false_num( 'comment_form' ),
 			'cgb_form_in_page'                => Option::new_true_num( 'comment_form' ),
 			'cgb_form_expand_type'            => Option::new_false( 'comment_form' ),
-			'cgb_form_expand_link_text'       => Option::new( __( 'Add a new guestbook entry', 'comment-guestbook' ), 'comment_form' ),
+			'cgb_form_expand_link_text'       => Option::new_( __( 'Add a new guestbook entry', 'comment-guestbook' ), 'comment_form' ),
 			'cgb_form_require_no_name_mail'   => Option::new_false_num( 'comment_form' ),
 			'cgb_form_remove_mail'            => Option::new_false_num( 'comment_form' ),
 			'cgb_form_remove_website'         => Option::new_false_num( 'comment_form' ),
-			'cgb_form_comment_label'          => Option::new( 'default', 'comment_form' ),
-			'cgb_form_title'                  => Option::new( 'default', 'comment_form' ),
-			'cgb_form_title_reply_to'         => Option::new( 'default', 'comment_form' ),
-			'cgb_form_notes_before'           => Option::new( 'default', 'comment_form' ),
-			'cgb_form_notes_after'            => Option::new( 'default', 'comment_form' ),
-			'cgb_form_label_submit'           => Option::new( 'default', 'comment_form' ),
-			'cgb_form_cancel_reply'           => Option::new( 'default', 'comment_form' ),
-			'cgb_form_must_login_message'     => Option::new( 'default', 'comment_form' ),
-			'cgb_form_styles'                 => Option::new( '', 'comment_form' ),
-			'cgb_form_args'                   => Option::new( '', 'comment_form' ),
+			'cgb_form_comment_label'          => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_title'                  => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_title_reply_to'         => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_notes_before'           => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_notes_after'            => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_label_submit'           => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_cancel_reply'           => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_must_login_message'     => Option::new_( 'default', 'comment_form' ),
+			'cgb_form_styles'                 => Option::new_( '', 'comment_form' ),
+			'cgb_form_args'                   => Option::new_( '', 'comment_form' ),
 			// Comment list.value
-			'cgb_clist_threaded'              => Option::new( 'default', 'comment_list' ),
-			'cgb_clist_order'                 => Option::new( 'default', 'comment_list' ),
-			'cgb_clist_child_order_desc'      => Option::new( '', 'comment_list' ),
-			'cgb_clist_default_page'          => Option::new( 'default', 'comment_list' ),
-			'cgb_clist_pagination'            => Option::new( 'default', 'comment_list' ),
-			'cgb_clist_per_page'              => Option::new( '0', 'comment_list' ),
+			'cgb_clist_threaded'              => Option::new_( 'default', 'comment_list' ),
+			'cgb_clist_order'                 => Option::new_( 'default', 'comment_list' ),
+			'cgb_clist_child_order_desc'      => Option::new_( '', 'comment_list' ),
+			'cgb_clist_default_page'          => Option::new_( 'default', 'comment_list' ),
+			'cgb_clist_pagination'            => Option::new_( 'default', 'comment_list' ),
+			'cgb_clist_per_page'              => Option::new_( '0', 'comment_list' ),
 			'cgb_clist_num_pagination'        => Option::new_false_num( 'comment_list' ),
 			'cgb_clist_show_all'              => Option::new_false_num( 'comment_list' ),
-			'cgb_clist_title'                 => Option::new( '', 'comment_list' ),
+			'cgb_clist_title'                 => Option::new_( '', 'comment_list' ),
 			'cgb_clist_in_page_content'       => Option::new_false_num( 'comment_list' ),
-			'cgb_clist_styles'                => Option::new( '', 'comment_list' ),
-			'cgb_clist_args'                  => Option::new( '', 'comment_list' ),
+			'cgb_clist_styles'                => Option::new_( '', 'comment_list' ),
+			'cgb_clist_args'                  => Option::new_( '', 'comment_list' ),
 			// Comment html code.
 			'cgb_comment_adjust'              => Option::new_false_num( 'comment_html' ),
-			'cgb_comment_html'                => Option::new( '--func--comment_html', 'comment_html' ),
-			'cgb_comment_callback'            => Option::new( '--func--comment_callback', 'comment_html' ),
+			'cgb_comment_html'                => Option::new_( '--func--comment_html', 'comment_html' ),
+			'cgb_comment_callback'            => Option::new_( '--func--comment_callback', 'comment_html' ),
 			// Message after new comment.
 			'cgb_cmessage_enabled'            => Option::new_false_num( 'cmessage' ),
-			'cgb_cmessage_text'               => Option::new( __( 'Thanks for your comment', 'comment-guestbook' ), 'cmessage' ),
-			'cgb_cmessage_type'               => Option::new( 'inline', 'cmessage' ),
-			'cgb_cmessage_duration'           => Option::new( '3000', 'cmessage' ),
-			'cgb_cmessage_styles'             => Option::new(
+			'cgb_cmessage_text'               => Option::new_( __( 'Thanks for your comment', 'comment-guestbook' ), 'cmessage' ),
+			'cgb_cmessage_type'               => Option::new_( 'inline', 'cmessage' ),
+			'cgb_cmessage_duration'           => Option::new_( '3000', 'cmessage' ),
+			'cgb_cmessage_styles'             => Option::new_(
 				'background-color:rgb(255, 255, 224);' .
 				'&#10;border-color:rgb(230, 219, 85);' .
 				'&#10;color:rgb(51, 51, 51);' .
@@ -207,7 +207,7 @@ final class Config {
 			// Trigger error is allowed in this case.
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 			trigger_error( 'The requested option "' . esc_attr( $name ) . '" does not exist!', E_USER_WARNING );
-			return Option::new( '' );
+			return Option::new_( '' );
 		}
 		// Load the option if not already loaded
 		if ( ! in_array( $name, $this->loaded_options, true ) ) {

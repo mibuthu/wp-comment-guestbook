@@ -115,7 +115,7 @@ class Option {
 	 * @param string $section The section of the option (optional)
 	 * @return static
 	 */
-	public static function new( $default_value, $section = null ) {
+	public static function new_( $default_value, $section = null ) {
 		$option          = new static( $default_value );
 		$option->section = $section;
 		return $option;

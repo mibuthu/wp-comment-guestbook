@@ -62,22 +62,22 @@ class Config {
 	public function __construct() {
 		// Define all available options
 		$this->options = [
-			'title'                => Option::new( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
-			'num_comments'         => Option::new( '5' ),
+			'title'                => Option::new_( __( 'Recent guestbook entries', 'comment-guestbook' ) ),
+			'num_comments'         => Option::new_( '5' ),
 			'link_to_comment'      => Option::new_false(),
 			'show_date'            => Option::new_false(),
-			'date_format'          => Option::new( get_option( 'date_format' ) ),
+			'date_format'          => Option::new_( get_option( 'date_format' ) ),
 			'show_author'          => Option::new_true(),
-			'author_length'        => Option::new( '18' ),
+			'author_length'        => Option::new_( '18' ),
 			'show_page_title'      => Option::new_false(),
-			'page_title_length'    => Option::new( '18' ),
+			'page_title_length'    => Option::new_( '18' ),
 			'show_comment_text'    => Option::new_true(),
-			'comment_text_length'  => Option::new( '25' ),
-			'url_to_page'          => Option::new( '' ),
+			'comment_text_length'  => Option::new_( '25' ),
+			'url_to_page'          => Option::new_( '' ),
 			'gb_comments_only'     => Option::new_false(),
 			'hide_gb_page_title'   => Option::new_false(),
 			'link_to_page'         => Option::new_false(),
-			'link_to_page_caption' => Option::new( __( 'goto guestbook page', 'comment-guestbook' ) ),
+			'link_to_page_caption' => Option::new_( __( 'goto guestbook page', 'comment-guestbook' ) ),
 		];
 	}
 
@@ -95,7 +95,7 @@ class Config {
 		// Trigger error is allowed in this case.
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 		trigger_error( 'Widget argument "' . esc_attr( $name ) . '" does not exist!', E_USER_WARNING );
-		return Option::new( '' );
+		return Option::new_( '' );
 	}
 
 

@@ -5,6 +5,8 @@
  * @package comment-guestbook
  */
 
+// cspell:ignore themename twentyeleven
+
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook;
@@ -24,7 +26,7 @@ require_once PLUGIN_PATH . 'includes/option-admin-data.php';
  * @property-read OptionAdminData $ignore_comments_open Guestbook comment status.
  * @property-read OptionAdminData $ignore_comment_registration Guestbook comment registration.
  * @property-read OptionAdminData $ignore_comment_moderation Guestbook comment moderation.
- * @property-read OptionAdminData $adjust_output Comments ajdustment.
+ * @property-read OptionAdminData $adjust_output Comments adjustment.
  * @property-read OptionAdminData $l10n_domain Domain for translation.
  * @property-read OptionAdminData $form_below_comments Form below comments.
  * @property-read OptionAdminData $form_above_comments Form above comments.
@@ -314,10 +316,10 @@ final class ConfigAdminData {
 					'label'       => __( 'Comment form args', 'comment-guestbook' ),
 					'description' =>
 						__( 'With this option you can specify args for the comment form.', 'comment-guestbook' ) . '<br />' .
-						__( 'This can be required because some themes change the comment form styling direcly with args.', 'comment-guestbook' ) . '<br />' .
+						__( 'This can be required because some themes change the comment form styling directly with args.', 'comment-guestbook' ) . '<br />' .
 						__( 'With this option you can insert these specific args for the guestbook form.', 'comment-guestbook' ) . '<br />' .
 						sprintf(
-							__( 'A list of all available args and there discription can be found in the %1$s.', 'comment-guestbook' ),
+							__( 'A list of all available args and there description can be found in the %1$s.', 'comment-guestbook' ),
 							'<a href="https://developer.wordpress.org/reference/functions/comment_form/#parameters">WordPress Code Reference</a>'
 						) . '<br />' .
 						__( 'The given text must be valid php array, e.g.:', 'comment-guestbook' ) . '<br />' .
@@ -440,7 +442,7 @@ final class ConfigAdminData {
 					'caption'     => __( 'Show the comment list in the page content', 'comment-guestbook' ),
 					'description' =>
 						__( 'When this option is enabled the comment list is displayed directly in the post/page content and will be removed from the comment area.', 'comment-guestbook' ) . '<br />' .
-						__( 'This can help to display the comment list in some situaltions, e.g. if your theme does not have a comment area at all.', 'comment-guestbook' ) . '<br />' .
+						__( 'This can help to display the comment list in some situations, e.g. if your theme does not have a comment area at all.', 'comment-guestbook' ) . '<br />' .
 						__( 'The comment list will be displayed instead of the shortcode, the comment form in the comment sections will be displayed before and/or after the comment list, as specified in the comment form options.', 'comment-guestbook' ),
 				]
 			),
@@ -499,7 +501,7 @@ final class ConfigAdminData {
 					'label'       => __( 'Comment html code', 'comment-guestbook' ),
 					'description' =>
 						__( 'This option specifies the html code for each comment, if "Comment adjustment" is enabled.', 'comment-guestbook' ) . '<br />' .
-						__( 'You can use php-code to get the required comment data. The following variables and objects are availabe', 'comment-guestbook' ) . ':<br />' .
+						__( 'You can use php-code to get the required comment data. The following variables and objects are available', 'comment-guestbook' ) . ':<br />' .
 						'- <code>$l10n_domain</code> ... ' .
 						__( 'Use this php variable to get the "Domain for translation" value.', 'comment-guestbook' ) . '<br />' .
 						'- <code>$comment</code> ... ' .
@@ -511,7 +513,7 @@ final class ConfigAdminData {
 						'- <code>$is_comment_from_other_page</code> ... ' .
 						__( 'This boolean variable gives you information if the comment was created in another page or post', 'comment-guestbook' ) . '<br />' .
 						'- <code>$other_page_title</code> ... ' .
-						__( 'With this variable you have access to the Page name of a commente created in another page or post.', 'comment-guestbook' ) . '<br />' .
+						__( 'With this variable you have access to the Page name of a comment created in another page or post.', 'comment-guestbook' ) . '<br />' .
 						'- <code>$other_page_link</code> ... ' .
 						__( 'With this variable you can include a link to the original page of a comment created in another page or post.', 'comment-guestbook' ) . '<br />' .
 						sprintf(
@@ -546,7 +548,7 @@ final class ConfigAdminData {
 						__( 'This option sets the name of comment callback function which outputs the html-code to view each comment.', 'comment-guestbook' ) . '<br />' .
 						__( 'You only require this function if "Guestbook comments adjustment" is enabled and "Comment adjustment" is disabled.', 'comment-guestbook' ) . '<br />' .
 						__( 'Normally this function is set through the selected theme. Comment Guestbook searches for the theme-function and uses this as default.', 'comment-guestbook' ) . '<br />' .
-						__( 'If the theme-function wasn´t found this field will be empty, then the WordPress internal functionality will be used.', 'comment-guestbook' ) . '<br />' .
+						__( 'If the theme-function was not found this field will be empty, then the WordPress internal functionality will be used.', 'comment-guestbook' ) . '<br />' .
 						__( 'If you want to insert the function of your theme manually, you can find the name normally in file "functions.php" of your theme.', 'comment-guestbook' ) . '<br />' .
 						__( 'Often it is called "themename_comment", e.g. "twentyeleven_comment" for twentyeleven theme.', 'comment-guestbook' ),
 				]
@@ -585,7 +587,7 @@ final class ConfigAdminData {
 							__( 'With %1$s the message is shown in an overlay div.', 'comment-guestbook' ),
 							'overlay'
 						) . '<br />' .
-						__( 'The message will be slided in with an animation and after a short time the message will be slided out.', 'comment-guestbook' ),
+						__( 'The message will slide in with an animation and, after a short time, slide out again.', 'comment-guestbook' ),
 				]
 			),
 
@@ -708,7 +710,7 @@ final class ConfigAdminData {
 				[
 					'caption'     => __( 'Comments in other posts/pages', 'comment-guestbook' ),
 					'description' =>
-						__( 'In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (exept the guestbook pages).', 'comment-guestbook' ) . '<br />' .
+						__( 'In this sections you can change the behavior of comments lists and forms in all other posts and pages of your website (except the guestbook pages).', 'comment-guestbook' ) . '<br />' .
 						__( 'If you want to change these settings also for guestbook comments please specify the same setting values in the other option tabs.', 'comment-guestbook' ),
 				]
 			),

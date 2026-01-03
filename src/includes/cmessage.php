@@ -18,7 +18,7 @@ require_once PLUGIN_PATH . 'includes/config.php';
 
 
 /**
- * Class for handling of cmessages (Messages after a new comment)
+ * Class for handling of cmessage (Messages after a new comment)
  */
 class CMessage {
 

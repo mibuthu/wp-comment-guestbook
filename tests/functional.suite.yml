@@ -3,6 +3,8 @@
 # Suite for functional tests
 # Emulate web requests and make WordPress process them
 
+#cspell:ignore waitlock WPBROWSER
+
 actor: FunctionalTester
 modules:
     enabled:

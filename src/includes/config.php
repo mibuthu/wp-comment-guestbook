@@ -23,7 +23,7 @@ require_once PLUGIN_PATH . 'includes/option.php';
  * @property-read Option $ignore_comments_open Guestbook comment status.
  * @property-read Option $ignore_comment_registration Guestbook comment registration.
  * @property-read Option $ignore_comment_moderation Guestbook comment moderation.
- * @property-read Option $adjust_output Comments ajdustment.
+ * @property-read Option $adjust_output Comments adjustment.
  * @property-read Option $l10n_domain Domain for translation.
  * @property-read Option $form_below_comments Form below comments.
  * @property-read Option $form_above_comments Form above comments.
@@ -98,7 +98,7 @@ final class Config {
 	 * @return void
 	 */
 	public function __construct() {
-		// Inititialize options directly after loading the plugins textdomain (action: plugins_loaded, priority: 10).
+		// Initialize options directly after loading the plugins textdomain (action: plugins_loaded, priority: 10).
 		add_action( 'plugins_loaded', [ &$this, 'init' ], 11 );
 		add_action( 'admin_init', [ &$this, 'register' ] );
 	}

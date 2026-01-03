@@ -1,0 +1,46 @@
+// cSpell Settings
+{
+    // Version of the setting file
+    "version": "0.2",
+    // Active spelling language
+    "language": "en",
+    // Ignored paths and files
+    "ignorePaths": [
+        "cspell.json",
+        "*.code-workspace",
+        "composer*",
+        "assets/**",
+        "vendor/**",
+        "** copy.*",
+        "src/languages/**",
+        "src/includes/js/**",
+        "*.svg",
+        "tests/_*"
+    ],
+    // List of words to be always considered correct
+    "words": [
+        "atts",
+        "clist",
+        "cmessage",
+        "codeception",
+        "commentlist",
+        "customizer",
+        "kses",
+        "mibuthu",
+        "multibyte",
+        "phan",
+        "phpcs",
+        "pingback",
+        "populator",
+        "Spirossmil",
+        "Squiz",
+        "testrun",
+        "testuser",
+        "trackback",
+        "transifex",
+        "vcard",
+        "WPCLI",
+        "wpdb",
+        "WPINC"
+    ]
+}

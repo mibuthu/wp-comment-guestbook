@@ -5,6 +5,8 @@
  * @package comment-guestbook
  */
 
+// cspell:ignore nosubsub
+
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
@@ -37,7 +39,7 @@ class About {
 	 * @return void
 	 */
 	public function show_page() {
-		// Check required privilegs.
+		// Check required privileges.
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );

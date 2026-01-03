@@ -7,7 +7,7 @@ Tested up to: 5.7
 Requires PHP: 5.6
 Stable tag: 0.8.0
 Plugin URI: https://wordpress.org/plugins/comment-guestbook/
-Licence: GPLv2
+License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Add a guestbook page which uses the wordpress integrated comments.
@@ -20,14 +20,14 @@ Using the wordpress integrated comments system has some important advantages:
 
 * Consistent styling of guestbook form and comment list for every theme you are using.
 * All wordpress comment features are available for the guestbook comments also (e.g. E-Mail Notification, listing in "All Comments" on admin page,...)
-* All plugins which are modifying the comment list or comment form will also work with Comment Guestbook automatically (e.g. a captcha plugin for antispam).
+* All plugins which are modifying the comment list or comment form will also work with Comment Guestbook automatically (e.g. a captcha plugin for anti-spam).
 
 = Other features and options: =
 * Setup comment form position (in page, above comment list, below comment list). You can also use more than one.
 * Adjust the comment form (change texts, hide elements)
-* Ajdust the comment order (newest first, oldest first)
+* Adjust the comment order (newest first, oldest first)
 * Option to show numbered pagination links for the comment list
-* Ajdust the comment html-code for the guestbook page
+* Adjust the comment html-code for the guestbook page
 * Option to include all comments of your site in the comment list on the guestbook page
 * Sidebar widget to show recent comments with a lot of options
 * Show a message after a new comment was made. This option you can also enable for all post/pages in your blog
@@ -68,7 +68,7 @@ Please check if comments are enabled for your guestbook page. There are several 
 * Guestbook settings (Comments -> Guestbook -> General Settings -> "Guestbook comment status": This option will override the wordpress settings for the guestbook page. But the theme settings can still causes problems.
 
 If you still have problems after checking all these possibilities there is one more option available in the Guestbook settings (Comments -> Guestbook -> Comment-list settings -> "Show the comment list in the page content".
-If you enable this option the comment list will be displayed in the page content instead of the seperate comment section. After that the comment list should be displayed also with themes which specifies no comment section for pages.
+If you enable this option the comment list will be displayed in the page content instead of the separate comment section. After that the comment list should be displayed also with themes which specifies no comment section for pages.
 Have a look at the option description on the settings page for detailed information.
 
 = Can I call the shortcode directly via php e.g. for my own template, theme or plugin? =
@@ -131,7 +131,7 @@ Yes, you can create an instance of the "CGB_Shortcode" class which located in "i
 = 0.7.1 (2015-07-25) =
 * added option to add manual args for wp_comment_list function
 * fixes / improvements in truncate function
-* updated some helptexts
+* updated some help-texts
 * added some additional german translations
 
 = 0.7.0 (2015-05-25) =
@@ -181,7 +181,7 @@ Yes, you can create an instance of the "CGB_Shortcode" class which located in "i
 * fixed readme
 
 = 0.6.0 (2014-02-22) =
-* Splitted admin page in about and settings page
+* Split admin page in about and settings page
 * Moved settings page to "Settings"
 * Rearranged settings sections
 * Added some options to change the comment form

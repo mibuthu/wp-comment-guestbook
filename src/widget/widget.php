@@ -5,6 +5,8 @@
  * @package comment-guestbook
  */
 
+// cspell:ignore alloptions googleoff googleon pagelink postid widefat
+
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Widget;
@@ -138,16 +140,16 @@ class Widget extends \WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$this->args->load_args_admin_data();
 		$instance = [];
-		foreach ( array_keys( $this->args->get_all() ) as $argname ) {
-			if ( 'checkbox' === $this->args->admin_data->$argname->display_type ) {
-				$instance[ $argname ] = ( isset( $new_instance[ $argname ] ) && 1 === intval( $new_instance[ $argname ] ) ) ? 'true' : 'false';
+		foreach ( array_keys( $this->args->get_all() ) as $arg_name ) {
+			if ( 'checkbox' === $this->args->admin_data->$arg_name->display_type ) {
+				$instance[ $arg_name ] = ( isset( $new_instance[ $arg_name ] ) && 1 === intval( $new_instance[ $arg_name ] ) ) ? 'true' : 'false';
 			} else { // 'text'
-				$instance[ $argname ] = wp_strip_all_tags( $new_instance[ $argname ] );
+				$instance[ $arg_name ] = wp_strip_all_tags( $new_instance[ $arg_name ] );
 			}
 		}
 		$this->flush_widget_cache();
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_recent_comments'] ) ) {
+		$all_options = wp_cache_get( 'alloptions', 'options' );
+		if ( isset( $all_options['widget_recent_comments'] ) ) {
 			delete_option( 'widget_recent_comments' );
 		}
 		return $instance;
@@ -167,17 +169,17 @@ class Widget extends \WP_Widget {
 		// Display general information at the top.
 		echo '<p>' . esc_html__( 'For all options tooltips are available which provide additional help and information. They appear if the mouse is hovered over the options text field or checkbox.', 'comment-guestbook' ) . '</p>';
 		// Display the options.
-		foreach ( $this->args->get_all() as $argname => $arg ) {
-			$arg_admin_data = $this->args->admin_data->$argname;
-			if ( ! isset( $instance[ $argname ] ) ) {
-				$instance[ $argname ] = $arg->value;
+		foreach ( $this->args->get_all() as $arg_name => $arg ) {
+			$arg_admin_data = $this->args->admin_data->$arg_name;
+			if ( ! isset( $instance[ $arg_name ] ) ) {
+				$instance[ $arg_name ] = $arg->value;
 			}
 			$style_text = ( null === $arg_admin_data->form_style ) ? '' : ' style="' . $arg_admin_data->form_style . '"';
 			if ( 'checkbox' === $arg_admin_data->display_type ) {
-				$checked_text = ( 'true' === $instance[ $argname ] || 1 === $instance[ $argname ] ) ? 'checked = "checked" ' : '';
+				$checked_text = ( 'true' === $instance[ $arg_name ] || 1 === $instance[ $arg_name ] ) ? 'checked = "checked" ' : '';
 				echo '
 					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg_admin_data->tooltip ) . '">
-						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) . '" name="' . esc_attr( $this->get_field_name( $argname ) ) .
+						<label><input class="widefat" id="' . esc_attr( $this->get_field_id( $arg_name ) ) . '" name="' . esc_attr( $this->get_field_name( $arg_name ) ) .
 							'" type="checkbox" ' . esc_attr( $checked_text ) . 'value="1" /> ' . wp_kses_post( $arg_admin_data->caption ) . '</label>
 					</p>';
 			} else { // 'text'
@@ -185,9 +187,9 @@ class Widget extends \WP_Widget {
 				$caption_after_text = ( null === $arg_admin_data->caption_after ) ? '' : '<label> ' . $arg_admin_data->caption_after . '</label>';
 				echo '
 					<p' . wp_kses_post( $style_text ) . ' title="' . esc_attr( $arg_admin_data->tooltip ) . '">
-						<label for="' . esc_attr( $this->get_field_id( $argname ) ) . '">' . wp_kses_post( $arg_admin_data->caption ) . ' </label>
-						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $argname ) ) .
-							'" name="' . esc_attr( $this->get_field_name( $argname ) ) . '" type="text" value="' . esc_attr( $instance[ $argname ] ) . '" />' .
+						<label for="' . esc_attr( $this->get_field_id( $arg_name ) ) . '">' . wp_kses_post( $arg_admin_data->caption ) . ' </label>
+						<input ' . wp_kses_post( $width_text ) . 'class="widefat" id="' . esc_attr( $this->get_field_id( $arg_name ) ) .
+							'" name="' . esc_attr( $this->get_field_name( $arg_name ) ) . '" type="text" value="' . esc_attr( $instance[ $arg_name ] ) . '" />' .
 							wp_kses_post( $caption_after_text ) . '
 					</p>';
 			}
@@ -316,8 +318,8 @@ class Widget extends \WP_Widget {
 							$toplevel_comment = get_comment( $toplevel_comment->comment_parent );
 						}
 						// @phan-suppress-next-line PhanPossiblyUndeclaredProperty - no problem here.
-						$oldercoms         = array_search( $toplevel_comment->comment_ID, $toplevel_comments, true );
-						$link_args['page'] = ceil( ( $oldercoms + 1 ) / get_option( 'comments_per_page' ) );
+						$older_comments    = array_search( $toplevel_comment->comment_ID, $toplevel_comments, true );
+						$link_args['page'] = ceil( ( $older_comments + 1 ) / get_option( 'comments_per_page' ) );
 					}
 				}
 			}
@@ -341,9 +343,9 @@ class Widget extends \WP_Widget {
 	 * @return string
 	 */
 	private function truncate( $max_length, $html, $wrapper_type = 'none', $wrapper_attributes = [] ) {
-		// Apply wrapper and add required css for autolength (if required).
-		$autolength = 'auto' === $max_length ? true : false;
-		if ( $autolength ) {
+		// Apply wrapper and add required css for auto-length (if required).
+		$auto_length = 'auto' === $max_length ? true : false;
+		if ( $auto_length ) {
 			$wrapper_type = 'div';
 		} elseif ( 'div' !== $wrapper_type && 'span' !== $wrapper_type ) {
 			$wrapper_type = 'none';
@@ -353,7 +355,7 @@ class Widget extends \WP_Widget {
 			foreach ( $wrapper_attributes as $name => $value ) {
 				$wrapper_text .= ' ' . $name . '="' . $value . '"';
 			}
-			if ( $autolength ) {
+			if ( $auto_length ) {
 				$wrapper_text .= ' style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis"';
 			}
 			$html = $wrapper_text . '>' . $html . '</' . $wrapper_type . '>';
@@ -446,7 +448,7 @@ class Widget extends \WP_Widget {
 
 
 	/**
-	 * Add required css attributes to allowed kses css atttributes
+	 * Add required css attributes to allowed kses css attributes
 	 *
 	 * @param string[] $styles The default allowed styles.
 	 * @return string[]
@@ -462,11 +464,11 @@ class Widget extends \WP_Widget {
 	 * A helper function for multibyte preg_match
 	 * WARNING: Please notice the limitations regarding supported flags (see $flags description)
 	 *
-	 * @param string   $pattern  The patern to search for.
+	 * @param string   $pattern  The pattern to search for.
 	 * @param string   $subject  The input string.
 	 * @param string[] $matches  If matches is provided, then it is filled with the results of search.
 	 *                           $matches[0] will contain the text that matched the full patter, $matches[1] will
-	 *                           have the text that matched the first captured parenthesized subpattern, an so on.
+	 *                           have the text that matched the first captured parenthesized sub-pattern, an so on.
 	 * @param int      $flags    Similar to preg_match flags but only 'PREG_OFFSET_CAPTURE' is supported.
 	 * @param int      $offset   Normally, the search starts from the beginning of the subject string. The optional
 	 *                           parameter offset can be used to specify the alternate place from which to start the

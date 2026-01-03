@@ -8,6 +8,8 @@
  * @phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
  */
 
+// cspell:ignore commentform dont
+
 // Class
 class CommentFormSettingsCest {
 

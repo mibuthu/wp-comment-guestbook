@@ -5,6 +5,8 @@
 # Use WPDb to set up your initial database fixture.
 # If you need both WPWebDriver and WPBrowser tests - create a separate suite.
 
+# cspell:ignore WPBROWSER waitlock dbname
+
 actor: AcceptanceTester
 modules:
     enabled:

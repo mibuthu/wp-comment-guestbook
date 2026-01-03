@@ -9,6 +9,8 @@
  * @phpcs:disable Generic.Commenting.DocComment.MissingShort
  */
 
+// cspell:ignore clist dont
+
 // Class
 class CommentListSettingsCest {
 
@@ -64,7 +66,7 @@ class CommentListSettingsCest {
 	* @dataProvider optionProvider
 	*/
 	public function CListThreaded( AcceptanceTester $I, \Codeception\Example $optionProvider ) {
-		$I->wantTo( 'test "Theaded comment list" (cgb_clist_threaded)' );
+		$I->wantTo( 'test "Threaded comment list" (cgb_clist_threaded)' );
 		$gbPageId = $I->createGuestbookPage();
 		$I->allowGuestbookComments( $gbPageId );
 		$I->updateWPOption( 'cgb_adjust_output', '1' );

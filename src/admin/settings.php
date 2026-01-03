@@ -5,6 +5,8 @@
  * @package comment-guestbook
  */
 
+// cspell:ignore nosubsub posttype posttypediv vdescription vname
+
 // declare( strict_types=1 ); Remove for now due to warnings in php <7.0!
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Admin;
@@ -50,7 +52,7 @@ class Settings {
 	 * @return void
 	 */
 	public function show_page() {
-		// Check required privilegs.
+		// Check required privileges.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			// phpcs:ignore WordPress.WP.I18n.MissingArgDomainDefault -- Use "default" text domain from WordPress Core.
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
@@ -94,15 +96,15 @@ class Settings {
 	 */
 	private function show_sections( $current = 'general' ) {
 		echo '<h3 class="nav-tab-wrapper">';
-		foreach ( $this->config->admin_data->sections as $tabname => $tab ) {
-			$class = ( $tabname === $current ) ? ' nav-tab-active' : '';
+		foreach ( $this->config->admin_data->sections as $tab_name => $tab ) {
+			$class = ( $tab_name === $current ) ? ' nav-tab-active' : '';
 			echo wp_kses_post(
 				'
 				<a class="nav-tab' . $class . '" href="' .
 				add_query_arg(
 					[
 						'page' => 'cgb_admin_settings',
-						'tab'  => $tabname,
+						'tab'  => $tab_name,
 					],
 					admin_url( 'options-general.php' )
 				) .

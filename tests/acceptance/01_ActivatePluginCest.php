@@ -9,7 +9,7 @@
  */
 
 // Class
-class AcitvatePluginCest {
+class ActivatePluginCest {
 
 	private $pluginName = 'comment-guestbook';
 

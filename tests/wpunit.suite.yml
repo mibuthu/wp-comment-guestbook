@@ -2,6 +2,8 @@
 #
 # Suite for unit or integration tests that require WordPress functions and classes.
 
+# cspell:ignore Wpunit
+
 actor: WpunitTester
 modules:
     enabled:

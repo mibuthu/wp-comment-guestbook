@@ -129,14 +129,12 @@ class Comments_Functions {
 	 * Show comment
 	 *
 	 * @param \WP_Comment          $comment The comment to display.
-	 * @param array<string,string> $args The comment args (not used).
-	 * @param int                  $depth The depth of the comment (not used).
-	 *
+	 * @param array<string,string> $_args The comment args (not used).
+	 * @param int                  $_depth The depth of the comment (not used).
 	 * @return void
-	 *
-	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
-	public function show_comment_html( $comment, $args, $depth ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter, Squiz.Commenting.FunctionComment.Missing -- Parameters $args and $depth not used
+	public function show_comment_html( $comment, $_args, $_depth ) {
 		// Define all variables which can be used in show_comments_html text option.
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$GLOBALS['comment']         = $comment;
@@ -262,7 +260,7 @@ class Comments_Functions {
 					</style>';
 			}
 		}
-		$this->num_forms ++;
+		++$this->num_forms;
 		// Comment form.
 		if ( ( 'above_comments' === $location && $this->config->form_above_comments->as_str() )
 			|| ( 'below_comments' === $location && $this->config->form_below_comments->as_str() )
@@ -437,4 +435,3 @@ class Comments_Functions {
 	}
 
 }
-

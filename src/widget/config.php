@@ -9,8 +9,8 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Widget;
 
-use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
 use WordPress\Plugins\mibuthu\CommentGuestbook\Option;
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit();

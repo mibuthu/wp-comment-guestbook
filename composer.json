@@ -1,20 +1,24 @@
 {
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5",
-        "phan/phan": "^5.1",
-        "wp-coding-standards/wpcs": "^2.2",
+        "squizlabs/php_codesniffer": "^3.13",
+        "wp-coding-standards/wpcs": "^3.3",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpcompatibility/phpcompatibility-wp": "^2.1",
-        "php-stubs/wordpress-stubs": "^5.4",
+        "php-stubs/wordpress-stubs": "^6.9",
         "php-stubs/wordpress-globals": "^0.2",
-        "lucatume/wp-browser": "^3.0",
-        "wp-cli/wp-cli-bundle": "^2.5",
-        "codeception/module-asserts": "^1.0",
-        "codeception/module-phpbrowser": "^1.0",
-        "codeception/module-webdriver": "^1.0",
-        "codeception/module-db": "^1.0",
-        "codeception/module-filesystem": "^1.0",
-        "codeception/module-cli": "^1.0",
-        "codeception/util-universalframework": "^1.0"
+        "lucatume/wp-browser": "^4.5",
+        "wp-cli/wp-cli-bundle": "^2.12",
+        "codeception/module-asserts": "^3.3",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-webdriver": "^4.0",
+        "codeception/module-db": "^3.2",
+        "codeception/module-filesystem": "^3.0",
+        "codeception/module-cli": "^2.0",
+        "codeception/util-universalframework": "^2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

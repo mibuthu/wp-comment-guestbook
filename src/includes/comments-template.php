@@ -80,4 +80,3 @@ if ( ( $cgb_config->clist_in_page_content->is_false() && ! isset( $GLOBALS['cgb_
 	echo '
 			</div><!-- #comments -->';
 }
-

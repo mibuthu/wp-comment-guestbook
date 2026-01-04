@@ -394,7 +394,7 @@ class Widget extends \WP_Widget {
 			if ( '&' === $tag[0] ) {
 				// Handle the entity.
 				$ret .= $tag;
-				$printed_length++;
+				++$printed_length;
 			} else {
 				// Handle the tag.
 				$tag_name = strval( $match[1][0] );
@@ -487,4 +487,3 @@ class Widget extends \WP_Widget {
 	}
 
 }
-

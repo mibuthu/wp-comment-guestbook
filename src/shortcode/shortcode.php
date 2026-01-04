@@ -9,10 +9,10 @@
 
 namespace WordPress\Plugins\mibuthu\CommentGuestbook\Shortcode;
 
-use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
 use WordPress\Plugins\mibuthu\CommentGuestbook\Config;
 use WordPress\Plugins\mibuthu\CommentGuestbook\Filters;
 use WordPress\Plugins\mibuthu\CommentGuestbook\Comments_Functions;
+use const WordPress\Plugins\mibuthu\CommentGuestbook\PLUGIN_PATH;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit();
@@ -52,13 +52,12 @@ class Shortcode {
 	/**
 	 * Main function to show the rendered HTML output
 	 *
-	 * @param array<string,string> $atts Shortcode attributes (not used).
-	 * @param string               $content Shortcode content (not used).
+	 * @param array<string,string> $_atts Shortcode attributes (not used).
+	 * @param string               $_content Shortcode content (not used).
 	 * @return string HTML to render.
-	 *
-	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
-	public function show_html( $atts, $content ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter, Squiz.Commenting.FunctionComment.Missing -- Parameters $atts and $content not used
+	public function show_html( $_atts, $_content ) {
 		$this->init_sc();
 		if ( $this->config->clist_in_page_content->is_true() && $this->config->adjust_output->is_true() ) {
 			/**
@@ -125,12 +124,11 @@ class Shortcode {
 	/**
 	 * Filter to adjust threaded_comments option
 	 *
-	 * @param string $option_value The actual value of the option "thread_comments" (not used).
+	 * @param string $_option_value The actual value of the option "thread_comments" (not used).
 	 * @return string
-	 *
-	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
-	public function filter_threaded_comments( $option_value ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter, Squiz.Commenting.FunctionComment.Missing -- Parameter $option_value not used
+	public function filter_threaded_comments( $_option_value ) {
 		if ( 'enabled' === $this->config->clist_threaded->as_str() ) {
 			return '1';
 		}
@@ -141,12 +139,11 @@ class Shortcode {
 	/**
 	 * Filter to adjust the comments template
 	 *
-	 * @param string $file The actual file of the template (not used).
+	 * @param string $_file The actual file of the template (not used).
 	 * @return string
-	 *
-	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
-	public function filter_comments_template( $file ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter, Squiz.Commenting.FunctionComment.Missing -- Parameter $file not used
+	public function filter_comments_template( $_file ) {
 		// Set required global variables which are required in the template.
 		require_once PLUGIN_PATH . 'includes/comments-functions.php';
 		$GLOBALS['cgb_func']   = new Comments_Functions( $this->config );
@@ -177,12 +174,11 @@ class Shortcode {
 	/**
 	 * Filter to adjust default_comments_page option
 	 *
-	 * @param string $option_value The actual value of the option "default_comments_page" (not used).
+	 * @param string $_option_value The actual value of the option "default_comments_page" (not used).
 	 * @return string
-	 *
-	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
-	public function filter_comments_default_page( $option_value ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter, Squiz.Commenting.FunctionComment.Missing -- Parameter $option_value not used
+	public function filter_comments_default_page( $_option_value ) {
 		if ( 'first' === $this->config->clist_default_page->as_str() ) {
 			return 'oldest';
 		} elseif ( 'last' === $this->config->clist_default_page->as_str() ) {
@@ -194,12 +190,11 @@ class Shortcode {
 	/**
 	 * Filter to adjust page_comments option
 	 *
-	 * @param string $option_value The actual value of the option "page_comments" (not used).
+	 * @param string $_option_value The actual value of the option "page_comments" (not used).
 	 * @return string
-	 *
-	 * @suppress PhanUnusedPublicNoOverrideMethodParameter
 	 */
-	public function filter_comments_pagination( $option_value ) {
+	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter, Squiz.Commenting.FunctionComment.Missing -- Parameter $option_value not used
+	public function filter_comments_pagination( $_option_value ) {
 		if ( 'false' === $this->config->clist_pagination->as_str() ) {
 			return '';
 		} elseif ( 'true' === $this->config->clist_pagination->as_str() ) {
@@ -228,4 +223,3 @@ class Shortcode {
 	}
 
 }
-

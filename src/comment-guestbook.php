@@ -255,4 +255,3 @@ class CommentGuestbook {
  * @var CommentGuestbook
  */
 $comment_guestbook = new CommentGuestbook();
-
